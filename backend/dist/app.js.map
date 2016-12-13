@@ -1,0 +1,1 @@
+{"version":3,"sources":["app.ts"],"names":[],"mappings":";AAAA,mCAAmC;AAKnC,OAAO,CAAC,GAAG,CAAC,OAAO,EAAE,CAAC,CAAC","file":"app.js","sourcesContent":["import * as express from \"express\";\r\n\r\n//let app = express();\r\n\r\n//console.log(express);\r\nconsole.log(express());\r\n"]}

@@ -1,0 +1,29 @@
+{
+  "name": "a-system",
+  "version": "0.0.1",
+  "description": "a-system project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "a-system"
+  ],
+  "author": "Geass",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-typescript": "^3.1.3",
+    "typescript": "^2.1.4",
+    "typings": "^2.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "errorhandler": "^1.5.0",
+    "express": "^4.14.0",
+    "method-override": "^2.3.7",
+    "morgan": "^1.7.0"
+  }
+}
