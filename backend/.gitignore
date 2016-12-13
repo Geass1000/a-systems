@@ -1,5 +1,13 @@
 # Dependency directory
 /node_modules
 
+# Typings directory
+typings/
+typings/**
+
 # npm log
 **/*npm-debug.log.*
+
+# TypeScript files
+app/**/*.js
+app/**/*.map
