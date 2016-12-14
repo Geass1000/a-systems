@@ -4,10 +4,6 @@
 # Production directory
 dist/
 
-# Typings directory
-typings/
-typings/**
-
 # npm log
 **/*npm-debug.log.*
 

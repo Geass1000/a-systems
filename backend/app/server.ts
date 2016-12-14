@@ -1,6 +1,6 @@
 import * as express from "express";
 
-export class Server {
+export default class Server {
 
 	public app : any;
 
@@ -22,7 +22,7 @@ export class Server {
 	 * @method config
 	 */
 	public config () {
-
+		console.log("Hell");
 	}
 
 	/**
