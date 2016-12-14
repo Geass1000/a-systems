@@ -1,8 +1,19 @@
 import * as express from "express";
 
 export default class Server {
-
 	public app : any;
+
+	/**
+	 * Bootstrap the server
+	 *
+	 * @class Server
+	 * @method bootstrap
+	 * @static
+	 * @return {Server}  Return object server
+	 */
+	public static bootstrapServer () {
+		return new Server();
+	}
 
 	/**
 	 * Constructor.
@@ -12,6 +23,8 @@ export default class Server {
 	 */
 	constructor () {
 		this.app = express();
+
+		console.log("Starting server...");
 	}
 
 

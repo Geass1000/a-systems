@@ -1,10 +1,9 @@
-import * as express from "express";
 import * as dotenv from "dotenv";
 
 import Server from "./server";
 
-dotenv.config({path: '.env'});
+dotenv.config({path: process.env.PWD + '/.env'});
 
-let app : any = new Server();
+let app : any = Server.bootstrapServer();
 
-console.log(process.env);
+//console.log(process.env);
