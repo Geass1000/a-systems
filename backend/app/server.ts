@@ -2,7 +2,7 @@ import * as express from "express";
 
 export class Server {
 
-	public app : express.createApplication;
+	public app : any;
 
 	/**
 	 * Constructor.
