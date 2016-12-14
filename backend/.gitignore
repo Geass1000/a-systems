@@ -10,3 +10,5 @@ dist/
 # TypeScript files
 app/**/*.js
 app/**/*.map
+
+.env
