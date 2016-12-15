@@ -7,8 +7,4 @@ dist/
 # npm log
 **/*npm-debug.log.*
 
-# TypeScript files
-app/**/*.js
-app/**/*.map
-
 .env
