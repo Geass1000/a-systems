@@ -118,7 +118,7 @@ class Route {
 
 		let arr = [];
 		for (let data of route) {
-      arr.push(data.map((data) => {
+			arr.push(data.map((data) => {
 				data.path = path + data.path;
 				return data;
 			}));
