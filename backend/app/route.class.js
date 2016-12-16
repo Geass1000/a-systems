@@ -122,7 +122,7 @@ class Route {
 				data.path = path + data.path;
 				return data;
 			}));
-    }
+		}
 
 		if (this !== route) {
 			this._get = this._get.concat(arr[0]);
