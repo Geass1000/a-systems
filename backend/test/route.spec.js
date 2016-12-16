@@ -19,26 +19,26 @@ describe('Class Route', () => {
   let route;
 
 	before(() => {
-    route = Route.create();
-  });
+		route = Route.create();
+	});
 
 	describe('Проверка на наличие методов', () => {
-	  it('Метод get', () => {
-	    assert.property(route, 'get');
+		it('Метод get', () => {
+			assert.property(route, 'get');
 			assert.isFunction(route.get);
-	  });
+		});
 		it('Метод post', () => {
-	    assert.property(route, 'post');
+			assert.property(route, 'post');
 			assert.isFunction(route.post);
-	  });
+		});
 		it('Метод put', () => {
-	    assert.property(route, 'put');
+			assert.property(route, 'put');
 			assert.isFunction(route.put);
-	  });
+		});
 		it('Метод delete', () => {
-	    assert.property(route, 'delete');
+			assert.property(route, 'delete');
 			assert.isFunction(route.delete);
-	  });
+		});
 	});
 
 	describe('Тестирование метода \'paramParser\'', () => {
@@ -49,7 +49,7 @@ describe('Class Route', () => {
 				middleware: null
 			};
 			expect(route.paramParser('/', HomeController.index)).to.eql(obj);
-	  });
+		});
 
 		it('Один путь Один controller Один middleware', () => {
 			let obj = {
@@ -61,7 +61,7 @@ describe('Class Route', () => {
 				controller: HomeController.index,
 				middleware: AuthController.login
 			})).to.eql(obj);
-	  });
+		});
 
 		it('Один путь Один controller Два middleware', () => {
 			let obj = {
@@ -73,15 +73,15 @@ describe('Class Route', () => {
 				controller: HomeController.index,
 				middleware: [AuthController.login, AuthController.rule]
 			})).to.eql(obj);
-	  });
+		});
 
 		it('Нет контроллера', () => {
 			assert.throws( () => { route.paramParser('/'); }, Error);
-	  });
+		});
 
 		it('Нет пути', () => {
 			assert.throws( () => { route.paramParser(4); }, Error);
-	  });
+		});
 	});
 
 	describe('Тестирование мрашрутных методов', () => {
@@ -100,6 +100,7 @@ describe('Class Route', () => {
 				}
 			];
 		});
+
 		beforeEach(() => {
 			route = Route.create();
 		});
@@ -111,7 +112,7 @@ describe('Class Route', () => {
 				middleware: AuthController.login
 			});
 			expect(route.get()).to.eql(arr);
-	  });
+		});
 
 		it('Метод post', () => {
 			route.post('/', HomeController.index);
@@ -120,7 +121,7 @@ describe('Class Route', () => {
 				middleware: AuthController.login
 			});
 			expect(route.post()).to.eql(arr);
-	  });
+		});
 
 		it('Метод put', () => {
 			route.put('/', HomeController.index);
@@ -129,7 +130,7 @@ describe('Class Route', () => {
 				middleware: AuthController.login
 			});
 			expect(route.put()).to.eql(arr);
-	  });
+		});
 
 		it('Метод delete', () => {
 			route.delete('/', HomeController.index);
@@ -138,7 +139,7 @@ describe('Class Route', () => {
 				middleware: AuthController.login
 			});
 			expect(route.delete()).to.eql(arr);
-	  });
+		});
 	});
 
 	describe('Тестирование метода \'use\'', () => {
@@ -161,13 +162,13 @@ describe('Class Route', () => {
 			assert.doesNotThrow( () => { route.use('/auth/', useRoute); }, Error);
 			assert.throws( () => { route.use('', useRoute); }, Error);
 			assert.throws( () => { route.use(1, useRoute); }, Error);
-	  });
+		});
 
 		it('Проверка второго параметра: Объект-роутер', () => {
 			assert.doesNotThrow( () => { route.use('/', useRoute); }, Error);
 			assert.throws( () => { route.use('/', 1); }, Error);
 			assert.throws( () => { route.use('/'); }, Error);
-	  });
+		});
 
 		it('Проверка результата: Добавление не пустого пути', () => {
 			arr = [{
