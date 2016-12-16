@@ -73,29 +73,83 @@ class Route {
 			middleware: null
 		};
 
-		if (typeof path !== 'string')
-			throw new Error("Fild path isn't exist");
-		obj.path = path;
-
-		if (typeof fn === 'function')
+		if (!this.checkingPath(path))
+			throw new Error("Path isn't valid");
+		else if (typeof fn === 'function')
 			obj.controller = fn;
 		else if (typeof fn === 'object') {
 			if (typeof fn.controller !== 'function')
-				throw new Error("Fild controller isn't exist");
+				throw new Error("Controller isn't exist");
 			obj.controller = fn.controller;
 
 			if (typeof fn.middleware === 'function')
 				obj.middleware = fn.middleware;
 			else if (Array.isArray(fn.middleware)) {
-				obj.middleware = fn.middleware.filter((d) => {
-					return typeof d === 'function';
+				obj.middleware = fn.middleware.filter((data) => {
+					return typeof data === 'function';
 				});
 			}
 		}
 		else
-			throw new Error("Fild controller isn't exist");
+			throw new Error("Controller isn't exist");
+
+		if (path.length !== 1 && path[path.length - 1] === '/')
+			path = path.slice(0, path.length - 1);
+		obj.path = path;
 
 		return obj;
+	}
+
+	/**
+	 * Concate path other route.
+	 *
+	 * @class Route
+	 * @method use
+	 */
+	use (path, route) {
+		if (!this.checkingPath(path))
+			throw new Error("Path isn't valid");
+		if (!(route instanceof Route))
+			throw new Error("Route isn't object class Route");
+
+		// Correction path
+		if (path[path.length - 1] === '/')
+			path = path.slice(0, path.length - 1);
+
+		let arr = [];
+		for (let data of route) {
+      arr.push(data.map((data) => {
+				data.path = path + data.path;
+				return data;
+			}));
+    }
+
+		if (this !== route) {
+			this._get = this._get.concat(arr[0]);
+			this._post = this._post.concat(arr[1]);
+			this._put = this._put.concat(arr[2]);
+			this._delete = this._delete.concat(arr[3]);
+		}
+	}
+
+	/**
+	 * Cheking path-route.
+	 *
+	 * @class Route
+	 * @method checkingPath
+	 */
+	checkingPath (path) {
+		return typeof path === 'string' && /^\/([^\/]+\/?)*$/.test(path);
+	}
+
+	/**
+	 * Iterator.
+	 *
+	 * @class Route
+	 * @method Iterator
+	 */
+	*[Symbol.iterator] () {
+		yield* [this._get, this._post, this._put, this._delete];
 	}
 }
 
