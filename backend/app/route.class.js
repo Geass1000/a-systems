@@ -27,17 +27,13 @@ class Route {
 	constructor () {
 		// GET routes
 		this._get = [];
-
 		// POST routes
 		this._post = [];
-
 		// PUT routes
 		this._put = [];
-
 		// DELETE routes
 		this._delete = [];
 	}
-
 
 	/**
 	 * Route methods.
@@ -64,44 +60,6 @@ class Route {
 		if (arguments.length === 0) return this._delete;
 		let obj = this.paramParser(path, fn)
 		this._delete.push(obj);
-	}
-
-	/**
-	 * Parser arguments route methods.
-	 *
-	 * @class Route
-	 * @method paramParser
-	 */
-	paramParser (path, fn) {
-		let obj = {
-			path: null,
-			controller: null,
-			middleware: null
-		};
-
-		if (!this.pathInspection(path))
-			throw new Error("Path isn't valid");
-		else if (typeof fn === 'function')
-			obj.controller = fn;
-		else if (typeof fn === 'object') {
-			if (typeof fn.controller !== 'function')
-				throw new Error("Controller isn't exist");
-			obj.controller = fn.controller;
-
-			if (typeof fn.middleware === 'function')
-				obj.middleware = fn.middleware;
-			else if (Array.isArray(fn.middleware)) {
-				obj.middleware = fn.middleware.filter((data) => {
-					return typeof data === 'function';
-				});
-			}
-		}
-		else
-			throw new Error("Controller isn't exist");
-
-		obj.path = this.pathCorrection(path);
-
-		return obj;
 	}
 
 	/**
@@ -171,6 +129,44 @@ class Route {
 			return p1;
 		else
 			return p1 + p2;
+	}
+
+	/**
+	 * Parser arguments route methods.
+	 *
+	 * @class Route
+	 * @method paramParser
+	 */
+	paramParser (path, fn) {
+		let obj = {
+			path: null,
+			controller: null,
+			middleware: null
+		};
+
+		if (!this.pathInspection(path))
+			throw new Error("Path isn't valid");
+		else if (typeof fn === 'function')
+			obj.controller = fn;
+		else if (typeof fn === 'object') {
+			if (typeof fn.controller !== 'function')
+				throw new Error("Controller isn't exist");
+			obj.controller = fn.controller;
+
+			if (typeof fn.middleware === 'function')
+				obj.middleware = fn.middleware;
+			else if (Array.isArray(fn.middleware)) {
+				obj.middleware = fn.middleware.filter((data) => {
+					return typeof data === 'function';
+				});
+			}
+		}
+		else
+			throw new Error("Controller isn't exist");
+
+		obj.path = this.pathCorrection(path);
+
+		return obj;
 	}
 
 	/**
