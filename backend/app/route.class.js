@@ -7,10 +7,12 @@
  */
 class Route {
 	/**
-	 * Create the router object.
+	 * Create the route object.
 	 *
 	 * @class Route
-	 * @constructor
+	 * @method create
+	 * @static
+	 * @return {Route}  Return object route
 	 */
 	static create () {
 		return new Route();
@@ -23,12 +25,16 @@ class Route {
 	 * @constructor
 	 */
 	constructor () {
+		// GET routes
 		this._get = [];
 
+		// POST routes
 		this._post = [];
 
+		// PUT routes
 		this._put = [];
 
+		// DELETE routes
 		this._delete = [];
 	}
 
@@ -73,7 +79,7 @@ class Route {
 			middleware: null
 		};
 
-		if (!this.checkingPath(path))
+		if (!this.pathInspection(path))
 			throw new Error("Path isn't valid");
 		else if (typeof fn === 'function')
 			obj.controller = fn;
@@ -93,9 +99,7 @@ class Route {
 		else
 			throw new Error("Controller isn't exist");
 
-		if (path.length !== 1 && path[path.length - 1] === '/')
-			path = path.slice(0, path.length - 1);
-		obj.path = path;
+		obj.path = this.pathCorrection(path);
 
 		return obj;
 	}
@@ -107,19 +111,18 @@ class Route {
 	 * @method use
 	 */
 	use (path, route) {
-		if (!this.checkingPath(path))
+		if (!this.pathInspection(path))
 			throw new Error("Path isn't valid");
 		if (!(route instanceof Route))
 			throw new Error("Route isn't object class Route");
 
 		// Correction path
-		if (path[path.length - 1] === '/')
-			path = path.slice(0, path.length - 1);
+		path = this.pathCorrection(path);
 
 		let arr = [];
 		for (let data of route) {
 			arr.push(data.map((data) => {
-				data.path = path + data.path;
+				data.path = this.pathCombine(path, data.path);
 				return data;
 			}));
 		}
@@ -133,13 +136,41 @@ class Route {
 	}
 
 	/**
-	 * Cheking path-route.
+	 * Inspection path-route.
 	 *
 	 * @class Route
-	 * @method checkingPath
+	 * @method pathInspection
 	 */
-	checkingPath (path) {
+	pathInspection (path) {
 		return typeof path === 'string' && /^\/([^\/]+\/?)*$/.test(path);
+	}
+
+	/**
+	 * Correcing path-route.
+	 *
+	 * @class Route
+	 * @method pathCorrection
+	 */
+	pathCorrection (path) {
+		return path.length === 1 || path[path.length - 1] !== '/' ?
+													path : path.slice(0, path.length - 1);
+	}
+
+	/**
+	 * Combine path-route.
+	 *
+	 * @class Route
+	 * @method pathCombine
+	 */
+	pathCombine (p1, p2) {
+		if (p1 === '/' && p2 === '/')
+			return p1;
+		else if (p1 === '/')
+			return p2;
+		else if (p2 === '/')
+			return p1;
+		else
+			return p1 + p2;
 	}
 
 	/**

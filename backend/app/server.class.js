@@ -6,6 +6,8 @@ let logger = require('morgan');
 let methodOverride = require('method-override');
 let errorhandler = require('errorhandler');
 
+let Route = require('./server.routing');
+
 /**
  * The server.
  *
@@ -66,7 +68,7 @@ class Server {
 	 * @method setRoutes
 	 */
 	setRoutes () {
-
+		console.log(Route.put());
 	}
 
 	/**
