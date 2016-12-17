@@ -27,7 +27,7 @@ class SignupController {
 	constructor () { ; }
 
 	/**
-	 * Method sign up user.
+	 * Sign up user.
 	 *
 	 * @param {express.Request} req
 	 * @param {express.Response} res
