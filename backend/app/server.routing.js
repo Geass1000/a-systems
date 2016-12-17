@@ -1,4 +1,5 @@
 'use strict';
+
 let Route = require('./route.class').create();
 
 let routeAuth = require('./auth/auth.routing');

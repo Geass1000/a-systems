@@ -6,6 +6,9 @@ let logger = require('morgan');
 let methodOverride = require('method-override');
 let errorhandler = require('errorhandler');
 
+let dotenv = require('dotenv');
+dotenv.config({path: __dirname + '/../.env'});
+
 let Route = require('./server.routing');
 
 /**
