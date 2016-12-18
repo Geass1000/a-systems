@@ -72,7 +72,7 @@ class Server {
 	 */
 	setRoutes () {
 		console.log(Route.put());
-		
+
 	}
 
 	/**
