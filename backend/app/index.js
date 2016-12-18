@@ -1,5 +1,5 @@
 'use strict';
 
-let Server = require('./lib/server.class');
+let Server = require('./server.class');
 
 Server.bootstrapServer();

@@ -3,7 +3,7 @@ let chai  = require('chai');
 let assert = chai.assert;
 let expect = chai.expect;
 
-let Route = require('../app/lib/route.class.js');
+let Route = require('../app/route.class.js');
 
 class HomeController {
 	constructor () { ; }

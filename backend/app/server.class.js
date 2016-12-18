@@ -7,9 +7,9 @@ let methodOverride = require('method-override');
 let errorhandler = require('errorhandler');
 
 let dotenv = require('dotenv');
-dotenv.config({path: __dirname + '/../../.env'});
+dotenv.config({path: __dirname + '/../.env'});
 
-let Route = require('../routes/server.routing');
+let Route = require('./server.routing');
 
 /**
  * The server.
