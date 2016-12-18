@@ -2,9 +2,10 @@
 
 let Route = require('../lib/route.class').create();
 
-let routeAuth = require('./user.routing');
+let routeUser = require('./user.routing');
 
-Route.use('/', routeAuth);
+Route.use('/', routeUser);
+//... other paths
 
 Route.use('/app', Route);
 

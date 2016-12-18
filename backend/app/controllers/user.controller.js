@@ -35,7 +35,7 @@ class UserController {
 	 * @class Server
 	 * @method index
 	 */
-	 index (req, res) { ; }
+	 signup (req, res) { ; }
 }
 
 module.exports = UserController;
