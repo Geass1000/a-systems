@@ -3,25 +3,25 @@
 /**
  * The sign up controller.
  *
- * @class SignupController
+ * @class UserController
  */
-class SignupController {
+class UserController {
 	/**
-	 * Create the SignupController object.
+	 * Create the UserController object.
 	 *
-	 * @class SignupController
+	 * @class UserController
 	 * @method create
 	 * @static
-	 * @return {Route}  Return object SignupController
+	 * @return {Route}  Return object UserController
 	 */
 	static create () {
-		return new SignupController();
+		return new UserController();
 	}
 
 	/**
 	 * Constructor.
 	 *
-	 * @class SignupController
+	 * @class UserController
 	 * @constructor
 	 */
 	constructor () { ; }
@@ -38,4 +38,4 @@ class SignupController {
 	 index (req, res) { ; }
 }
 
-module.exports = SignupController;
+module.exports = UserController;
