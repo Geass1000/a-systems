@@ -7,6 +7,6 @@ let routeUser = require('./user.routing');
 Route.use('/', routeUser);
 //... other paths
 
-Route.use('/app', Route);
+Route.use('/api', Route);
 
 module.exports = Route;

@@ -6,8 +6,7 @@ let logger = require('morgan');
 let methodOverride = require('method-override');
 let errorhandler = require('errorhandler');
 
-let dotenv = require('dotenv');
-dotenv.config({path: __dirname + '/../../.env'});
+let config = require('../config/app.config');
 
 let Route = require('../routes/server.routing');
 
@@ -37,7 +36,6 @@ class Server {
 	 */
 	constructor () {
 		this.app = express();
-		this.port = process.env.PORT || 3005;
 
 		this.setConfig();
 
@@ -55,7 +53,7 @@ class Server {
 	 */
 	setConfig () {
 		console.log('Configure server...');
-		if (process.env.NODE_ENV === 'development')
+		if (config.env === 'development')
 			this.app.use(logger('dev'));
 
 		this.app.use(bodyParser.urlencoded({ extended: true }));
@@ -72,10 +70,10 @@ class Server {
 	 */
 	setRoutes () {
 		console.log('Setting routes...');
-		this.setRouteMethod(Route.get(), this.app.get.bind(this.app), 'GET');
-		this.setRouteMethod(Route.post(), this.app.post.bind(this.app), 'POST');
-		this.setRouteMethod(Route.put(), this.app.put.bind(this.app), 'PUT');
-		this.setRouteMethod(Route.delete(), this.app.delete.bind(this.app), 'DELETE');
+		this.setRouteMethod(Route.get(), this.app.get, 'GET');
+		this.setRouteMethod(Route.post(), this.app.post, 'POST');
+		this.setRouteMethod(Route.put(), this.app.put, 'PUT');
+		this.setRouteMethod(Route.delete(), this.app.delete, 'DELETE');
 	}
 
 	/**
@@ -85,6 +83,7 @@ class Server {
 	 * @method setRouteMethod
 	 */
 	setRouteMethod(data, method, name) {
+		method = method.bind(this.app);
 		data.map((d1) => {
 			if (typeof d1.middleware === 'function') {
 				method(d1.path, (req, res, next) => {
@@ -118,13 +117,13 @@ class Server {
 			else next(err);
 		});
 
-		if (process.env.NODE_ENV === 'development')
+		if (config.env === 'development')
 			this.app.use(errorhandler());
 
 		console.log('Starting server...');
-		this.app.listen(this.port, function (err) {
-			console.log(`listening in http://localhost:${this.port}`);
-		}.bind(this));
+		this.app.listen(config.express.port, function (err) {
+			console.log(`listening in http://localhost:${config.express.port}`);
+		});
 	}
 }
 
