@@ -54,24 +54,56 @@ class Server {
 	 * @method setConfig
 	 */
 	setConfig () {
+		console.log('Configure server...');
 		if (process.env.NODE_ENV === 'development')
 			this.app.use(logger('dev'));
 
 		this.app.use(bodyParser.urlencoded({ extended: true }));
-
 		this.app.use(bodyParser.json());
 
 		this.app.use(methodOverride());
 	}
 
 	/**
-	 * Create and return Router.
+	 * Setting routes.
 	 *
 	 * @class Server
 	 * @method setRoutes
 	 */
 	setRoutes () {
-		console.log(Route.put());
+		console.log('Setting routes...');
+		this.setRouteMethod(Route.get(), this.app.get.bind(this.app), 'GET');
+		this.setRouteMethod(Route.post(), this.app.post.bind(this.app), 'POST');
+		this.setRouteMethod(Route.put(), this.app.put.bind(this.app), 'PUT');
+		this.setRouteMethod(Route.delete(), this.app.delete.bind(this.app), 'DELETE');
+	}
+
+	/**
+	 * Setting routes for one method.
+	 *
+	 * @class Server
+	 * @method setRouteMethod
+	 */
+	setRouteMethod(data, method, name) {
+		data.map((d1) => {
+			if (typeof d1.middleware === 'function') {
+				method(d1.path, (req, res, next) => {
+					d1.middleware(req, res);
+					next();
+				});
+			}
+			else if (d1.middleware) {
+				d1.middleware.map((d2) => {
+					method(d1.path, (req, res, next) => {
+						d2(req, res);
+						next();
+					});
+				});
+			}
+
+			method(d1.path, d1.controller);
+			console.log(`Set ${name} path: ${d1.path}`);
+		});
 	}
 
 	/**
@@ -89,8 +121,9 @@ class Server {
 		if (process.env.NODE_ENV === 'development')
 			this.app.use(errorhandler());
 
+		console.log('Starting server...');
 		this.app.listen(this.port, function (err) {
-			console.log(`listening in http://localhost: ${this.port}`);
+			console.log(`listening in http://localhost:${this.port}`);
 		}.bind(this));
 	}
 }

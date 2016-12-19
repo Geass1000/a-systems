@@ -35,7 +35,12 @@ class UserController {
 	 * @class Server
 	 * @method index
 	 */
-	 signup (req, res) { ; }
+	 signup (req, res) {
+		 res.send('Hello from sign up!')
+	 }
+	 log (req, res) {
+		 console.log("hello");
+	 }
 }
 
 module.exports = UserController;

@@ -5,7 +5,10 @@ let Route = require('../lib/route.class').create();
 let UserController = require('../controllers/user.controller').create();
 //... other controllers
 
-Route.put('/', UserController.signup);
+Route.get('/', {
+	controller : UserController.signup,
+	middleware : UserController.log
+});
 //... other methods
 
 //... other paths
