@@ -10,6 +10,9 @@ let config = require('../config/app.config');
 
 let router = require('../routes/server.route');
 
+let mongoose = require('mongoose');
+let userSchema = require('../../app/models/user.model');
+
 /**
  * The server.
  *
@@ -35,6 +38,8 @@ class Server {
 	 * @constructor
 	 */
 	constructor () {
+		this.model = {};
+
 		this.app = express();
 
 		this.setConfig();
@@ -60,6 +65,16 @@ class Server {
 		this.app.use(bodyParser.json());
 
 		this.app.use(methodOverride());
+
+		let connInfo = `mongodb://${config.mongodb.username}:` +
+														 `${config.mongodb.password}@` +
+														 `${config.mongodb.host}:` +
+														 `${config.mongodb.port}/` +
+														 `${config.mongodb.database}`;
+		mongoose.Promise = global.Promise;
+		let conn = mongoose.createConnection(connInfo);
+
+		this.model.user = conn.model('User', userSchema);
 	}
 
 	/**
