@@ -8,7 +8,7 @@ let errorhandler = require('errorhandler');
 
 let config = require('../config/app.config');
 
-let Route = require('../routes/server.routing');
+let router = require('../routes/server.route');
 
 /**
  * The server.
@@ -70,39 +70,8 @@ class Server {
 	 */
 	setRoutes () {
 		console.log('Setting routes...');
-		this.setRouteMethod(Route.get(), this.app.get, 'GET');
-		this.setRouteMethod(Route.post(), this.app.post, 'POST');
-		this.setRouteMethod(Route.put(), this.app.put, 'PUT');
-		this.setRouteMethod(Route.delete(), this.app.delete, 'DELETE');
-	}
 
-	/**
-	 * Setting routes for one method.
-	 *
-	 * @class Server
-	 * @method setRouteMethod
-	 */
-	setRouteMethod(data, method, name) {
-		method = method.bind(this.app);
-		data.map((d1) => {
-			if (typeof d1.middleware === 'function') {
-				method(d1.path, (req, res, next) => {
-					d1.middleware(req, res);
-					next();
-				});
-			}
-			else if (d1.middleware) {
-				d1.middleware.map((d2) => {
-					method(d1.path, (req, res, next) => {
-						d2(req, res);
-						next();
-					});
-				});
-			}
-
-			method(d1.path, d1.controller);
-			console.log(`Set ${name} path: ${d1.path}`);
-		});
+		this.app.use('/', router);
 	}
 
 	/**

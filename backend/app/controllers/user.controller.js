@@ -35,11 +35,12 @@ class UserController {
 	 * @class Server
 	 * @method index
 	 */
-	 signup (req, res) {
+	 static signup (req, res) {
 		 res.send('Hello from sign up!')
 	 }
-	 log (req, res) {
+	 static log (req, res, next) {
 		 console.log("hello");
+		 next();
 	 }
 }
 
