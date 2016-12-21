@@ -2,7 +2,6 @@
 let chai  = require('chai');
 let assert = chai.assert;
 let expect = chai.expect;
-let should = chai.should();
 
 let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
@@ -22,7 +21,7 @@ describe('Testing route api/users', () => {
 		chai.request(app)
 			.get('/api/users')
 			.end((err, res) => {
-				res.should.have.status(200);
+				expect(res).to.have.status(200);
 				done();
 			});
 	});
@@ -31,7 +30,7 @@ describe('Testing route api/users', () => {
 		chai.request(app)
 			.post('/api/users')
 			.end((err, res) => {
-				res.should.have.status(200);
+				expect(res).to.have.status(200);
 				done();
 			});
 	});
@@ -40,7 +39,7 @@ describe('Testing route api/users', () => {
 		chai.request(app)
 			.get('/api/users/1')
 			.end((err, res) => {
-				res.should.have.status(200);
+				expect(res).to.have.status(200);
 				done();
 			});
 	});
@@ -49,7 +48,7 @@ describe('Testing route api/users', () => {
 		chai.request(app)
 			.put('/api/users/1')
 			.end((err, res) => {
-				res.should.have.status(200);
+				expect(res).to.have.status(200);
 				done();
 			});
 	});
@@ -58,7 +57,7 @@ describe('Testing route api/users', () => {
 		chai.request(app)
 			.delete('/api/users/1')
 			.end((err, res) => {
-				res.should.have.status(200);
+				expect(res).to.have.status(200);
 				done();
 			});
 	});

@@ -20,7 +20,8 @@ describe('Testing bd a-system', () => {
 		before(() => {
 			user = new User({
 				login : 'Test',
-				password : '1234qwe'
+				password : '1234qwe',
+				email : 'geass1000@gmail.com'
 			});
 		});
 
