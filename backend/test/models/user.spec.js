@@ -31,7 +31,7 @@ describe('Testing bd a-system', () => {
 				expect(res).to.equal(user);
 				done(err);
 			});
-	  });
+		});
 		it("Finding document", function(done) {
 			User.findOne({	login : 'Test' }, '+password', (err, res) => {
 				if (err) throw err;
@@ -40,7 +40,7 @@ describe('Testing bd a-system', () => {
 				expect(res.created_at.toString()).to.equal(user.created_at.toString());
 				done(err);
 			});
-	  });
+		});
 		it("Deleting document", function(done) {
 			User.remove({
 				login : 'Test',
@@ -49,6 +49,6 @@ describe('Testing bd a-system', () => {
 				expect(err).to.be.a('null');
 				done(err);
 			});
-	  });
+		});
 	});
 });
