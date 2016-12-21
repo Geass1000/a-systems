@@ -6,11 +6,14 @@ let router = express.Router();
 let UserController = require('../controllers/user.controller');
 //... other controllers
 
-router.get('/', [UserController.log, UserController.signup]);
-//... other methods
+router.route('/')
+			.get(UserController.getAllUsers)
+			.post(UserController.addUser);
+router.route('/:id')
+			.get(UserController.getUser)
+			.put(UserController.updateUser)
+			.delete(UserController.deleteUser);
 
 //... other paths
-
-router.use('/user', router);
 
 module.exports = router;

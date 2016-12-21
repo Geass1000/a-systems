@@ -56,7 +56,7 @@ class Server {
 		if (config.env === 'development')
 			this.app.use(logger('dev'));
 
-		this.app.use(bodyParser.urlencoded({ extended: true }));
+		//this.app.use(bodyParser.urlencoded({ extended: true }));
 		this.app.use(bodyParser.json());
 
 		this.app.use(methodOverride());
