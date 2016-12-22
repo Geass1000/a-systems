@@ -3,6 +3,7 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
+let connection = require('../lib/db.connector');
 let UserValidator = require('../validators/user.validator');
 
 let userSchema = new Schema({
@@ -33,4 +34,4 @@ userSchema.static.getUser = (login, cb) => {
 	return this.findOne({ login : new RegExp(name, i) }, cb);
 };
 
-module.exports = userSchema;
+module.exports = connection.model('User', userSchema);

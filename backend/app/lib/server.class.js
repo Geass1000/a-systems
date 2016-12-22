@@ -10,9 +10,6 @@ let config = require('../config/app.config');
 
 let router = require('../routes/server.route');
 
-let mongoose = require('mongoose');
-let userSchema = require('../../app/models/user.model');
-
 /**
  * The server.
  *
@@ -57,24 +54,19 @@ class Server {
 	 * @method setConfig
 	 */
 	setConfig () {
-		console.log('Configure server...');
+		console.log('Configuring server...');
 		if (config.env === 'development')
 			this.app.use(logger('dev'));
 
-		//this.app.use(bodyParser.urlencoded({ extended: true }));
+		// Parse body request to a json
 		this.app.use(bodyParser.json());
+		//this.app.use(bodyParser.urlencoded({ extended: true }));
 
+		// Get default methods put and delete
 		this.app.use(methodOverride());
 
-		let connInfo = `mongodb://${config.mongodb.username}:` +
-														 `${config.mongodb.password}@` +
-														 `${config.mongodb.host}:` +
-														 `${config.mongodb.port}/` +
-														 `${config.mongodb.database}`;
-		mongoose.Promise = global.Promise;
-		let conn = mongoose.createConnection(connInfo);
-
-		this.model.user = conn.model('User', userSchema);
+		// Create connect to a database
+		require('./db.connector');
 	}
 
 	/**

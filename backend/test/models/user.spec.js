@@ -5,13 +5,7 @@ let expect = chai.expect;
 
 let mongoose = require('mongoose');
 
-let config = require('../../app/config/app.config');
-let userSchema = require('../../app/models/user.model');
-
-let connectInfo = `mongodb://${config.mongodb.username}:${config.mongodb.password}@${config.mongodb.host}:${config.mongodb.port}/${config.mongodb.database}`;
-mongoose.Promise = global.Promise;
-let conn = mongoose.createConnection(connectInfo);
-let User = conn.model('User', userSchema);
+let User = require('../../app/models/user.model');
 
 describe('Testing bd a-system', () => {
 

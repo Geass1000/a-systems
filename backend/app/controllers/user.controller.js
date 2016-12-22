@@ -1,5 +1,7 @@
 'use strict';
 
+let User = require('../models/user.model');
+
 /**
  * The sign up controller.
  *
