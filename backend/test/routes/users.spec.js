@@ -38,6 +38,8 @@ describe('Testing routes api/', () => {
 			.send({'login' : 'Geass', 'email' : 'geass1000@gmail.com', 'password' : 'asdfg123'})
 			.end((err, res) => {
 				console.log(res.body);
+				expect(res).to.have.status(200);
+				expect(res.body).to.have.property('token');
 				if (res.status === 200)
 					token = res.body.token;
 				done();

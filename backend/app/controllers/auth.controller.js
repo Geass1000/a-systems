@@ -32,6 +32,7 @@ class AuthController {
 			res.status(400).json({ "message" : "All fields required" });
 			return;
 		}
+
 		User.findExisteUser(info, (err, doc) => {
 			if (err) {
 				res.status(500).json({ "message" : "Try sign up later" });

@@ -30,16 +30,31 @@ let userSchema = new Schema({
 	}
 });
 
+/**
+ * Set in instance model "User" password (hash, salt)
+ *
+ * @param  {String} password user password
+ */
 userSchema.methods.setPassword = function (password) {
 	this.salt = crypto.randomBytes(16).toString('hex');
 	this.hash = crypto.pbkdf2Sync(password, this.salt + config.salt, 1000, 512, 'sha512').toString('hex');
 };
 
+/**
+ * Valid password in instance model "User"
+ *
+ * @param  {String} password user password
+ */
 userSchema.methods.validPassword = function (password) {
 	let hash = crypto.pbkdf2Sync(password, this.salt + config.salt, 1000, 512, 'sha512').toString('hex');
 	return this.hash === hash;
 };
 
+/**
+ * Create JWT token from data instance model "User"
+ *
+ * @param  {String} password user password
+ */
 userSchema.methods.createToken = function () {
 	let expires = 604800; // 60s * 60m * 24h * 7d = 604800s (7 days)
 	return jwt.sign({
@@ -48,6 +63,11 @@ userSchema.methods.createToken = function () {
 	}, config.secret, { expiresIn : expires });
 };
 
+/**
+ * Create JWT token from data instance model "User"
+ *
+ * @param  {String} password user password
+ */
 userSchema.statics.findExisteUser = function (user, cb) {
 	return this.findOne({ $or: [ { login : user.login}, { email : user.email } ] }, cb);
 };
