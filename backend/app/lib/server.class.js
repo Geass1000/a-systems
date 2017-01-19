@@ -66,7 +66,7 @@ class Server {
 		this.app.use(methodOverride());
 
 		// Create connect to a database
-		require('./db.connector');
+		require('../config/mongodb.database');
 	}
 
 	/**

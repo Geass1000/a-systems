@@ -1,6 +1,6 @@
 'use strict';
 
-let config = require('../config/app.config');
+let config = require('./app.config');
 
 let mongoose = require('mongoose');
 

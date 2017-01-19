@@ -4,7 +4,7 @@ let assert = chai.assert;
 let expect = chai.expect;
 
 let mongoose = require('mongoose');
-
+/*
 let User = require('../../app/models/user.model');
 
 describe('Testing bd a-system', () => {
@@ -46,3 +46,4 @@ describe('Testing bd a-system', () => {
 		});
 	});
 });
+*/

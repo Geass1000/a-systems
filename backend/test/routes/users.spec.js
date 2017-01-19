@@ -29,8 +29,10 @@ describe('Testing route api/users', () => {
 	it('POST without parameter', (done) => {
 		chai.request(app)
 			.post('/api/users')
+			.send({'login' : 'Geass', 'email' : 'geass1000@gmail.com', 'password' : 'asdfg123'})
 			.end((err, res) => {
-				expect(res).to.have.status(200);
+				console.log(res.body);
+				expect(res).to.have.status(201);
 				done();
 			});
 	});
