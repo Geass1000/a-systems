@@ -8,56 +8,46 @@ chai.use(chaiHttp);
 
 let Server = require('../../app/lib/server.class');
 
-describe('Testing route api/users', () => {
+describe('Testing routes api/', () => {
 	let server;
 	let app;
+	let token;
 
 	before(function () {
 		server = Server.bootstrapServer();
 		app = server.app;
 	});
 
-	it('GET without parameter', (done) => {
-		chai.request(app)
-			.get('/api/users')
-			.end((err, res) => {
-				expect(res).to.have.status(200);
-				done();
-			});
-	});
-
-	it('POST without parameter', (done) => {
+	it('POST: sign up user', (done) => {
 		chai.request(app)
 			.post('/api/users')
 			.send({'login' : 'Geass', 'email' : 'geass1000@gmail.com', 'password' : 'asdfg123'})
 			.end((err, res) => {
 				console.log(res.body);
-				expect(res).to.have.status(201);
+				if (res.status === 201) {
+					expect(res).to.have.status(201);
+					token = res.body.token;
+				}
 				done();
 			});
 	});
 
-	it('GET with parameter', (done) => {
+	it('POST: create JWT token session', (done) => {
+		chai.request(app)
+			.post('/api/session')
+			.send({'login' : 'Geass', 'email' : 'geass1000@gmail.com', 'password' : 'asdfg123'})
+			.end((err, res) => {
+				console.log(res.body);
+				if (res.status === 200)
+					token = res.body.token;
+				done();
+			});
+	});
+
+	it('GET: get user data with id 1', (done) => {
 		chai.request(app)
 			.get('/api/users/1')
-			.end((err, res) => {
-				expect(res).to.have.status(200);
-				done();
-			});
-	});
-
-	it('PUT with parameter', (done) => {
-		chai.request(app)
-			.put('/api/users/1')
-			.end((err, res) => {
-				expect(res).to.have.status(200);
-				done();
-			});
-	});
-
-	it('DELETE with parameter', (done) => {
-		chai.request(app)
-			.delete('/api/users/1')
+			.set('authorization', 'Bearer ' + token)
 			.end((err, res) => {
 				expect(res).to.have.status(200);
 				done();

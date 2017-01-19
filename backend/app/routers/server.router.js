@@ -3,13 +3,13 @@
 let express = require('express');
 let router = express.Router();
 
-let routerUser = require('./users.route');
+let authRouter = require('./auth.router');
 //... other routers
 
 /*
  * API paths
  */
-router.use('/users', routerUser);
+router.use('/', authRouter);
 //... other paths
 
 router.use('/api', router);

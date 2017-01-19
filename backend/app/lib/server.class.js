@@ -8,7 +8,7 @@ let errorhandler = require('errorhandler');
 
 let config = require('../config/app.config');
 
-let router = require('../routes/server.route');
+let router = require('../routers/server.router');
 
 /**
  * The server.
