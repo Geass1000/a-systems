@@ -31,7 +31,7 @@ let userSchema = new Schema({
 });
 
 /**
- * Set in instance model "User" password (hash, salt)
+ * Set in instance model "Users" password (hash, salt)
  *
  * @param  {String} password user password
  */
@@ -41,7 +41,7 @@ userSchema.methods.setPassword = function (password) {
 };
 
 /**
- * Valid password in instance model "User"
+ * Valid password in instance model "Users"
  *
  * @param  {String} password user password
  */
@@ -51,7 +51,7 @@ userSchema.methods.validPassword = function (password) {
 };
 
 /**
- * Create JWT token from data instance model "User"
+ * Create JWT token from data instance model "Users"
  *
  * @param  {String} password user password
  */
@@ -64,7 +64,7 @@ userSchema.methods.createToken = function () {
 };
 
 /**
- * Create JWT token from data instance model "User"
+ * Findign user in database "Users"
  *
  * @param  {String} password user password
  */
