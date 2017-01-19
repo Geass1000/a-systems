@@ -51,8 +51,7 @@ describe('Testing routes api/', () => {
 			.get('/api/users/1')
 			.set('authorization', 'Bearer ' + token)
 			.end((err, res) => {
-				expect(res).to.have.status(200);
-				
+				expect(res).to.have.status(200);				
 				done();
 			});
 	});
