@@ -10,12 +10,19 @@
 	</div>
 	<div class="form-group">
 		<label>E-mail:</label>
-		<input type="text" id="email" class="form-control" required
+		<input type="email" id="email" class="form-control" required
 			formControlName="email" />
+		<div *ngIf="formError.email" class="form-error">
+			{{formError.email}}
+		</div>
 	</div>
 	<div class="form-group">
 		<label>Password:</label>
 		<input type="text" id="password" class="form-control" required
 			formControlName="password" />
+		<div *ngIf="formError.password" class="form-error">
+			{{formError.password}}
+		</div>
 	</div>
+	<button type="submit" [disabled]="!signupForm.valid">Submit</button>
 </form>
