@@ -12,27 +12,33 @@ export class SignupComponent implements OnInit  {
 
 	signupForm : FormGroup;
 
-	constructor(private fb: FormBuilder) { }
+	constructor (private fb : FormBuilder) { }
 
-	ngOnInit(): void {
+	ngOnInit (): void {
     this.buildForm();
   }
 
-  buildForm(): void {
+  buildForm (): void {
     this.signupForm = this.fb.group({
-      'login': ['', [
+      'login' : ['', [
 					Validators.required,
 					Validators.minLength(3),
 					Validators.maxLength(30)
 				]
 			],
-			'email': ['', Validators.required],
-			'password': ['', [
-					Validators.required,
-					Validators.minLength(8),
-					Validators.maxLength(50)
+			'email' : ['', Validators.required],
+			'passwords' : this.fb.group({
+				'password' : ['', [
+						Validators.required,
+						Validators.minLength(8),
+						Validators.maxLength(50)
+					]
+				],
+				'passwordConfirm' : ['', [
+						Validators.required
+					]
 				]
-			]
+			}, { validator: this.passwordMatchValidator })
     });
 
 		this.signupForm.valueChanges
@@ -41,40 +47,68 @@ export class SignupComponent implements OnInit  {
     this.onValueChanged();
   }
 
-	onValueChanged(data?: any) {
+	passwordMatchValidator (g: FormGroup) {
+		let password = g.get('password');
+		let passwordConfirm = g.get('passwordConfirm');
+	  return password.value === passwordConfirm.value ||
+			!password.dirty ||
+			!passwordConfirm.dirty
+			? null : {'mismatch': true};
+	}
+
+	onValueChanged (data?: any) {
     if (!this.signupForm) { return; }
     const form = this.signupForm;
 
-    for (const field in form.value) {
-			this.formError[field] = '';
-      const control = form.get(field);
-
-      if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessages[field];
-        for (const key in control.errors) {
-          this.formError[field] += messages[key] + ' ';
-        }
-      }
+    for (const f1 in form.value) {
+			this.checkFields(form, f1);
+			const control = form.get(f1);
+			if ("controls" in control) {
+				for (const f2 in control.value) {
+					this.checkFields(control, f2);
+				}
+			}
     }
   }
 
+	checkFields (form : any, field : any) {
+		this.formError[field] = '';
+		const control = form.get(field);
+
+		if (control && control.dirty && !control.valid) {
+			const messages = this.validationMessages[field];
+			for (const key in control.errors) {
+				this.formError[field] += messages[key] + ' ';
+			}
+		}
+	}
 
 	formError = {
-		'login' : ''
+		'login' : '',
+		'email'	: '',
+		'passwords' : '',
+		'password' : '',
+		'passwordConfirm' : ''
 	};
 	validationMessages = {
-    'login': {
-      'required': 'Name is required.',
-      'minlength': 'Name must be at least 3 characters long.',
-      'maxlength': 'Name cannot be more than 30 characters long.'
+    'login' : {
+      'required' : 'Name is required.',
+      'minlength' : 'Name must be at least 3 characters long.',
+      'maxlength' : 'Name cannot be more than 30 characters long.'
     },
-    'email': {
-      'required': 'E-mail is required.'
+    'email' : {
+      'required' : 'E-mail is required.'
     },
-    'password': {
-      'required': 'Password is required.',
-			'minlength': 'Password must be at least 8 characters long.',
-      'maxlength': 'Password cannot be more than 50 characters long.'
+		'passwords' : {
+      'mismatch' : 'Passwords must be equal.'
+    },
+    'password' : {
+      'required' : 'Password is required.',
+			'minlength' : 'Password must be at least 8 characters long.',
+      'maxlength' : 'Password cannot be more than 50 characters long.'
+    },
+		'passwordConfirm' : {
+      'required' : 'Confirm password is required.'
     }
   };
 }
