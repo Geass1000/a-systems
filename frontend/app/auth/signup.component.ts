@@ -34,10 +34,7 @@ export class SignupComponent implements OnInit  {
 						Validators.maxLength(50)
 					]
 				],
-				'passwordConfirm' : ['', [
-						Validators.required
-					]
-				]
+				'passwordConfirm' : ['', Validators.required]
 			}, { validator: this.passwordMatchValidator })
     });
 
@@ -51,8 +48,7 @@ export class SignupComponent implements OnInit  {
 		let password = g.get('password');
 		let passwordConfirm = g.get('passwordConfirm');
 	  return password.value === passwordConfirm.value ||
-			!password.dirty ||
-			!passwordConfirm.dirty
+			!password.dirty || !passwordConfirm.dirty
 			? null : {'mismatch': true};
 	}
 
@@ -63,6 +59,7 @@ export class SignupComponent implements OnInit  {
     for (const f1 in form.value) {
 			this.checkFields(form, f1);
 			const control = form.get(f1);
+
 			if ("controls" in control) {
 				for (const f2 in control.value) {
 					this.checkFields(control, f2);
