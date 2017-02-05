@@ -1,0 +1,16 @@
+<h1>Hello! Is the {{title}} page.</h1>
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+	<div class="form-group">
+		<label>Login or e-mail:</label>
+		<input type="text" class="form-control" required
+			[(ngModel)]="user.name" name="name" />
+	</div>
+
+	<div class="form-group">
+		<label>Password:</label>
+		<input type="password" class="form-control" required
+			[(ngModel)]="user.password" name="password"/>
+	</div>
+
+	<button type="submit" [disabled]="!loginForm.form.valid">Submit</button>
+</form>
