@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
+import { Location } from '@angular/common';
 
 import { UserLogin } from './user-login';
 import { UserSignup } from './user-signup';
@@ -16,24 +17,31 @@ export class AuthService {
 	private usersUrl = 'api/users';
 	private sessionUrl = 'api/session';
 
-	constructor (private http : Http) { ;	}
+	constructor (private http : Http,
+							 private location : Location) { ;	}
 
 	addUser (user : UserSignup) {
 		let body = JSON.stringify(user);
 
 		return this.http.post(this.serverUrl + this.usersUrl, body, { headers : this.headers })
 										.map((resp) => {
-											return resp.json(); 
+											localStorage.setItem('id_token', resp.json().token);
 										})
 										.catch(this.handleError);
 	}
 
-	createSession (user : UserLogin) {
+	login (user : UserLogin) {
 		let body = JSON.stringify(user);
 
 		return this.http.post(this.serverUrl + this.sessionUrl, body, { headers : this.headers })
-										.map((resp) => { return resp.json(); })
+										.map((resp) => {
+											localStorage.setItem('id_token', resp.json().token);
+										})
 										.catch(this.handleError);
+	}
+	logout () {
+		localStorage.removeItem('id_token');
+		this.location.back();
 	}
 
 	handleError (error : any) {

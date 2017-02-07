@@ -66,6 +66,7 @@ class Server {
 		// Get default methods put and delete
 		this.app.use(methodOverride());
 
+		// Use CORS technology
 		this.app.use(cors());
 
 		// Create connect to a database

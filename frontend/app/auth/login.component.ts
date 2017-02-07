@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit  {
   }
 
 	onSubmit() {
-		this.authService.createSession(this.user)
+		this.authService.login(this.user)
 				.subscribe(
-					(data) => { console.log(data); },
+					(data) => { console.log(localStorage.getItem('id_token')); },
 					(error) => { console.log(error);
 				});
 	}

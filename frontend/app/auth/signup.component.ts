@@ -120,7 +120,7 @@ export class SignupComponent implements OnInit  {
 																					 form['passwords']['password']);
 		this.authService.addUser(user)
 				.subscribe(
-					(data) => { console.log(data); },
+					(data) => { console.log(localStorage.getItem('id_token')); },
 					(error) => { console.log(error);
 				});
 	}
