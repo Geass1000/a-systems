@@ -11,7 +11,7 @@ let connection = require('../config/mongodb.database');
 let UserValidator = require('../validators/user.validator');
 
 let userSchema = new Schema({
-	login : {
+	name : {
 		type : String,
 		require : true,
 		unique : true,
@@ -58,7 +58,7 @@ userSchema.methods.validPassword = function (password) {
 userSchema.methods.createToken = function () {
 	let expires = 604800; // 60s * 60m * 24h * 7d = 604800s (7 days)
 	return jwt.sign({
-		login : this.login,
+		name : this.name,
 		email : this.email
 	}, config.secret, { expiresIn : expires });
 };
@@ -69,7 +69,7 @@ userSchema.methods.createToken = function () {
  * @param  {String} password user password
  */
 userSchema.statics.findExisteUser = function (user, cb) {
-	return this.findOne({ $or: [ { login : user.login}, { email : user.email } ] }, cb);
+	return this.findOne({ $or: [ { name : user.name }, { email : user.email }, { email : user.name } ] }, cb);
 };
 
 module.exports = connection.model('User', userSchema);

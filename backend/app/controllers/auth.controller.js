@@ -28,11 +28,10 @@ class AuthController {
 	 */
 	static sessionCreate (req, res) {
 		let info = req.body;
-		if (!info.login || !info.email || !info.password) {
+		if (!((info.name || info.email) && info.password)) {
 			res.status(400).json({ "message" : "All fields required" });
 			return;
 		}
-
 		User.findExisteUser(info, (err, doc) => {
 			if (err) {
 				res.status(500).json({ "message" : "Try sign up later" });
@@ -64,11 +63,11 @@ class AuthController {
  	 */
 	static addUser (req, res) {
 		let info = req.body;
-		if (!info.login || !info.email || !info.password) {
+		if (!(info.name && info.email && info.password)) {
 			res.status(400).json({ "message" : "All fields required" });
 			return;
 		}
-		if (!UserValidator.isLogin(info.login) ||
+		if (!UserValidator.isLogin(info.name) ||
 				!UserValidator.isEmail(info.email) ||
 				!UserValidator.isPassword(info.password)) {
 			res.status(400).json({ "message" : "All fields must be correct"	});
@@ -86,7 +85,7 @@ class AuthController {
 			}
 
 			let user = new User();
-			user.login = info.login;
+			user.name = info.name;
 			user.email = info.email;
 			user.setPassword(info.password);
 			user.save((err) => {

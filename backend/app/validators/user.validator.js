@@ -35,7 +35,7 @@ class UserValidator {
 	 */
 	static isLogin (val) {
 		if (typeof val !== 'string') return false;
-    let regexp = /^[a-zA-Z0-9_-]{3,24}$/;
+    let regexp = /^.{3,30}$/;
     return regexp.test(val);
   }
 
@@ -47,7 +47,7 @@ class UserValidator {
 	 */
   static isPassword (val) {
 		if (typeof val !== 'string') return false;
-    let regexp = /^[a-zA-Z0-9]{6,24}$/;
+    let regexp = /^.{8,50}$/;
     return regexp.test(val);
   }
 }

@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit  {
   }
 
 	onSubmit() {
-		this.authService.addUser(this.user)
+		this.authService.createSession(this.user)
 				.subscribe(
-					(data) => { console.log("Success"); },
+					(data) => { console.log(data); },
 					(error) => { console.log(error);
 				});
 	}

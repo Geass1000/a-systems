@@ -5,6 +5,7 @@ let bodyParser = require('body-parser');
 let logger = require('morgan');
 let methodOverride = require('method-override');
 let errorhandler = require('errorhandler');
+let cors = require('cors');
 
 let config = require('../config/app.config');
 
@@ -64,6 +65,8 @@ class Server {
 
 		// Get default methods put and delete
 		this.app.use(methodOverride());
+
+		this.app.use(cors());
 
 		// Create connect to a database
 		require('../config/mongodb.database');

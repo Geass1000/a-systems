@@ -1,4 +1,5 @@
-export class UserLogin {
+export class UserSignup {
 	constructor (public name : string,
+							 public email : string,
 							 public password : string) { ; }
 }

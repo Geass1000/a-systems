@@ -1,12 +1,12 @@
 <h1>Hello! Is the {{title}} page.</h1>
-<form [formGroup]="signupForm">
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
 	<div class="form-group">
 		<label>Login:</label>
-		<input type="text" name="login" class="form-control" required
-			formControlName="login" />
+		<input type="text" name="name" class="form-control" required
+			formControlName="name" />
 
-		<div *ngIf="formError.login" class="form-error">
-			{{formError.login}}
+		<div *ngIf="formError.name" class="form-error">
+			{{formError.name}}
 		</div>
 	</div>
 

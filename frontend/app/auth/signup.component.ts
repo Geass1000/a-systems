@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { AuthService } from './auth.service';
+
+import { UserSignup } from './user-signup';
+
 @Component({
 	moduleId: module.id,
   selector: 'as-signup',
@@ -12,7 +16,8 @@ export class SignupComponent implements OnInit  {
 
 	signupForm : FormGroup;
 
-	constructor (private fb : FormBuilder) { }
+	constructor (private fb : FormBuilder,
+							 private authService : AuthService) { }
 
 	ngOnInit (): void {
     this.buildForm();
@@ -20,7 +25,7 @@ export class SignupComponent implements OnInit  {
 
   buildForm (): void {
     this.signupForm = this.fb.group({
-      'login' : ['', [
+      'name' : ['', [
 					Validators.required,
 					Validators.minLength(3),
 					Validators.maxLength(30)
@@ -81,14 +86,14 @@ export class SignupComponent implements OnInit  {
 	}
 
 	formError = {
-		'login' : '',
+		'name' : '',
 		'email'	: '',
 		'passwords' : '',
 		'password' : '',
 		'passwordConfirm' : ''
 	};
 	validationMessages = {
-    'login' : {
+    'name' : {
       'required' : 'Name is required.',
       'minlength' : 'Name must be at least 3 characters long.',
       'maxlength' : 'Name cannot be more than 30 characters long.'
@@ -108,4 +113,15 @@ export class SignupComponent implements OnInit  {
       'required' : 'Confirm password is required.'
     }
   };
+
+	onSubmit() {
+		const form = this.signupForm.value;
+		let user : UserSignup = new UserSignup(form['name'], form['email'],
+																					 form['passwords']['password']);
+		this.authService.addUser(user)
+				.subscribe(
+					(data) => { console.log(data); },
+					(error) => { console.log(error);
+				});
+	}
 }
