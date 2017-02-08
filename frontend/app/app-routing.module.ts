@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+/* App Routing - Component */
 import { NotFoundComponent } from './not-found.component';
 
 const routes: Routes = [
