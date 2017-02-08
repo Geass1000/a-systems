@@ -1,7 +1,13 @@
+<header>
+	<section class="navigation-section">
+		<div class="l-baseColumn">
+			<nav>
+				<a routerLink="/home" routerLinkActive="active">Home</a>
+				<a routerLink="/signup" routerLinkActive="active">Sign up</a>
+				<a routerLink="/login" routerLinkActive="active">Login</a>
+			</nav>
+		</div>
+	</section>
+</header>
 <h1>Hello {{userService.getUserName()}}! Is the {{title}} page.</h1>
-<nav>
-	<a routerLink="/home" routerLinkActive="active">Home</a>
-	<a routerLink="/signup" routerLinkActive="active">Sign up</a>
-	<a routerLink="/login" routerLinkActive="active">Login</a>
-</nav>
 <router-outlet></router-outlet>

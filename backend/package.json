@@ -4,7 +4,7 @@
   "description": "a-system project",
   "main": "index.js",
   "scripts": {
-    "start": "node ./app/index.js",
+    "start": "gulp start",
     "test": "./node_modules/.bin/mocha --recursive"
   },
   "keywords": [
