@@ -13,8 +13,8 @@ let jwtCheck = jwt({
   secret: config.secret
 });
 
-router.route('/session')
-			.post(AuthController.sessionCreate);
+router.route('/auth')
+			.post(AuthController.login);
 
 router.route('/users')
 			.post(AuthController.addUser);

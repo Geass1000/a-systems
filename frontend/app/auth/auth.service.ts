@@ -15,7 +15,7 @@ export class AuthService {
 	private headers = new Headers({ 'Content-Type': 'application/json' });
 	private serverUrl = 'http://localhost:3005/';
 	private usersUrl = 'api/users';
-	private sessionUrl = 'api/session';
+	private authUrl = 'api/auth';
 
 	constructor (private http : Http,
 							 private location : Location) { ;	}
@@ -33,7 +33,7 @@ export class AuthService {
 	login (user : UserLogin) {
 		let body = JSON.stringify(user);
 
-		return this.http.post(this.serverUrl + this.sessionUrl, body, { headers : this.headers })
+		return this.http.post(this.serverUrl + this.authUrl, body, { headers : this.headers })
 										.map((resp) => {
 											localStorage.setItem('id_token', resp.json().token);
 										})

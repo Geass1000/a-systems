@@ -24,9 +24,9 @@ class AuthController {
 	 * @param {express.Response} res
 	 *
 	 * @class AuthController
-	 * @method sessionCreate
+	 * @method login
 	 */
-	static sessionCreate (req, res) {
+	static login (req, res) {
 		let info = req.body;
 		if (!((info.name || info.email) && info.password)) {
 			res.status(400).json({ "message" : "All fields required" });
