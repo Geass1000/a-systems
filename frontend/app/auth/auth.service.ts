@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { Location } from '@angular/common';
 
+import { UserService } from '../core/user.service';
+
 import { UserLogin } from './user-login';
 import { UserSignup } from './user-signup';
 
@@ -18,7 +20,8 @@ export class AuthService {
 	private authUrl = 'api/auth';
 
 	constructor (private http : Http,
-							 private location : Location) { ;	}
+							 private location : Location,
+						 	 private userService : UserService) { ;	}
 
 	addUser (user : UserSignup) {
 		let body = JSON.stringify(user);
@@ -36,11 +39,13 @@ export class AuthService {
 		return this.http.post(this.serverUrl + this.authUrl, body, { headers : this.headers })
 										.map((resp) => {
 											localStorage.setItem('id_token', resp.json().token);
+											this.userService.setUserName();
 										})
 										.catch(this.handleError);
 	}
 	logout () {
 		localStorage.removeItem('id_token');
+		this.userService.setUserName();
 		this.location.back();
 	}
 

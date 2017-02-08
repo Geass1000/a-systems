@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { UserService } from './core/user.service';
+
 @Component({
 	moduleId: module.id,
   selector: 'as-app',
@@ -8,4 +10,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent  {
 	title = 'Main';
+
+	constructor (public userService : UserService ) { ; }
 }
