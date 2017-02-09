@@ -42,12 +42,7 @@ export class AuthService {
 											this.userService.setUserName();
 										})
 										.catch(this.handleError);
-	}
-	logout () {
-		localStorage.removeItem('id_token');
-		this.userService.setUserName();
-		this.location.back();
-	}
+	}	
 
 	handleError (error : any) {
 		return Observable.throw(error);

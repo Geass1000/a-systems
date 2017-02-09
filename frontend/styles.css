@@ -10,10 +10,17 @@ h1 {
   color: #369;
   font-size: 250%; }
 
+button {
+  font-family: 'Open Sans', Helvetica, sans-serif; }
+
 /* Layout Rules */
 header, main, footer {
   width: 100%; }
 
 .l-baseColumn {
   width: 960px;
+  margin: 0 auto; }
+
+.l-formColumn {
+  width: 520px;
   margin: 0 auto; }

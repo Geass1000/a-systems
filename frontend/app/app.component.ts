@@ -12,4 +12,12 @@ export class AppComponent  {
 	title = 'Main';
 
 	constructor (public userService : UserService ) { ; }
+
+	loggedIn () {
+		return this.userService.loggedIn();
+	}
+
+	logout () {
+		this.userService.logout();
+	}
 }

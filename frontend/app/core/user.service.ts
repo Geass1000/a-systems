@@ -29,4 +29,9 @@ export class UserService {
 	loggedIn () {
 		return tokenNotExpired();
 	}
+
+	logout () {
+		localStorage.removeItem('id_token');
+		this.setUserName();
+	}
 }

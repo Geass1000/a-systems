@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AuthService } from '../auth/auth.service';
+import { UserService } from '../core/user.service';
 
 @Component({
 	moduleId: module.id,
@@ -11,9 +11,9 @@ import { AuthService } from '../auth/auth.service';
 export class HomeComponent  {
 	title = 'Home';
 
-	constructor (private authService : AuthService) { ; }
+	constructor (private userService : UserService) { ; }
 
 	logout () {
-		this.authService.logout();
+		this.userService.logout();
 	}
 }

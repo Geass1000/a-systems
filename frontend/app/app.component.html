@@ -1,10 +1,16 @@
 <header>
 	<section class="navigation-section">
 		<div class="l-baseColumn">
+			<a routerLink="/home" class="logo">Artificial System</a>
 			<nav>
 				<a routerLink="/home" routerLinkActive="active">Home</a>
-				<a routerLink="/signup" routerLinkActive="active">Sign up</a>
-				<a routerLink="/login" routerLinkActive="active">Login</a>
+				<div *ngIf="!loggedIn()">
+					<a routerLink="/signup" routerLinkActive="active">Sign up</a>
+					<a routerLink="/login" routerLinkActive="active">Login</a>
+				</div>
+				<div *ngIf="loggedIn()">
+					<a routerLink="/login" (click)="logout()">Logout</a>
+				</div>
 			</nav>
 		</div>
 	</section>

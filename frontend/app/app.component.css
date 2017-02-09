@@ -1,3 +1,30 @@
 .navigation-section {
   background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.22); }
+  .navigation-section > div {
+    height: 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+  .navigation-section nav {
+    display: flex; }
+    .navigation-section nav a {
+      position: relative;
+      color: #888;
+      text-decoration: none;
+      margin: 0 12px; }
+      .navigation-section nav a:after {
+        content: "";
+        display: block;
+        height: 2px;
+        width: 0%;
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        background-color: #1e83ec;
+        transition: width 0.3s, left 0.3s; }
+      .navigation-section nav a:hover, .navigation-section nav a:focus, .navigation-section nav a.active {
+        color: #1e83ec; }
+      .navigation-section nav a:hover:after, .navigation-section nav a:focus:after, .navigation-section nav a.active:after {
+        width: 100%;
+        left: 0%; }
