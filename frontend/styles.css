@@ -1,28 +1,19 @@
-@charset "utf-8";
-
 /* App Fonts */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=cyrillic');
-
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=cyrillic");
 /* CSS Resets */
-@import "./reset.css";
-
+@import url(./reset.css);
 /* Base Rules */
 body {
-	background: #f6f6f6;
-}
+  background: #f6f6f6; }
 
 h1 {
   color: #369;
-  font-size: 250%;
-}
+  font-size: 250%; }
 
 /* Layout Rules */
 header, main, footer {
-	width: 100%;
-}
+  width: 100%; }
 
 .l-baseColumn {
-	width: 960px;
-
-	margin: 0 auto;
-}
+  width: 960px;
+  margin: 0 auto; }
