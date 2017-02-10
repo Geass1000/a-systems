@@ -39,10 +39,10 @@ export class AuthService {
 		return this.http.post(this.serverUrl + this.authUrl, body, { headers : this.headers })
 										.map((resp) => {
 											localStorage.setItem('id_token', resp.json().token);
-											this.userService.setUserName();
+											this.userService.setUserData();
 										})
 										.catch(this.handleError);
-	}	
+	}
 
 	handleError (error : any) {
 		return Observable.throw(error);

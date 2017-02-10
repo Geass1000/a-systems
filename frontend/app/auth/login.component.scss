@@ -62,6 +62,8 @@ $margin-bottom: 12px;
 			&.focused label {
 				color: $c1;
 
+				cursor: pointer;
+
 				transform: scale(0.75);
 			}
 

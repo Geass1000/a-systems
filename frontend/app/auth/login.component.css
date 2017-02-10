@@ -2,7 +2,7 @@
 /* Links */
 /* Text */
 /* Main background */
-/* Black background */
+/* Feature background */
 .login-section > div {
   background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
@@ -47,6 +47,7 @@
       transition: 0.25s; }
     .login-section form .form-group.focused label {
       color: #1e83ec;
+      cursor: pointer;
       transform: scale(0.75); }
     .login-section form .form-group input {
       box-sizing: border-box;

@@ -8,13 +8,13 @@ export class UserService {
 	jwtHelper: JwtHelper = new JwtHelper();
 
 	constructor () {
-		this.setUserName();
+		this.setUserData();
 	}
 
 	getUserName () {
 		return this.userName;
 	}
-	setUserName () {
+	setUserData () {
 		if (this.loggedIn()) {
 			let token = localStorage.getItem('id_token');
 			let decodeToken = this.jwtHelper.decodeToken(token);
@@ -32,6 +32,6 @@ export class UserService {
 
 	logout () {
 		localStorage.removeItem('id_token');
-		this.setUserName();
+		this.setUserData();
 	}
 }
