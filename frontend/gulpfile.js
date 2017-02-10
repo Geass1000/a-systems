@@ -5,7 +5,7 @@ var scssPath = ['app/**/*.scss', '*.scss'];
 
 gulp.task('scss', function(){
 	return gulp.src(scssPath)
-		.pipe(sass())
+		.pipe(sass().on('error', sass.logError))
 		.pipe(gulp.dest(function(file){
 	    return file.base;
 		}));
