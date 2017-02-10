@@ -6,6 +6,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center; }
+  .navigation-section a.logo img {
+    height: 40px; }
   .navigation-section nav {
     display: flex; }
     .navigation-section nav a {

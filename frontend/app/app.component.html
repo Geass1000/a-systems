@@ -1,7 +1,9 @@
 <header>
 	<section class="navigation-section">
 		<div class="l-baseColumn">
-			<a routerLink="/home" class="logo">Artificial System</a>
+			<a routerLink="/home" class="logo">
+				<img src="app/assets/images/logo.png" />
+			</a>
 			<nav>
 				<a routerLink="/home" routerLinkActive="active">Home</a>
 				<div *ngIf="!loggedIn()">
