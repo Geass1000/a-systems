@@ -28,7 +28,8 @@
   color: #5C5C5C;
   font-size: 20px;
   text-align: center;
-  margin: 20px 0; }
+  margin: 20px 0;
+  margin-bottom: 15px; }
 
 .login-section form {
   box-sizing: border-box;
@@ -38,6 +39,7 @@
   padding-bottom: 30px; }
   .login-section form .form-group {
     margin-bottom: 12px;
+    padding-top: 23px;
     position: relative; }
     .login-section form .form-group label {
       display: block;
@@ -62,7 +64,6 @@
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       font-size: 16px;
       margin-bottom: 6px;
-      padding-top: 23px;
       padding-bottom: 5px;
       position: relative;
       z-index: 2;
@@ -70,22 +71,27 @@
       .login-section form .form-group input:focus {
         border-bottom: 1px solid #1e83ec;
         color: #1e83ec; }
-  .login-section form button {
-    background: #fff;
-    border: 2px solid #E2E2E2;
-    border-radius: 4px;
-    color: #5C5C5C;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    padding: 8px 35px;
-    cursor: pointer; }
-    .login-section form button:not([disabled]):hover, .login-section form button:not([disabled]):focus {
-      background: #55acee;
-      color: #fff; }
-    .login-section form button[disabled] {
-      background: #f6f6f6; }
+  .login-section form .button-group {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 6px; }
+    .login-section form .button-group button {
+      background: #fff;
+      border: 2px solid #E2E2E2;
+      border-radius: 2px;
+      color: #5C5C5C;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-right: 5px;
+      padding: 8px 35px;
+      cursor: pointer; }
+      .login-section form .button-group button:not([disabled]):hover, .login-section form .button-group button:not([disabled]):focus {
+        background: #55acee;
+        border-color: #55acee;
+        color: #fff; }
+      .login-section form .button-group button[disabled] {
+        background: #f6f6f6; }
   .login-section form .form-error {
     color: red;
     font-size: 12px; }

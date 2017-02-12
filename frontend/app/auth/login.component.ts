@@ -19,11 +19,6 @@ export class LoginComponent implements OnInit  {
 
 	loginForm : FormGroup;
 
-	focusInput = {
-		name : false,
-		password : false
-	};
-
 	constructor (private fb : FormBuilder,
 							 private authService : AuthService,
 							 private router: Router) { ; }
@@ -35,6 +30,11 @@ export class LoginComponent implements OnInit  {
     });
   }
 
+	/* CSS effect - focus/blur */
+	focusInput = {
+		name : false,
+		password : false
+	};
 	onInputFocus(event) {
 		let target = event.target;
 		if (target.localName === "input") {
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit  {
 			this.focusInput[target.name] = true;
 		}
 	}
-	onInputBlue() {
+	onInputBlur() {
 		for (let i in this.focusInput) {
 			this.focusInput[i] = false;
 		}

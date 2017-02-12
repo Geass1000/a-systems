@@ -30,6 +30,7 @@
 		text-align: center;
 
 		margin: 20px 0;
+		margin-bottom: 15px;
 	}
 	form {
 		box-sizing: border-box;
@@ -40,10 +41,12 @@
 		padding-bottom: 30px;
 
 		.form-group {
+			$placeholder-height: 23px;
+
 			margin-bottom: 12px;
+			padding-top: $placeholder-height;
 
 			position: relative;
-			$placeholder-height: 23px;
 
 			label {
 				display: block;
@@ -81,7 +84,6 @@
 				font-size: $medium-text-size;
 
 				margin-bottom: 6px;
-				padding-top: $placeholder-height;
 				padding-bottom: 5px;
 
 				position: relative;
@@ -97,31 +99,40 @@
 			}
 		}
 
-		button {
-			background: #fff;
-
-			border: 2px solid #E2E2E2;
-			border-radius: 4px;
-
-			color: $c2;
-			font-size: $medium-text-size;
-			font-weight: bold;
-			text-transform: uppercase;
+		.button-group {
+			display: flex;
+			justify-content: flex-start;;
 
 			margin-bottom: 6px;
-			padding: 8px 35px;
 
-			cursor: pointer;
+			button {
+				background: #fff;
 
-			&:not([disabled]):hover,
-			&:not([disabled]):focus {
-				background: #55acee;
-				color: #fff;
-			}
-			&[disabled] {
-				background: #f6f6f6;
+				border: 2px solid #E2E2E2;
+				border-radius: 2px;
+
+				color: $c2;
+				font-size: $medium-text-size;
+				font-weight: bold;
+				text-transform: uppercase;
+
+				margin-right: 5px;
+				padding: 8px 35px;
+
+				cursor: pointer;
+
+				&:not([disabled]):hover,
+				&:not([disabled]):focus {
+					background: #55acee;
+					border-color: #55acee;
+					color: #fff;
+				}
+				&[disabled] {
+					background: #f6f6f6;
+				}
 			}
 		}
+
 		.form-error {
 			color: $c5;
 			font-size: $little-text-size;
