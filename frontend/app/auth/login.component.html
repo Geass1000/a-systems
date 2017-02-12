@@ -7,24 +7,27 @@
 
 			<h1>Login Form</h1>
 
-			<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+			<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 				<div class="form-group"
-					[class.focused]="name.valid">
+					[class.focused]="loginForm.get('name').value || focusInput.name">
 					<label for="name">Login or e-mail</label>
 					<input type="text" class="form-control" required
-						[(ngModel)]="user.name" name="name" id="name"
-						#name="ngModel" />
+						formControlName="name" name="name" id="name"
+						(focus)="onInputFocus($event)" (blur)="onInputBlue()" />
 				</div>
 
 				<div class="form-group"
-					[class.focused]="password.valid">
+					[class.focused]="loginForm.get('password').value || focusInput.password">
 					<label for="password">Password</label>
 					<input type="password" class="form-control" required
-						[(ngModel)]="user.password" name="password" id="password"
-						#password="ngModel"/>
+						formControlName="password" name="password" id="password"
+						(focus)="onInputFocus($event)" (blur)="onInputBlue()" />
 				</div>
 
-				<button type="submit" [disabled]="!loginForm.form.valid">Login</button>
+				<button type="submit" [disabled]="!loginForm.valid">Login</button>
+				<div *ngIf="serverError" class="form-error">
+					{{serverError}}
+				</div>
 			</form>
 		</div>
 	</section>

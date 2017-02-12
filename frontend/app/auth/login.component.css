@@ -3,14 +3,16 @@
 /* Text */
 /* Main background */
 /* Feature background */
+/* Error Text */
+/* Font-size variable */
 .login-section > div {
-  background-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
-  border-radius: 3px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center; }
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 3px;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15); }
 
 .login-section .logo {
   display: flex;
@@ -35,28 +37,35 @@
   padding: 0 30px;
   padding-bottom: 30px; }
   .login-section form .form-group {
-    margin-bottom: 10px; }
+    margin-bottom: 12px;
+    position: relative; }
     .login-section form .form-group label {
       display: block;
       color: rgba(0, 0, 0, 0.4);
       font-size: 16px;
-      margin-bottom: 12px;
       cursor: text;
-      transform: translate3d(0, 30px, 0) scale(1);
-      transform-origin: left top;
-      transition: 0.25s; }
+      position: absolute;
+      top: 23px;
+      z-index: 1;
+      transition: color 0.25s, font-size 0.25s, top 0.25s; }
     .login-section form .form-group.focused label {
       color: #1e83ec;
-      cursor: pointer;
-      transform: scale(0.75); }
+      font-size: 12px;
+      top: 0;
+      cursor: pointer; }
     .login-section form .form-group input {
       box-sizing: border-box;
       display: block;
       width: 100%;
+      background: none;
       border: none;
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       font-size: 16px;
+      margin-bottom: 6px;
+      padding-top: 23px;
       padding-bottom: 5px;
+      position: relative;
+      z-index: 2;
       transition: border 0.3s; }
       .login-section form .form-group input:focus {
         border-bottom: 1px solid #1e83ec;
@@ -69,7 +78,7 @@
     font-size: 16px;
     font-weight: bold;
     text-transform: uppercase;
-    margin-top: 12px;
+    margin-bottom: 6px;
     padding: 8px 35px;
     cursor: pointer; }
     .login-section form button:not([disabled]):hover, .login-section form button:not([disabled]):focus {
@@ -77,3 +86,6 @@
       color: #fff; }
     .login-section form button[disabled] {
       background: #f6f6f6; }
+  .login-section form .form-error {
+    color: red;
+    font-size: 12px; }

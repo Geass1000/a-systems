@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from './auth.service';
 
@@ -14,24 +15,53 @@ import { UserLogin } from './user-login';
 export class LoginComponent implements OnInit  {
 	title = 'Login';
 
-	user : UserLogin = new UserLogin('', '');
+	serverError : string = '';
 
-	constructor (private authService : AuthService,
+	loginForm : FormGroup;
+
+	focusInput = {
+		name : false,
+		password : false
+	};
+
+	constructor (private fb : FormBuilder,
+							 private authService : AuthService,
 							 private router: Router) { ; }
 
 	ngOnInit (): void {
-    ;
+		this.loginForm = this.fb.group({
+      'name' : ['', Validators.required],
+			'password' : ['', Validators.required]
+    });
   }
 
+	onInputFocus(event) {
+		let target = event.target;
+		if (target.localName === "input") {
+			for (let i in this.focusInput) {
+				this.focusInput[i] = false;
+			}
+			this.focusInput[target.name] = true;
+		}
+	}
+	onInputBlue() {
+		for (let i in this.focusInput) {
+			this.focusInput[i] = false;
+		}
+	}
+
 	onSubmit() {
-		this.authService.login(this.user)
+		const form = this.loginForm.value;
+		let user : UserLogin = new UserLogin(form['name'], form['password']);
+		this.serverError = '';
+		this.authService.login(user)
 				.subscribe(
 					(data) => {
-						console.log(localStorage.getItem('id_token'));
+						this.loginForm.reset();
 						this.router.navigate(['home']);
 					},
 					(error) => {
-						console.log(error);
+						this.serverError = error;
 					}
 				);
 	}

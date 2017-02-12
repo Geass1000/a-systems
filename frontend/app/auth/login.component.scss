@@ -1,17 +1,15 @@
 @import "../shared/scss/global.scss";
 
-$margin-bottom: 12px;
-
 .login-section {
 	& > div {
-		background-color: rgba(255, 255, 255, 0.95);
-		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
-		border-radius: 3px;
-
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
 		align-items: center;
+
+		background-color: rgba(255, 255, 255, 0.95);
+		border-radius: 3px;
+		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
 	}
 	.logo {
 		display: flex;
@@ -42,29 +40,33 @@ $margin-bottom: 12px;
 		padding-bottom: 30px;
 
 		.form-group {
-			margin-bottom: 10px;
+			margin-bottom: 12px;
+
+			position: relative;
+			$placeholder-height: 23px;
 
 			label {
 				display: block;
 
 				color: rgba(0, 0, 0, 0.4);
-				font-size: 16px;
-
-				margin-bottom: $margin-bottom;
+				font-size: $medium-text-size;
 
 				cursor: text;
 
-				transform: translate3d(0, 30px, 0) scale(1);
-				transform-origin: left top;
-				transition: 0.25s;
+				position: absolute;
+				top: $placeholder-height;
+				z-index: 1;
+
+				transition: color 0.25s, font-size 0.25s, top 0.25s;
 			}
 
 			&.focused label {
 				color: $c1;
+				font-size: $little-text-size;
+
+				top: 0;
 
 				cursor: pointer;
-
-				transform: scale(0.75);
 			}
 
 			input {
@@ -72,12 +74,18 @@ $margin-bottom: 12px;
 				display: block;
 				width: 100%;
 
+				background: none;
 				border: none;
 				border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
-				font-size: 16px;
+				font-size: $medium-text-size;
 
+				margin-bottom: 6px;
+				padding-top: $placeholder-height;
 				padding-bottom: 5px;
+
+				position: relative;
+				z-index: 2;
 
 				transition: border 0.3s;
 
@@ -96,11 +104,11 @@ $margin-bottom: 12px;
 			border-radius: 4px;
 
 			color: $c2;
-			font-size: 16px;
+			font-size: $medium-text-size;
 			font-weight: bold;
 			text-transform: uppercase;
 
-			margin-top: 12px;
+			margin-bottom: 6px;
 			padding: 8px 35px;
 
 			cursor: pointer;
@@ -113,6 +121,10 @@ $margin-bottom: 12px;
 			&[disabled] {
 				background: #f6f6f6;
 			}
+		}
+		.form-error {
+			color: $c5;
+			font-size: $little-text-size;
 		}
 	}
 }

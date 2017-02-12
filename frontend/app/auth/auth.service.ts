@@ -45,6 +45,9 @@ export class AuthService {
 	}
 
 	handleError (error : any) {
-		return Observable.throw(error);
+		let message : string = error._body || '';
+		let tmp : any = JSON.parse(message);
+		message = tmp ? tmp.message : '';
+		return Observable.throw(message);
 	}
 }
