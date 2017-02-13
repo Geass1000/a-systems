@@ -1,3 +1,5 @@
+@import "./app/shared/scss/global.scss";
+
 /* App Fonts */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=cyrillic');
 
@@ -16,6 +18,13 @@ h1 {
 
 button {
 	font-family: 'Open Sans', Helvetica, sans-serif;
+}
+
+a {
+	color: $color-text-1;
+}
+a:hover {
+	color: $color-text-2;
 }
 
 /* Layout Rules */

@@ -19,6 +19,7 @@
 				<div class="form-group"
 					[class.focused]="loginForm.get('password').value || focusInput.password">
 					<label for="password">Password</label>
+					<a routerLink="/signup" class="form-forgotton">Forgotton?</a>
 					<input type="password" class="form-control" required
 						formControlName="password" name="password" id="password"
 						(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
@@ -26,7 +27,7 @@
 
 				<div class="button-group">
 					<button type="submit" [disabled]="!loginForm.valid">Login</button>
-					<button type="button">Sign up</button>
+					<button type="button" (click)="signup()">Sign up</button>
 				</div>
 
 				<div *ngIf="serverError" class="form-error">

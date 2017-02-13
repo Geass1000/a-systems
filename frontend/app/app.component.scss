@@ -1,3 +1,5 @@
+@import "./shared/scss/global.scss";
+
 /* Variable */
 $height-navigation-section: 55px;
 
@@ -48,12 +50,12 @@ header::before {
 				bottom: -5px;
 				left: 50%;
 
-				background-color: #1e83ec;
+				background-color: $color-text-1;
 
 				transition: width 0.3s, left 0.3s;
 			}
 			&:hover, &:focus, &.active {
-				color: #1e83ec;
+				color: $color-text-1;
 			}
 			&:hover:after, &:focus:after, &.active:after {
 				width: 100%;

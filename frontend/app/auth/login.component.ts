@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit  {
 		name : false,
 		password : false
 	};
-	onInputFocus(event) {
+	onInputFocus(event : any) {
 		let target = event.target;
 		if (target.localName === "input") {
 			for (let i in this.focusInput) {
@@ -64,5 +64,9 @@ export class LoginComponent implements OnInit  {
 						this.serverError = error;
 					}
 				);
+	}
+
+	signup() {
+		this.router.navigate(['signup']);
 	}
 }
