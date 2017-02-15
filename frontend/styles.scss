@@ -12,8 +12,19 @@ body {
 }
 
 h1 {
-  color: #369;
-  font-size: 250%;
+  font-size: 26px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 22px;
+}
+h4 {
+  font-size: 20px;
+}
+h5 {
+  font-size: 18px;
 }
 
 button {
@@ -22,9 +33,15 @@ button {
 
 a {
 	color: $color-text-1;
+
+	text-decoration: none;;
+
+	cursor: pointer;
 }
 a:hover {
 	color: $color-text-2;
+
+	text-decoration: underline;
 }
 
 /* Layout Rules */
@@ -34,11 +51,6 @@ header, main, footer {
 
 .l-baseColumn {
 	width: 960px;
-
-	margin: 0 auto;
-}
-.l-formColumn {
-	width: 520px;
 
 	margin: 0 auto;
 }

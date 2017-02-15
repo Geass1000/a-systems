@@ -4,9 +4,19 @@ $color-text-2: #55acee;
 $color-text-3: #5C5C5C;
 $color-error-1: red;
 $color-button-1: #55acee;
+$color-button-2: #7bb3ef;
 $color-background-1: #f6f6f6;
 $color-background-2: #2C3034;
 
 /* Font-size variable */
-$font-size-little: 12px;
+$font-size-little: 13px;
 $font-size-medium: 16px;
+$font-size-large: 20px;
+
+/* Z-index */
+	/* Modal */
+	$z-index-model-1: 11; /* Overlay */
+	$z-index-model-2: 12; /* Form block */
+	$z-index-model-3: 13; /* No important context */
+	$z-index-model-4: 14; /* Main context */
+	$z-index-model-5: 15; /* Important context */

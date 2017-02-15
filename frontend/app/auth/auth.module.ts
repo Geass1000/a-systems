@@ -25,7 +25,7 @@ import { AuthService } from './auth.service';
 		SignupComponent,
 		LoginComponent
 	],
-  exports: [  ],
+  exports: [ LoginComponent ],
   providers: [
 		AuthService
 	]

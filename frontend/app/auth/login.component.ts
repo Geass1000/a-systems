@@ -13,7 +13,7 @@ import { UserLogin } from './user-login';
   styleUrls: [ 'login.component.css' ]
 })
 export class LoginComponent implements OnInit  {
-	title = 'Login';
+	state : boolean  = false; 
 
 	serverError : string = '';
 

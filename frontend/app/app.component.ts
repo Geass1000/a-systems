@@ -9,7 +9,7 @@ import { UserService } from './core/user.service';
   styleUrls: [ 'app.component.css' ]
 })
 export class AppComponent  {
-	title = 'Main';	
+	title = 'Main';
 
 	constructor (public userService : UserService ) { ; }
 

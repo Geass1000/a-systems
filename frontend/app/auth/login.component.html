@@ -1,39 +1,35 @@
-<main>
-	<section class="login-section">
-		<div class="l-formColumn">
-			<section class="logo">
-				<img src="app/shared/images/logo2.png" />
-			</section>
-
-			<h1>Login Form</h1>
-
-			<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-				<div class="form-group"
-					[class.focused]="loginForm.get('name').value || focusInput.name">
-					<label for="name">Login or e-mail</label>
-					<input type="text" class="form-control" required
-						formControlName="name" name="name" id="name"
-						(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
-				</div>
-
-				<div class="form-group"
-					[class.focused]="loginForm.get('password').value || focusInput.password">
-					<label for="password">Password</label>
-					<a routerLink="/signup" class="form-forgotton">Forgotton?</a>
-					<input type="password" class="form-control" required
-						formControlName="password" name="password" id="password"
-						(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
-				</div>
-
-				<div class="button-group">
-					<button type="submit" [disabled]="!loginForm.valid">Login</button>
-					<button type="button" (click)="signup()">Sign up</button>
-				</div>
-
-				<div *ngIf="serverError" class="form-error">
-					{{serverError}}
-				</div>
-			</form>
-		</div>
+<div class="modal-window modal-login">
+	<section class="modal-header">
+		<h1>Login</h1>
+		<p>Login into your account here</p>
 	</section>
-</main>
+	<section class="modal-body">
+		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+			<div class="form-group"
+				[class.focused]="loginForm.get('name').value || focusInput.name">
+				<label for="name">Login or e-mail</label>
+				<input type="text" class="form-control" required
+					formControlName="name" name="name" id="name"
+					(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
+			</div>
+
+			<div class="form-group"
+				[class.focused]="loginForm.get('password').value || focusInput.password">
+				<label for="password">Password</label>
+				<a routerLink="/signup" class="form-forgotton">Forgotton?</a>
+				<input type="password" class="form-control" required
+					formControlName="password" name="password" id="password"
+					(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
+			</div>
+
+			<button type="submit" [disabled]="!loginForm.valid">Login</button>
+
+			<div *ngIf="serverError" class="form-error">
+				{{serverError}}
+			</div>
+		</form>
+	</section>
+	<section class="modal-footer">
+		<div>Not registered? <a>Sign up</a></div>
+	</section>
+</div>
