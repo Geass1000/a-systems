@@ -3,7 +3,11 @@ import { NgRedux, select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 
 import { UserService } from './core/user.service';
+
+/* Redux - Reducers */
 import { AppReducer, INITIAL_STATE } from './app.reducer';
+
+/* Redux - Actions */
 import { AppActions } from './app.actions';
 
 @Component({
@@ -16,7 +20,6 @@ export class AppComponent  {
 	title = 'Main';
 	@select(['modal', 'open']) modalOpen : any;
 	@select(['modal', 'login']) modalLogin : any;
-	subscription : any;
 
 	constructor (public userService : UserService,
 							 private ngRedux : NgRedux<any>,
