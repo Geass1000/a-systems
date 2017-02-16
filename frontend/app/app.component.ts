@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
+import { NgRedux, select } from '@angular-redux/store';
+import { Observable } from 'rxjs/Observable';
 
 import { UserService } from './core/user.service';
+import { AppReducer, INITIAL_STATE } from './app.reducer';
+import { AppActions } from './app.actions';
 
 @Component({
 	moduleId: module.id,
@@ -10,14 +14,29 @@ import { UserService } from './core/user.service';
 })
 export class AppComponent  {
 	title = 'Main';
+	@select(['modal', 'open']) modalOpen : any;
+	@select(['modal', 'login']) modalLogin : any;
+	subscription : any;
 
-	constructor (public userService : UserService ) { ; }
+	constructor (public userService : UserService,
+							 private ngRedux : NgRedux<any>,
+						 	 private appActions : AppActions) {
+		this.ngRedux.configureStore(AppReducer, INITIAL_STATE, null, []);
+	}
 
 	loggedIn () {
 		return this.userService.loggedIn();
 	}
 
+	login () {
+		this.ngRedux.dispatch(this.appActions.openModal('login'));
+	}
+
 	logout () {
 		this.userService.logout();
+	}
+
+	closeAllModal () {
+		this.ngRedux.dispatch(this.appActions.closeAllModal());
 	}
 }

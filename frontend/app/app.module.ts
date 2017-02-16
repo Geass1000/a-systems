@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { NgReduxModule } from '@angular-redux/store';
+
 /* Feature Modules */
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
@@ -13,10 +15,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found.component';
 
+/* App Root - Service*/
+import { AppActions } from './app.actions';
+
 @NgModule({
   imports: [
 		BrowserModule,
 		CoreModule,
+		NgReduxModule,
 		HomeModule,
 		AuthModule,
 		AppRoutingModule
@@ -25,7 +31,7 @@ import { NotFoundComponent } from './not-found.component';
 		AppComponent,
 		NotFoundComponent
 	],
-	providers: [  ],
+	providers: [ AppActions ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
