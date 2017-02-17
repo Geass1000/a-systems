@@ -15,7 +15,6 @@ import { AppActions } from '../app.actions';
   styleUrls: [ 'auth.component.css' ]
 })
 export class SignupComponent implements OnInit  {
-	title = 'Signup';
 	@select(['modal', 'signup']) modalOpen : any;
 
 	signupForm : FormGroup;
@@ -96,7 +95,8 @@ export class SignupComponent implements OnInit  {
 		'email'	: '',
 		'passwords' : '',
 		'password' : '',
-		'passwordConfirm' : ''
+		'passwordConfirm' : '',
+		'serverError' : ''
 	};
 	validationMessages = {
     'name' : {
@@ -146,10 +146,15 @@ export class SignupComponent implements OnInit  {
 		const form = this.signupForm.value;
 		let user : UserSignup = new UserSignup(form['name'], form['email'],
 																					 form['passwords']['password']);
+		this.formError.serverError = '';
 		this.authService.addUser(user)
 				.subscribe(
-					(data) => { console.log(localStorage.getItem('id_token')); },
-					(error) => { console.log(error);
+					(data) => {
+						this.signupForm.reset();
+						this.ngRedux.dispatch(this.appActions.closeAllModal());
+					},
+					(error) => {
+						this.formError.serverError = error;
 				});
 	}
 

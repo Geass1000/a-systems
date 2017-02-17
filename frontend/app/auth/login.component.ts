@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgRedux, select } from '@angular-redux/store';
 
@@ -25,7 +24,6 @@ export class LoginComponent implements OnInit  {
 
 	constructor (private fb : FormBuilder,
 							 private authService : AuthService,
-							 private router: Router,
 						 	 private ngRedux : NgRedux<any>,
 						 	 private appActions : AppActions) { ; }
 
@@ -64,7 +62,7 @@ export class LoginComponent implements OnInit  {
 				.subscribe(
 					(data) => {
 						this.loginForm.reset();
-						this.router.navigate(['home']);
+						this.ngRedux.dispatch(this.appActions.closeAllModal());
 					},
 					(error) => {
 						this.serverError = error;

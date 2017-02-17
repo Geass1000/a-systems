@@ -36,7 +36,6 @@ export class AppComponent  {
 	signup () {
 		this.ngRedux.dispatch(this.appActions.openModal('signup'));
 	}
-
 	logout () {
 		this.userService.logout();
 	}

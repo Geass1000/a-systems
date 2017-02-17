@@ -1,4 +1,3 @@
-<h1>Hello! Is the {{title}} page.</h1>
 <div class="modal-window modal-login" [class.visible]="modalOpen | async">
 	<section class="modal-header">
 		<h1>Sign up</h1>
@@ -8,7 +7,7 @@
 		<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
 			<div class="form-group"
 				[class.focused]="signupForm.get('name').value || focusInput.name">
-				<label>Login:</label>
+				<label>Login</label>
 				<input type="text" name="name" class="form-control"
 					required formControlName="name"
 					(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
@@ -20,7 +19,7 @@
 
 			<div class="form-group"
 				[class.focused]="signupForm.get('email').value || focusInput.email">
-				<label>E-mail:</label>
+				<label>E-mail</label>
 				<input type="email" name="email" class="form-control"
 					required formControlName="email"
 					(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
@@ -33,7 +32,7 @@
 			<div formGroupName="passwords">
 				<div class="form-group"
 					[class.focused]="signupForm.get('passwords').get('password').value || focusInput.password">
-					<label>Password:</label>
+					<label>Password</label>
 					<input type="password" name="password" class="form-control"
 						required formControlName="password"
 						(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
@@ -45,7 +44,7 @@
 
 				<div class="form-group"
 					[class.focused]="signupForm.get('passwords').get('passwordConfirm').value || focusInput.passwordConfirm">
-					<label>Confirm password:</label>
+					<label>Confirm password</label>
 					<input type="password" name="passwordConfirm" class="form-control"
 						required formControlName="passwordConfirm"
 						(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
