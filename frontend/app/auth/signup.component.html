@@ -1,45 +1,68 @@
 <h1>Hello! Is the {{title}} page.</h1>
-<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-	<div class="form-group">
-		<label>Login:</label>
-		<input type="text" name="name" class="form-control" required
-			formControlName="name" />
+<div class="modal-window modal-login" [class.visible]="modalOpen | async">
+	<section class="modal-header">
+		<h1>Sign up</h1>
+		<p>Sign up to create your account.</p>
+	</section>
+	<section class="modal-body">
+		<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+			<div class="form-group"
+				[class.focused]="signupForm.get('name').value || focusInput.name">
+				<label>Login:</label>
+				<input type="text" name="name" class="form-control"
+					required formControlName="name"
+					(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
 
-		<div *ngIf="formError.name" class="form-error">
-			{{formError.name}}
-		</div>
-	</div>
+				<div *ngIf="formError.name" class="form-error">
+					{{formError.name}}
+				</div>
+			</div>
 
-	<div class="form-group">
-		<label>E-mail:</label>
-		<input type="email" name="email" class="form-control" required
-			formControlName="email" />
+			<div class="form-group"
+				[class.focused]="signupForm.get('email').value || focusInput.email">
+				<label>E-mail:</label>
+				<input type="email" name="email" class="form-control"
+					required formControlName="email"
+					(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
 
-		<div *ngIf="formError.email" class="form-error">
-			{{formError.email}}
-		</div>
-	</div>
+				<div *ngIf="formError.email" class="form-error">
+					{{formError.email}}
+				</div>
+			</div>
 
-	<div class="form-group" formGroupName="passwords">
-		<label>Password:</label>
-		<input type="text" name="password" class="form-control" required
-			formControlName="password" />
+			<div formGroupName="passwords">
+				<div class="form-group"
+					[class.focused]="signupForm.get('passwords').get('password').value || focusInput.password">
+					<label>Password:</label>
+					<input type="password" name="password" class="form-control"
+						required formControlName="password"
+						(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
 
-		<div *ngIf="formError.password" class="form-error">
-			{{formError.password}}
-		</div>
+					<div *ngIf="formError.password" class="form-error">
+						{{formError.password}}
+					</div>
+				</div>
 
-		<label>Confirm password:</label>
-		<input type="text" name="passwordConfirm" class="form-control" required
-			formControlName="passwordConfirm" />
+				<div class="form-group"
+					[class.focused]="signupForm.get('passwords').get('passwordConfirm').value || focusInput.passwordConfirm">
+					<label>Confirm password:</label>
+					<input type="password" name="passwordConfirm" class="form-control"
+						required formControlName="passwordConfirm"
+						(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
 
-		<div *ngIf="formError.passwordConfirm" class="form-error">
-			{{formError.passwordConfirm}}
-		</div>
-		<div *ngIf="formError.passwords" class="form-error">
-			{{formError.passwords}}
-		</div>
-	</div>
+					<div *ngIf="formError.passwordConfirm" class="form-error">
+						{{formError.passwordConfirm}}
+					</div>
+					<div *ngIf="formError.passwords" class="form-error">
+						{{formError.passwords}}
+					</div>
+				</div>
+			</div>
 
-	<button type="submit" [disabled]="!signupForm.valid">Submit</button>
-</form>
+			<button type="submit" [disabled]="!signupForm.valid">Submit</button>
+		</form>
+	</section>
+	<section class="modal-footer">
+		<div>Already registered? <a (click)="login()">Login</a></div>
+	</section>
+</div>

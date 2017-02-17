@@ -9,21 +9,19 @@ $height-navigation-section: 55px;
 
 	background: rgba(31, 45, 61, 0.9);
 
-	position: absolute;
+	position: absolute;;
 	top: 0;
 	left: 0;
 
 	z-index: $z-index-model-1;
+
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.4s ease-out, visibility 0.4s;
 }
-.modal {
-	width: 350px;
-
-	position: fixed;
-	top: 230px;
-	left: 50%;
-	z-index: $z-index-model-2;
-
-	margin: 0 -175px;
+.modal-overlay.visible {
+	visibility: visible;
+	opacity: 1;
 }
 
 header::before {

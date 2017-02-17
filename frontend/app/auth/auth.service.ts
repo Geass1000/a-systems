@@ -4,8 +4,7 @@ import { Location } from '@angular/common';
 
 import { UserService } from '../core/user.service';
 
-import { UserLogin } from './user-login';
-import { UserSignup } from './user-signup';
+import { UserLogin, UserSignup } from './user';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';

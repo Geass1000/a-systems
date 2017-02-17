@@ -8,13 +8,27 @@ $placeholder-height: 24px;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
+	width: 350px;
 
-	position: relative;
+	position: fixed;
+	top: 230px;
+	left: 50%;
 	z-index: $z-index-model-2;
+
+	margin: 0 -175px;
 
 	background: rgba(255, 255, 255, 1);
 	border-radius: 5px;
 	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
+
+	visibility: hidden;
+  transform: scale(0.75);
+  transition: transform 0.4s ease-out, visibility 0.2s;
+
+	&.visible {
+		visibility: visible;
+  	transform: scale(1);
+	}
 
 	& > section {
 		display: flex;

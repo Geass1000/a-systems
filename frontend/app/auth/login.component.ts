@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgRedux, select } from '@angular-redux/store';
 
 import { AuthService } from './auth.service';
 
-import { UserLogin } from './user-login';
+import { UserLogin } from './user';
+
+import { AppActions } from '../app.actions';
 
 @Component({
 	moduleId: module.id,
   selector: 'as-login',
 	templateUrl: 'login.component.html',
-  styleUrls: [ 'login.component.css' ]
+  styleUrls: [ 'auth.component.css' ]
 })
 export class LoginComponent implements OnInit  {
-	state : boolean  = false; 
+	state : boolean  = false;
+	@select(['modal', 'login']) modalOpen : any;
 
 	serverError : string = '';
 
@@ -21,7 +25,9 @@ export class LoginComponent implements OnInit  {
 
 	constructor (private fb : FormBuilder,
 							 private authService : AuthService,
-							 private router: Router) { ; }
+							 private router: Router,
+						 	 private ngRedux : NgRedux<any>,
+						 	 private appActions : AppActions) { ; }
 
 	ngOnInit (): void {
 		this.loginForm = this.fb.group({
@@ -35,7 +41,7 @@ export class LoginComponent implements OnInit  {
 		name : false,
 		password : false
 	};
-	onInputFocus(event : any) {
+	onInputFocus (event : any) {
 		let target = event.target;
 		if (target.localName === "input") {
 			for (let i in this.focusInput) {
@@ -44,13 +50,13 @@ export class LoginComponent implements OnInit  {
 			this.focusInput[target.name] = true;
 		}
 	}
-	onInputBlur() {
+	onInputBlur () {
 		for (let i in this.focusInput) {
 			this.focusInput[i] = false;
 		}
 	}
 
-	onSubmit() {
+	onSubmit () {
 		const form = this.loginForm.value;
 		let user : UserLogin = new UserLogin(form['name'], form['password']);
 		this.serverError = '';
@@ -66,7 +72,8 @@ export class LoginComponent implements OnInit  {
 				);
 	}
 
-	signup() {
-		this.router.navigate(['signup']);
+	signup () {
+		this.ngRedux.dispatch(this.appActions.closeAllModal());
+		this.ngRedux.dispatch(this.appActions.openModal('signup'));
 	}
 }

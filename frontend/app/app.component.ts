@@ -19,7 +19,6 @@ import { AppActions } from './app.actions';
 export class AppComponent  {
 	title = 'Main';
 	@select(['modal', 'open']) modalOpen : any;
-	@select(['modal', 'login']) modalLogin : any;
 
 	constructor (public userService : UserService,
 							 private ngRedux : NgRedux<any>,
@@ -33,6 +32,9 @@ export class AppComponent  {
 
 	login () {
 		this.ngRedux.dispatch(this.appActions.openModal('login'));
+	}
+	signup () {
+		this.ngRedux.dispatch(this.appActions.openModal('signup'));
 	}
 
 	logout () {

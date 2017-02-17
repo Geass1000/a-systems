@@ -4,14 +4,16 @@ import { AppActions } from './app.actions';
 export interface AppState {
 	modal : {
 		open : boolean,
-		login : boolean
+		login : boolean,
+		signup : boolean
 	};
 }
 
 export const INITIAL_STATE: AppState = {
 	modal : {
 		open : false,
-		login : false
+		login : false,
+		signup : false
 	},
 };
 

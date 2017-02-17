@@ -1,23 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgRedux, select } from '@angular-redux/store';
 
 import { AuthService } from './auth.service';
 
-import { UserSignup } from './user-signup';
+import { UserSignup } from './user';
+
+import { AppActions } from '../app.actions';
 
 @Component({
 	moduleId: module.id,
   selector: 'as-signup',
 	templateUrl: 'signup.component.html',
-  styleUrls: [ 'signup.component.css' ]
+  styleUrls: [ 'auth.component.css' ]
 })
 export class SignupComponent implements OnInit  {
 	title = 'Signup';
+	@select(['modal', 'signup']) modalOpen : any;
 
 	signupForm : FormGroup;
 
 	constructor (private fb : FormBuilder,
-							 private authService : AuthService) { }
+							 private authService : AuthService,
+						 	 private ngRedux : NgRedux<any>,
+						 	 private appActions : AppActions) { }
 
 	ngOnInit (): void {
     this.buildForm();
@@ -114,7 +120,29 @@ export class SignupComponent implements OnInit  {
     }
   };
 
-	onSubmit() {
+	/* CSS effect - focus/blur */
+	focusInput = {
+		name : false,
+		email : false,
+		password : false,
+		passwordConfirm : false
+	};
+	onInputFocus (event : any) {
+		let target = event.target;
+		if (target.localName === "input") {
+			for (let i in this.focusInput) {
+				this.focusInput[i] = false;
+			}
+			this.focusInput[target.name] = true;
+		}
+	}
+	onInputBlur () {
+		for (let i in this.focusInput) {
+			this.focusInput[i] = false;
+		}
+	}
+
+	onSubmit () {
 		const form = this.signupForm.value;
 		let user : UserSignup = new UserSignup(form['name'], form['email'],
 																					 form['passwords']['password']);
@@ -123,5 +151,10 @@ export class SignupComponent implements OnInit  {
 					(data) => { console.log(localStorage.getItem('id_token')); },
 					(error) => { console.log(error);
 				});
+	}
+
+	login () {
+		this.ngRedux.dispatch(this.appActions.closeAllModal());
+		this.ngRedux.dispatch(this.appActions.openModal('login'));
 	}
 }

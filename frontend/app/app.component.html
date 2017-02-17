@@ -7,7 +7,7 @@
 			<nav>
 				<a routerLink="/home" routerLinkActive="active">Home</a>
 				<div *ngIf="!loggedIn()">
-					<a routerLink="/signup" routerLinkActive="active">Sign up</a>
+					<a (click)="signup()">Sign up</a>
 					<a (click)="login()">Login</a>
 				</div>
 				<div *ngIf="loggedIn()">
@@ -21,7 +21,6 @@
 <router-outlet></router-outlet>
 
 <!-- Modal -->
-<div class="modal-overlay" *ngIf="modalOpen | async" (click)="closeAllModal()"></div>
-<div class="modal">
-	<as-login *ngIf="modalLogin | async"></as-login>
-</div>
+<div class="modal-overlay" [class.visible]="modalOpen | async" (click)="closeAllModal()"></div>
+<as-login></as-login>
+<as-signup></as-signup>

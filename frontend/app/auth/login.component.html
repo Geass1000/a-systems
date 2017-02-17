@@ -1,7 +1,7 @@
-<div class="modal-window modal-login">
+<div class="modal-window modal-login" [class.visible]="modalOpen | async">
 	<section class="modal-header">
 		<h1>Login</h1>
-		<p>Login into your account here</p>
+		<p>Login into your account here.</p>
 	</section>
 	<section class="modal-body">
 		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -30,6 +30,6 @@
 		</form>
 	</section>
 	<section class="modal-footer">
-		<div>Not registered? <a>Sign up</a></div>
+		<div>Not registered? <a (click)="signup()">Sign up</a></div>
 	</section>
 </div>
