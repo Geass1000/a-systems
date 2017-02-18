@@ -7,6 +7,7 @@ import { NgReduxModule } from '@angular-redux/store';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
 import { AuthModule } from './auth/auth.module';
+import { ProfileModule } from './profile/profile.module';
 
 /* Routing Module */
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +26,7 @@ import { AppActions } from './app.actions';
 		NgReduxModule,
 		HomeModule,
 		AuthModule,
+		ProfileModule,
 		AppRoutingModule
 	],
   declarations: [

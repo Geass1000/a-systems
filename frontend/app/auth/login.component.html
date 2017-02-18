@@ -25,8 +25,8 @@
 
 			<button type="submit" [disabled]="!loginForm.valid">Login</button>
 
-			<div *ngIf="serverError" class="form-error">
-				{{serverError}}
+			<div *ngIf="formError.serverError" class="form-error">
+				{{formError.serverError}}
 			</div>
 		</form>
 	</section>

@@ -60,6 +60,10 @@
 			</div>
 
 			<button type="submit" [disabled]="!signupForm.valid">Sign up</button>
+
+			<div *ngIf="formError.serverError" class="form-error">
+				{{formError.serverError}}
+			</div>
 		</form>
 	</section>
 	<section class="modal-footer">
