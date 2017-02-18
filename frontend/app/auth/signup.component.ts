@@ -24,11 +24,11 @@ export class SignupComponent implements OnInit  {
 						 	 private ngRedux : NgRedux<any>,
 						 	 private appActions : AppActions) { }
 
-	ngOnInit (): void {
+	ngOnInit () : void {
     this.buildForm();
   }
 
-  buildForm (): void {
+  buildForm () : void {
     this.signupForm = this.fb.group({
       'name' : ['', [
 					Validators.required,
@@ -98,6 +98,12 @@ export class SignupComponent implements OnInit  {
 		'passwordConfirm' : '',
 		'serverError' : ''
 	};
+	resetFormError () {
+		for (const key in this.formError) {
+			this.formError[key] = ' ';
+		}
+	}
+
 	validationMessages = {
     'name' : {
       'required' : 'Name is required.',
@@ -146,20 +152,23 @@ export class SignupComponent implements OnInit  {
 		const form = this.signupForm.value;
 		let user : UserSignup = new UserSignup(form['name'], form['email'],
 																					 form['passwords']['password']);
-		this.formError.serverError = '';
 		this.authService.addUser(user)
 				.subscribe(
 					(data) => {
 						this.signupForm.reset();
-						this.ngRedux.dispatch(this.appActions.closeAllModal());
+						this.resetFormError();
+						this.closeModal();
 					},
 					(error) => {
 						this.formError.serverError = error;
 				});
 	}
 
-	login () {
+	closeModal () {
 		this.ngRedux.dispatch(this.appActions.closeAllModal());
+	}
+	login () {
+		this.closeModal();
 		this.ngRedux.dispatch(this.appActions.openModal('login'));
 	}
 }

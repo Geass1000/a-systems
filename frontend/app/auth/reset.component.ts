@@ -4,20 +4,20 @@ import { NgRedux, select } from '@angular-redux/store';
 
 import { AuthService } from './auth.service';
 
-import { UserLogin } from './user';
+import { UserReset } from './user';
 
 import { AppActions } from '../app.actions';
 
 @Component({
 	moduleId: module.id,
-  selector: 'as-login',
-	templateUrl: 'login.component.html',
+  selector: 'as-reset',
+	templateUrl: 'reset.component.html',
   styleUrls: [ 'auth.component.css' ]
 })
-export class LoginComponent implements OnInit  {
-	@select(['modal', 'login']) modalOpen : any;
+export class ResetComponent implements OnInit  {
+	@select(['modal', 'reset']) modalOpen : any;
 
-	loginForm : FormGroup;
+	resetForm : FormGroup;
 
 	constructor (private fb : FormBuilder,
 							 private authService : AuthService,
@@ -25,8 +25,8 @@ export class LoginComponent implements OnInit  {
 						 	 private appActions : AppActions) { ; }
 
 	ngOnInit () : void {
-		this.loginForm = this.fb.group({
-      'name' : ['', Validators.required],
+		this.resetForm = this.fb.group({
+      'email' : ['', Validators.required],
 			'password' : ['', Validators.required]
     });
   }
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit  {
 
 	/* CSS effect - focus/blur */
 	focusInput = {
-		name : false,
+		email : false,
 		password : false
 	};
 	onInputFocus (event : any) {
@@ -61,12 +61,12 @@ export class LoginComponent implements OnInit  {
 	}
 
 	onSubmit () {
-		const form = this.loginForm.value;
-		let user : UserLogin = new UserLogin(form['name'], form['password']);
-		this.authService.login(user)
+		const form = this.resetForm.value;
+		let user : UserReset = new UserReset(form['email'], form['password']);
+		this.authService.reset(user)
 				.subscribe(
 					(data) => {
-						this.loginForm.reset();
+						this.resetForm.reset();
 						this.resetFormError();
 						this.closeModal();
 					},
@@ -78,13 +78,5 @@ export class LoginComponent implements OnInit  {
 
 	closeModal () {
 		this.ngRedux.dispatch(this.appActions.closeAllModal());
-	}
-	signup () {
-		this.closeModal();
-		this.ngRedux.dispatch(this.appActions.openModal('signup'));
-	}
-	resetPassword () {
-		this.closeModal();
-		this.ngRedux.dispatch(this.appActions.openModal('reset'));
 	}
 }

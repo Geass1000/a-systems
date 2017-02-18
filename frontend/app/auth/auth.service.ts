@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 
 import { UserService } from '../core/user.service';
 
-import { UserLogin, UserSignup } from './user';
+import { UserLogin, UserReset, UserSignup } from './user';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -28,11 +28,23 @@ export class AuthService {
 		return this.http.post(this.serverUrl + this.usersUrl, body, { headers : this.headers })
 										.map((resp) => {
 											localStorage.setItem('id_token', resp.json().token);
+											this.userService.setUserData();
 										})
 										.catch(this.handleError);
 	}
 
 	login (user : UserLogin) {
+		let body = JSON.stringify(user);
+
+		return this.http.post(this.serverUrl + this.authUrl, body, { headers : this.headers })
+										.map((resp) => {
+											localStorage.setItem('id_token', resp.json().token);
+											this.userService.setUserData();
+										})
+										.catch(this.handleError);
+	}
+
+	reset (user : UserReset) {
 		let body = JSON.stringify(user);
 
 		return this.http.post(this.serverUrl + this.authUrl, body, { headers : this.headers })

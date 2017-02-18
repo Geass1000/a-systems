@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 /* App Feature - Component */
 import { SignupComponent } from './signup.component';
 import { LoginComponent } from './login.component';
+import { ResetComponent } from './reset.component';
 
 /* App Feature - Service */
 import { AuthService } from './auth.service';
@@ -19,11 +20,13 @@ import { AuthService } from './auth.service';
 	],
   declarations: [
 		SignupComponent,
-		LoginComponent
+		LoginComponent,
+		ResetComponent
 	],
   exports: [
 		SignupComponent,
-		LoginComponent
+		LoginComponent,
+		ResetComponent
 	],
   providers: [
 		AuthService

@@ -39,6 +39,24 @@ $placeholder-height: 24px;
 		box-sizing: border-box;
 
 		width: 100%;
+
+		&.modal-end {
+			margin-bottom: 19px;
+		}
+	}
+}
+
+.icon-close {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+
+	color: rgba(31, 45, 61, 0.2);
+
+	cursor: pointer;
+
+	&:hover {
+		color: rgba(31, 45, 61, 0.5);
 	}
 }
 
@@ -169,8 +187,10 @@ $placeholder-height: 24px;
 				background: #f6f6f6;
 				color: $color-text-3;
 			}
+			& + .form-error {
+				margin-bottom: 6px;
+			}
 		}
-
 
 		.form-error {
 			color: $color-error-1;

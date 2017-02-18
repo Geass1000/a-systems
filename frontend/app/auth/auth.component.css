@@ -35,6 +35,17 @@
     align-items: center;
     box-sizing: border-box;
     width: 100%; }
+    .modal-window > section.modal-end {
+      margin-bottom: 19px; }
+
+.icon-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: rgba(31, 45, 61, 0.2);
+  cursor: pointer; }
+  .icon-close:hover {
+    color: rgba(31, 45, 61, 0.5); }
 
 .modal-header {
   margin-top: 35px;
@@ -118,6 +129,8 @@
       .modal-body form button[disabled] {
         background: #f6f6f6;
         color: #5C5C5C; }
+      .modal-body form button + .form-error {
+        margin-bottom: 6px; }
     .modal-body form .form-error {
       color: red;
       font-size: 13px; }

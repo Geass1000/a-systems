@@ -1,0 +1,32 @@
+<div class="modal-window modal-reset" [class.visible]="modalOpen | async">
+	<i class="fa fa-times icon-close" aria-hidden="true" (click)="closeModal()"></i>
+	<section class="modal-header">
+		<h1>Reset</h1>
+		<p>Reset your password.</p>
+	</section>
+	<section class="modal-body modal-end">
+		<form [formGroup]="resetForm" (ngSubmit)="onSubmit()">
+			<div class="form-group"
+				[class.focused]="resetForm.get('email').value || focusInput.email">
+				<label for="email">E-mail</label>
+				<input type="text" class="form-control" required
+					formControlName="email" name="email" id="email"
+					(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
+			</div>
+
+			<div class="form-group"
+				[class.focused]="resetForm.get('password').value || focusInput.password">
+				<label for="password">Password</label>
+				<input type="password" class="form-control" required
+					formControlName="password" name="password" id="password"
+					(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
+			</div>
+
+			<button type="submit" [disabled]="!resetForm.valid">Reset</button>
+
+			<div *ngIf="formError.serverError" class="form-error">
+				{{formError.serverError}}
+			</div>
+		</form>
+	</section>
+</div>

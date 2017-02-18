@@ -1,4 +1,5 @@
 <div class="modal-window modal-login" [class.visible]="modalOpen | async">
+	<i class="fa fa-times icon-close" aria-hidden="true" (click)="closeModal()"></i>
 	<section class="modal-header">
 		<h1>Sign up</h1>
 		<p>Sign up to create your account.</p>
@@ -58,7 +59,7 @@
 				</div>
 			</div>
 
-			<button type="submit" [disabled]="!signupForm.valid">Submit</button>
+			<button type="submit" [disabled]="!signupForm.valid">Sign up</button>
 		</form>
 	</section>
 	<section class="modal-footer">

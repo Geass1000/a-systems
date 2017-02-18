@@ -4,6 +4,11 @@ export class UserLogin {
 							 public password : string) { ; }
 }
 
+export class UserReset {
+	constructor (public email : string,
+							 public password : string) { ; }
+}
+
 export class UserSignup {
 	constructor (public name : string,
 							 public email : string,
