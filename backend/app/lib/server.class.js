@@ -36,7 +36,7 @@ class Server {
 	 * @constructor
 	 */
 	constructor () {
-		this.model = {};
+		this.db = {};
 
 		this.app = express();
 
@@ -70,7 +70,7 @@ class Server {
 		this.app.use(cors());
 
 		// Create connect to a database
-		require('../config/mongodb.database');
+		this.db.mongodb = require('../config/mongodb.database');
 	}
 
 	/**

@@ -17,7 +17,7 @@ router.route('/auth')
 			.post(AuthController.login);
 
 router.route('/users')
-			.post(AuthController.addUser);
+			.post(AuthController.addUser.bind(AuthController));
 router.route('/users/:id')
 			.get(jwtCheck, AuthController.getUser);
 

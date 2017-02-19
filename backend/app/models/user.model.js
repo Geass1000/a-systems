@@ -11,6 +11,11 @@ let connection = require('../config/mongodb.database');
 let UserValidator = require('../validators/user.validator');
 
 let userSchema = new Schema({
+	user_id : {
+		type : Number,
+		require : true,
+		unique : true
+	},
 	name : {
 		type : String,
 		require : true,
@@ -22,6 +27,7 @@ let userSchema = new Schema({
 	email : {
 		type : String,
 		require : true,
+		unique : true,
 		validate : UserValidator.isEmail
 	},
 	created_at : {
@@ -64,12 +70,23 @@ userSchema.methods.createToken = function () {
 };
 
 /**
- * Findign user in database "Users"
+ * Finding user in database "Users"
  *
- * @param  {String} password user password
+ * @param  {Object} user user info
  */
-userSchema.statics.findExisteUser = function (user, cb) {
-	return this.findOne({ $or: [ { name : user.name }, { email : user.email }, { email : user.name } ] }, cb);
+userSchema.statics.findUserLogin = function (user) {
+	return this.findOne({ $or: [ { name : user.name }, { email : user.email }, { email : user.name } ] }).exec();
 };
+userSchema.statics.findUserSignup = function (user) {
+	return this.findOne({ $or: [ { name : user.name }, { email : user.email } ] }).exec();
+};
+/**
+ * Finding max user id
+ *
+ */
+userSchema.statics.findMaxUserId = function () {
+	return this.findOne().sort({ user_id : -1 }).limit(1).exec();
+};
+
 
 module.exports = connection.model('User', userSchema);

@@ -15,7 +15,16 @@ class AuthController {
 	 * @class AuthController
 	 * @constructor
 	 */
-	constructor () { ; }
+	constructor () {
+		this.maxUserId = 0;
+		User.findMaxUserId()
+			.then((doc) => {
+				this.maxUserId = doc.user_id ? doc.user_id + 1 : 0;
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
 
 	/**
 	 * Create JWT token session.
@@ -26,30 +35,33 @@ class AuthController {
 	 * @class AuthController
 	 * @method login
 	 */
-	static login (req, res) {
+	login (req, res) {
 		let info = req.body;
 		if (!((info.name || info.email) && info.password)) {
 			res.status(400).json({ "message" : "All fields required" });
 			return;
 		}
-		User.findExisteUser(info, (err, doc) => {
-			if (err) {
-				res.status(500).json({ "message" : "Try sign up later" });
-				return;
-			}
-			if (!doc) {
-				res.status(400).json({ "message" : "A user with that username or email not exists" });
-				return;
-			}
-			if (!doc.validPassword(info.password)) {
-				res.status(400).json({ "message" : "The username(email) or password don't match" });
-				return;
-			}
+		User.findUserLogin(info)
+			.then((doc) => {
+				if (!doc) {
+					res.status(400).json({ "message" : "A user with that username or email not exists" });
+					return;
+				}
+				if (!doc.validPassword(info.password)) {
+					res.status(400).json({ "message" : "The username(email) or password don't match" });
+					return;
+				}
 
-			res.status(200).json({
-				"token" : doc.createToken()
+				res.status(200).json({
+					"token" : doc.createToken()
+				});
+			})
+			.catch((err) => {
+				if (err) {
+					res.status(500).json({ "message" : "Try sign up later" });
+					return;
+				}
 			});
-		});
 	}
 
 	/**
@@ -61,7 +73,7 @@ class AuthController {
  	 * @class AuthController
  	 * @method addUser
  	 */
-	static addUser (req, res) {
+	addUser (req, res) {
 		let info = req.body;
 		if (!(info.name && info.email && info.password)) {
 			res.status(400).json({ "message" : "All fields required" });
@@ -73,31 +85,39 @@ class AuthController {
 			res.status(400).json({ "message" : "All fields must be correct"	});
 			return;
 		}
+		User.findUserSignup(info)
+			.then((doc) => {
+				if (doc) {
+					res.status(400).json({ "message" : "A user with that username or email already exists" });
+					return;
+				}
 
-		User.findExisteUser(info, (err, doc) => {
-			if (err) {
-				res.status(500).json({ "message" : "Try sign up later" });
-				return;
-			}
-			if (doc) {
-				res.status(400).json({ "message" : "A user with that username or email already exists" });
-				return;
-			}
-
-			let user = new User();
-			user.name = info.name;
-			user.email = info.email;
-			user.setPassword(info.password);
-			user.save((err) => {
+				let user = new User();
+				user.user_id = this.maxUserId++;
+				user.name = info.name;
+				user.email = info.email;
+				user.setPassword(info.password);
+				user.save()
+					.then((doc) => {
+						res.status(201).json({
+							"token" : user.createToken()
+						});
+					})
+					.catch((err) => {
+						if (err) {
+							console.log(err);
+							res.status(500).json({ "message" : "Try sign up later" });
+							return;
+						}
+					});
+			})
+			.catch((err) => {
 				if (err) {
+					console.log(err);
 					res.status(500).json({ "message" : "Try sign up later" });
 					return;
 				}
-				res.status(201).json({
-					"token" : user.createToken()
-				});
 			});
-		});
 	}
 
 	/**
@@ -110,9 +130,9 @@ class AuthController {
  	 * @class AuthController
  	 * @method getUser
  	 */
-	static getUser (req, res) {
+	getUser (req, res) {
 		res.send('GetUser!');
 	}
 }
 
-module.exports = AuthController;
+module.exports = new AuthController();
