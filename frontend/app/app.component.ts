@@ -4,11 +4,11 @@ import { Observable } from 'rxjs/Observable';
 
 import { UserService } from './core/user.service';
 
-/* Redux - Reducers */
-import { AppReducer, INITIAL_STATE } from './app.reducer';
+/* Redux - Reducer */
+import { AppReducer, INITIAL_STATE, IAppState } from './reducers/app.store';
 
 /* Redux - Actions */
-import { AppActions } from './app.actions';
+import { ModalActions } from './actions/modal.actions';
 
 @Component({
 	moduleId: module.id,
@@ -21,8 +21,8 @@ export class AppComponent  {
 	@select(['modal', 'open']) modalOpen : any;
 
 	constructor (public userService : UserService,
-							 private ngRedux : NgRedux<any>,
-						 	 private appActions : AppActions) {
+							 private ngRedux : NgRedux<IAppState>,
+						 	 private modalActions : ModalActions) {
 		this.ngRedux.configureStore(AppReducer, INITIAL_STATE, null, []);
 	}
 
@@ -31,16 +31,16 @@ export class AppComponent  {
 	}
 
 	login () {
-		this.ngRedux.dispatch(this.appActions.openModal('login'));
+		this.ngRedux.dispatch(this.modalActions.openModal('login'));
 	}
 	signup () {
-		this.ngRedux.dispatch(this.appActions.openModal('signup'));
+		this.ngRedux.dispatch(this.modalActions.openModal('signup'));
 	}
 	logout () {
 		this.userService.logout();
 	}
 
 	closeAllModal () {
-		this.ngRedux.dispatch(this.appActions.closeAllModal());
+		this.ngRedux.dispatch(this.modalActions.closeAllModal());
 	}
 }

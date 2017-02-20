@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 
 import { UserSignup } from './user';
 
-import { AppActions } from '../app.actions';
+import { ModalActions } from '../actions/modal.actions';
 
 @Component({
 	moduleId: module.id,
@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit  {
 	constructor (private fb : FormBuilder,
 							 private authService : AuthService,
 						 	 private ngRedux : NgRedux<any>,
-						 	 private appActions : AppActions) { }
+						 	 private modalActions : ModalActions) { }
 
 	ngOnInit () : void {
     this.buildForm();
@@ -165,10 +165,10 @@ export class SignupComponent implements OnInit  {
 	}
 
 	closeModal () {
-		this.ngRedux.dispatch(this.appActions.closeAllModal());
+		this.ngRedux.dispatch(this.modalActions.closeAllModal());
 	}
 	login () {
 		this.closeModal();
-		this.ngRedux.dispatch(this.appActions.openModal('login'));
+		this.ngRedux.dispatch(this.modalActions.openModal('login'));
 	}
 }

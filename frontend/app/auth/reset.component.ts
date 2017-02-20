@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 
 import { UserReset } from './user';
 
-import { AppActions } from '../app.actions';
+import { ModalActions } from '../actions/modal.actions';
 
 @Component({
 	moduleId: module.id,
@@ -22,7 +22,7 @@ export class ResetComponent implements OnInit  {
 	constructor (private fb : FormBuilder,
 							 private authService : AuthService,
 						 	 private ngRedux : NgRedux<any>,
-						 	 private appActions : AppActions) { ; }
+						 	 private modalActions : ModalActions) { ; }
 
 	ngOnInit () : void {
 		this.resetForm = this.fb.group({
@@ -77,6 +77,6 @@ export class ResetComponent implements OnInit  {
 	}
 
 	closeModal () {
-		this.ngRedux.dispatch(this.appActions.closeAllModal());
+		this.ngRedux.dispatch(this.modalActions.closeAllModal());
 	}
 }
