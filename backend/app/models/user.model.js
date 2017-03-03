@@ -64,8 +64,8 @@ userSchema.methods.validPassword = function (password) {
 userSchema.methods.createToken = function () {
 	let expires = 604800; // 60s * 60m * 24h * 7d = 604800s (7 days)
 	return jwt.sign({
-		name : this.name,
-		email : this.email
+		id : this.user_id,
+		name : this.name
 	}, config.secret, { expiresIn : expires });
 };
 

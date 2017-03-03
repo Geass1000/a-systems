@@ -11,13 +11,16 @@
 					<a (click)="login()">Login</a>
 				</div>
 				<div *ngIf="loggedIn()">
+					<a routerLink="/editor" routerLinkActive="active">Editor</a>
 					<a (click)="logout()">Logout</a>
 				</div>
 			</nav>
 		</div>
 	</section>
 </header>
+<!--
 <h1>Hello {{userService.getUserName()}}! Is the {{title}} page.</h1>
+-->
 <router-outlet></router-outlet>
 
 <!-- Modal -->

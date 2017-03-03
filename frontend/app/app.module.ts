@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
 import { AuthModule } from './auth/auth.module';
 import { ProfileModule } from './profile/profile.module';
+import { EditorModule } from './editor/editor.module';
 
 /* Routing Module */
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +28,7 @@ import { ModalActions } from './actions/modal.actions';
 		HomeModule,
 		AuthModule,
 		ProfileModule,
+		EditorModule,
 		AppRoutingModule
 	],
   declarations: [
