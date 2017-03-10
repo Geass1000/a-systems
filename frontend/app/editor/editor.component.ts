@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { UserService } from '../core/user.service';
 
+import { SVGViewer } from './svg-viewer.class';
+
 @Component({
 	moduleId: module.id,
   selector: 'as-editor',
@@ -9,24 +11,52 @@ import { UserService } from '../core/user.service';
   styleUrls: [ 'editor.component.css' ]
 })
 export class EditorComponent  {
-	title = 'Editor';
-	private workspaceWidth : number = 8000;
-	private workspaceHeight : number = 8000;
+	private loc : string = location.href;
 
-	private viewer = { x : 0,	y : 0, w : this.workspaceWidth,	h : this.workspaceHeight };
+	private workspaceWidth : number;
+	private workspaceHeight : number;
+
+	private matrixTransform : string;
+
+	private svgViewer : SVGViewer;
 
 	constructor (private userService : UserService) {
-	}
-
-	getViewer () {
-		return `${this.viewer.x} ${this.viewer.y} ${this.viewer.w} ${this.viewer.h}`;
+		this.workspaceWidth = 2000;
+		this.workspaceHeight = 2000;
+		this.svgViewer = new SVGViewer(this.workspaceWidth, this.workspaceHeight);
+		this.matrixTransform = this.svgViewer.getMatrix();
 	}
 
 	logout () {
 		this.userService.logout();
 	}
 
-	onMouseDown (event) {
-		console.log(event);
+	/* Event Section */
+
+	private prevX : number;
+	private prevY : number;
+	private selectWorkspace : boolean = false;
+
+	onMouseDownWorkspace (event : any) {
+		this.prevX = event.clientX;
+		this.prevY = event.clientY;
+		this.selectWorkspace = true;
+		//console.log(event);
+	}
+	onMouseMoveWorkspace (event : any) {
+		if (this.selectWorkspace) {
+			let dX = event.clientX - this.prevX,
+					dY = event.clientY - this.prevY;
+			this.prevX = event.clientX;
+			this.prevY = event.clientY;
+			this.matrixTransform = this.svgViewer.translate(dX, dY);
+			//console.log(this.matrixTransform);
+		}
+	}
+	onMouseUpWorkspace (event : any) {
+		this.selectWorkspace = false;
+	}
+	onMouseOutWorkspace (event : any) {
+		this.selectWorkspace = false;
 	}
 }

@@ -1,17 +1,24 @@
 <svg version="1.1" class="svg-element" width="100%" height="100%"
-		 (mousedown)="onMouseDown($event)" >
+	(mousedown)="onMouseDownWorkspace($event)"
+	(mousemove)="onMouseMoveWorkspace($event)"
+	(mouseup)="onMouseUpWorkspace($event)"
+	(mouseout)="onMouseOutWorkspace($event)"
+>
 	<svg:defs>
-		<svg:pattern id="p-smallGrid" width="15" height="15" patternUnits="userSpaceOnUse">
-			<svg:path d="M 15 0 L 0 0 0 15" fill="none" stroke="gray" stroke-width="0.5"/>
+		<svg:pattern id="p-smallGrid" width="20" height="20" x="0" y="0" patternUnits="userSpaceOnUse">
+			<svg:path d="M 20 0 L 0 0 0 20" class="smallGrid"/>
 		</svg:pattern>
-		<svg:pattern id="p-grid" width="75" height="75" patternUnits="userSpaceOnUse">
-			<svg:rect width="75" height="75" fill="url(#p-smallGrid)"/>
-			<svg:path d="M 75 0 L 0 0 0 75" fill="none" stroke="gray" stroke-width="1"/>
+		<svg:pattern id="p-grid" width="100" height="100" x="0" y="0" patternUnits="userSpaceOnUse">
+			<svg:rect width="100" height="100" class="grid"
+				[attr.fill]="'url(' + loc + '#p-smallGrid)'"
+			/>
+			<svg:path d="M 100 0 L 0 0 0 100" fill="none" class="grid"/>
 		</svg:pattern>
 	</svg:defs>
 
-	<svg:g id="workspace">
-		<svg:rect class="grid" x="0" y="0" [attr.width]="workspaceWidth" [attr.height]="workspaceHeight"/>
+	<svg:g id="workspace" [attr.transform]="matrixTransform">
+		<svg:rect class="grid" x="0" y="0" [attr.fill]="'url(' + loc + '#p-grid)'"
+			[attr.width]="workspaceWidth" [attr.height]="workspaceHeight"/>
 		<svg:rect class="fil0 str0" x="100" y="100" width="50" height="50"/>
 	</svg:g>
 </svg>

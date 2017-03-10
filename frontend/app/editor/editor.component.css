@@ -22,5 +22,14 @@
   left: 0;
   z-index: 0; }
 
+.smallGrid {
+  fill: none;
+  stroke: rgba(128, 128, 128, 0.8);
+  stroke-width: 1px; }
+
 .grid {
-  fill: url(#p-grid); }
+  stroke: gray;
+  stroke-width: 1px; }
+
+svg:active {
+  cursor: move; }
