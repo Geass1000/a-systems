@@ -6,13 +6,17 @@ import { EditorRoutingModule } from './editor-routing.module';
 
 /* App Feature - Component */
 import { EditorComponent } from './editor.component';
+import { RoomComponent } from './room/room.component';
 
 /* App Feature - Service */
 import { AuthService } from '../auth/auth.service';
 
 @NgModule({
   imports:      [ CommonModule, EditorRoutingModule ],
-  declarations: [ EditorComponent ],
+  declarations: [
+		EditorComponent,
+		RoomComponent
+	],
   exports:      [ EditorComponent ],
   providers:    [ AuthService ]
 })
