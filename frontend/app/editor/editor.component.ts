@@ -4,6 +4,9 @@ import { UserService } from '../core/user.service';
 
 import { SVGViewer } from './svg-viewer.class';
 
+import { NgRedux, select } from '@angular-redux/store';
+import { EditorActions } from '../actions/editor.actions';
+
 @Component({
 	moduleId: module.id,
   selector: 'as-editor',
@@ -20,7 +23,9 @@ export class EditorComponent  {
 
 	private svgViewer : SVGViewer;
 
-	constructor (private userService : UserService) {
+	constructor (private userService : UserService,
+							 private ngRedux : NgRedux<any>,
+						 	 private editorActions : EditorActions) {
 		this.workspaceWidth = 2000;
 		this.workspaceHeight = 2000;
 		this.svgViewer = new SVGViewer(this.workspaceWidth, this.workspaceHeight);
@@ -35,9 +40,15 @@ export class EditorComponent  {
 
 	private prevX : number;
 	private prevY : number;
+	private startX : number;
+	private startY : number;
 	private selectWorkspace : boolean = false;
+	@select(['editor', 'selectElement']) selectElement : any;
 
 	onMouseDownWorkspace (event : any) {
+		this.startX = event.clientX;
+		this.startY = event.clientY;
+
 		this.prevX = event.clientX;
 		this.prevY = event.clientY;
 		this.selectWorkspace = true;
@@ -54,9 +65,22 @@ export class EditorComponent  {
 		}
 	}
 	onMouseUpWorkspace (event : any) {
+		if (this.startX === event.clientX && this.startY === event.clientY) {
+			if (event.target.closest('.element')) {
+				this.ngRedux.dispatch(this.editorActions.selectElement(true));
+				console.log("Selected!");
+			}
+			else {
+				this.ngRedux.dispatch(this.editorActions.selectElement(false));
+				console.log("No Selected!");
+			}
+		}
+
 		this.selectWorkspace = false;
 	}
 	onMouseOutWorkspace (event : any) {
-		this.selectWorkspace = false;
+		if (!event.target.closest('svg')) {
+			this.selectWorkspace = false;
+		}
 	}
 }

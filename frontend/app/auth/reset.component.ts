@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NgRedux, select } from '@angular-redux/store';
 
 import { AuthService } from './auth.service';
 
 import { UserReset } from './user';
 
+import { NgRedux, select } from '@angular-redux/store';
 import { ModalActions } from '../actions/modal.actions';
 
 @Component({

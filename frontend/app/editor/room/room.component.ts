@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+import { NgRedux, select } from '@angular-redux/store';
+import { EditorActions } from '../../actions/editor.actions';
+
 class IPoint {
 	constructor (private x : number, private y : number) { ; }
 	valueOf () {
@@ -22,12 +25,14 @@ interface IRoom {
 })
 export class RoomComponent  {
 	title = 'Home';
+	@select(['editor', 'selectElement']) selectElement : any;
 
 	private room : IRoom = {
 		floor : []
 	};
 
-	constructor () {
+	constructor (private ngRedux : NgRedux<any>,
+							 private editorActions : EditorActions) {
 		this.room.floor = [
 			new IPoint(1000, 1000),
 			new IPoint(1200, 1000),

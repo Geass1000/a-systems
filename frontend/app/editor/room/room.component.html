@@ -1,5 +1,5 @@
 <svg:g class="room">
-	<svg:g class="selected">
+	<svg:g class="element" [class.selected]="selectElement | async">
 		<svg:polygon points="1010,1010 1190,1010 1190,1190 1010,1190" class="floor" />
 		<svg:g class="selectable">
 			<svg:circle cx="1010" cy="1010" r="20" />
