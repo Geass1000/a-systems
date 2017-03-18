@@ -3,19 +3,8 @@ import { Component } from '@angular/core';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 
-class IPoint {
-	constructor (private x : number, private y : number) { ; }
-	valueOf () {
-		return [this.x, this.y];
-	}
-	toString () {
-		return `${this.x},${this.y}`;
-	}
-}
-
-interface IRoom {
-	floor : IPoint[]
-}
+import { Room } from './room.class';
+import { Point } from './point.class';
 
 @Component({
 	moduleId: module.id,
@@ -27,18 +16,21 @@ export class RoomComponent  {
 	title = 'Home';
 	@select(['editor', 'selectElement']) selectElement : any;
 
-	private room : IRoom = {
-		floor : []
-	};
+	private room : Room;
+	private rooms : Room[];
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions) {
-		this.room.floor = [
-			new IPoint(1000, 1000),
-			new IPoint(1200, 1000),
-			new IPoint(1200, 1200),
-			new IPoint(1000, 1200)
-		];
+		this.room = new Room ([
+			new Point(1000, 1000),
+			new Point(1200, 1000),
+			new Point(1200, 1200),
+			new Point(1000, 1200)
+		], 20);
 	}
-
+	pointClick(el : any) {
+		console.log(el);
+		el.x = 800;
+		this.room.updatePoints();
+	}
 }

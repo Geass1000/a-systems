@@ -18,10 +18,11 @@ export class EditorComponent  {
 
 	private workspaceWidth : number;
 	private workspaceHeight : number;
-
 	private matrixTransform : string;
 
 	private svgViewer : SVGViewer;
+
+	@select(['editor', 'selectElement']) selectElement$ : any;
 
 	constructor (private userService : UserService,
 							 private ngRedux : NgRedux<any>,
@@ -43,7 +44,6 @@ export class EditorComponent  {
 	private startX : number;
 	private startY : number;
 	private selectWorkspace : boolean = false;
-	@select(['editor', 'selectElement']) selectElement : any;
 
 	onMouseDownWorkspace (event : any) {
 		this.startX = event.clientX;

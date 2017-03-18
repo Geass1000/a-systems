@@ -1,7 +1,6 @@
 .floor {
   fill: orange;
-  stroke: #969696;
-  stroke-width: 20px; }
+  stroke: #969696; }
 
 .selectable {
   fill: rgba(30, 131, 236, 0); }
@@ -9,6 +8,9 @@
 .selected .selectable {
   fill: rgba(30, 131, 236, 0.2);
   cursor: pointer; }
+
+.selected polygon {
+  stroke: #1e83ec; }
 
 .selected .selectable circle:hover {
   fill: rgba(30, 131, 236, 0.5); }
