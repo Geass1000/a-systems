@@ -5,9 +5,10 @@
 }
 
 .selectable {
-	fill : rgba(30,131,236,0);
+	display: none;
 }
 .selected .selectable {
+	display: block;
 	fill : rgba(30,131,236,0.2);
 	cursor: pointer;
 }

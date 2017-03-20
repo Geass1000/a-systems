@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 
@@ -12,12 +13,16 @@ import { Point } from './point.class';
 	templateUrl: 'room.component.html',
   styleUrls: [ 'room.component.css' ]
 })
-export class RoomComponent  {
+export class RoomComponent implements OnInit, OnDestroy {
 	title = 'Home';
-	@select(['editor', 'selectElement']) selectElement : any;
 
 	private room : Room;
 	private rooms : Room[];
+
+	/* Redux */
+	private subscription : any[] = [];
+	@select(['editor', 'selectElement']) selectElement$ : Observable<boolean>;
+	private selectElement : boolean;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions) {
@@ -28,7 +33,14 @@ export class RoomComponent  {
 			new Point(1000, 1200)
 		], 20);
 	}
-	pointClick(el : any) {
+	ngOnInit () {
+		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
+	}
+	ngOnDestroy () {
+		this.subscription.map((data) => data.unsubscribe());
+	}
+	pointClick (el : any) {
+		console.log(this.selectElement);
 		console.log(el);
 		el.x = 800;
 		this.room.updatePoints();
