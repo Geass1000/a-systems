@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { UserService } from '../core/user.service';
-
-import { SVGViewer } from './svg-viewer.class';
-
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
+
+import { MatrixTransform } from './matrix-transform.class';
 
 @Component({
 	moduleId: module.id,
@@ -20,22 +18,20 @@ export class EditorComponent implements OnInit, OnDestroy {
 	private workspaceWidth : number;
 	private workspaceHeight : number;
 	private matrixTransform : string;
-
-	private svgViewer : SVGViewer;
+	private workspaceMatrix : MatrixTransform;
+	private workspaceX : number;
+	private workspaceY : number;
 
 	private subscription : any[] = [];
 	@select(['editor', 'selectElement']) selectElement$ : Observable<boolean>;
 	private selectElement : boolean;
 
-	constructor (private userService : UserService,
-							 private ngRedux : NgRedux<any>,
+	constructor (private ngRedux : NgRedux<any>,
 						 	 private editorActions : EditorActions) {
 		this.workspaceWidth = 2000;
 		this.workspaceHeight = 2000;
-		this.svgViewer = new SVGViewer(this.workspaceWidth, this.workspaceHeight);
-		this.matrixTransform = this.svgViewer.getMatrix();
+		this.initWorkspace();
 	}
-
 	ngOnInit () {
 		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
 	}
@@ -43,8 +39,17 @@ export class EditorComponent implements OnInit, OnDestroy {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
-	logout () {
-		this.userService.logout();
+	initWorkspace () {
+		let windowWidth  : number = document.documentElement.clientWidth,
+				windowHeight : number = document.documentElement.clientHeight;
+		let halfWindowWidth  : number = windowWidth / 2,
+				halfWindowHeight : number = windowHeight / 2;
+		let halfWorkspaceWidth  : number = this.workspaceWidth / 2,
+				halfWorkspaceHeight : number = this.workspaceHeight / 2;
+		this.workspaceX = halfWindowWidth - halfWorkspaceWidth;
+		this.workspaceY = halfWindowHeight - halfWorkspaceHeight;
+		this.workspaceMatrix = new MatrixTransform (this.workspaceX, this.workspaceY);
+		this.matrixTransform = this.workspaceMatrix.getMatrix();
 	}
 
 	/* Event Section */
@@ -71,7 +76,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 					dY = event.clientY - this.prevY;
 			this.prevX = event.clientX;
 			this.prevY = event.clientY;
-			this.matrixTransform = this.svgViewer.translate(dX, dY);
+			this.matrixTransform = this.workspaceMatrix.translate(dX, dY);
 			//console.log(this.matrixTransform);
 		}
 	}
@@ -90,7 +95,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 		this.selectWorkspace = false;
 	}
 	onMouseOutWorkspace (event : any) {
-		if (!event.target.closest('svg')) {
+		if (!event.relatedTarget || !event.relatedTarget.closest('svg')) {
 			this.selectWorkspace = false;
 		}
 	}
