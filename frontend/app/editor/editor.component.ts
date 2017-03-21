@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { UserService } from '../core/user.service';
 
 import { SVGViewer } from './svg-viewer.class';
 
+import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 
@@ -13,7 +14,7 @@ import { EditorActions } from '../actions/editor.actions';
 	templateUrl: 'editor.component.html',
   styleUrls: [ 'editor.component.css' ]
 })
-export class EditorComponent  {
+export class EditorComponent implements OnInit, OnDestroy {
 	private loc : string = location.href;
 
 	private workspaceWidth : number;
@@ -22,7 +23,9 @@ export class EditorComponent  {
 
 	private svgViewer : SVGViewer;
 
-	@select(['editor', 'selectElement']) selectElement$ : any;
+	private subscription : any[] = [];
+	@select(['editor', 'selectElement']) selectElement$ : Observable<boolean>;
+	private selectElement : boolean;
 
 	constructor (private userService : UserService,
 							 private ngRedux : NgRedux<any>,
@@ -31,6 +34,13 @@ export class EditorComponent  {
 		this.workspaceHeight = 2000;
 		this.svgViewer = new SVGViewer(this.workspaceWidth, this.workspaceHeight);
 		this.matrixTransform = this.svgViewer.getMatrix();
+	}
+
+	ngOnInit () {
+		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
+	}
+	ngOnDestroy () {
+		this.subscription.map((data) => data.unsubscribe());
 	}
 
 	logout () {
@@ -51,7 +61,8 @@ export class EditorComponent  {
 
 		this.prevX = event.clientX;
 		this.prevY = event.clientY;
-		this.selectWorkspace = true;
+		let el = event.target.closest('.element');
+		this.selectWorkspace = !(this.selectElement && el && el.classList.contains("selected"));
 		//console.log(event);
 	}
 	onMouseMoveWorkspace (event : any) {
