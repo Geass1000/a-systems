@@ -25,6 +25,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 	private subscription : any[] = [];
 	@select(['editor', 'selectElement']) selectElement$ : Observable<boolean>;
 	private selectElement : boolean;
+	@select(['editor', 'isInit']) isInit$ : Observable<boolean>;
+	private isInit : boolean;
 
 	constructor (private ngRedux : NgRedux<any>,
 						 	 private editorActions : EditorActions) {
@@ -34,6 +36,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 	}
 	ngOnInit () {
 		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
+		this.subscription.push(this.isInit$.subscribe((data) => this.isInit = data));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
@@ -50,6 +53,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 		this.workspaceY = halfWindowHeight - halfWorkspaceHeight;
 		this.workspaceMatrix = new MatrixTransform (this.workspaceX, this.workspaceY);
 		this.matrixTransform = this.workspaceMatrix.getMatrix();
+	}
+
+	onInitWorkspace () {
+		this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
 	}
 
 	/* Event Section */

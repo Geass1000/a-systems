@@ -3,8 +3,9 @@ import { IAction } from '../shared/interfaces/action.interface';
 
 @Injectable()
 export class UserActions {
-	static readonly SET_USER_ID = 'SET_USER_ID(ID)';
-	static readonly SET_USER_NAME = 'SET_USER_NAME(NAME)';
+	static readonly CLASS_NAME = "USER_ACTIONS:";
+	static readonly SET_USER_ID = UserActions.CLASS_NAME + 'SET_USER_ID(ID)';
+	static readonly SET_USER_NAME = UserActions.CLASS_NAME + 'SET_USER_NAME(NAME)';
 
 	setUserId (id : number) : IAction {
 		if (!id) throw new Error("Id required!");

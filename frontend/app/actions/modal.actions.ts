@@ -3,8 +3,9 @@ import { IAction } from '../shared/interfaces/action.interface';
 
 @Injectable()
 export class ModalActions {
-	static readonly OPEN_MODAL = 'OPEN_MODAL(NAME)';
-	static readonly CLOSE_ALL_MODAL = 'CLOSE_ALL_MODAL';
+	static readonly CLASS_NAME = "MODAL_ACTIONS:";
+	static readonly OPEN_MODAL = ModalActions.CLASS_NAME + 'OPEN_MODAL(NAME)';
+	static readonly CLOSE_ALL_MODAL = ModalActions.CLASS_NAME + 'CLOSE_ALL_MODAL';
 
 	openModal (name : string) : IAction {
 		if (!name) throw new Error("Name modal required!");

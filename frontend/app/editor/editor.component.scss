@@ -2,15 +2,100 @@
 
 .initWorkspace {
 	width: 700px;
-	height: 100px;
 	position: absolute;
 	top: 80px;
 	left: 0;
 	right: 0;
 	z-index: 1;
 	margin: 0 auto;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
 
 	background: #fff;
+
+	.initWorkspaceLogo {
+		width: 220px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		background-color: $color-button-1;
+
+		img {
+			width: 150px;
+		}
+	}
+	.initWorkspaceContent {
+		padding: 25px 30px;
+
+		.form-header {
+			margin-bottom: 15px;
+			color: $color-text-3;
+		}
+		.form-group {
+			margin-right: 15px;
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+		label {
+			margin-bottom: 10px;
+			color: $color-text-3;
+		}
+		input {
+			box-sizing: border-box;
+			width: 200px;
+			margin-bottom: 15px;
+			padding: 7px 10px;
+
+			border: 1px solid $color-text-3;
+			border-radius: 3px;
+
+			&:hover, &:focus {
+				border-color: $color-text-1;
+				color: $color-text-1;
+			}
+		}
+		button {
+			box-sizing: border-box;
+			width: 200px;
+
+			margin-right: 15px;
+			padding: 7px 15px;
+
+			background: $color-button-1;
+			border: 0;
+			border-radius: 5px;
+
+			color: #fff;
+			font-size: $font-size-medium;
+			font-weight: bold;
+
+			cursor: pointer;
+
+			&:last-child {
+				margin-right: 0;
+			}
+			&:not([disabled]):hover,
+			&:not([disabled]):focus {
+				background: $color-button-2;
+			}
+			&[disabled] {
+				background: #f6f6f6;
+				color: $color-text-3;
+			}
+		}
+	}
+
+	.flex-row {
+		display: flex;
+		flex-direction: row;
+	}
+	.flex-column {
+		display: flex;
+		flex-direction: column;
+	}
 }
 
 .svg-element {
