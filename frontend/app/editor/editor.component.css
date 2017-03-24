@@ -7,12 +7,16 @@
 /* No important context */
 /* Main context */
 /* Important context */
-.str0 {
-  stroke: #A26161;
-  stroke-width: 2; }
-
-.fil0 {
-  fill: #F3942F; }
+.initWorkspace {
+  width: 700px;
+  height: 100px;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  margin: 0 auto;
+  background: #fff; }
 
 .svg-element {
   position: absolute;

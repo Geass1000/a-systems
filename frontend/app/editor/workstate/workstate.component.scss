@@ -1,0 +1,82 @@
+@import "../../shared/scss/global.scss";
+
+.workstate {
+	width: 250px;
+	position: absolute;
+	top: 55px;
+	bottom: 0;
+	right: 0;
+
+	background-color: rgba(255, 255, 255, 0.95);
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.22);
+
+	.form-item {
+		margin-bottom: 5px;
+	}
+
+	.form-header {
+		padding: 10px 20px;
+		margin-bottom: 15px;
+
+		background-color: rgba(128, 128, 128, 0.1);
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+		color: $color-text-3;
+		font-size: 20px;
+	}
+
+	.form-content {
+		box-sizing: border-box;
+		width: 100%;
+		padding: 0 20px;
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+
+			color: $color-text-3;
+
+			cursor: pointer;
+		}
+		input {
+			box-sizing: border-box;
+			width: 100%;
+			margin-bottom: 15px;
+			padding: 7px 10px;
+
+			border-radius: 3px;
+
+			&:hover, &:focus {
+				border-color: $color-text-1;
+				color: $color-text-1;
+			}
+		}
+		button {
+			box-sizing: border-box;
+			width: 100%;
+
+			margin-bottom: 15px;
+			padding: 7px 15px;
+
+			background: $color-button-1;
+			border: 0;
+			border-radius: 5px;
+
+			color: #fff;
+			font-size: $font-size-medium;
+			font-weight: bold;
+
+			cursor: pointer;
+
+			&:not([disabled]):hover,
+			&:not([disabled]):focus {
+				background: $color-button-2;
+			}
+			&[disabled] {
+				background: #f6f6f6;
+				color: $color-text-3;
+			}
+		}
+	}
+}
