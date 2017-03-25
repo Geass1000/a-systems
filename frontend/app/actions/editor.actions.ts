@@ -6,6 +6,7 @@ export class EditorActions {
 	static readonly CLASS_NAME = "EDITOR_ACTIONS:";
 	static readonly SELECT_ELEMENT = EditorActions.CLASS_NAME + 'SELECT_ELEMENT';
 	static readonly INIT_WORKSPACE = EditorActions.CLASS_NAME + 'INIT_WORKSPACE';
+	static readonly UPDATE_WORKSPACE_SIZE = EditorActions.CLASS_NAME + 'UPDATE_WORKSPACE_SIZE';
 
 	selectElement (state : boolean) : IAction {
     return {
@@ -20,6 +21,15 @@ export class EditorActions {
       type : EditorActions.INIT_WORKSPACE,
 			payload : {
 				state : state
+			}
+    };
+  }
+	updateWorkspaceSize (width : number, height : number) : IAction {
+    return {
+      type : EditorActions.INIT_WORKSPACE,
+			payload : {
+				width : width,
+				height : height
 			}
     };
   }

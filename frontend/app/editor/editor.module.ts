@@ -7,6 +7,7 @@ import { EditorRoutingModule } from './editor-routing.module';
 
 /* App Feature - Component */
 import { EditorComponent } from './editor.component';
+import { InitWorkspaceComponent } from './init-workspace/init-workspace.component';
 import { WorkstateComponent } from './workstate/workstate.component';
 import { RoomComponent } from './room/room.component';
 
@@ -21,6 +22,7 @@ import { AuthService } from '../auth/auth.service';
 	],
   declarations: [
 		EditorComponent,
+		InitWorkspaceComponent,
 		WorkstateComponent,
 		RoomComponent
 	],

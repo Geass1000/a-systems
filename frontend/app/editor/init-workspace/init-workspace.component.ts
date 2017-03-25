@@ -8,17 +8,17 @@ import { IWorkspace } from '../../shared/interfaces/editor.interface';
 
 @Component({
 	moduleId: module.id,
-  selector: 'as-editor-workstate',
-	templateUrl: 'workstate.component.html',
-  styleUrls: [ 'workstate.component.css' ]
+  selector: 'as-editor-init-workspace',
+	templateUrl: 'init-workspace.component.html',
+  styleUrls: [ 'init-workspace.component.css' ]
 })
-export class WorkstateComponent implements OnInit, OnDestroy {
+export class InitWorkspaceComponent implements OnInit, OnDestroy {
 	title = 'Home';
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'selectElement']) selectElement$ : Observable<boolean>;
-	private selectElement : boolean;
+	@select(['editor', 'isInit']) isInit$ : Observable<boolean>;
+	private isInit : boolean;
 	@select(['editor', 'workspace']) workspace$ : Observable<IWorkspace>;
 	private workspace : IWorkspace;
 
@@ -26,10 +26,15 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 							 private editorActions : EditorActions) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
+		this.subscription.push(this.isInit$.subscribe((data) => this.isInit = data));
 		this.subscription.push(this.workspace$.subscribe((data) => this.workspace = data));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
+	}
+
+	onInitWorkspace () {
+		this.ngRedux.dispatch(this.editorActions.updateWorkspaceSize(this.workspace.width, this.workspace.height));
+		this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
 	}
 }

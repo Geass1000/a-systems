@@ -3,12 +3,12 @@
 		<h1 class="form-header">Рабочая область</h1>
 		<div class="form-content">
 			<div class="form-group">
-				<label>Высота</label>
-				<input type='text' />
+				<label>Ширина</label>
+				<input type='text' [(ngModel)]="workspace.width" />
 			</div>
 			<div class="form-group">
-				<label>Ширина</label>
-				<input type='text' />
+				<label>Высота</label>
+				<input type='text' [(ngModel)]="workspace.height" />
 			</div>
 			<button>Применить</button>
 		</div>

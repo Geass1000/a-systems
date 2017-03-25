@@ -1,0 +1,27 @@
+<section *ngIf="!isInit" class="initWorkspace">
+	<div class="initWorkspaceLogo">
+		<img src="app/shared/images/logo3.png" />
+	</div>
+	<div class="initWorkspaceContent">
+		<h1 class="form-header">Размеры участка</h1>
+		<div class="form-content">
+			<div class="form-group flex-column">
+				<label>Ширина</label>
+				<input type="text" [(ngModel)]="workspace.width" />
+			</div>
+			<div class="form-group flex-column">
+				<label>Высота</label>
+				<input type="text" [(ngModel)]="workspace.height" />
+			</div>
+			<select>
+				<option value="cm">см</option>
+				<option value="m">м</option>
+			</select>
+		</div>
+
+		<div class="flex-row">
+			<button (click)="onInitWorkspace()">Создать</button>
+			<button (click)="onInitWorkspace()">Открыть</button>
+		</div>
+	</div>
+</section>
