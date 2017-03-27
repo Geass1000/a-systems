@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IAction } from '../shared/interfaces/action.interface';
+import { ITexture } from '../shared/interfaces/editor.interface';
 
 @Injectable()
 export class EditorActions {
@@ -7,6 +8,7 @@ export class EditorActions {
 	static readonly SELECT_ELEMENT = EditorActions.CLASS_NAME + 'SELECT_ELEMENT';
 	static readonly INIT_WORKSPACE = EditorActions.CLASS_NAME + 'INIT_WORKSPACE';
 	static readonly UPDATE_WORKSPACE_SIZE = EditorActions.CLASS_NAME + 'UPDATE_WORKSPACE_SIZE';
+	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
 
 	selectElement (state : boolean) : IAction {
     return {
@@ -33,4 +35,12 @@ export class EditorActions {
 			}
     };
   }
+	addTexture (texture : ITexture) {
+		return {
+			type : EditorActions.ADD_TEXTURE,
+			payload : {
+				texture : texture
+			}
+		};
+	}
 }

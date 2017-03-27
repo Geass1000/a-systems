@@ -1,19 +1,21 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 
-import { IWorkspace } from '../../shared/interfaces/editor.interface';
+import { IWorkspace, ITexture } from '../../shared/interfaces/editor.interface';
 
 @Component({
 	moduleId: module.id,
-  selector: 'as-editor-init-workspace',
-	templateUrl: 'init-workspace.component.html',
-  styleUrls: [ 'init-workspace.component.css' ]
+  selector: 'as-editor-radio-texture',
+	templateUrl: 'radio-texture.component.html',
+  styleUrls: [ 'radio-texture.component.css' ]
 })
-export class InitWorkspaceComponent implements OnInit, OnDestroy {
+export class RadioTextureComponent implements OnInit, OnDestroy {
 	title = 'Home';
+	private texture : string;
+	@Input('width') width : number = 100;
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -36,8 +38,5 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 	onInitWorkspace () {
 		this.ngRedux.dispatch(this.editorActions.updateWorkspaceSize(this.workspace.width, this.workspace.height));
 		this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
-	}
-
-	onOpenWorkspace () {
 	}
 }

@@ -10,6 +10,7 @@ import { EditorComponent } from './editor.component';
 import { InitWorkspaceComponent } from './init-workspace/init-workspace.component';
 import { WorkstateComponent } from './workstate/workstate.component';
 import { RoomComponent } from './room/room.component';
+import { RadioTextureComponent } from './radio-texture/radio-texture.component';
 
 /* App Feature - Service */
 import { AuthService } from '../auth/auth.service';
@@ -24,7 +25,8 @@ import { AuthService } from '../auth/auth.service';
 		EditorComponent,
 		InitWorkspaceComponent,
 		WorkstateComponent,
-		RoomComponent
+		RoomComponent,
+		RadioTextureComponent
 	],
   exports:      [ EditorComponent ],
   providers:    [ AuthService ]

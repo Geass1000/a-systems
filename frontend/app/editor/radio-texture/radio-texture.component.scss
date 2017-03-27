@@ -1,0 +1,42 @@
+@import "../../shared/scss/global.scss";
+
+.radio-texture {
+	box-sizing: border-box;
+	padding: 4px;
+	display: flex;
+	flex-direction: row;
+
+	border: 1px solid $color-text-3;
+	border-radius: 3px;
+
+	overflow-x: scroll;
+	overflow-y: hidden;
+
+	.item {
+		width: auto;
+		height: auto;
+
+		label {
+			width: 80px;
+			height: 80px;
+			margin: 4px;
+			display: block;
+
+			border: 2px solid $color-text-3;
+			border-radius: 3px;
+
+			cursor: pointer;
+
+			&:hover, &:active {
+				border-color: $color-button-1;
+			}
+		}
+		input[type="radio"] {
+			display: none;
+
+			&:checked ~ label {
+				border-color: $color-button-1;
+			}
+		}
+	}
+}
