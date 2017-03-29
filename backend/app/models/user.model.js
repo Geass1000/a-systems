@@ -70,7 +70,7 @@ userSchema.methods.createToken = function () {
 };
 
 /**
- * Finding user in database "Users"
+ * Поис пользователя в базе данных "users"
  *
  * @param  {Object} user user info
  */
@@ -81,7 +81,7 @@ userSchema.statics.findUserSignup = function (user) {
 	return this.findOne({ $or: [ { name : user.name }, { email : user.email } ] }).exec();
 };
 /**
- * Finding max user id
+ * Поиск максимального ID пользователя
  *
  */
 userSchema.statics.findMaxUserId = function () {

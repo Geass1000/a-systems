@@ -2,10 +2,12 @@
 
 let express = require('express');
 let bodyParser = require('body-parser');
-let logger = require('morgan');
+let morgan = require('morgan');
 let methodOverride = require('method-override');
 let errorhandler = require('errorhandler');
 let cors = require('cors');
+
+let logger = require('../config/logger.config');
 
 let config = require('../config/app.config');
 
@@ -55,9 +57,9 @@ class Server {
 	 * @method setConfig
 	 */
 	setConfig () {
-		console.log('Configuring server...');
+		logger.info('Configuring server...');
 		if (config.env === 'development')
-			this.app.use(logger('dev'));
+			this.app.use(morgan('dev'));
 
 		// Parse body request to a json
 		this.app.use(bodyParser.json());
@@ -80,7 +82,7 @@ class Server {
 	 * @method setRoutes
 	 */
 	setRoutes () {
-		console.log('Setting routes...');
+		logger.info('Setting routes...');
 
 		this.app.use('/', router);
 	}
@@ -100,9 +102,9 @@ class Server {
 		if (config.env === 'development')
 			this.app.use(errorhandler());
 
-		console.log('Starting server...');
+		logger.info('Starting server...');
 		this.app.listen(config.express.port, function (err) {
-			console.log(`listening in http://localhost:${config.express.port}`);
+			logger.info(`listening in http://localhost:${config.express.port}`);
 		});
 	}
 }

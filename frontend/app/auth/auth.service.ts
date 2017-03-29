@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { Location } from '@angular/common';
 
+import { Config } from '../config';
 import { UserService } from '../core/user.service';
 
 import { UserLogin, UserReset, UserSignup } from './user';
@@ -14,7 +15,6 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class AuthService {
 	private headers = new Headers({ 'Content-Type': 'application/json' });
-	private serverUrl = 'http://localhost:3005/';
 	private usersUrl = 'api/users';
 	private authUrl = 'api/auth';
 
@@ -25,7 +25,7 @@ export class AuthService {
 	addUser (user : UserSignup) {
 		let body = JSON.stringify(user);
 
-		return this.http.post(this.serverUrl + this.usersUrl, body, { headers : this.headers })
+		return this.http.post(Config.serverUrl + this.usersUrl, body, { headers : this.headers })
 										.map((resp) => {
 											localStorage.setItem('id_token', resp.json().token);
 											this.userService.setUserData();
@@ -36,7 +36,7 @@ export class AuthService {
 	login (user : UserLogin) {
 		let body = JSON.stringify(user);
 
-		return this.http.post(this.serverUrl + this.authUrl, body, { headers : this.headers })
+		return this.http.post(Config.serverUrl + this.authUrl, body, { headers : this.headers })
 										.map((resp) => {
 											localStorage.setItem('id_token', resp.json().token);
 											this.userService.setUserData();
@@ -47,7 +47,7 @@ export class AuthService {
 	reset (user : UserReset) {
 		let body = JSON.stringify(user);
 
-		return this.http.post(this.serverUrl + this.authUrl, body, { headers : this.headers })
+		return this.http.post(Config.serverUrl + this.authUrl, body, { headers : this.headers })
 										.map((resp) => {
 											localStorage.setItem('id_token', resp.json().token);
 											this.userService.setUserData();

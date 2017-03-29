@@ -13,7 +13,7 @@ import { RoomComponent } from './room/room.component';
 import { RadioTextureComponent } from './radio-texture/radio-texture.component';
 
 /* App Feature - Service */
-import { AuthService } from '../auth/auth.service';
+import { EditorService } from './editor.service';
 
 @NgModule({
   imports: [
@@ -29,6 +29,6 @@ import { AuthService } from '../auth/auth.service';
 		RadioTextureComponent
 	],
   exports:      [ EditorComponent ],
-  providers:    [ AuthService ]
+  providers:    [ EditorService ]
 })
 export class EditorModule { }
