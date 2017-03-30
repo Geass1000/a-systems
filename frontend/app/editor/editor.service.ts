@@ -11,14 +11,14 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class EditorService {
 	private headers = new Headers({ 'Content-Type': 'application/json' });
-	private usersUrl = 'api/users';
-	private authUrl = 'api/auth';
+	private texturUrl = 'api/texture';
 
-	constructor (private http : Http) { ;	}
+	constructor (private http : Http) {
+	}
 
 	getTextures (type : string) {
 		let query : string = type ? `?type=${type}` : '';
-		return this.http.get(Config.serverUrl + this.usersUrl + query, { headers : this.headers })
+		return this.http.get(Config.serverUrl + this.texturUrl + query, { headers : this.headers })
 										.map((resp) => {
 											return resp.json();
 										})

@@ -38,7 +38,7 @@ export const EditorReducer : Reducer<IEditor> = (state = INITIAL_STATE, action :
 		}
 		case EditorActions.ADD_TEXTURE : {
 			let textures = state.textures;
-			if (textures.filter((data) => data.t_id === action.payload.texture.t_id).length !== 0) {
+			if (textures.filter((data) => data._id === action.payload.texture._id).length !== 0) {
 				return state
 			}
 			textures = [...textures, action.payload.texture];

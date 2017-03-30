@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 
+import { EditorService } from '../editor.service';
 import { IWorkspace, ITexture } from '../../shared/interfaces/editor.interface';
 
 @Component({
@@ -17,6 +18,8 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 	private texture : string;
 	@Input('width') width : number = 100;
 
+
+
 	/* Redux */
 	private subscription : any[] = [];
 	@select(['editor', 'isInit']) isInit$ : Observable<boolean>;
@@ -25,11 +28,20 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 	private workspace : IWorkspace;
 
 	constructor (private ngRedux : NgRedux<any>,
-							 private editorActions : EditorActions) {
+							 private editorActions : EditorActions,
+						 	 private editorService : EditorService) {
 	}
 	ngOnInit () {
 		this.subscription.push(this.isInit$.subscribe((data) => this.isInit = data));
 		this.subscription.push(this.workspace$.subscribe((data) => this.workspace = data));
+
+		this.editorService.getTextures('workspace').subscribe(
+			(data) => {
+				console.log(data);
+			},
+			(error) => {
+				console.log(error);
+			});
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());

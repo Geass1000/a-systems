@@ -4,8 +4,9 @@ export interface IWorkspace {
 }
 
 export interface ITexture {
-	t_id : number,
+	_id : string,
 	type : string,
+	url : string,
 	size : number,
 	amount : number
 }

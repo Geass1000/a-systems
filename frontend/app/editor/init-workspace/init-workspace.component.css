@@ -36,6 +36,8 @@
       display: flex;
       flex-direction: row;
       align-items: flex-end; }
+    .initWorkspace .initWorkspaceContent .form-texture {
+      margin-bottom: 15px; }
     .initWorkspace .initWorkspaceContent .form-group {
       margin-right: 15px; }
     .initWorkspace .initWorkspaceContent label {
