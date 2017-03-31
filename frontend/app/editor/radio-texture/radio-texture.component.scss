@@ -12,6 +12,11 @@
 	overflow-x: scroll;
 	overflow-y: hidden;
 
+	.el-texture {
+		display: flex;
+		flex-direction: row;
+	}
+
 	.item {
 		width: auto;
 		height: auto;

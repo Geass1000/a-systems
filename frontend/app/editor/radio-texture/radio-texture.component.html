@@ -1,33 +1,12 @@
-{{texture}}
+{{activTexture}}
 <div class="radio-texture" [style.width]="width + 'px'">
-	<div class="item">
-		<input type="radio" value="t-1" name="texture" [(ngModel)]="texture" id="t-1">
-		<label for="t-1" [style.background-image]="'url(\'app/shared/images/t-1.png\')'"
-										 [style.background-position]="'0px center'"></label>
-	</div>
-	<div class="item">
-		<input type="radio" value="t-2" name="texture" [(ngModel)]="texture" id="t-2">
-		<label for="t-2" [style.background-image]="'url(\'app/shared/images/t-1.png\')'"
-										 [style.background-position]="'80px center'"></label>
-	</div>
-	<div class="item">
-		<input type="radio" value="t-3" name="texture" [(ngModel)]="texture" id="t-3">
-		<label for="t-3"></label>
-	</div>
-	<div class="item">
-		<input type="radio" value="t-4" name="texture" [(ngModel)]="texture" id="t-4">
-		<label for="t-4"></label>
-	</div>
-	<div class="item">
-		<input type="radio" value="t-5" name="texture" [(ngModel)]="texture" id="t-5">
-		<label for="t-5"></label>
-	</div>
-	<div class="item">
-		<input type="radio" value="t-6" name="texture" [(ngModel)]="texture" id="t-6">
-		<label for="t-6"></label>
-	</div>
-	<div class="item">
-		<input type="radio" value="t-7" name="texture" [(ngModel)]="texture" id="t-7">
-		<label for="t-7"></label>
+	<div class="el-texture" *ngFor="let texture of textures; let i = index">
+		<div class="item" *ngFor="let offset of createOffset(texture)">
+			<input type="radio" [value]="idTexture(i, offset)" name="texture"
+				[(ngModel)]="activTexture" [attr.id]="idTexture(i, offset)">
+			<label [attr.for]="idTexture(i, offset)"
+				[style.background-image]="'url(' + texture.url + ')'"
+				[style.background-position]="offset + 'px center'"></label>
+		</div>
 	</div>
 </div>

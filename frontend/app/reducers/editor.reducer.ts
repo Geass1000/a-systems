@@ -1,13 +1,15 @@
 import { Reducer } from 'redux';
-import { IAction } from '../shared/interfaces/action.interface';
-import { IWorkspace, ITexture } from '../shared/interfaces/editor.interface';
 import { EditorActions } from '../actions/editor.actions';
+import { IAction } from '../shared/interfaces/action.interface';
+
+import { IWorkspace, ITexture } from '../shared/interfaces/editor.interface';
+import { IMap } from '../shared/interfaces/type.interface';
 
 export interface IEditor {
 	isInit : boolean,
 	selectElement : boolean,
 	workspace : IWorkspace,
-	textures : ITexture[]
+	textures : IMap<ITexture>
 }
 
 export const INITIAL_STATE : IEditor = {
@@ -17,7 +19,7 @@ export const INITIAL_STATE : IEditor = {
 		width : 2000,
 		height : 2000
 	},
-	textures : []
+	textures : {}
 };
 
 export const EditorReducer : Reducer<IEditor> = (state = INITIAL_STATE, action : IAction) : IEditor => {
@@ -37,11 +39,17 @@ export const EditorReducer : Reducer<IEditor> = (state = INITIAL_STATE, action :
 			return Object.assign({}, state, { workspace : workspace });
 		}
 		case EditorActions.ADD_TEXTURE : {
-			let textures = state.textures;
-			if (textures.filter((data) => data._id === action.payload.texture._id).length !== 0) {
-				return state
-			}
-			textures = [...textures, action.payload.texture];
+			let textures = Object.assign({}, state.textures);
+			let texture = action.payload.texture;
+
+			textures[texture._id] = texture;
+			return Object.assign({}, state, { textures : textures });
+		}
+		case EditorActions.ADD_TEXTURES : {
+			let textures = Object.assign({}, state.textures);
+			let ATextures = action.payload.textures;
+
+			ATextures.map((data : ITexture) => { textures[data._id] = data });
 			return Object.assign({}, state, { textures : textures });
 		}
 	}

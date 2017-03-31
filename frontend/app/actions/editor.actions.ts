@@ -9,6 +9,7 @@ export class EditorActions {
 	static readonly INIT_WORKSPACE = EditorActions.CLASS_NAME + 'INIT_WORKSPACE';
 	static readonly UPDATE_WORKSPACE_SIZE = EditorActions.CLASS_NAME + 'UPDATE_WORKSPACE_SIZE';
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
+	static readonly ADD_TEXTURES = EditorActions.CLASS_NAME + 'ADD_TEXTURES';
 
 	selectElement (state : boolean) : IAction {
     return {
@@ -40,6 +41,14 @@ export class EditorActions {
 			type : EditorActions.ADD_TEXTURE,
 			payload : {
 				texture : texture
+			}
+		};
+	}
+	addTextures (textures : ITexture[]) {
+		return {
+			type : EditorActions.ADD_TEXTURES,
+			payload : {
+				textures : textures
 			}
 		};
 	}
