@@ -58,7 +58,7 @@ class EditorController {
  	 */
 	addTexture (req, res) {
 		let info = req.body;
-		if(!(info.type && info.size && info.amount && info.url)) {
+		if(!(info.type && info.size && info.names && info.url)) {
 			res.status(400).json({ "message" : "All fields required" });
 			return;
 		}
@@ -67,7 +67,7 @@ class EditorController {
 			type : info.type,
 			url : info.url,
 			size : info.size,
-			amount : info.amount
+			names : info.names
 		});
 		texture.save()
 			.then((doc) => {

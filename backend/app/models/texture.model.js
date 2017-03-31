@@ -18,8 +18,8 @@ let textureSchema = new Schema({
 		type : Number,
 		require : true,
 	},
-	amount : {
-		type : Number,
+	names : {
+		type : [String],
 		require : true,
 	}
 });
@@ -30,7 +30,7 @@ let textureSchema = new Schema({
  * @param  {Object} user user info
  */
 textureSchema.statics.getAllTextures = function (type) {
-	let sel = '_id type url size amount';
+	let sel = '_id type url size names';
 	return type ? this.find({ type : { $in : type} }).select(sel).exec() :
 								this.find().select(sel).exec();
 };

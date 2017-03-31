@@ -8,5 +8,5 @@ export interface ITexture {
 	type : string,
 	url : string,
 	size : number,
-	amount : number
+	names : Array<string>
 }

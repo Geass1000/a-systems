@@ -16,10 +16,10 @@ import { IMap, mapToArray } from '../../shared/interfaces/type.interface';
   styleUrls: [ 'radio-texture.component.css' ]
 })
 export class RadioTextureComponent implements OnInit, OnDestroy {
-	title = 'Home';
-	private activTexture : string;
 	@Input('width') width : number = 100;
 	@Input('type') type : string = 'none';
+
+	private actTexture : string;
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -37,19 +37,17 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 		this.subscription.push(this.isInit$.subscribe((data) => this.isInit = data));
 		this.subscription.push(this.textures$.subscribe((data) => {
 			this.textures = mapToArray<ITexture>(data).filter((d) => d.type === this.type);
-			console.log(this.textures);
+			this.actTexture = this.textures.length !== 0 ? '0-0' : '';
 		}));
 
-		this.editorService.getTextures(this.type).subscribe(
-			(data) => { ; },
-			(error) => { ; });
+		this.editorService.getTextures(this.type).subscribe((data) => { console.log(data);; }, (error) => { ; });
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
 	createOffset (texture : ITexture) {
-		let arr : Array<number> = new Array(texture.amount).fill(0);
+		let arr : Array<number> = new Array(texture.names.length).fill(0);
 		arr = arr.map((data, index) => texture.size * index);
 		return arr;
 	}

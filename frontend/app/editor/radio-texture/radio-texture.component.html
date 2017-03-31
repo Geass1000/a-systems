@@ -1,9 +1,9 @@
-{{activTexture}}
+{{actTexture}}
 <div class="radio-texture" [style.width]="width + 'px'">
 	<div class="el-texture" *ngFor="let texture of textures; let i = index">
 		<div class="item" *ngFor="let offset of createOffset(texture)">
 			<input type="radio" [value]="idTexture(i, offset)" name="texture"
-				[(ngModel)]="activTexture" [attr.id]="idTexture(i, offset)">
+				[(ngModel)]="actTexture" [attr.id]="idTexture(i, offset)">
 			<label [attr.for]="idTexture(i, offset)"
 				[style.background-image]="'url(' + texture.url + ')'"
 				[style.background-position]="offset + 'px center'"></label>
