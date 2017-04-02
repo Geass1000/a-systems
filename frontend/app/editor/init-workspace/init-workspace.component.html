@@ -19,7 +19,7 @@
 			</select>
 		</div>
 		<div class="form-texture">
-			<as-editor-radio-texture [width]="475" type="workspace"></as-editor-radio-texture>
+			<as-editor-radio-texture [width]="475" [type]="'workspace'" (onChanged)="workspace.texture = $event"></as-editor-radio-texture>
 		</div>
 
 		<div class="flex-row">

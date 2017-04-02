@@ -34,10 +34,15 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 	}
 
 	onInitWorkspace () {
-		this.ngRedux.dispatch(this.editorActions.updateWorkspaceSize(this.workspace.width, this.workspace.height));
+		this.ngRedux.dispatch(this.editorActions.updateWorkspace(this.workspace));
 		this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
 	}
 
 	onOpenWorkspace () {
+	}
+
+	test (event : any) {
+		console.log("test");
+		console.log(event);
 	}
 }

@@ -1,10 +1,10 @@
-{{actTexture}}
 <div class="radio-texture" [style.width]="width + 'px'">
 	<div class="el-texture" *ngFor="let texture of textures; let i = index">
-		<div class="item" *ngFor="let offset of createOffset(texture)">
-			<input type="radio" [value]="idTexture(i, offset)" name="texture"
-				[(ngModel)]="actTexture" [attr.id]="idTexture(i, offset)">
-			<label [attr.for]="idTexture(i, offset)"
+		<div class="item" *ngFor="let offset of offsets[texture._id]; let j = index">
+			<input type="radio" name="texture"
+				[attr.id]="idTile(i, offset)" [value]="idTile(i, offset)"
+				[(ngModel)]="activeTexture" (change)="textureChange(texture, j)">
+			<label [attr.for]="idTile(i, offset)"
 				[style.background-image]="'url(' + texture.url + ')'"
 				[style.background-position]="offset + 'px center'"></label>
 		</div>

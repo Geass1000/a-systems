@@ -17,7 +17,11 @@ export const INITIAL_STATE : IEditor = {
 	selectElement : false,
 	workspace : {
 		width : 2000,
-		height : 2000
+		height : 2000,
+		texture : {
+			_id_texture : null,
+			_id_tile : null
+		}
 	},
 	textures : {}
 };
@@ -30,13 +34,8 @@ export const EditorReducer : Reducer<IEditor> = (state = INITIAL_STATE, action :
 		case EditorActions.INIT_WORKSPACE : {
 			return Object.assign({}, state, { isInit : action.payload.state });
 		}
-		case EditorActions.UPDATE_WORKSPACE_SIZE : {
-			let workspace = state.workspace;
-			Object.assign(workspace, {
-				width : action.payload.width,
-				height : action.payload.height
-			});
-			return Object.assign({}, state, { workspace : workspace });
+		case EditorActions.UPDATE_WORKSPACE : {
+			return Object.assign({}, state, { workspace : action.payload.workspace });
 		}
 		case EditorActions.ADD_TEXTURE : {
 			let textures = Object.assign({}, state.textures);

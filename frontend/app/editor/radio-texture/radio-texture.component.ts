@@ -1,12 +1,11 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 
 import { EditorService } from '../editor.service';
-import { IWorkspace, ITexture } from '../../shared/interfaces/editor.interface';
+import { ITexture, ITextureTile } from '../../shared/interfaces/editor.interface';
 import { IMap, mapToArray } from '../../shared/interfaces/type.interface';
 
 @Component({
@@ -16,10 +15,24 @@ import { IMap, mapToArray } from '../../shared/interfaces/type.interface';
   styleUrls: [ 'radio-texture.component.css' ]
 })
 export class RadioTextureComponent implements OnInit, OnDestroy {
+	/* Private variable */
+	private state : ITextureTile = null;
+	private activeTexture : string = '';
+	private offsets : IMap<Array<number>> = {};
+
+	/* Input */
 	@Input('width') width : number = 100;
 	@Input('type') type : string = 'none';
 
-	private actTexture : string;
+	/* Output */
+	@Output('onChanged') onChanged = new EventEmitter<ITextureTile>();
+	textureChange (texture : ITexture, tileID : number) {
+		this.state = {
+			_id_texture : texture._id,
+			_id_tile : tileID
+		};
+		this.onChanged.emit(this.state);
+	}
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -30,17 +43,28 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
-						 	 private editorService : EditorService,
-						 	 private sanitizer: DomSanitizer) {
+						 	 private editorService : EditorService) {
 	}
 	ngOnInit () {
 		this.subscription.push(this.isInit$.subscribe((data) => this.isInit = data));
 		this.subscription.push(this.textures$.subscribe((data) => {
 			this.textures = mapToArray<ITexture>(data).filter((d) => d.type === this.type);
-			this.actTexture = this.textures.length !== 0 ? '0-0' : '';
+			if (this.textures.length !== 0) {
+				this.textures.map((data) => {
+					this.offsets[data._id] = this.createOffset(data);
+				});
+			}
+			if (this.textures.length !== 0 && !this.state) {
+				this.activeTexture = '0-0';
+				this.state = {
+					_id_texture : this.textures[0]._id,
+					_id_tile : 0
+				};
+				this.onChanged.emit(this.state);
+			}
 		}));
 
-		this.editorService.getTextures(this.type).subscribe((data) => { console.log(data);; }, (error) => { ; });
+		this.editorService.getTextures(this.type).subscribe((data) => { ; }, (error) => { ; });
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
@@ -52,7 +76,7 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 		return arr;
 	}
 
-	idTexture (id : number, offset : number) {
+	idTile (id : number, offset : number) {
 		return `${id}-${offset}`;
 	}
 }
