@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=cyrillic');
 
 /* CSS Resets */
-@import "./reset.css";
+@import "./reset.scss";
 
 /* Base Rules */
 html, body {
@@ -45,15 +45,21 @@ input, button, select {
 
 a {
 	color: $color-text-1;
-
-	text-decoration: none;;
+	text-decoration: none;
 
 	cursor: pointer;
+	&:hover, &:focus {
+		color: $color-text-2;
+		text-decoration: underline;
+	}
 }
-a:hover {
-	color: $color-text-2;
 
-	text-decoration: underline;
+.separator {
+	width: 1px;
+	height: 31px;
+	margin: 0 10px;
+
+	background: rgba(0,0,0,0.18);
 }
 
 /* Layout Rules */

@@ -32,9 +32,19 @@ header::before {
     display: flex;
     justify-content: space-between;
     align-items: center; }
-  .navigation-section a.main-logo {
+  .navigation-section .left-block, .navigation-section .right-block {
     height: 100%;
     display: flex;
     align-items: center; }
-    .navigation-section a.main-logo img {
-      height: 40px; }
+  .navigation-section a {
+    height: 100%;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    color: #5C5C5C;
+    text-decoration: none; }
+    .navigation-section a:hover, .navigation-section a:focus {
+      color: #1e83ec;
+      text-decoration: none; }
+    .navigation-section a .description {
+      margin-left: 7px; }

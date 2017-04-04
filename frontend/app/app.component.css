@@ -46,12 +46,6 @@ header::before {
       height: 100%;
       display: flex;
       align-items: center; }
-    .navigation-section nav .separator {
-      width: 1px;
-      height: 31px;
-      margin: 0 10px;
-      margin-top: 2px;
-      background: rgba(0, 0, 0, 0.18); }
     .navigation-section nav a {
       height: 100%;
       margin: 0 10px;

@@ -1,4 +1,5 @@
 var gulp = require("gulp"),
+		watch = require('gulp-watch'),
 		sass = require('gulp-sass');
 
 var scssPath = ['app/**/*.scss', '*.scss'];
@@ -12,5 +13,8 @@ gulp.task('scss', function(){
 });
 
 gulp.task('watch', ['scss'], function() {
-  gulp.watch(scssPath, ['scss']);
+	watch(scssPath, () => {
+		gulp.start('scss');
+	});
+  //gulp.watch(scssPath, ['scss']);
 });
