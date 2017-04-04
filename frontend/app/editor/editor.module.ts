@@ -8,6 +8,7 @@ import { EditorRoutingModule } from './editor-routing.module';
 /* App Feature - Component */
 import { EditorComponent } from './editor.component';
 import { InitWorkspaceComponent } from './init-workspace/init-workspace.component';
+import { ControlPanelComponent } from './control-panel/control-panel.component';
 import { WorkstateComponent } from './workstate/workstate.component';
 import { RoomComponent } from './room/room.component';
 import { RadioTextureComponent } from './radio-texture/radio-texture.component';
@@ -24,6 +25,7 @@ import { EditorService } from './editor.service';
   declarations: [
 		EditorComponent,
 		InitWorkspaceComponent,
+		ControlPanelComponent,
 		WorkstateComponent,
 		RoomComponent,
 		RadioTextureComponent

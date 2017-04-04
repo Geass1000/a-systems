@@ -1,30 +1,33 @@
-<section *ngIf="!isInit" class="initWorkspace">
-	<div class="initWorkspaceLogo">
-		<img src="app/shared/images/logo3.png" />
-	</div>
-	<div class="initWorkspaceContent">
-		<h1 class="form-header">Размеры участка</h1>
-		<div class="form-content">
-			<div class="form-group flex-column">
-				<label>Ширина</label>
-				<input type="text" [(ngModel)]="workspace.width" />
-			</div>
-			<div class="form-group flex-column">
-				<label>Высота</label>
-				<input type="text" [(ngModel)]="workspace.height" />
-			</div>
-			<select>
-				<option value="cm">см</option>
-				<option value="m">м</option>
-			</select>
+<section *ngIf="!isInit" class="base-section">
+	<div class="initWorkspace">
+		<div class="initWorkspaceLogo">
+			<img src="app/shared/images/logo3.png" />
 		</div>
-		<div class="form-texture">
-			<as-editor-radio-texture [width]="475" [type]="'workspace'" (onChanged)="workspace.texture = $event"></as-editor-radio-texture>
-		</div>
+		<div class="initWorkspaceContent">
+			<h1 class="form-header">Размеры участка</h1>
+			<div class="form-content">
+				<div class="form-group flex-column">
+					<label>Ширина</label>
+					<input type="text" [(ngModel)]="workspace.width" />
+				</div>
+				<div class="form-group flex-column">
+					<label>Высота</label>
+					<input type="text" [(ngModel)]="workspace.height" />
+				</div>
+				<select [(ngModel)]="selectedMetric" (change)="metricChange()">
+					<option value="cm">см</option>
+					<option value="m">м</option>
+				</select>
+			</div>
+			<div class="form-texture">
+				<as-editor-radio-texture [width]="475" [type]="'workspace'" (onChanged)="workspace.texture = $event"></as-editor-radio-texture>
+			</div>
 
-		<div class="flex-row">
-			<button (click)="onInitWorkspace()">Создать</button>
-			<button (click)="onOpenWorkspace()">Открыть</button>
+			<div class="flex-row">
+				<button (click)="onInitWorkspace()">Создать</button>
+				<button (click)="onOpenWorkspace()">Открыть</button>
+			</div>
 		</div>
 	</div>
+
 </section>

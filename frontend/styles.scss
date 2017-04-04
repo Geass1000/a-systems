@@ -61,8 +61,13 @@ header, main, footer {
 	width: 100%;
 }
 
-.l-baseColumn {
+.base-section {
+	width: 100%;
+}
+.base-block {
+	height: 100%;
+}
+.page-block {
 	width: 960px;
-
 	margin: 0 auto;
 }

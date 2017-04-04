@@ -1,6 +1,12 @@
 /* Palette Color */
 /* Font-size variable */
 /* Z-index */
+/* Control Panel */
+/* Overlay */
+/* Form block */
+/* No important context */
+/* Main context */
+/* Important context */
 /* Modal */
 /* Overlay */
 /* Form block */
@@ -57,6 +63,12 @@ a:hover {
 header, main, footer {
   width: 100%; }
 
-.l-baseColumn {
+.base-section {
+  width: 100%; }
+
+.base-block {
+  height: 100%; }
+
+.page-block {
   width: 960px;
   margin: 0 auto; }

@@ -1,18 +1,20 @@
 <header>
-	<section class="navigation-section">
-		<div class="l-baseColumn">
-			<a routerLink="/home" class="logo">
+	<section class="base-section navigation-section">
+		<div class="base-block page-block">
+			<a routerLink="/home" class="main-logo">
 				<img src="app/shared/images/logo.png" />
 			</a>
 			<nav>
-				<a routerLink="/home" routerLinkActive="active">Home</a>
-				<div *ngIf="!loggedIn()">
-					<a (click)="signup()">Sign up</a>
-					<a (click)="login()">Login</a>
+				<a routerLink="/home" routerLinkActive="active"><span>Home</span></a>
+				<div *ngIf="!loggedIn()" class="nav-group">
+					<a (click)="signup()"><span>Sign up</span></a>
+					<a (click)="login()"><span>Login</span></a>
 				</div>
-				<div *ngIf="loggedIn()">
-					<a routerLink="/editor" routerLinkActive="active">Editor</a>
-					<a (click)="logout()">Logout</a>
+				<div *ngIf="loggedIn()" class="nav-group">
+					<a routerLink="/editor" routerLinkActive="active"><span>Editor</span></a>
+					<div class="separator"></div>
+					<a routerLink="/profile" routerLinkActive="active"><span>Profile</span></a>
+					<a (click)="logout()"><span>Logout</span></a>
 				</div>
 			</nav>
 		</div>

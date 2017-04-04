@@ -29,7 +29,7 @@ export class EditorActions {
   }
 	updateWorkspace (workspace : IWorkspace) : IAction {
     return {
-      type : EditorActions.INIT_WORKSPACE,
+      type : EditorActions.UPDATE_WORKSPACE,
 			payload : {
 				workspace : workspace
 			}

@@ -1,6 +1,12 @@
 /* Palette Color */
 /* Font-size variable */
 /* Z-index */
+/* Control Panel */
+/* Overlay */
+/* Form block */
+/* No important context */
+/* Main context */
+/* Important context */
 /* Modal */
 /* Overlay */
 /* Form block */
@@ -8,6 +14,71 @@
 /* Main context */
 /* Important context */
 /* Variable */
+header::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 55px; }
+
+.navigation-section {
+  height: 55px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 6;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  .navigation-section .base-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+  .navigation-section a.main-logo {
+    height: 100%;
+    display: flex;
+    align-items: center; }
+    .navigation-section a.main-logo img {
+      height: 40px; }
+  .navigation-section nav {
+    height: 100%;
+    display: flex;
+    align-items: center; }
+    .navigation-section nav .nav-group {
+      height: 100%;
+      display: flex;
+      align-items: center; }
+    .navigation-section nav .separator {
+      width: 1px;
+      height: 31px;
+      margin: 0 10px;
+      margin-top: 2px;
+      background: rgba(0, 0, 0, 0.18); }
+    .navigation-section nav a {
+      height: 100%;
+      margin: 0 10px;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      font-weight: bold;
+      color: rgba(0, 0, 0, 0.45);
+      text-decoration: none; }
+      .navigation-section nav a:hover, .navigation-section nav a:focus, .navigation-section nav a.active {
+        color: #1e83ec; }
+      .navigation-section nav a span {
+        position: relative; }
+        .navigation-section nav a span:after {
+          content: "";
+          display: block;
+          height: 2px;
+          width: 0%;
+          position: absolute;
+          bottom: -5px;
+          left: 50%;
+          background-color: #1e83ec;
+          transition: width 0.3s, left 0.3s; }
+      .navigation-section nav a:hover span:after, .navigation-section nav a:focus span:after, .navigation-section nav a.active span:after {
+        width: 100%;
+        left: 0%; }
+
 .modal-overlay {
   width: 100%;
   height: 100%;
@@ -23,47 +94,3 @@
 .modal-overlay.visible {
   visibility: visible;
   opacity: 1; }
-
-header::before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 55px; }
-
-.navigation-section {
-  width: 100%;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 5;
-  background-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.22); }
-  .navigation-section > div {
-    height: 55px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; }
-  .navigation-section a.logo img {
-    height: 40px; }
-  .navigation-section nav {
-    display: flex; }
-    .navigation-section nav a {
-      position: relative;
-      color: #888;
-      text-decoration: none;
-      margin: 0 12px; }
-      .navigation-section nav a:after {
-        content: "";
-        display: block;
-        height: 2px;
-        width: 0%;
-        position: absolute;
-        bottom: -5px;
-        left: 50%;
-        background-color: #1e83ec;
-        transition: width 0.3s, left 0.3s; }
-      .navigation-section nav a:hover, .navigation-section nav a:focus, .navigation-section nav a.active {
-        color: #1e83ec; }
-      .navigation-section nav a:hover:after, .navigation-section nav a:focus:after, .navigation-section nav a.active:after {
-        width: 100%;
-        left: 0%; }

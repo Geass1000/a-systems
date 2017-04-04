@@ -1,0 +1,40 @@
+/* Palette Color */
+/* Font-size variable */
+/* Z-index */
+/* Control Panel */
+/* Overlay */
+/* Form block */
+/* No important context */
+/* Main context */
+/* Important context */
+/* Modal */
+/* Overlay */
+/* Form block */
+/* No important context */
+/* Main context */
+/* Important context */
+/* Variable */
+header::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 55px; }
+
+.navigation-section {
+  height: 55px;
+  position: fixed;
+  top: 56px;
+  left: 0px;
+  z-index: 6;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  .navigation-section .base-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+  .navigation-section a.main-logo {
+    height: 100%;
+    display: flex;
+    align-items: center; }
+    .navigation-section a.main-logo img {
+      height: 40px; }

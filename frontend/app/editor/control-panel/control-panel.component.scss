@@ -1,0 +1,37 @@
+@import "../../shared/scss/global.scss";
+
+/* Variable */
+$height-navigation-section: 55px;
+
+header::before {
+	content: "";
+	display: block;
+	width: 100%;
+	height: $height-navigation-section;
+}
+.navigation-section {
+	height: $height-navigation-section;
+
+	position: fixed;
+	top: $height-navigation-section + 1;
+	left: 0px;
+	z-index: $z-index-panel-1;
+
+	background-color: rgba(255, 255, 255, 0.95);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+	.base-block {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	a.main-logo {
+		height: 100%;
+		display: flex;
+		align-items: center;
+
+		img {
+			height: 40px;
+		}
+	}
+}

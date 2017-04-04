@@ -3,6 +3,97 @@
 /* Variable */
 $height-navigation-section: 55px;
 
+header::before {
+	content: "";
+	display: block;
+	width: 100%;
+	height: $height-navigation-section;
+}
+.navigation-section {
+	height: $height-navigation-section;
+
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: $z-index-panel-1;
+
+	background-color: rgba(255, 255, 255, 0.95);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+	.base-block {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	a.main-logo {
+		height: 100%;
+		display: flex;
+		align-items: center;
+
+		img {
+			height: 40px;
+		}
+	}
+	nav {
+		height: 100%;
+		display: flex;
+		align-items: center;
+
+		.nav-group {
+			height: 100%;
+			display: flex;
+			align-items: center;
+		}
+		.separator {
+			width: 1px;
+			height: 31px;
+			margin: 0 10px;
+			margin-top: 2px;
+
+			background: rgba(0,0,0,0.18);
+		}
+
+		a {
+			height: 100%;
+			margin: 0 10px;
+			display: flex;
+			align-items: center;
+
+			font-size: 15px;
+			font-weight: bold;
+			color: rgba(0,0,0,0.45);
+			text-decoration: none;
+
+			&:hover, &:focus, &.active {
+				color: $color-text-1;
+			}
+
+			span {
+				position: relative;
+
+				&:after {
+					content: "";
+					display: block;
+					height: 2px;
+					width: 0%;
+
+					position: absolute;
+					bottom: -5px;
+					left: 50%;
+
+					background-color: $color-text-1;
+
+					transition: width 0.3s, left 0.3s;
+				}
+			}
+			&:hover span:after, &:focus span:after, &.active span:after {
+				width: 100%;
+				left: 0%;
+			}
+		}
+	}
+}
+
 .modal-overlay {
 	width: 100%;
 	height: 100%;
@@ -22,67 +113,4 @@ $height-navigation-section: 55px;
 .modal-overlay.visible {
 	visibility: visible;
 	opacity: 1;
-}
-
-header::before {
-	content: "";
-	display: block;
-	width: 100%;
-	height: $height-navigation-section;
-}
-.navigation-section {
-	width: 100%;
-
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	z-index: 5;
-
-	background-color: rgba(255, 255, 255, 0.95);
-	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.22);
-
-	& > div {
-		height: $height-navigation-section;
-
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-	a.logo img {
-		height: 40px;
-	}
-	nav {
-		display: flex;
-
-		a {
-			position: relative;
-
-			color: #888;
-			text-decoration: none;
-
-			margin: 0 12px;
-
-			&:after {
-				content: "";
-				display: block;
-				height: 2px;
-				width: 0%;
-
-				position: absolute;
-				bottom: -5px;
-				left: 50%;
-
-				background-color: $color-text-1;
-
-				transition: width 0.3s, left 0.3s;
-			}
-			&:hover, &:focus, &.active {
-				color: $color-text-1;
-			}
-			&:hover:after, &:focus:after, &.active:after {
-				width: 100%;
-				left: 0%;
-			}
-		}
-	}
 }
