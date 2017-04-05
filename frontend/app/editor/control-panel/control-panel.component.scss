@@ -1,19 +1,22 @@
 @import "../../shared/scss/global.scss";
 
 /* Variable */
-$height-navigation-section: 55px;
+$control-section-height : 55px;
+$switch-amount : 3;
+$switch-inner-padding : 3px;
+$switch-width : 50px;
 
 header::before {
 	content: "";
 	display: block;
 	width: 100%;
-	height: $height-navigation-section;
+	height: $control-section-height;
 }
-.navigation-section {
-	height: $height-navigation-section;
+.control-section {
+	height: $control-section-height;
 
 	position: fixed;
-	top: $height-navigation-section + 1;
+	top: $control-section-height + 1;
 	left: 0px;
 	z-index: $z-index-panel-1;
 
@@ -47,7 +50,66 @@ header::before {
 
 		.description {
 			margin-left: 7px;
+
+			font-size: 15px;
+			font-weight: bold;
 		}
 	}
+	.switch {
+		height: 32px;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		position: relative;
+		padding: 0 $switch-inner-padding;
+	  border-radius: 3px;
 
+		background: rgba(0, 0, 0, 0.05);
+	  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+
+		.switch-label {
+			width: $switch-width;
+			height: 100%;
+			display: flex;
+			z-index: $z-index-panel-4;
+			align-items: center;
+			justify-content: center;
+
+			color: rgba(0, 0, 0, 0.95);
+		  font-size: 15px;
+			font-weight: bold;
+		  cursor: pointer;
+
+			transition: none;
+		}
+		.switch-selection {
+			width: $switch-width;
+			display: block;
+			z-index: $z-index-panel-3;
+			position: absolute;
+			top: $switch-inner-padding;
+			bottom: $switch-inner-padding;
+			left: $switch-inner-padding;
+			border-radius: 3px;
+
+			background: $color-text-2;
+		  box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
+
+			transition: left 0.15s ease-out;
+		}
+		.switch-input {
+			display: none;
+			&:checked + .switch-label {
+				color: rgba(255, 255, 255, 0.8);
+				transition: color 0.30s ease-out 0.10s;
+			}
+			@for $i from 1 through $switch-amount {
+				$left: $switch-inner-padding + ($i - 1) * $switch-width;
+
+				&:nth-of-type(#{$i}):checked ~ .switch-selection {
+					left: $left;
+				}
+			}
+		}
+	}
 }

@@ -17,17 +17,14 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'selectElement']) selectElement$ : Observable<boolean>;
-	private selectElement : boolean;
-	@select(['editor', 'workspace']) workspace$ : Observable<IWorkspace>;
-	private workspace : IWorkspace;
+	@select(['editor', 'curMeasure']) curMeasure$ : Observable<string>;
+	private curMeasure : string;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
-		this.subscription.push(this.workspace$.subscribe((data) => this.workspace = data));
+		this.subscription.push(this.curMeasure$.subscribe((data) => this.curMeasure = data));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());

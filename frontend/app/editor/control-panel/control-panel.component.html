@@ -1,5 +1,5 @@
 <header>
-	<section class="base-section navigation-section">
+	<section class="base-section control-section">
 		<div class="base-block page-block">
 			<div class="left-block">
 				<a>
@@ -11,8 +11,18 @@
 					<span class="description">Save</span>
 				</a>
 				<div class="separator"></div>
+				<div class="switch">
+					<input type="radio" class="switch-input" name="scale" value="cm" id="cm" [(ngModel)]="curMeasure">
+					<label for="cm" class="switch-label switch-label-off">cm</label>
+					<input type="radio" class="switch-input" name="scale" value="m" id="m" [(ngModel)]="curMeasure">
+					<label for="m" class="switch-label switch-label-on">m</label>
+					<input type="radio" class="switch-input" name="scale" value="px" id="px" [(ngModel)]="curMeasure">
+					<label for="px" class="switch-label switch-label-on">px</label>
+					<span class="switch-selection"></span>
+				</div>
 			</div>
 			<div class="right-block">
+
 			</div>
 		</div>
 	</section>

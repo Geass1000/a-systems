@@ -32,8 +32,8 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 		this.subscription.push(this.isInit$.subscribe((data) => this.isInit = data));
 		this.subscription.push(this.workspace$.subscribe((data) => {
 			this.workspace = Object.assign({}, data);
-			this.workspace.width = Metric.convert({ from : Measure.px, to : Measure[this.selectedMetric] }, this.workspace.width);
-			this.workspace.height = Metric.convert({ from : Measure.px, to : Measure[this.selectedMetric] }, this.workspace.height);
+			this.workspace.width = Metric.convert({ from : Measure.get('px'), to : Measure.get(this.selectedMetric) }, this.workspace.width);
+			this.workspace.height = Metric.convert({ from : Measure.get('px'), to : Measure.get(this.selectedMetric) }, this.workspace.height);
 		}));
 	}
 	ngOnDestroy () {
@@ -42,23 +42,19 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 
 	onInitWorkspace () {
 		let obj : IWorkspace = Object.assign({}, this.workspace);
-		obj.width  = Metric.convert({ from : Measure[this.selectedMetric], to : Measure.px }, this.workspace.width);
-		obj.height = Metric.convert({ from : Measure[this.selectedMetric], to : Measure.px }, this.workspace.height);
+		obj.width  = Metric.convert({ from : Measure.get(this.selectedMetric), to : Measure.get('px') }, this.workspace.width);
+		obj.height = Metric.convert({ from : Measure.get(this.selectedMetric), to : Measure.get('px') }, this.workspace.height);
 		this.ngRedux.dispatch(this.editorActions.updateWorkspace(obj));
 		this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
 	}
 
 	onOpenWorkspace () {
-		let num : number = Metric.convert({ from : Measure.px, to : Measure.m }, this.workspace.width);
-		console.log(Measure.px);
-		console.log(Measure.px.toString());
-		console.log(Measure['px']);
-		console.log(num);
+		let num : number = Metric.convert({ from : Measure.get('px'), to : Measure.get('m') }, this.workspace.width);
 	}
 
 	metricChange () {
-		this.workspace.width = Metric.convert({ from : Measure[this.prevMetric], to : Measure[this.selectedMetric] }, this.workspace.width);
-		this.workspace.height = Metric.convert({ from : Measure[this.prevMetric], to : Measure[this.selectedMetric] }, this.workspace.height);
+		this.workspace.width = Metric.convert({ from : Measure.get(this.prevMetric), to : Measure.get(this.selectedMetric) }, this.workspace.width);
+		this.workspace.height = Metric.convert({ from : Measure.get(this.prevMetric), to : Measure.get(this.selectedMetric) }, this.workspace.height);
 		this.prevMetric = this.selectedMetric;
 	}
 

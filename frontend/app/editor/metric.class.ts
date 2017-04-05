@@ -1,10 +1,8 @@
 import { Config } from '../config';
 
-enum Measure {
-	px = Config.scale,
-  cm = 100,
-	m = 1
-}
+let Measure : Map<string, number> = new Map<string, number>([
+	['m', 1],	['cm', 100], ['px', Config.scale]
+]);
 export { Measure };
 
 export class Metric {

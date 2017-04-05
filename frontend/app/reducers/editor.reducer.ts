@@ -5,8 +5,11 @@ import { IAction } from '../shared/interfaces/action.interface';
 import { IWorkspace, ITexture } from '../shared/interfaces/editor.interface';
 import { IMap } from '../shared/interfaces/type.interface';
 
+import { Measure } from '../editor/metric.class';
+
 export interface IEditor {
 	isInit : boolean,
+	curMeasure : string,
 	selectElement : boolean,
 	workspace : IWorkspace,
 	textures : IMap<ITexture>
@@ -14,6 +17,7 @@ export interface IEditor {
 
 export const INITIAL_STATE : IEditor = {
 	isInit : false,
+	curMeasure : Measure.keys().next().value,
 	selectElement : false,
 	workspace : {
 		width : 2000,
