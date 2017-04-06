@@ -1,10 +1,11 @@
 @import "../../shared/scss/global.scss";
 
 .initWorkspace {
-	width: 755px;
+	width: 475px;
 	margin: 0 auto;
 	margin-top: 25px;
-	z-index: 1;
+	position: relative;
+	z-index: $z-index-modal-1;
 
 	display: flex;
 	flex-direction: row;
@@ -41,6 +42,9 @@
 		}
 		.form-group {
 			margin-right: 15px;
+			&:last-child {
+				margin-right: 0;
+			}
 		}
 		label {
 			margin-bottom: 10px;

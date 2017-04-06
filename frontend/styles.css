@@ -118,6 +118,7 @@ header, main, footer {
   width: 100%; }
 
 .base-section {
+  position: relative;
   width: 100%; }
 
 .base-block {

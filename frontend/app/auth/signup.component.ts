@@ -165,7 +165,7 @@ export class SignupComponent implements OnInit  {
 	}
 
 	closeModal () {
-		this.ngRedux.dispatch(this.modalActions.closeAllModal());
+		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 	}
 	login () {
 		this.closeModal();

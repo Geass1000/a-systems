@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
+import { ModalActions } from '../../actions/modal.actions';
 
 import { Config } from '../../config';
 import * as _ from 'lodash';
@@ -19,8 +20,7 @@ import { Metric, Measure } from '../metric.class';
 export class InitWorkspaceComponent implements OnInit, OnDestroy {
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'isInitWorkspace']) isInitWorkspace$ : Observable<boolean>;
-	private isInitWorkspace : boolean;
+	@select(['modal', 'initWorkspace']) initWorkspace$ : Observable<boolean>;
 	@select(['editor', 'curMeasure']) curMeasure$ : Observable<string>;
 	private curMeasure : string = null;
 	@select(['editor', 'defMeasure']) defMeasure$ : Observable<string>;
@@ -31,10 +31,11 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 	private workspaceMeasure : string = null;
 
 	constructor (private ngRedux : NgRedux<any>,
-							 private editorActions : EditorActions) {
+							 private editorActions : EditorActions,
+						 	 private modalActions : ModalActions) {
+		this.ngRedux.dispatch(this.modalActions.openModal('initWorkspace', false));
 	}
 	ngOnInit () {
-		this.subscription.push(this.isInitWorkspace$.subscribe((data) => this.isInitWorkspace = data));
 		this.subscription.push(this.defMeasure$.subscribe((data) => this.defMeasure = data));
 		this.subscription.push(this.curMeasure$.subscribe((data) => {
 			this.curMeasure = data;
@@ -62,10 +63,11 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 		obj.width  = Metric.convert({ from : Measure.get(this.curMeasure), to : Measure.get(this.defMeasure) }, this.workspace.width);
 		obj.height = Metric.convert({ from : Measure.get(this.curMeasure), to : Measure.get(this.defMeasure) }, this.workspace.height);
 		this.ngRedux.dispatch(this.editorActions.updateWorkspace(obj));
+		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 		this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
 	}
 
-	onOpenWorkspace () {
-
+	onOpenWorkspace (el ?: boolean) {
+		console.log(el);
 	}
 }

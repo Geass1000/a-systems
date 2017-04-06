@@ -14,10 +14,11 @@
 /* Main context */
 /* Important context */
 .initWorkspace {
-  width: 755px;
+  width: 475px;
   margin: 0 auto;
   margin-top: 25px;
-  z-index: 1;
+  position: relative;
+  z-index: 11;
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -43,6 +44,8 @@
       margin-bottom: 15px; }
     .initWorkspace .initWorkspaceContent .form-group {
       margin-right: 15px; }
+      .initWorkspace .initWorkspaceContent .form-group:last-child {
+        margin-right: 0; }
     .initWorkspace .initWorkspaceContent label {
       margin-bottom: 10px;
       color: #5C5C5C; }

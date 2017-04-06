@@ -9,7 +9,6 @@ import { IWorkspace, ITexture } from '../shared/interfaces/editor.interface';
 import { IMap } from '../shared/interfaces/type.interface';
 
 export interface IEditor {
-	openInitWorkspace : boolean,
 	isInitWorkspace : boolean,
 	defMeasure : string,
 	curMeasure : string,
@@ -19,7 +18,6 @@ export interface IEditor {
 }
 
 export const INITIAL_STATE : IEditor = {
-	openInitWorkspace : false,
 	isInitWorkspace : false,
 	defMeasure : 'px',
 	curMeasure : 'm',

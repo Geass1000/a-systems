@@ -1,8 +1,10 @@
-<section *ngIf="!isInitWorkspace" class="base-section">
+<section *ngIf="initWorkspace$ | async" class="base-section">
 	<div class="initWorkspace">
+	<!--
 		<div class="initWorkspaceLogo">
 			<img src="app/shared/images/logo3.png" />
 		</div>
+	-->
 		<div class="initWorkspaceContent">
 			<h1 class="form-header">Размеры участка</h1>
 			<div class="form-content">
@@ -16,7 +18,7 @@
 				</div>
 			</div>
 			<div class="form-texture">
-				<as-editor-radio-texture [width]="475" [type]="'workspace'" (onChanged)="workspace.texture = $event"></as-editor-radio-texture>
+				<as-editor-radio-texture [width]="415" [type]="'workspace'" (onChanged)="workspace.texture = $event"></as-editor-radio-texture>
 			</div>
 
 			<div class="flex-row">

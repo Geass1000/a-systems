@@ -6,19 +6,25 @@ export class ModalActions {
 	static readonly CLASS_NAME = "MODAL_ACTIONS:";
 	static readonly OPEN_MODAL = ModalActions.CLASS_NAME + 'OPEN_MODAL(NAME)';
 	static readonly CLOSE_ALL_MODAL = ModalActions.CLASS_NAME + 'CLOSE_ALL_MODAL';
+	static readonly CLOSE_ACTIVE_MODAL = ModalActions.CLASS_NAME + 'CLOSE_ACTIVE_MODAL';
 
-	openModal (name : string) : IAction {
-		if (!name) throw new Error("Name modal required!");
+	openModal (name : string, state : boolean = true) : IAction {
     return {
       type : ModalActions.OPEN_MODAL,
 			payload : {
-				name : name
+				name : name,
+				state : state
 			}
     };
   }
 	closeAllModal () : IAction {
     return {
       type : ModalActions.CLOSE_ALL_MODAL
+    };
+  }
+	closeActiveModal () : IAction {
+    return {
+      type : ModalActions.CLOSE_ACTIVE_MODAL
     };
   }
 }

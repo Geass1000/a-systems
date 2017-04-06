@@ -41,6 +41,6 @@ export class AppComponent  {
 	}
 
 	closeAllModal () {
-		this.ngRedux.dispatch(this.modalActions.closeAllModal());
+		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 	}
 }

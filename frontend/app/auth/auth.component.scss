@@ -13,7 +13,7 @@ $placeholder-height: 24px;
 	position: fixed;
 	top: 230px;
 	left: 50%;
-	z-index: $z-index-model-2;
+	z-index: $z-index-modal-2;
 
 	margin: 0 -175px;
 
@@ -109,7 +109,7 @@ $placeholder-height: 24px;
 
 				position: absolute;
 				top: $placeholder-height;
-				z-index: $z-index-model-3;
+				z-index: $z-index-modal-3;
 
 				transition: color 0.25s, font-size 0.25s, top 0.25s;
 			}
@@ -137,7 +137,7 @@ $placeholder-height: 24px;
 				padding-bottom: 5px;
 
 				position: relative;
-				z-index: $z-index-model-4;
+				z-index: $z-index-modal-4;
 
 				transition: border 0.3s;
 
@@ -154,7 +154,7 @@ $placeholder-height: 24px;
 				position: absolute;
 				top: $placeholder-height;
 				right: 0;
-				z-index: $z-index-model-5;
+				z-index: $z-index-modal-5;
 
 				& + input[name="password"] {
 					padding-right: 90px;
