@@ -25,8 +25,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 	private subscription : any[] = [];
 	@select(['editor', 'selectElement']) selectElement$ : Observable<boolean>;
 	private selectElement : boolean;
-	@select(['editor', 'isInit']) isInit$ : Observable<boolean>;
-	private isInit : boolean;
+	@select(['editor', 'isInitWorkspace']) isInitWorkspace$ : Observable<boolean>;
+	private isInitWorkspace : boolean;
 
 	constructor (private ngRedux : NgRedux<any>,
 						 	 private editorActions : EditorActions) {
@@ -36,7 +36,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 	}
 	ngOnInit () {
 		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
-		this.subscription.push(this.isInit$.subscribe((data) => this.isInit = data));
+		this.subscription.push(this.isInitWorkspace$.subscribe((data) => this.isInitWorkspace = data));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());

@@ -29,4 +29,7 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
+	formChange (event : any) {
+		this.ngRedux.dispatch(this.editorActions.setMeasure(this.curMeasure));
+	}
 }

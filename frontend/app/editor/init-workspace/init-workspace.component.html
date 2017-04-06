@@ -1,4 +1,4 @@
-<section *ngIf="!isInit" class="base-section">
+<section *ngIf="!isInitWorkspace" class="base-section">
 	<div class="initWorkspace">
 		<div class="initWorkspaceLogo">
 			<img src="app/shared/images/logo3.png" />
@@ -14,10 +14,6 @@
 					<label>Высота</label>
 					<input type="text" [(ngModel)]="workspace.height" />
 				</div>
-				<select [(ngModel)]="selectedMetric" (change)="metricChange()">
-					<option value="cm">см</option>
-					<option value="m">м</option>
-				</select>
 			</div>
 			<div class="form-texture">
 				<as-editor-radio-texture [width]="475" [type]="'workspace'" (onChanged)="workspace.texture = $event"></as-editor-radio-texture>

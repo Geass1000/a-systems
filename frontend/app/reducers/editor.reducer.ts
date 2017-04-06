@@ -2,13 +2,16 @@ import { Reducer } from 'redux';
 import { EditorActions } from '../actions/editor.actions';
 import { IAction } from '../shared/interfaces/action.interface';
 
+import { Config } from '../config';
+import * as _ from 'lodash';
+
 import { IWorkspace, ITexture } from '../shared/interfaces/editor.interface';
 import { IMap } from '../shared/interfaces/type.interface';
 
-import { Measure } from '../editor/metric.class';
-
 export interface IEditor {
-	isInit : boolean,
+	openInitWorkspace : boolean,
+	isInitWorkspace : boolean,
+	defMeasure : string,
 	curMeasure : string,
 	selectElement : boolean,
 	workspace : IWorkspace,
@@ -16,17 +19,12 @@ export interface IEditor {
 }
 
 export const INITIAL_STATE : IEditor = {
-	isInit : false,
-	curMeasure : Measure.keys().next().value,
+	openInitWorkspace : false,
+	isInitWorkspace : false,
+	defMeasure : 'px',
+	curMeasure : 'm',
 	selectElement : false,
-	workspace : {
-		width : 2000,
-		height : 2000,
-		texture : {
-			_id_texture : null,
-			_id_tile : null
-		}
-	},
+	workspace : _.cloneDeep(Config.workspace),
 	textures : {}
 };
 
@@ -36,10 +34,11 @@ export const EditorReducer : Reducer<IEditor> = (state = INITIAL_STATE, action :
 			return Object.assign({}, state, { selectElement : action.payload.state });
 		}
 		case EditorActions.INIT_WORKSPACE : {
-			return Object.assign({}, state, { isInit : action.payload.state });
+			return Object.assign({}, state, { isInitWorkspace : action.payload.state });
 		}
 		case EditorActions.UPDATE_WORKSPACE : {
-			return Object.assign({}, state, { workspace : action.payload.workspace });
+			let workspace : IWorkspace = _.cloneDeep(action.payload.workspace);
+			return Object.assign({}, state, { workspace : workspace });
 		}
 		case EditorActions.ADD_TEXTURE : {
 			let textures = Object.assign({}, state.textures);
@@ -54,6 +53,9 @@ export const EditorReducer : Reducer<IEditor> = (state = INITIAL_STATE, action :
 
 			ATextures.map((data : ITexture) => { textures[data._id] = data });
 			return Object.assign({}, state, { textures : textures });
+		}
+		case EditorActions.SET_MEASURE : {
+			return Object.assign({}, state, { curMeasure : action.payload.measure });
 		}
 	}
 	return state

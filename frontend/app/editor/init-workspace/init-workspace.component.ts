@@ -4,6 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 
+import { Config } from '../../config';
+import * as _ from 'lodash';
+
 import { IWorkspace } from '../../shared/interfaces/editor.interface';
 import { Metric, Measure } from '../metric.class';
 
@@ -14,52 +17,55 @@ import { Metric, Measure } from '../metric.class';
   styleUrls: [ 'init-workspace.component.css' ]
 })
 export class InitWorkspaceComponent implements OnInit, OnDestroy {
-	title = 'Home';
-	private selectedMetric : string = 'cm';
-	private prevMetric : string = this.selectedMetric;
-
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'isInit']) isInit$ : Observable<boolean>;
-	private isInit : boolean;
-	@select(['editor', 'workspace']) workspace$ : Observable<IWorkspace>;
-	private workspace : IWorkspace;
+	@select(['editor', 'isInitWorkspace']) isInitWorkspace$ : Observable<boolean>;
+	private isInitWorkspace : boolean;
+	@select(['editor', 'curMeasure']) curMeasure$ : Observable<string>;
+	private curMeasure : string = null;
+	@select(['editor', 'defMeasure']) defMeasure$ : Observable<string>;
+	private defMeasure : string = null;
+
+	/* Private Variable */
+	private workspace : IWorkspace = null;
+	private workspaceMeasure : string = null;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.isInit$.subscribe((data) => this.isInit = data));
-		this.subscription.push(this.workspace$.subscribe((data) => {
-			this.workspace = Object.assign({}, data);
-			this.workspace.width = Metric.convert({ from : Measure.get('px'), to : Measure.get(this.selectedMetric) }, this.workspace.width);
-			this.workspace.height = Metric.convert({ from : Measure.get('px'), to : Measure.get(this.selectedMetric) }, this.workspace.height);
+		this.subscription.push(this.isInitWorkspace$.subscribe((data) => this.isInitWorkspace = data));
+		this.subscription.push(this.defMeasure$.subscribe((data) => this.defMeasure = data));
+		this.subscription.push(this.curMeasure$.subscribe((data) => {
+			this.curMeasure = data;
+			if (!this.workspace) {
+				this.workspace = _.cloneDeep(Config.workspace);
+				this.workspaceMeasure = this.defMeasure;
+			}
+			this.convert();
 		}));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
+	convert () {
+		if (this.workspace) {
+			this.workspace.width  = Metric.convert({ from : Measure.get(this.workspaceMeasure), to : Measure.get(this.curMeasure) }, this.workspace.width);
+			this.workspace.height = Metric.convert({ from : Measure.get(this.workspaceMeasure), to : Measure.get(this.curMeasure) }, this.workspace.height);
+			this.workspaceMeasure = this.curMeasure;
+		}
+	}
+
 	onInitWorkspace () {
 		let obj : IWorkspace = Object.assign({}, this.workspace);
-		obj.width  = Metric.convert({ from : Measure.get(this.selectedMetric), to : Measure.get('px') }, this.workspace.width);
-		obj.height = Metric.convert({ from : Measure.get(this.selectedMetric), to : Measure.get('px') }, this.workspace.height);
+		obj.width  = Metric.convert({ from : Measure.get(this.curMeasure), to : Measure.get(this.defMeasure) }, this.workspace.width);
+		obj.height = Metric.convert({ from : Measure.get(this.curMeasure), to : Measure.get(this.defMeasure) }, this.workspace.height);
 		this.ngRedux.dispatch(this.editorActions.updateWorkspace(obj));
 		this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
 	}
 
 	onOpenWorkspace () {
-		let num : number = Metric.convert({ from : Measure.get('px'), to : Measure.get('m') }, this.workspace.width);
-	}
 
-	metricChange () {
-		this.workspace.width = Metric.convert({ from : Measure.get(this.prevMetric), to : Measure.get(this.selectedMetric) }, this.workspace.width);
-		this.workspace.height = Metric.convert({ from : Measure.get(this.prevMetric), to : Measure.get(this.selectedMetric) }, this.workspace.height);
-		this.prevMetric = this.selectedMetric;
-	}
-
-	test (event : any) {
-		console.log("test");
-		console.log(event);
 	}
 }

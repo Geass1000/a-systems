@@ -24,11 +24,12 @@
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
 
       // other libraries
-      'rxjs':                      'npm:rxjs',
-      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
-			'angular2-jwt': 'node_modules/angular2-jwt/angular2-jwt.js',
-			'@angular-redux/store': 'npm:@angular-redux/store',
-			'redux': 'npm:redux'
+      'rxjs':                     	'npm:rxjs',
+      'angular-in-memory-web-api':	'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
+			'angular2-jwt': 							'node_modules/angular2-jwt/angular2-jwt.js',
+			'lodash': 										'node_modules/lodash',
+			'@angular-redux/store': 			'npm:@angular-redux/store',
+			'redux': 											'npm:redux'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -40,11 +41,15 @@
         defaultExtension: 'js'
       },
 			'angular2-jwt': {
-				'defaultExtension': 'js'
+				defaultExtension: 'js'
+			},
+			'lodash': {
+				main: 'index',
+				defaultExtension: 'js'
 			},
 			'@angular-redux/store': {
 				main: 'lib/index.js',
-				defaultExtension: 'js' 
+				defaultExtension: 'js'
 			},
 			redux: {
 				main: 'dist/redux.min.js',

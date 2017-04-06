@@ -10,7 +10,16 @@ export class EditorActions {
 	static readonly UPDATE_WORKSPACE = EditorActions.CLASS_NAME + 'UPDATE_WORKSPACE';
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
 	static readonly ADD_TEXTURES = EditorActions.CLASS_NAME + 'ADD_TEXTURES';
+	static readonly SET_MEASURE = EditorActions.CLASS_NAME + 'SET_MEASURE';
 
+	setMeasure (measure : string) : IAction {
+    return {
+      type : EditorActions.SET_MEASURE,
+			payload : {
+				measure : measure
+			}
+    };
+  }
 	selectElement (state : boolean) : IAction {
     return {
       type : EditorActions.SELECT_ELEMENT,

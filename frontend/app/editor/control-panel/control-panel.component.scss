@@ -67,6 +67,10 @@ header::before {
 		background: rgba(0, 0, 0, 0.05);
 	  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
 
+		div, form {
+			display: flex;
+			align-items: center;
+		}
 		.switch-label {
 			width: $switch-width;
 			height: 100%;
