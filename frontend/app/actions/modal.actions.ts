@@ -5,7 +5,6 @@ import { IAction } from '../shared/interfaces/action.interface';
 export class ModalActions {
 	static readonly CLASS_NAME = "MODAL_ACTIONS:";
 	static readonly OPEN_MODAL = ModalActions.CLASS_NAME + 'OPEN_MODAL(NAME)';
-	static readonly CLOSE_ALL_MODAL = ModalActions.CLASS_NAME + 'CLOSE_ALL_MODAL';
 	static readonly CLOSE_ACTIVE_MODAL = ModalActions.CLASS_NAME + 'CLOSE_ACTIVE_MODAL';
 
 	openModal (name : string, state : boolean = true) : IAction {
@@ -15,11 +14,6 @@ export class ModalActions {
 				name : name,
 				state : state
 			}
-    };
-  }
-	closeAllModal () : IAction {
-    return {
-      type : ModalActions.CLOSE_ALL_MODAL
     };
   }
 	closeActiveModal () : IAction {

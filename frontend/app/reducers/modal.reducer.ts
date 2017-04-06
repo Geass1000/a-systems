@@ -34,13 +34,6 @@ export const ModalReducer : Reducer<IModal> = (state = INITIAL_STATE, action : I
 			modal[action.payload.name] = true;
 			return modal;
 		}
-		case ModalActions.CLOSE_ALL_MODAL : {
-			let modal = Object.assign({}, state);
-			for (let i in modal) {
-				modal[i] = false;
-			}
-			return modal;
-		}
 		case ModalActions.CLOSE_ACTIVE_MODAL : {
 			let modal = Object.assign({}, state, { open : false });
 			modal[modal.active] = false;
