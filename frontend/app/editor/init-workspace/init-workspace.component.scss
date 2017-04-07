@@ -4,12 +4,13 @@
 	width: 475px;
 	margin: 0 auto;
 	margin-top: 25px;
-	position: relative;
 	z-index: $z-index-modal-1;
-
+	position: relative;
 	display: flex;
 	flex-direction: row;
 	align-items: stretch;
+
+	border: 1px solid rgba(0, 0, 0, 0.12);
 
 	background: #fff;
 

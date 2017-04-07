@@ -1,5 +1,9 @@
 import { IWorkspace } from './shared/interfaces/editor.interface';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/scan';
+
 export class Config {
 	static readonly serverUrl : string = 'http://localhost:3005/';
 	static readonly scale : number = 100; // Пикслей в метре
@@ -12,4 +16,8 @@ export class Config {
 			_id_tile : null
 		}
 	};
+
+	/* Http */
+	static retryCount : number = 5;
+	static retryDelay : number = 3000;
 };

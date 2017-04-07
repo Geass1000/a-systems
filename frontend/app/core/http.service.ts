@@ -1,0 +1,37 @@
+import { Injectable } from '@angular/core';
+
+import { Headers, Http, Response } from '@angular/http';
+
+import { Config } from '../config';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/scan';
+
+@Injectable()
+export class HttpService {
+	constructor () {
+	}
+
+	retry (errorObs : Observable<any>) {
+		return errorObs.delay(Config.retryDelay).scan((errorCount : number, error : any) => {
+			if(errorCount >= Config.retryCount && error.status !== 0) {
+				throw error;
+			}
+			return errorCount + 1;
+		}, 0);
+	}
+	handleError (error : Response | any) {
+		let errMsg: string;
+		if (error instanceof Response) {
+			const body = error.json() || '';
+			const err = body.error || JSON.stringify(body);
+			errMsg = `${error.status} -${error.statusText || ''} ${err}`;
+		} else {
+			errMsg = error.message ? error.message : error.toString();
+		}
+		console.error(errMsg);
+		return Observable.throw(errMsg);
+	}
+}
