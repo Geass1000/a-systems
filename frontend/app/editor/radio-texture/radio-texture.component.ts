@@ -64,7 +64,7 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 			}
 		}));
 
-		this.editorService.getTextures(this.type).subscribe((data) => { ; }, (error) => { ; });
+		this.editorService.getTextures(this.type).subscribe((data) => {}, (error) => {});
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
