@@ -3,6 +3,7 @@ import { NgRedux, select } from '@angular-redux/store';
 import { Observable } from 'rxjs/Observable';
 
 import { UserService } from './core/user.service';
+import { LoggerService } from './core/logger.service';
 
 /* Redux - Reducer */
 import { AppReducer, INITIAL_STATE, IAppState } from './reducers/app.store';
@@ -22,8 +23,12 @@ export class AppComponent  {
 
 	constructor (public userService : UserService,
 							 private ngRedux : NgRedux<IAppState>,
-						 	 private modalActions : ModalActions) {
+						 	 private modalActions : ModalActions,
+						 	 private logger : LoggerService) {
 		this.ngRedux.configureStore(AppReducer, INITIAL_STATE, null, []);
+		this.logger.debug('Hello!', 'Start Angular App!');
+		this.logger.log('Hello!', 'Start Angular App!');
+		this.logger.print('error', 'Start Angular App!');
 	}
 
 	loggedIn () {
