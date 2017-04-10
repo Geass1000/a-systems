@@ -26,9 +26,7 @@ export class AppComponent  {
 						 	 private modalActions : ModalActions,
 						 	 private logger : LoggerService) {
 		this.ngRedux.configureStore(AppReducer, INITIAL_STATE, null, []);
-		this.logger.debug('Hello!', 'Start Angular App!');
-		this.logger.log('Hello!', 'Start Angular App!');
-		this.logger.print('error', 'Start Angular App!');
+		this.logger.info(`${this.constructor.name}:`, 'Start app Artificial System!');
 	}
 
 	loggedIn () {

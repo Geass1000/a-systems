@@ -11,9 +11,12 @@ enum Level {
 	LOG = 5
 };
 
+const LevelFunction : string[] = ['error', 'warn', 'info', 'debug', 'log'];
+
 @Injectable()
 export class LoggerService {
 	private level : Level = Level.LOG;
+	private availableLevel : string[] = ['error', 'warn', 'info', 'debug', 'log'];
 	constructor () {
 	}
 
@@ -33,7 +36,7 @@ export class LoggerService {
 		this.isEnable(Level.LOG) && console.log.apply(console, restOfMessage);
 	}
 	print (logLevel : string, ...restOfMessage : string[]) {
-		if (!this[logLevel]) throw 'Level not exist';
+		if (this.availableLevel.indexOf(logLevel) === -1) throw 'Level not exist';
 		this[logLevel].apply(this, restOfMessage);
 	}
 
