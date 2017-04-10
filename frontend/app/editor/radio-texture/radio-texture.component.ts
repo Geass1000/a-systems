@@ -5,8 +5,8 @@ import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 
 import { EditorService } from '../editor.service';
-import { ITexture, ITextureTile } from '../../shared/interfaces/editor.interface';
-import { IMap, mapToArray } from '../../shared/interfaces/type.interface';
+import { LoggerService } from '../../core/logger.service';
+import { ITexture } from '../../shared/interfaces/editor.interface';
 
 @Component({
 	moduleId: module.id,
@@ -16,67 +16,42 @@ import { IMap, mapToArray } from '../../shared/interfaces/type.interface';
 })
 export class RadioTextureComponent implements OnInit, OnDestroy {
 	/* Private variable */
-	private state : ITextureTile = null;
-	private activeTexture : string = '';
-	private offsets : IMap<Array<number>> = {};
+	private activeTextureId : string = null;
 
 	/* Input */
-	@Input('width') width : number = 100;
 	@Input('type') type : string = 'none';
 
 	/* Output */
-	@Output('onChanged') onChanged = new EventEmitter<ITextureTile>();
-	textureChange (texture : ITexture, tileID : number) {
-		this.state = {
-			_id_texture : texture._id,
-			_id_tile : tileID
-		};
-		this.onChanged.emit(this.state);
+	@Output('onChanged') onChanged = new EventEmitter<string>();
+	textureChange (_id_texture : string) {
+		this.onChanged.emit(_id_texture);
 	}
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'isInit']) isInit$ : Observable<boolean>;
-	private isInit : boolean;
-	@select(['editor', 'textures']) textures$ : Observable<IMap<ITexture>>;
-	private textures : Array<ITexture>;
+	@select(['editor', 'textures']) textures$ : Observable<Map<string, ITexture>>;
+	private textures : Array<ITexture> = [];
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
-						 	 private editorService : EditorService) {
+						 	 private editorService : EditorService,
+						 	 private logger : LoggerService) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.isInit$.subscribe((data) => this.isInit = data));
 		this.subscription.push(this.textures$.subscribe((data) => {
-			this.textures = mapToArray<ITexture>(data).filter((d) => d.type === this.type);
+			this.textures = Array.from(data.values()).filter((d) => d.type === this.type);
+
 			if (this.textures.length !== 0) {
-				this.textures.map((data) => {
-					this.offsets[data._id] = this.createOffset(data);
-				});
+				this.logger.info(`${this.constructor.name}:`, `Get: ${this.textures.length} texture; Type: ${this.type}`);
+				this.activeTextureId = this.textures[0]._id;
+				this.onChanged.emit(this.textures[0]._id);
 			}
-			if (this.textures.length !== 0 && !this.state) {
-				this.activeTexture = '0-0';
-				this.state = {
-					_id_texture : this.textures[0]._id,
-					_id_tile : 0
-				};
-				this.onChanged.emit(this.state);
+			else {
+				this.editorService.getTextures(this.type).subscribe((data) => {}, (error) => {});
 			}
 		}));
-
-		this.editorService.getTextures(this.type).subscribe((data) => {}, (error) => {});
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
-	}
-
-	createOffset (texture : ITexture) {
-		let arr : Array<number> = new Array(texture.names.length).fill(0);
-		arr = arr.map((data, index) => texture.size * index);
-		return arr;
-	}
-
-	idTile (id : number, offset : number) {
-		return `${id}-${offset}`;
 	}
 }

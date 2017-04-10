@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 
 import { Config } from '../config';
+import { LoggerService } from './logger.service';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -11,7 +12,7 @@ import 'rxjs/add/operator/scan';
 
 @Injectable()
 export class HttpService {
-	constructor () {
+	constructor (private logger : LoggerService) {
 	}
 
 	retry (errorObs : Observable<any>) {
@@ -31,7 +32,7 @@ export class HttpService {
 		} else {
 			errMsg = error.message ? error.message : error.toString();
 		}
-		console.error(errMsg);
+		this.logger.error(errMsg);
 		return Observable.throw(errMsg);
 	}
 }

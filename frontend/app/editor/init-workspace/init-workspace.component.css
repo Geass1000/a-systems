@@ -42,6 +42,7 @@
       flex-direction: row;
       align-items: flex-end; }
     .initWorkspace .initWorkspaceContent .form-texture {
+      width: 100%;
       margin-bottom: 15px; }
     .initWorkspace .initWorkspaceContent .form-group {
       margin-right: 15px; }

@@ -2,45 +2,71 @@
 
 .radio-texture {
 	box-sizing: border-box;
-	padding: 4px;
+	width: 100%;
+	height: 100%;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;;
 
 	border: 1px solid $color-text-3;
-	border-radius: 3px;
 
-	overflow-x: scroll;
-	overflow-y: hidden;
+	.radio-texture-header {
+		box-sizing: border-box;
+		width: 100%;
+		padding: 7px 15px;
+		padding-bottom: 10px;
 
-	.el-texture {
-		display: flex;
-		flex-direction: row;
+		background: $color-text-3;
+		color: #fff;
 	}
 
-	.item {
-		width: auto;
-		height: auto;
+	form {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
 
-		label {
+		.texture-block {
+			display: flex;
+			flex-direction: row;
+		}
+
+		.item {
 			width: 80px;
 			height: 80px;
-			margin: 4px;
-			display: block;
+			position: relative;
 
-			border: 2px solid $color-text-3;
-			border-radius: 3px;
+			.active-element {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 
-			cursor: pointer;
-
-			&:hover, &:active {
-				border-color: $color-button-1;
+				i {
+					opacity: 0.7;
+					font-size: 3.2em;
+				}
 			}
-		}
-		input[type="radio"] {
-			display: none;
 
-			&:checked ~ label {
-				border-color: $color-button-1;
+			label {
+				width: 100%;
+				height: 100%;
+				display: block;
+
+				cursor: pointer;
+
+				&:hover, &:active {
+					border-color: $color-button-1;
+				}
+			}
+			input[type="radio"] {
+				display: none;
+
+				&:checked ~ label {
+					border-color: $color-button-1;
+				}
 			}
 		}
 	}

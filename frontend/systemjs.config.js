@@ -26,8 +26,8 @@
       // other libraries
       'rxjs':                     	'npm:rxjs',
       'angular-in-memory-web-api':	'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
-			'angular2-jwt': 							'node_modules/angular2-jwt/angular2-jwt.js',
-			'lodash': 										'node_modules/lodash',
+			'angular2-jwt': 							'npm:angular2-jwt/angular2-jwt.js',
+			'lodash': 										'npm:lodash',
 			'@angular-redux/store': 			'npm:@angular-redux/store',
 			'redux': 											'npm:redux'
     },

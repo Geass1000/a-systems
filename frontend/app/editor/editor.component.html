@@ -1,5 +1,5 @@
 <as-editor-control-panel></as-editor-control-panel>
-<as-editor-init-workspace></as-editor-init-workspace>
+<as-editor-init-workspace *ngIf="initWorkspace$ | async"></as-editor-init-workspace>
 
 <section *ngIf="isInitWorkspace">
 

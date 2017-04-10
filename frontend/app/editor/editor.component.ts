@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
+import { ModalActions } from '../actions/modal.actions';
 
 import { MatrixTransform } from './matrix-transform.class';
 
@@ -23,16 +24,19 @@ export class EditorComponent implements OnInit, OnDestroy {
 	private workspaceY : number;
 
 	private subscription : any[] = [];
+	@select(['modal', 'initWorkspace']) initWorkspace$ : Observable<boolean>;
 	@select(['editor', 'selectElement']) selectElement$ : Observable<boolean>;
 	private selectElement : boolean;
 	@select(['editor', 'isInitWorkspace']) isInitWorkspace$ : Observable<boolean>;
 	private isInitWorkspace : boolean;
 
 	constructor (private ngRedux : NgRedux<any>,
-						 	 private editorActions : EditorActions) {
+						 	 private editorActions : EditorActions,
+						 	 private modalActions : ModalActions) {
 		this.workspaceWidth = 2000;
 		this.workspaceHeight = 2000;
 		this.initWorkspace();
+		this.ngRedux.dispatch(this.modalActions.openModal('initWorkspace', false));
 	}
 	ngOnInit () {
 		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));

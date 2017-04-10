@@ -15,11 +15,15 @@ let textureSchema = new Schema({
 		require : true
 	},
 	size : {
+		type : String,
+		require : true,
+	},
+	offset : {
 		type : Number,
 		require : true,
 	},
-	names : {
-		type : [String],
+	name : {
+		type : String,
 		require : true,
 	}
 });
@@ -30,7 +34,7 @@ let textureSchema = new Schema({
  * @param  {Object} user user info
  */
 textureSchema.statics.getAllTextures = function (type) {
-	let sel = '_id type url size names';
+	let sel = '_id type url size offset name';
 	return type ? this.find({ type : { $in : type} }).select(sel).exec() :
 								this.find().select(sel).exec();
 };

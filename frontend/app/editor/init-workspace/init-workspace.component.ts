@@ -32,8 +32,7 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
-						 	 private modalActions : ModalActions) {
-		this.ngRedux.dispatch(this.modalActions.openModal('initWorkspace', false));
+						 	 private modalActions : ModalActions) {		
 	}
 	ngOnInit () {
 		this.subscription.push(this.defMeasure$.subscribe((data) => this.defMeasure = data));
