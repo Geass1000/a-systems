@@ -3,6 +3,14 @@
 		<h4>Текстуры:</h4>
 	</div>
 	<form class="radio-texture-content">
+		<div class="naw-arrow">
+			<div class="naw-left">
+				<i class="fa fa-chevron-left" aria-hidden="true"></i>
+			</div>
+			<div class="naw-right">
+				<i class="fa fa-chevron-right" aria-hidden="true"></i>
+			</div>
+		</div>
 		<div class="item" *ngFor="let texture of textures">
 			<input type="radio" name="texture"
 				[attr.id]="texture._id"	[value]="texture._id"
