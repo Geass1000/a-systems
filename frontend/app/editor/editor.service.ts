@@ -15,16 +15,19 @@ import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 
 import { HttpService } from '../core/http.service';
+import { LoggerService } from '../core/logger.service';
 
 @Injectable()
 export class EditorService {
 	private headers = new Headers({ 'Content-Type': 'application/json' });
 	private texturUrl = 'api/texture';
+	private texturTypeUrl = 'api/texture/type';
 
 	constructor (private http : Http,
 							 private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
-						 	 private httpService : HttpService) {
+						 	 private httpService : HttpService,
+						 	 private logger : LoggerService) {
 	}
 
 	getTextures (type : string) {
@@ -32,7 +35,17 @@ export class EditorService {
 		return this.http.get(Config.serverUrl + this.texturUrl + query, { headers : this.headers })
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
-											this.ngRedux.dispatch(this.editorActions.addTextures(jResp.textures));
+											this.logger.info(`${this.constructor.name}:`, "getTextures", jResp);
+											return jResp;
+										})
+										.retryWhen((errorObs) => this.httpService.retry(errorObs))
+										.catch(this.httpService.handleError);
+	}
+	getTextureTypes () {
+		return this.http.get(Config.serverUrl + this.texturTypeUrl, { headers : this.headers })
+										.map((resp : Response) => {
+											let jResp = resp.json() || {};
+											this.logger.info(`${this.constructor.name}:`, "getTextureTypes", jResp);
 											return jResp;
 										})
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))

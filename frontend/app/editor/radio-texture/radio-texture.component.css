@@ -19,21 +19,27 @@
   height: 100%;
   position: relative;
   display: flex;
-  flex-direction: column;
-  border: 1px solid #5C5C5C; }
+  flex-direction: column; }
   .radio-texture .radio-texture-header {
     box-sizing: border-box;
     width: 100%;
-    padding: 7px 15px;
-    padding-bottom: 10px;
-    background: #5C5C5C;
-    color: #fff; }
+    padding: 10px 20px;
+    background-color: rgba(128, 128, 128, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    color: #5C5C5C;
+    font-size: 20px; }
   .radio-texture form {
-    position: relative;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 1px; }
+    flex-direction: column; }
+    .radio-texture form .items-type {
+      font-size: 15px; }
+    .radio-texture form .items-collection {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding: 1px; }
     .radio-texture form .naw-arrow {
       font-size: 2em;
       color: #5C5C5C; }
@@ -57,9 +63,6 @@
         left: 0; }
       .radio-texture form .naw-arrow .naw-right {
         right: 0; }
-    .radio-texture form .texture-block {
-      display: flex;
-      flex-direction: row; }
     .radio-texture form .item {
       width: 80px;
       height: 80px;

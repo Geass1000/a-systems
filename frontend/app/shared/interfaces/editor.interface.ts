@@ -8,7 +8,11 @@ export interface ITexture {
 	_id : string,
 	type : string,
 	url : string,
-	size : string,
-	offset : number,
+	width : number,
+	height : number
+}
+
+export interface ITextureType {
+	_id : string,
 	name : string
 }

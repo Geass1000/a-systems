@@ -16,6 +16,8 @@ let jwtCheck = jwt({
 router.route('/texture')
 			.get(EditorController.getTextures)
 			.put(EditorController.addTexture);
+router.route('/texture/type')
+			.get(EditorController.getAllTextureTypes);
 //... other paths
 
 router.use('/editor', router);

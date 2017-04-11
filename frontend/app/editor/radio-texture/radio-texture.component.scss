@@ -8,24 +8,35 @@
 	display: flex;
 	flex-direction: column;
 
-	border: 1px solid $color-text-3;
-
 	.radio-texture-header {
 		box-sizing: border-box;
 		width: 100%;
-		padding: 7px 15px;
-		padding-bottom: 10px;
 
-		background: $color-text-3;
-		color: #fff;
+		padding: 10px 20px;
+
+		background-color: rgba(128, 128, 128, 0.1);
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+		color: $color-text-3;
+		font-size: 20px;
 	}
 
 	form {
-		position: relative;
 		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		padding: 1px;
+		flex-direction: column;
+
+		.items-type {
+			font-size: 15px;
+		}
+
+		.items-collection {
+			position: relative;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			padding: 1px;
+		}
 
 		.naw-arrow {
 			font-size: 2em;
@@ -59,11 +70,6 @@
 			.naw-right {
 				right: 0;
 			}
-		}
-
-		.texture-block {
-			display: flex;
-			flex-direction: row;
 		}
 
 		.item {

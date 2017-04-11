@@ -14,16 +14,12 @@ let textureSchema = new Schema({
 		type : String,
 		require : true
 	},
-	size : {
-		type : String,
-		require : true,
-	},
-	offset : {
+	width : {
 		type : Number,
 		require : true,
 	},
-	name : {
-		type : String,
+	height : {
+		type : Number,
 		require : true,
 	}
 });
@@ -34,9 +30,12 @@ let textureSchema = new Schema({
  * @param  {Object} user user info
  */
 textureSchema.statics.getAllTextures = function (type) {
-	let sel = '_id type url size offset name';
+	let sel = '_id type url width height';
 	return type ? this.find({ type : { $in : type} }).select(sel).exec() :
 								this.find().select(sel).exec();
+};
+textureSchema.statics.getAllTexturesTypes = function () {
+	return this.find().distinct('type').exec();
 };
 
 module.exports = connection.model('Texture', textureSchema);

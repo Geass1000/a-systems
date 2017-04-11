@@ -12,10 +12,6 @@
 					<input type="text" [(ngModel)]="workspace.height" />
 				</div>
 			</div>
-			<div class="form-texture">
-				<as-editor-radio-texture [type]="'workspace'" (onChanged)="workspace.texture = $event"></as-editor-radio-texture>
-			</div>
-
 			<div class="flex-row">
 				<button (click)="onInitWorkspace()">Создать</button>
 				<button (click)="onOpenWorkspace()">Открыть</button>

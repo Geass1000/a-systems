@@ -5,7 +5,7 @@ import { IAction } from '../shared/interfaces/action.interface';
 import { Config } from '../config';
 import * as _ from 'lodash';
 
-import { IWorkspace, ITexture } from '../shared/interfaces/editor.interface';
+import { IWorkspace, ITexture, ITextureType } from '../shared/interfaces/editor.interface';
 
 export interface IEditor {
 	isInitWorkspace : boolean,
@@ -13,7 +13,10 @@ export interface IEditor {
 	curMeasure : string,
 	selectElement : boolean,
 	workspace : IWorkspace,
-	textures : Map<string, ITexture>
+	// Textures
+	textureTypes : Map<string, ITextureType>,
+	textures : Map<string, ITexture>,
+	texturesLoad : Map<string, boolean>,
 }
 
 export const INITIAL_STATE : IEditor = {
@@ -22,7 +25,10 @@ export const INITIAL_STATE : IEditor = {
 	curMeasure : 'm',
 	selectElement : false,
 	workspace : _.cloneDeep(Config.workspace),
-	textures : new Map()
+	// Textures
+	textureTypes : new Map(),
+	textures : new Map(),
+	texturesLoad : new Map(),
 };
 
 export const EditorReducer : Reducer<IEditor> = (state = INITIAL_STATE, action : IAction) : IEditor => {
@@ -50,6 +56,13 @@ export const EditorReducer : Reducer<IEditor> = (state = INITIAL_STATE, action :
 
 			ATextures.map((data : ITexture) => { textures.set(data._id, data) });
 			return Object.assign({}, state, { textures : textures });
+		}
+		case EditorActions.ADD_TEXTURE_TYPES : {
+			let textureTypes = new Map(state.textureTypes);
+			let ATypes = action.payload.types;
+
+			ATypes.map((data : ITextureType) => { textureTypes.set(data._id, data) });
+			return Object.assign({}, state, { textureTypes : textureTypes });
 		}
 		case EditorActions.SET_MEASURE : {
 			return Object.assign({}, state, { curMeasure : action.payload.measure });

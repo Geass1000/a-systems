@@ -1,27 +1,29 @@
 <div class="radio-texture">
 	<div class="radio-texture-header">
-		<h4>Текстуры:</h4>
+		<h4>Texture:</h4>
 	</div>
 	<form class="radio-texture-content">
-		<div class="naw-arrow">
-			<div class="naw-left">
-				<i class="fa fa-chevron-left" aria-hidden="true"></i>
-			</div>
-			<div class="naw-right">
-				<i class="fa fa-chevron-right" aria-hidden="true"></i>
+
+		<select name="textureType" class="items-type" [(ngModel)]="activeTextureType" (change)="onChangeTextureType($event)">
+        <option value="" disabled>Choose a type</option>
+        <option *ngFor="let textureType of textureTypes" [ngValue]="textureType._id">
+          {{ textureType.name }}
+        </option>
+    </select>
+
+		<div class="items-collection">
+			<div class="item" *ngFor="let texture of textures">
+				<input type="radio" name="texture"
+					[attr.id]="texture._id"	[value]="texture._id"
+					[(ngModel)]="activeTextureId"	(change)="textureChange(texture._id)">
+				<label
+					[attr.for]="texture._id"
+					[style.background-image]="'url(' + texture.url + ')'"></label>
+				<div class="active-element" *ngIf="texture._id === activeTextureId">
+					<i class="fa fa-check-circle-o" aria-hidden="true"></i>
+				</div>
 			</div>
 		</div>
-		<div class="item" *ngFor="let texture of textures">
-			<input type="radio" name="texture"
-				[attr.id]="texture._id"	[value]="texture._id"
-				[(ngModel)]="activeTextureId"	(change)="textureChange(texture._id)">
-			<label
-				[attr.for]="texture._id"
-				[style.background-image]="'url(' + texture.url + ')'"
-				[style.background-position]="texture.offset + 'px center'"></label>
-			<div class="active-element" *ngIf="texture._id === activeTextureId">
-				<i class="fa fa-check-circle-o" aria-hidden="true"></i>
-			</div>
-		</div>
+
 	</form>
 </div>

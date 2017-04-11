@@ -3,6 +3,7 @@
 let logger = require('../config/logger.config');
 
 let Texture = require('../models/texture.model');
+let TextureType = require('../models/texture-type.model');
 
 /**
  * Контроллер редактора.
@@ -78,6 +79,32 @@ class EditorController {
 			.catch((err) => {
 				if (err) {
 					logger.error(err);
+					res.status(500).json({ "message" : "Try later" });
+					return;
+				}
+			});
+	}
+
+	/**
+ 	 * Получение всех текстур из БД 'textures'.
+ 	 *
+ 	 * @param {express.Request} req
+ 	 * @param {express.Response} res
+ 	 *
+ 	 * @class EditorController
+ 	 * @method getTextures
+ 	 */
+	getAllTextureTypes (req, res) {
+		TextureType.getAllTextureTypes()
+			.then((doc) => {
+				logger.info('DB TextureTypes: getTextureTypes', JSON.stringify(doc));
+
+				res.status(200).json({
+					"types" : doc
+				});
+			})
+			.catch((err) => {
+				if (err) {
 					res.status(500).json({ "message" : "Try later" });
 					return;
 				}
