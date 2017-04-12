@@ -9,26 +9,30 @@ import { IWorkspace, ITexture, ITextureType } from '../shared/interfaces/editor.
 
 export interface IEditor {
 	isInitWorkspace : boolean,
+	// Control Panel
 	defMeasure : string,
 	curMeasure : string,
+	// Workspace
 	selectElement : boolean,
 	workspace : IWorkspace,
 	// Textures
 	textureTypes : Map<string, ITextureType>,
 	textures : Map<string, ITexture>,
-	texturesLoad : Map<string, boolean>,
+	textureLoad : Map<string, boolean>,
 }
 
 export const INITIAL_STATE : IEditor = {
 	isInitWorkspace : false,
+	// Control Panel
 	defMeasure : 'px',
 	curMeasure : 'm',
+	// Workspace
 	selectElement : false,
 	workspace : _.cloneDeep(Config.workspace),
 	// Textures
 	textureTypes : new Map(),
 	textures : new Map(),
-	texturesLoad : new Map(),
+	textureLoad : new Map()
 };
 
 export const EditorReducer : Reducer<IEditor> = (state = INITIAL_STATE, action : IAction) : IEditor => {
@@ -52,17 +56,38 @@ export const EditorReducer : Reducer<IEditor> = (state = INITIAL_STATE, action :
 		}
 		case EditorActions.ADD_TEXTURES : {
 			let textures = new Map(state.textures);
+			let textureLoad = new Map(state.textureLoad);
 			let ATextures = action.payload.textures;
 
-			ATextures.map((data : ITexture) => { textures.set(data._id, data) });
-			return Object.assign({}, state, { textures : textures });
+			ATextures.map((data : ITexture) => {
+				textures.set(data._id, data);
+				textureLoad.set(data.type, true);
+			});
+			return Object.assign({}, state, {
+				textures : textures,
+				textureLoad : textureLoad
+			});
 		}
 		case EditorActions.ADD_TEXTURE_TYPES : {
 			let textureTypes = new Map(state.textureTypes);
+			let textureLoad = new Map(state.textureLoad);
 			let ATypes = action.payload.types;
 
-			ATypes.map((data : ITextureType) => { textureTypes.set(data._id, data) });
-			return Object.assign({}, state, { textureTypes : textureTypes });
+			ATypes.map((data : ITextureType) => {
+				textureTypes.set(data._id, data);
+				textureLoad.set(data._id, false);
+			});
+			return Object.assign({}, state, {
+				textureTypes : textureTypes,
+				textureLoad : textureLoad
+			});
+		}
+		case EditorActions.UPDATE_TEXTURE_LOAD : {
+			let textureLoad = new Map(state.textureLoad);
+			textureLoad.set(action.payload._id, action.payload.state);
+			return Object.assign({}, state, {
+				textureLoad : textureLoad
+			});
 		}
 		case EditorActions.SET_MEASURE : {
 			return Object.assign({}, state, { curMeasure : action.payload.measure });

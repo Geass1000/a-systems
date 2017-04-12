@@ -11,6 +11,7 @@ export class EditorActions {
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
 	static readonly ADD_TEXTURES = EditorActions.CLASS_NAME + 'ADD_TEXTURES';
 	static readonly ADD_TEXTURE_TYPES = EditorActions.CLASS_NAME + 'ADD_TEXTURE_TYPES';
+	static readonly UPDATE_TEXTURE_LOAD = EditorActions.CLASS_NAME + 'UPDATE_TEXTURE_LOAD';
 	static readonly SET_MEASURE = EditorActions.CLASS_NAME + 'SET_MEASURE';
 
 	setMeasure (measure : string) : IAction {
@@ -66,6 +67,15 @@ export class EditorActions {
 			type : EditorActions.ADD_TEXTURE_TYPES,
 			payload : {
 				types : types
+			}
+		};
+	}
+	updateTextureLoad (_id : string, state : boolean) {
+		return {
+			type : EditorActions.UPDATE_TEXTURE_LOAD,
+			payload : {
+				_id : _id,
+				state : state
 			}
 		};
 	}

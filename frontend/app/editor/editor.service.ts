@@ -35,7 +35,7 @@ export class EditorService {
 		return this.http.get(Config.serverUrl + this.texturUrl + query, { headers : this.headers })
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
-											this.logger.info(`${this.constructor.name}:`, "getTextures", jResp);
+											this.logger.info(`${this.constructor.name}:`, "getTextures -", `status = ${resp.status} -`, jResp);
 											return jResp;
 										})
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))
@@ -45,7 +45,7 @@ export class EditorService {
 		return this.http.get(Config.serverUrl + this.texturTypeUrl, { headers : this.headers })
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
-											this.logger.info(`${this.constructor.name}:`, "getTextureTypes", jResp);
+											this.logger.info(`${this.constructor.name}:`, "getTextureTypes -", `status = ${resp.status} -`, jResp);
 											return jResp;
 										})
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))

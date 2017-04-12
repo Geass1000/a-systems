@@ -34,14 +34,21 @@ class EditorController {
 
 		Texture.getAllTextures(type)
 			.then((doc) => {
-				logger.info(JSON.stringify(doc));
-
-				res.status(200).json({
-					"textures" : doc
-				});
+				logger.info('EditorController: getTextures', JSON.stringify(doc));
+				if (doc.length === 0) {
+					logger.info('EditorController: getTextures', '204:No Content');
+					res.status(204).send();
+				}
+				else {
+					logger.info('EditorController: getTextures', '200:Success');
+					res.status(200).json({
+						"textures" : doc
+					});
+				}
 			})
 			.catch((err) => {
 				if (err) {
+					logger.info('EditorController: getTextures', '500:Error!');
 					res.status(500).json({ "message" : "Try later" });
 					return;
 				}
@@ -97,14 +104,21 @@ class EditorController {
 	getAllTextureTypes (req, res) {
 		TextureType.getAllTextureTypes()
 			.then((doc) => {
-				logger.info('DB TextureTypes: getTextureTypes', JSON.stringify(doc));
-
-				res.status(200).json({
-					"types" : doc
-				});
+				logger.info('EditorController: getAllTextureTypes', JSON.stringify(doc));
+				if (doc.length === 0) {
+					logger.info('EditorController: getAllTextureTypes', '204:No Content');
+					res.status(204).send();
+				}
+				else {
+					logger.info('EditorController: getAllTextureTypes', '200:Success');
+					res.status(200).json({
+						"types" : doc
+					});
+				}
 			})
 			.catch((err) => {
 				if (err) {
+					logger.info('EditorController: getAllTextureTypes', '500:Error!');
 					res.status(500).json({ "message" : "Try later" });
 					return;
 				}

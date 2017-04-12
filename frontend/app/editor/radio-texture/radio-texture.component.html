@@ -4,15 +4,16 @@
 	</div>
 	<form class="radio-texture-content">
 
-		<select name="textureType" class="items-type" [(ngModel)]="activeTextureType" (change)="onChangeTextureType($event)">
-        <option value="" disabled>Choose a type</option>
-        <option *ngFor="let textureType of textureTypes" [ngValue]="textureType._id">
-          {{ textureType.name }}
-        </option>
+		<select name="textureType" class="items-type"
+			[(ngModel)]="activeTextureTypeId" (change)="onChangeTextureType($event)">
+      <option value="" disabled>Choose a type</option>
+      <option *ngFor="let textureType of textureTypes" [ngValue]="textureType._id">
+        {{ textureType.name }}
+      </option>
     </select>
 
 		<div class="items-collection">
-			<div class="item" *ngFor="let texture of textures">
+			<div class="item" *ngFor="let texture of texturesView">
 				<input type="radio" name="texture"
 					[attr.id]="texture._id"	[value]="texture._id"
 					[(ngModel)]="activeTextureId"	(change)="textureChange(texture._id)">
