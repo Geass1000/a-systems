@@ -21,9 +21,9 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 	/* Redux */
 	private subscription : any[] = [];
 	@select(['modal', 'initWorkspace']) initWorkspace$ : Observable<boolean>;
-	@select(['editor', 'curMeasure']) curMeasure$ : Observable<string>;
+	@select(['editor', 'all', 'curMeasure']) curMeasure$ : Observable<string>;
 	private curMeasure : string = null;
-	@select(['editor', 'defMeasure']) defMeasure$ : Observable<string>;
+	@select(['editor', 'all', 'defMeasure']) defMeasure$ : Observable<string>;
 	private defMeasure : string = null;
 
 	/* Private Variable */
@@ -32,7 +32,7 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
-						 	 private modalActions : ModalActions) {		
+						 	 private modalActions : ModalActions) {
 	}
 	ngOnInit () {
 		this.subscription.push(this.defMeasure$.subscribe((data) => this.defMeasure = data));

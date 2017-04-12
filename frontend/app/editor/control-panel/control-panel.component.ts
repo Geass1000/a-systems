@@ -18,7 +18,7 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'curMeasure']) curMeasure$ : Observable<string>;
+	@select(['editor', 'all', 'curMeasure']) curMeasure$ : Observable<string>;
 	private curMeasure : string;
 
 	constructor (private ngRedux : NgRedux<any>,

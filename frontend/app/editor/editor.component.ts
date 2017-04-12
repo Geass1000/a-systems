@@ -25,9 +25,9 @@ export class EditorComponent implements OnInit, OnDestroy {
 
 	private subscription : any[] = [];
 	@select(['modal', 'initWorkspace']) initWorkspace$ : Observable<boolean>;
-	@select(['editor', 'selectElement']) selectElement$ : Observable<boolean>;
+	@select(['editor', 'all', 'selectElement']) selectElement$ : Observable<boolean>;
 	private selectElement : boolean;
-	@select(['editor', 'isInitWorkspace']) isInitWorkspace$ : Observable<boolean>;
+	@select(['editor', 'all', 'isInitWorkspace']) isInitWorkspace$ : Observable<boolean>;
 	private isInitWorkspace : boolean;
 
 	constructor (private ngRedux : NgRedux<any>,

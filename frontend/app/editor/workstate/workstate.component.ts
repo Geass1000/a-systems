@@ -17,9 +17,9 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'selectElement']) selectElement$ : Observable<boolean>;
+	@select(['editor', 'all', 'selectElement']) selectElement$ : Observable<boolean>;
 	private selectElement : boolean;
-	@select(['editor', 'workspace']) workspace$ : Observable<IWorkspace>;
+	@select(['editor', 'all', 'workspace']) workspace$ : Observable<IWorkspace>;
 	private workspace : IWorkspace;
 
 	constructor (private ngRedux : NgRedux<any>,

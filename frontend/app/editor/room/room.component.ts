@@ -21,7 +21,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'selectElement']) selectElement$ : Observable<boolean>;
+	@select(['editor', 'all', 'selectElement']) selectElement$ : Observable<boolean>;
 	private selectElement : boolean;
 
 	constructor (private ngRedux : NgRedux<any>,

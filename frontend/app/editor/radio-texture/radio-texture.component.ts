@@ -30,12 +30,12 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'textureTypes']) textureTypes$ : Observable<Map<string, ITextureType>>;
+	@select(['editor', 'texture', 'types']) textureTypes$ : Observable<Map<string, ITextureType>>;
 	private textureTypesData : Map<string, ITextureType> = new Map();
 	private textureTypes : Array<ITextureType> = [];
-	@select(['editor', 'textureLoad']) textureLoad$ : Observable<Map<string, boolean>>;
+	@select(['editor', 'texture', 'loaded']) textureLoad$ : Observable<Map<string, boolean>>;
 	private textureLoadData : Map<string, boolean> = new Map();
-	@select(['editor', 'textures']) textures$ : Observable<Map<string, ITexture>>;
+	@select(['editor', 'texture', 'textures']) textures$ : Observable<Map<string, ITexture>>;
 	private textures : Array<ITexture> = [];
 
 	constructor (private ngRedux : NgRedux<any>,
