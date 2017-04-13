@@ -30,16 +30,24 @@
     color: #5C5C5C;
     font-size: 20px; }
   .radio-texture form {
+    height: 100%;
     display: flex;
     flex-direction: column; }
     .radio-texture form .items-type {
-      font-size: 15px; }
+      color: #5C5C5C;
+      font-size: 15px;
+      padding: 5px;
+      border: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
     .radio-texture form .items-collection {
+      height: 100%;
       position: relative;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      padding: 1px; }
+      align-content: flex-start;
+      padding: 1px;
+      overflow-y: auto; }
     .radio-texture form .naw-arrow {
       font-size: 2em;
       color: #5C5C5C; }
@@ -77,9 +85,9 @@
         left: 0;
         display: flex;
         align-items: center;
-        justify-content: center; }
+        justify-content: center;
+        color: rgba(0, 0, 0, 0.6); }
         .radio-texture form .item .active-element i {
-          opacity: 0.7;
           font-size: 3.2em; }
       .radio-texture form .item label {
         width: 100%;

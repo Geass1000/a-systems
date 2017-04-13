@@ -1,7 +1,7 @@
 @import "../../shared/scss/global.scss";
 
 .workstate {
-	width: 254px;
+	width: 272px;
 	position: absolute;
 	top: 112px;
 	bottom: 0;
@@ -12,6 +12,9 @@
 
 	.form-item {
 		margin-bottom: 5px;
+	}
+	.form-texture {
+		height: 100%;
 	}
 
 	.form-header {

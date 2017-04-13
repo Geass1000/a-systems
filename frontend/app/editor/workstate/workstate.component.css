@@ -14,7 +14,7 @@
 /* Main context */
 /* Important context */
 .workstate {
-  width: 254px;
+  width: 272px;
   position: absolute;
   top: 112px;
   bottom: 0;
@@ -23,6 +23,8 @@
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.22); }
   .workstate .form-item {
     margin-bottom: 5px; }
+  .workstate .form-texture {
+    height: 100%; }
   .workstate .form-header {
     padding: 10px 20px;
     margin-bottom: 15px;

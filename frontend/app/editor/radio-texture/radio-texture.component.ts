@@ -33,8 +33,8 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 	@select(['editor', 'texture', 'types']) textureTypes$ : Observable<Map<string, ITextureType>>;
 	private textureTypesData : Map<string, ITextureType> = new Map();
 	private textureTypes : Array<ITextureType> = [];
-	@select(['editor', 'texture', 'loaded']) textureLoad$ : Observable<Map<string, boolean>>;
-	private textureLoadData : Map<string, boolean> = new Map();
+	@select(['editor', 'texture', 'loaded']) textureLoaded$ : Observable<Map<string, boolean>>;
+	private textureLoadedData : Map<string, boolean> = new Map();
 	@select(['editor', 'texture', 'textures']) textures$ : Observable<Map<string, ITexture>>;
 	private textures : Array<ITexture> = [];
 
@@ -44,8 +44,8 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 						 	 private logger : LoggerService) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.textureLoad$.subscribe((data) => {
-			this.textureLoadData = data;
+		this.subscription.push(this.textureLoaded$.subscribe((data) => {
+			this.textureLoadedData = data;
 		}));
 
 		this.subscription.push(this.textureTypes$.subscribe((data) => {
@@ -79,7 +79,7 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 		this.logger.info(`${this.constructor.name}:`, 'onChangeTextureType -',
 			`${this.activeTextureTypeId} = ${this.textureTypesData.get(this.activeTextureTypeId).name}`);
 
-		if(this.textureLoadData.get(this.activeTextureTypeId)) {
+		if(this.textureLoadedData.get(this.activeTextureTypeId)) {
 			this.logger.info(`${this.constructor.name}:`, 'onChangeTextureType -', 'Use loaded textures...');
 			this.texturesView = this.textures.filter((data) => data.type === this.activeTextureTypeId);
 		}
