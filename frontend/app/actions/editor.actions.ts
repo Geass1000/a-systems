@@ -13,6 +13,8 @@ export class EditorActions {
 	static readonly ADD_TEXTURE_TYPES = EditorActions.CLASS_NAME + 'ADD_TEXTURE_TYPES';
 	static readonly UPDATE_TEXTURE_LOAD = EditorActions.CLASS_NAME + 'UPDATE_TEXTURE_LOAD';
 	static readonly SET_MEASURE = EditorActions.CLASS_NAME + 'SET_MEASURE';
+	/* Manager Action */
+	static readonly OPEN_MANAGER_PANEL = EditorActions.CLASS_NAME + 'OPEN_MANAGER_PANEL';
 
 	setMeasure (measure : string) : IAction {
     return {
@@ -76,6 +78,16 @@ export class EditorActions {
 			payload : {
 				_id : _id,
 				state : state
+			}
+		};
+	}
+
+	/* Manager Action */
+	openManagerPanel (name : string) {
+		return {
+			type : EditorActions.OPEN_MANAGER_PANEL,
+			payload : {
+				name : name
 			}
 		};
 	}

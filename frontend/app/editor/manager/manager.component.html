@@ -1,0 +1,19 @@
+<section class="manager-section">
+	<div class="manager-component manager-panel" [class.open]="managerOpen">
+		<div class="item-panel" *ngIf="workshop">
+			<h1>Panel 1</h1>
+		</div>
+		<div class="item-panel" *ngIf="workstate">
+			<h1>Panel 2</h1>
+		</div>
+	</div>
+
+	<div class="manager-component manager-navigation" (click)="openPanel($event)">
+		<div class="item-navigation" [class.active]="workshop" data-panel-name="workshop">
+			<i class="fa fa-home" aria-hidden="true"></i>
+		</div>
+		<div class="item-navigation" [class.active]="workstate" data-panel-name="workstate">
+			<i class="fa fa-sliders" aria-hidden="true"></i>
+		</div>
+	</div>
+</section>

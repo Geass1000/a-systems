@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 /* Routing Module */
 import { EditorRoutingModule } from './editor-routing.module';
 
+/* Other Module */
+import { ManagerModule } from './manager/manager.module';
+
 /* App Feature - Component */
 import { EditorComponent } from './editor.component';
 import { InitWorkspaceComponent } from './init-workspace/init-workspace.component';
@@ -20,7 +23,8 @@ import { EditorService } from './editor.service';
   imports: [
 		CommonModule,
 		FormsModule,
-		EditorRoutingModule
+		EditorRoutingModule,
+		ManagerModule
 	],
   declarations: [
 		EditorComponent,
