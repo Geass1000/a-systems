@@ -28,6 +28,8 @@
   transition: left 0.4s; }
   .manager-section .manager-panel.open {
     left: 56px; }
+  .manager-section .manager-panel .item-panel {
+    height: 100%; }
 
 .manager-section .manager-navigation {
   display: flex;

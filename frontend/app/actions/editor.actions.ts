@@ -15,6 +15,7 @@ export class EditorActions {
 	static readonly SET_MEASURE = EditorActions.CLASS_NAME + 'SET_MEASURE';
 	/* Manager Action */
 	static readonly OPEN_MANAGER_PANEL = EditorActions.CLASS_NAME + 'OPEN_MANAGER_PANEL';
+	static readonly CLOSE_ACTIVE_MANAGER_PANEL = EditorActions.CLASS_NAME + 'CLOSE_ACTIVE_MANAGER_PANEL';
 
 	setMeasure (measure : string) : IAction {
     return {
@@ -48,7 +49,7 @@ export class EditorActions {
 			}
     };
   }
-	addTexture (texture : ITexture) {
+	addTexture (texture : ITexture) : IAction {
 		return {
 			type : EditorActions.ADD_TEXTURE,
 			payload : {
@@ -56,7 +57,7 @@ export class EditorActions {
 			}
 		};
 	}
-	addTextures (textures : ITexture[]) {
+	addTextures (textures : ITexture[]) : IAction {
 		return {
 			type : EditorActions.ADD_TEXTURES,
 			payload : {
@@ -64,7 +65,7 @@ export class EditorActions {
 			}
 		};
 	}
-	addTextureTypes (types : ITextureType[]) {
+	addTextureTypes (types : ITextureType[]) : IAction {
 		return {
 			type : EditorActions.ADD_TEXTURE_TYPES,
 			payload : {
@@ -72,7 +73,7 @@ export class EditorActions {
 			}
 		};
 	}
-	updateTextureLoad (_id : string, state : boolean) {
+	updateTextureLoad (_id : string, state : boolean) : IAction {
 		return {
 			type : EditorActions.UPDATE_TEXTURE_LOAD,
 			payload : {
@@ -83,12 +84,18 @@ export class EditorActions {
 	}
 
 	/* Manager Action */
-	openManagerPanel (name : string) {
+	openManagerPanel (name : string) : IAction {
 		return {
 			type : EditorActions.OPEN_MANAGER_PANEL,
 			payload : {
 				name : name
 			}
+		};
+	}
+	/* Manager Action */
+	closeActiveManagerPanel () : IAction {
+		return {
+			type : EditorActions.CLOSE_ACTIVE_MANAGER_PANEL
 		};
 	}
 }

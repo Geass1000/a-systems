@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
-import { EditorActions } from '../../actions/editor.actions';
+import { EditorActions } from '../../../actions/editor.actions';
 
-import { IWorkspace } from '../../shared/interfaces/editor.interface';
+import { IWorkspace } from '../../../shared/interfaces/editor.interface';
 
 @Component({
 	moduleId: module.id,
-  selector: 'as-editor-workstate',
+  selector: 'as-editor-manager-workstate',
 	templateUrl: 'workstate.component.html',
   styleUrls: [ 'workstate.component.css' ]
 })

@@ -14,9 +14,9 @@ export interface IEditorManager {
 
 export const INITIAL_STATE : IEditorManager = {
 	open : true,
-	active : 'workshop',
-	workshop : true,
-	workstate : false
+	active : 'workstate',
+	workshop : false,
+	workstate : true
 };
 
 export const EditorManagerReducer : Reducer<IEditorManager> = (state : IEditorManager = INITIAL_STATE, action : IAction) : IEditorManager => {
@@ -35,6 +35,16 @@ export const EditorManagerReducer : Reducer<IEditorManager> = (state : IEditorMa
 			else {
 				panel.active = null;
 				panel.open = false;
+			}
+			return panel;
+		}
+		case EditorActions.CLOSE_ACTIVE_MANAGER_PANEL : {
+			let panel = Object.assign({}, state, {
+				open : false
+			});
+			if (panel.active !== null) {
+				panel[panel.active] = false;
+				panel.active = null;
 			}
 			return panel;
 		}

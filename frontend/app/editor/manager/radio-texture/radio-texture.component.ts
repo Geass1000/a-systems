@@ -2,11 +2,11 @@ import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angu
 
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
-import { EditorActions } from '../../actions/editor.actions';
+import { EditorActions } from '../../../actions/editor.actions';
 
-import { EditorService } from '../editor.service';
-import { LoggerService } from '../../core/logger.service';
-import { ITexture, ITextureType } from '../../shared/interfaces/editor.interface';
+import { EditorService } from '../../editor.service';
+import { LoggerService } from '../../../core/logger.service';
+import { ITexture, ITextureType } from '../../../shared/interfaces/editor.interface';
 
 @Component({
 	moduleId: module.id,

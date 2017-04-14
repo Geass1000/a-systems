@@ -2,12 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-
 /* App Feature - Component */
 import { ManagerComponent } from './manager.component';
-
-/* App Feature - Service */
-
+import { WorkstateComponent } from './workstate/workstate.component';
+import { RadioTextureComponent } from './radio-texture/radio-texture.component';
 
 @NgModule({
   imports: [
@@ -15,9 +13,11 @@ import { ManagerComponent } from './manager.component';
 		FormsModule
 	],
   declarations: [
-		ManagerComponent
+		ManagerComponent,
+		WorkstateComponent,
+		RadioTextureComponent
 	],
   exports:      [ ManagerComponent ],
-  providers:    [  ]
+  providers:    [ ]
 })
 export class ManagerModule { }
