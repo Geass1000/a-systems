@@ -22,14 +22,27 @@ $size-manager-panel : $width-manager-panel + 1;
 		width: 272px;
 		left: $size-manager-navigation - $size-manager-panel;
 
-		transition: left 0.4s;
+		opacity: 0;
+		transition: left 0.4s, opacity 0.3s ease-out 0.4s;
+
+		.manager-panel-block {
+			width: 100%;
+			height: 100%;
+			position: relative;
+		}
 
 		&.open {
 			left: $size-manager-navigation;
+			opacity: 1;
+			transition: left 0.4s, opacity 0.0s ease-out 0.0s;
 		}
 
 		.item-panel {
+			width: 100%;
 			height: 100%;
+			position: absolute;
+			left: 0;
+			right: 0;
 		}
 	}
 	.manager-navigation {

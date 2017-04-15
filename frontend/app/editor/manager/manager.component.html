@@ -1,10 +1,12 @@
 <section class="manager-section">
 	<div class="manager-component manager-panel" [class.open]="managerOpen">
-		<div class="item-panel" *ngIf="workshop">
-			<h1>Panel 1</h1>
-		</div>
-		<div class="item-panel" *ngIf="workstate">
-			<as-editor-manager-workstate></as-editor-manager-workstate>
+		<div class="manager-panel-block">
+			<div class="item-panel" *ngIf="workshop" [@flyInOut]="panelState">
+				<h1>Panel 1</h1>
+			</div>
+			<div class="item-panel" *ngIf="workstate" [@flyInOut]="panelState">
+				<as-editor-manager-workstate></as-editor-manager-workstate>
+			</div>
 		</div>
 	</div>
 
