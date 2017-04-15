@@ -15,10 +15,7 @@ import { LoggerService } from '../../core/logger.service';
   styleUrls: [ 'manager.component.css' ],
 	animations: [
 		trigger('flyInOut', [
-			state('close', style({
-				transform: 'translateX(0)',
-				opacity: '1'
-			})),
+			state('close', style({ opacity: '1' })),
 			state('open', style({
 				transform: 'translateX(0)',
 				opacity: '1'
@@ -32,16 +29,35 @@ import { LoggerService } from '../../core/logger.service';
 			]),
 			transition('open => void', [
 				animate(200, style({
-					transform: 'translateX(-100%)',
+					transform: 'translateX(100%)',
 					opacity: '0'
 				}))
 			]),
+		]),
+		trigger('togglePanel', [
+			state('close', style({
+				transform: 'translateX(-100%)',
+			})),
+			state('open', style({
+				transform: 'translateX(0)',
+			})),
+			transition('close <=> open', animate('200ms ease-in'))
 		])
 	]
 })
 export class ManagerComponent implements OnInit, OnDestroy {
 	/* Private variable */
-	private panelState : string = 'open';
+
+	/* Angular Animation */
+	private aPanelState : string = 'open';
+	private aItemPanelState : string = 'close';
+	aTogglePanelStarted (event : any) {
+		this.aItemPanelState = 'close';
+		this.logger.info(`${this.constructor.name}:`, `aTogglePanelStarted - ${event.toState}`);
+	}
+	aTogglePanelDone (event : any) {
+		this.aItemPanelState = 'open';
+	}
 
 	/* Input */
 
@@ -63,6 +79,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
 	}
 	ngOnInit () {
 		this.subscription.push(this.managerOpen$.subscribe((data) => {
+			this.aPanelState = data ? 'open' : 'close';
 			this.managerOpen = data;
 		}));
 		this.subscription.push(this.workshop$.subscribe((data) => this.workshop = data));

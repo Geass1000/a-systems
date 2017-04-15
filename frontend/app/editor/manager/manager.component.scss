@@ -20,23 +20,15 @@ $size-manager-panel : $width-manager-panel + 1;
 
 	.manager-panel {
 		width: 272px;
-		left: $size-manager-navigation - $size-manager-panel;
-
-		opacity: 0;
-		transition: left 0.4s, opacity 0.3s ease-out 0.4s;
+		left: $size-manager-navigation;
 
 		.manager-panel-block {
 			width: 100%;
 			height: 100%;
 			position: relative;
+			overflow: hidden;
 		}
-
-		&.open {
-			left: $size-manager-navigation;
-			opacity: 1;
-			transition: left 0.4s, opacity 0.0s ease-out 0.0s;
-		}
-
+		
 		.item-panel {
 			width: 100%;
 			height: 100%;
