@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /* App Feature - Component */
 import { ManagerComponent } from './manager.component';
+import { WorkshopComponent } from './workshop/workshop.component';
 import { WorkstateComponent } from './workstate/workstate.component';
 import { RadioTextureComponent } from './radio-texture/radio-texture.component';
 
@@ -18,6 +19,7 @@ import { RadioTextureComponent } from './radio-texture/radio-texture.component';
 	],
   declarations: [
 		ManagerComponent,
+		WorkshopComponent,
 		WorkstateComponent,
 		RadioTextureComponent
 	],

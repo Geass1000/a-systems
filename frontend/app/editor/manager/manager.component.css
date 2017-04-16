@@ -14,7 +14,6 @@
 /* Main context */
 /* Important context */
 .manager-section .manager-component {
-  height: 100%;
   position: absolute;
   top: 112px;
   bottom: 0;

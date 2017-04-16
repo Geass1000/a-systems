@@ -5,7 +5,7 @@
     (@togglePanel.done)="aTogglePanelDone($event)">
 		<div class="manager-panel-block">
 			<div class="item-panel" *ngIf="workshop" [@flyInOut]="aItemPanelState">
-				<h1>Panel 1</h1>
+				<as-editor-manager-workshop></as-editor-manager-workshop>
 			</div>
 			<div class="item-panel" *ngIf="workstate" [@flyInOut]="aItemPanelState">
 				<as-editor-manager-workstate></as-editor-manager-workstate>
