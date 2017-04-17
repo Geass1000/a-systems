@@ -1,18 +1,16 @@
 <section class="workstate">
-	<div class="form-item">
-		<div class="form-header">
-			<h4>Workshop</h4>
+	<div class="form-header">
+		<h4>Workshop</h4>
+	</div>
+	<div class="form-content">
+		<div class="form-item">
+			<input type="radio" name="category" id="null" value="null" />
+			<label for="null">< back</label>			
 		</div>
-		<div class="form-content">
-			<div class="form-group">
-				<label>Width</label>
-				<input type='text' [(ngModel)]="workspace.width" />
-			</div>
-			<div class="form-group">
-				<label>Height</label>
-				<input type='text' [(ngModel)]="workspace.height" />
-			</div>
-			<button>Accept</button>
+		<div class="form-item" *ngFor="let category of itemCategoriesDisplay">
+			<input type="radio" name="category"
+				[attr.id]="category._id"	[value]="category._id" />
+			<label [attr.for]="category._id">{{category.name}}</label>
 		</div>
 	</div>
 </section>

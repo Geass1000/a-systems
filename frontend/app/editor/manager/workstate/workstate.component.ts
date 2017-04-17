@@ -27,7 +27,9 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 	}
 	ngOnInit () {
 		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
-		this.subscription.push(this.workspace$.subscribe((data) => this.workspace = data));
+		this.subscription.push(this.workspace$.subscribe((data) => {
+			this.workspace = Object.assign({}, data);
+		}));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());

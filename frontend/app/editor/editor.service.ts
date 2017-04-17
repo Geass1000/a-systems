@@ -22,6 +22,7 @@ export class EditorService {
 	private headers = new Headers({ 'Content-Type': 'application/json' });
 	private texturUrl = 'api/texture';
 	private texturTypeUrl = 'api/texture/type';
+	private itemCategoryUrl = 'api/item/category';
 
 	constructor (private http : Http,
 							 private ngRedux : NgRedux<any>,
@@ -51,4 +52,15 @@ export class EditorService {
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))
 										.catch(this.httpService.handleError);
 	}
+	getItemCategories () {
+		return this.http.get(Config.serverUrl + this.itemCategoryUrl, { headers : this.headers })
+										.map((resp : Response) => {
+											let jResp = resp.json() || {};
+											this.logger.info(`${this.constructor.name}:`, "getItemCategories -", `status = ${resp.status} -`, jResp);
+											return jResp;
+										})
+										.retryWhen((errorObs) => this.httpService.retry(errorObs))
+										.catch(this.httpService.handleError);
+	}
+
 }

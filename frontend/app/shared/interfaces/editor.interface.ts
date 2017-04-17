@@ -16,3 +16,9 @@ export interface ITextureType {
 	_id : string,
 	name : string
 }
+
+export interface IItemCategory {
+	_id : string,
+	_pid : string,
+	name : string
+}

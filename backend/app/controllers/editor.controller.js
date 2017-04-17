@@ -4,6 +4,7 @@ let logger = require('../config/logger.config');
 
 let Texture = require('../models/texture.model');
 let TextureType = require('../models/texture-type.model');
+let ItemCategory = require('../models/item-category.model');
 
 /**
  * Контроллер редактора.
@@ -119,6 +120,39 @@ class EditorController {
 			.catch((err) => {
 				if (err) {
 					logger.info('EditorController: getAllTextureTypes', '500:Error!');
+					res.status(500).json({ "message" : "Try later" });
+					return;
+				}
+			});
+	}
+
+	/**
+ 	 * Получение всех категорий предметов из БД 'ItemCategory'.
+ 	 *
+ 	 * @param {express.Request} req
+ 	 * @param {express.Response} res
+ 	 *
+ 	 * @class EditorController
+ 	 * @method getTextures
+ 	 */
+	getAllItemCategories (req, res) {
+		ItemCategory.getAllItemCategories()
+			.then((doc) => {
+				logger.info('EditorController: getAllItemCategories', JSON.stringify(doc));
+				if (doc.length === 0) {
+					logger.info('EditorController: getAllItemCategories', '204:No Content');
+					res.status(204).send();
+				}
+				else {
+					logger.info('EditorController: getAllItemCategories', '200:Success');
+					res.status(200).json({
+						"categories" : doc
+					});
+				}
+			})
+			.catch((err) => {
+				if (err) {
+					logger.info('EditorController: getAllItemCategories', '500:Error!');
 					res.status(500).json({ "message" : "Try later" });
 					return;
 				}

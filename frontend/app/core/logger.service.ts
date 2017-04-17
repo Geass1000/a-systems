@@ -20,22 +20,22 @@ export class LoggerService {
 	constructor () {
 	}
 
-	error (...restOfMessage : string[]) {
+	error (...restOfMessage : any[]) {
 		this.isEnable(Level.ERROR) && console.error.apply(console, restOfMessage);
 	}
-	warn (...restOfMessage : string[]) {
+	warn (...restOfMessage : any[]) {
 		this.isEnable(Level.WARN) && console.warn.apply(console, restOfMessage);
 	}
-	info (...restOfMessage : string[]) {
+	info (...restOfMessage : any[]) {
 		this.isEnable(Level.INFO) && console.info.apply(console, restOfMessage);
 	}
-	debug (...restOfMessage : string[]) {
+	debug (...restOfMessage : any[]) {
 		this.isEnable(Level.DEBUG) && (console.debug || console.log).apply(console, restOfMessage);
 	}
-	log (...restOfMessage : string[]) {
+	log (...restOfMessage : any[]) {
 		this.isEnable(Level.LOG) && console.log.apply(console, restOfMessage);
 	}
-	print (logLevel : string, ...restOfMessage : string[]) {
+	print (logLevel : string, ...restOfMessage : any[]) {
 		if (this.availableLevel.indexOf(logLevel) === -1) throw 'Level not exist';
 		this[logLevel].apply(this, restOfMessage);
 	}

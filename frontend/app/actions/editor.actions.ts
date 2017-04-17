@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IAction } from '../shared/interfaces/action.interface';
-import { ITexture, IWorkspace, ITextureType } from '../shared/interfaces/editor.interface';
+import { ITexture, IWorkspace, ITextureType, IItemCategory } from '../shared/interfaces/editor.interface';
 
 @Injectable()
 export class EditorActions {
@@ -16,6 +16,9 @@ export class EditorActions {
 	/* Manager Action */
 	static readonly OPEN_MANAGER_PANEL = EditorActions.CLASS_NAME + 'OPEN_MANAGER_PANEL';
 	static readonly CLOSE_ACTIVE_MANAGER_PANEL = EditorActions.CLASS_NAME + 'CLOSE_ACTIVE_MANAGER_PANEL';
+	/* Item Action */
+	static readonly ADD_ITEM_CATEGORIES = EditorActions.CLASS_NAME + 'ADD_ITEM_CATEGORIES';
+	static readonly SET_ACTIVE_ITEM_CATEGORIES = EditorActions.CLASS_NAME + 'SET_ACTIVE_ITEM_CATEGORIES';
 
 	setMeasure (measure : string) : IAction {
     return {
@@ -92,10 +95,26 @@ export class EditorActions {
 			}
 		};
 	}
-	/* Manager Action */
 	closeActiveManagerPanel () : IAction {
 		return {
 			type : EditorActions.CLOSE_ACTIVE_MANAGER_PANEL
+		};
+	}
+	/* Item Action */
+	addItemCategories (categories : IItemCategory[]) : IAction {
+		return {
+			type : EditorActions.ADD_ITEM_CATEGORIES,
+			payload : {
+				categories : categories
+			}
+		};
+	}
+	setActiveItemCategories (category : string) : IAction {
+		return {
+			type : EditorActions.ADD_ITEM_CATEGORIES,
+			payload : {
+				category : category
+			}
 		};
 	}
 }

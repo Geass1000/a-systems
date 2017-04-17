@@ -14,9 +14,9 @@ export interface IEditorManager {
 
 export const INITIAL_STATE : IEditorManager = {
 	open : true,
-	active : 'workstate',
-	workshop : false,
-	workstate : true
+	active : 'workshop',
+	workshop : true,
+	workstate : false
 };
 
 export const EditorManagerReducer : Reducer<IEditorManager> = (state : IEditorManager = INITIAL_STATE, action : IAction) : IEditorManager => {
