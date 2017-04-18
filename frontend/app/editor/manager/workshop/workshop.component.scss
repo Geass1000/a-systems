@@ -8,7 +8,6 @@
 		padding: 10px 20px;
 
 		background-color: rgba(128, 128, 128, 0.1);
-		border-top: 1px solid rgba(0, 0, 0, 0.1);
 		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
 		color: $color-text-3;
@@ -18,19 +17,15 @@
 		box-sizing: border-box;
 		width: 100%;
 
-		.form-back {
-			box-sizing: border-box;
-			width: 100%;
-			display: block;
-			padding: 10px 20px;
-			cursor: pointer;
-
-			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-			color: $color-text-3;
-		}
-
 		.form-item {
+			&.form-back {
+				font-weight: bold;
+
+				&.lock label {
+					background-color: rgba(128, 128, 128, 0.1);
+					color: $color-text-3;
+				}
+			}
 			input[type='radio'] {
 				display: none;
 

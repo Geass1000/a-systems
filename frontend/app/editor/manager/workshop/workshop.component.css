@@ -19,20 +19,16 @@
   .workstate .form-header {
     padding: 10px 20px;
     background-color: rgba(128, 128, 128, 0.1);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     color: #5C5C5C; }
   .workstate .form-content {
     box-sizing: border-box;
     width: 100%; }
-    .workstate .form-content .form-back {
-      box-sizing: border-box;
-      width: 100%;
-      display: block;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      color: #5C5C5C; }
+    .workstate .form-content .form-item.form-back {
+      font-weight: bold; }
+      .workstate .form-content .form-item.form-back.lock label {
+        background-color: rgba(128, 128, 128, 0.1);
+        color: #5C5C5C; }
     .workstate .form-content .form-item input[type='radio'] {
       display: none; }
       .workstate .form-content .form-item input[type='radio']:checked ~ label {

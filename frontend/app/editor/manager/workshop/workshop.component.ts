@@ -15,7 +15,22 @@ import { IItemCategory } from '../../../shared/interfaces/editor.interface';
   styleUrls: [ 'workshop.component.css' ]
 })
 export class WorkshopComponent implements OnInit, OnDestroy {
-	title = 'Home';
+	/* Private Variable */
+	private prevCategory : string = null;
+	private activeCategory : string = null;
+	private selectedCategory : string = '';
+
+	onChangeCategory (event : any) {
+		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory');
+		this.activeCategory = this.selectedCategory;
+		this.selectedCategory = '';
+		if (this.activeCategory !== null) {
+			this.prevCategory = this.itemCategoriesData.get(this.activeCategory)._pid;
+		}
+		this.itemCategoriesDisplay = this.itemCategories.filter((data) => data._pid === this.activeCategory);
+		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - prevCategory -', this.prevCategory);
+		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - activeCategory -', this.activeCategory);
+	}
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -23,8 +38,6 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	private itemCategoriesData : Map<string, IItemCategory> = new Map();
 	private itemCategories : Array<IItemCategory> = [];
 	private itemCategoriesDisplay : Array<IItemCategory> = [];
-	@select(['editor', 'item', 'activeCategory']) activeCategory$ : Observable<string>;
-	private activeCategory : string = null;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
@@ -32,14 +45,10 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 							 private logger : LoggerService) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.activeCategory$.subscribe((data) => {
-			this.activeCategory = data;
-		}));
 		this.subscription.push(this.itemCategories$.subscribe((data) => {
 			this.itemCategoriesData = data;
 			this.itemCategories = Array.from(data.values());
 			this.itemCategoriesDisplay = this.itemCategories.filter((data) => data._pid === this.activeCategory);
-			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - itemCategories -', this.itemCategoriesDisplay);
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - itemCategories -', this.itemCategories);
 
 			if (data.size === 0) {

@@ -3,14 +3,18 @@
 		<h4>Workshop</h4>
 	</div>
 	<div class="form-content">
-		<div class="form-item">
-			<input type="radio" name="category" id="null" value="null" />
-			<label for="null">< back</label>			
-		</div>
-		<div class="form-item" *ngFor="let category of itemCategoriesDisplay">
-			<input type="radio" name="category"
-				[attr.id]="category._id"	[value]="category._id" />
-			<label [attr.for]="category._id">{{category.name}}</label>
-		</div>
+		<form #f="ngForm" (change)="onChangeCategory(f)">
+			<div class="form-item form-back" [class.lock]="activeCategory === null">
+				<input type="radio" name="category"
+					id="null" [value]="prevCategory"
+					[(ngModel)]="selectedCategory" />
+				<label for="null"><i class="fa fa-arrow-left" aria-hidden="true"></i> back</label>
+			</div>
+			<div class="form-item" *ngFor="let category of itemCategoriesDisplay">
+				<input type="radio" name="category"
+					[attr.id]="category._id"	[value]="category._id" [(ngModel)]="selectedCategory" />
+				<label [attr.for]="category._id">{{category.name}}</label>
+			</div>
+		</form>
 	</div>
 </section>
