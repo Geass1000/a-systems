@@ -2,19 +2,21 @@
 	<div class="form-header">
 		<h4>Workshop</h4>
 	</div>
-	<div class="form-content">
-		<form #f="ngForm" (change)="onChangeCategory(f)">
-			<div class="form-item form-back" [class.lock]="activeCategory === null">
-				<input type="radio" name="category"
-					id="null" [value]="prevCategory"
-					[(ngModel)]="selectedCategory" />
-				<label for="null"><i class="fa fa-arrow-left" aria-hidden="true"></i> back</label>
+	<div class="form-content" (mousedown)="onChangeCategory($event)">
+		<div class="form-item form-back" [class.lock]="activeCategory === null" data-category-id="back">
+			<i class="fa fa-chevron-left" aria-hidden="true"></i>
+			<span>Back to {{prevCategory}}</span>
+		</div>
+		<div class="form-item" *ngFor="let category of itemCategoriesDisplay" [attr.data-category-id]="category._id">
+			<span>{{category.name}}</span>
+		</div>
+	</div>
+	<div class="form-list-item">
+		<div class="form-item" *ngFor="let item of [1, 2, 3]" [attr.data-item-id]="item">
+			<img src="app/shared/images/l1.jpg" />
+			<div class="overlay">
+				<span class="description">Add<br />element?</span>
 			</div>
-			<div class="form-item" *ngFor="let category of itemCategoriesDisplay">
-				<input type="radio" name="category"
-					[attr.id]="category._id"	[value]="category._id" [(ngModel)]="selectedCategory" />
-				<label [attr.for]="category._id">{{category.name}}</label>
-			</div>
-		</form>
+		</div>
 	</div>
 </section>

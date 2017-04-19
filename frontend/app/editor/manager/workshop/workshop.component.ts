@@ -16,21 +16,9 @@ import { IItemCategory } from '../../../shared/interfaces/editor.interface';
 })
 export class WorkshopComponent implements OnInit, OnDestroy {
 	/* Private Variable */
-	private prevCategory : string = null;
+	private rootCategory : string = 'Root';
+	private prevCategory : string = this.rootCategory;
 	private activeCategory : string = null;
-	private selectedCategory : string = '';
-
-	onChangeCategory (event : any) {
-		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory');
-		this.activeCategory = this.selectedCategory;
-		this.selectedCategory = '';
-		if (this.activeCategory !== null) {
-			this.prevCategory = this.itemCategoriesData.get(this.activeCategory)._pid;
-		}
-		this.itemCategoriesDisplay = this.itemCategories.filter((data) => data._pid === this.activeCategory);
-		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - prevCategory -', this.prevCategory);
-		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - activeCategory -', this.activeCategory);
-	}
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -63,5 +51,34 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
+	}
+
+	/* Events */
+	onChangeCategory (event : any) {
+		let el : any = event.target.closest('.form-item');
+		if (el !== null) {
+			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - categoryId', el.dataset.categoryId);
+			if (el.dataset.categoryId === 'back') {
+				this.activeCategory = this.getParentCategoryId(this.activeCategory);
+			}
+			else {
+				this.activeCategory = el.dataset.categoryId;
+			}
+			this.prevCategory = this.getParentCategoryName(this.activeCategory);
+			this.itemCategoriesDisplay = this.itemCategories.filter((data) => data._pid === this.activeCategory);
+
+			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - prevCategory -', this.prevCategory);
+			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - activeCategory -', this.activeCategory);
+		}
+		else {
+			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - Not navigation element');
+		}
+	}
+	getParentCategoryId (id : string) {
+		return id ? this.itemCategoriesData.get(id)._pid : id;
+	}
+	getParentCategoryName (id : string) {
+		let parent = this.getParentCategoryId(id);
+		return parent ? this.itemCategoriesData.get(parent).name : this.rootCategory;
 	}
 }
