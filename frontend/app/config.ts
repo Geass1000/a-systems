@@ -7,6 +7,7 @@ import 'rxjs/add/operator/scan';
 export class Config {
 	static readonly serverUrl : string = 'http://localhost:3005/';
 	static readonly scale : number = 100; // Пикслей в метре
+	static readonly defMeasure : string = 'px';
 	/* Editor */
 	static readonly workspace : IWorkspace = {
 		width : 2000,
@@ -15,6 +16,7 @@ export class Config {
 	};
 
 	/* Http */
-	static retryCount : number = 5;
+	static minRetryCount : number = 5;
+	static maxRetryCount : number = 15;
 	static retryDelay : number = 3000;
 };

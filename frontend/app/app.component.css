@@ -29,28 +29,39 @@ header::before {
   background-color: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
   .navigation-section .base-block {
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: center; }
+    -ms-flex-pack: justify;
+        justify-content: space-between;
+    -ms-flex-align: center;
+        align-items: center; }
   .navigation-section a.main-logo {
     height: 100%;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center; }
+    -ms-flex-align: center;
+        align-items: center; }
     .navigation-section a.main-logo img {
       height: 40px; }
   .navigation-section nav {
     height: 100%;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center; }
+    -ms-flex-align: center;
+        align-items: center; }
     .navigation-section nav .nav-group {
       height: 100%;
+      display: -ms-flexbox;
       display: flex;
-      align-items: center; }
+      -ms-flex-align: center;
+          align-items: center; }
     .navigation-section nav a {
       height: 100%;
       margin: 0 10px;
+      display: -ms-flexbox;
       display: flex;
-      align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
       font-size: 15px;
       font-weight: bold;
       color: rgba(0, 0, 0, 0.45);

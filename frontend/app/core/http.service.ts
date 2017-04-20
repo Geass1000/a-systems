@@ -17,8 +17,13 @@ export class HttpService {
 
 	retry (errorObs : Observable<any>) {
 		return errorObs.delay(Config.retryDelay).scan((errorCount : number, error : any) => {
-			if(errorCount >= Config.retryCount && error.status !== 0) {
-				throw error;
+			if(errorCount >= Config.minRetryCount) {
+				if (error.status !== 0) {
+					throw error;
+				}
+				else if (errorCount >= Config.maxRetryCount) {
+					throw error;
+				}
 			}
 			return errorCount + 1;
 		}, 0);

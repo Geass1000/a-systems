@@ -15,10 +15,14 @@
 /* Important context */
 /* Variable */
 .modal-window {
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-pack: start;
+      justify-content: flex-start;
+  -ms-flex-align: center;
+      align-items: center;
   width: 350px;
   position: fixed;
   top: 230px;
@@ -29,16 +33,23 @@
   border-radius: 5px;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
   visibility: hidden;
+  opacity: 0;
   transform: scale(0.75);
-  transition: transform 0.4s ease-out, visibility 0.2s; }
+  transition: transform 0.4s ease-out, visibility 0.2s, opacity 0.15s 0.05s; }
   .modal-window.visible {
     visibility: visible;
-    transform: scale(1); }
+    opacity: 1;
+    transform: scale(1);
+    transition: transform 0.4s ease-out, visibility 0.2s, opacity 0.2s 0.0s; }
   .modal-window > section {
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    -ms-flex-pack: start;
+        justify-content: flex-start;
+    -ms-flex-align: center;
+        align-items: center;
     box-sizing: border-box;
     width: 100%; }
     .modal-window > section.modal-end {

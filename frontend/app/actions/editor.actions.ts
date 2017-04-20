@@ -7,12 +7,14 @@ export class EditorActions {
 	static readonly CLASS_NAME = "EDITOR_ACTIONS:";
 	static readonly SELECT_ELEMENT = EditorActions.CLASS_NAME + 'SELECT_ELEMENT';
 	static readonly INIT_WORKSPACE = EditorActions.CLASS_NAME + 'INIT_WORKSPACE';
+	static readonly ACTIVE_METRIC = EditorActions.CLASS_NAME + 'ACTIVE_METRIC';
 	static readonly UPDATE_WORKSPACE = EditorActions.CLASS_NAME + 'UPDATE_WORKSPACE';
+	static readonly SET_MEASURE = EditorActions.CLASS_NAME + 'SET_MEASURE';
+	/* Texture Action */
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
 	static readonly ADD_TEXTURES = EditorActions.CLASS_NAME + 'ADD_TEXTURES';
 	static readonly ADD_TEXTURE_TYPES = EditorActions.CLASS_NAME + 'ADD_TEXTURE_TYPES';
 	static readonly UPDATE_TEXTURE_LOAD = EditorActions.CLASS_NAME + 'UPDATE_TEXTURE_LOAD';
-	static readonly SET_MEASURE = EditorActions.CLASS_NAME + 'SET_MEASURE';
 	/* Manager Action */
 	static readonly OPEN_MANAGER_PANEL = EditorActions.CLASS_NAME + 'OPEN_MANAGER_PANEL';
 	static readonly CLOSE_ACTIVE_MANAGER_PANEL = EditorActions.CLASS_NAME + 'CLOSE_ACTIVE_MANAGER_PANEL';
@@ -39,6 +41,14 @@ export class EditorActions {
 	initWorkspace (state : boolean) : IAction {
     return {
       type : EditorActions.INIT_WORKSPACE,
+			payload : {
+				state : state
+			}
+    };
+  }
+	activeMetric (state : boolean) : IAction {
+    return {
+      type : EditorActions.ACTIVE_METRIC,
 			payload : {
 				state : state
 			}

@@ -16,6 +16,7 @@ import { RoomComponent } from './room/room.component';
 
 /* App Feature - Service */
 import { EditorService } from './editor.service';
+import { MetricService } from './metric.service';
 
 @NgModule({
   imports: [
@@ -31,6 +32,9 @@ import { EditorService } from './editor.service';
 		RoomComponent
 	],
   exports:      [ EditorComponent ],
-  providers:    [ EditorService ]
+  providers:    [
+		EditorService,
+		MetricService 
+	]
 })
 export class EditorModule { }

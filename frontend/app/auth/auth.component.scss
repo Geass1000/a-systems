@@ -22,12 +22,15 @@ $placeholder-height: 24px;
 	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
 
 	visibility: hidden;
+	opacity: 0;
   transform: scale(0.75);
-  transition: transform 0.4s ease-out, visibility 0.2s;
+  transition: transform 0.4s ease-out, visibility 0.2s, opacity 0.15s 0.05s;
 
 	&.visible {
 		visibility: visible;
+		opacity: 1;
   	transform: scale(1);
+		transition: transform 0.4s ease-out, visibility 0.2s, opacity 0.2s 0.0s;
 	}
 
 	& > section {

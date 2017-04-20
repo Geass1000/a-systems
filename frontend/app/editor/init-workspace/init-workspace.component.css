@@ -19,16 +19,22 @@
   margin-top: 25px;
   z-index: 11;
   position: relative;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  -ms-flex-align: stretch;
+      align-items: stretch;
   border: 1px solid rgba(0, 0, 0, 0.12);
   background: #fff; }
   .initWorkspace .initWorkspaceLogo {
     width: 220px;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: center;
+        align-items: center;
     background-color: #55acee; }
     .initWorkspace .initWorkspaceLogo img {
       width: 100px; }
@@ -38,9 +44,12 @@
       margin-bottom: 15px;
       color: #5C5C5C; }
     .initWorkspace .initWorkspaceContent .form-content {
+      display: -ms-flexbox;
       display: flex;
-      flex-direction: row;
-      align-items: flex-end; }
+      -ms-flex-direction: row;
+          flex-direction: row;
+      -ms-flex-align: end;
+          align-items: flex-end; }
     .initWorkspace .initWorkspaceContent .form-texture {
       width: 100%;
       margin-bottom: 15px; }
@@ -91,8 +100,12 @@
         background: #f6f6f6;
         color: #5C5C5C; }
   .initWorkspace .flex-row {
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row; }
+    -ms-flex-direction: row;
+        flex-direction: row; }
   .initWorkspace .flex-column {
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column; }
+    -ms-flex-direction: column;
+        flex-direction: column; }

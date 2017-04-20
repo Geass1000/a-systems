@@ -38,8 +38,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 		this.initWorkspace();
 		this.ngRedux.dispatch(this.modalActions.openModal('initWorkspace', false));
 		//
-		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
-		this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
+		//this.ngRedux.dispatch(this.modalActions.closeActiveModal());
+		//this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
 	}
 	ngOnInit () {
 		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));

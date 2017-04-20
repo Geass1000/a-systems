@@ -9,16 +9,18 @@ import { IWorkspace } from '../../shared/interfaces/editor.interface';
 
 export interface IEditorAll {
 	isInitWorkspace : boolean,
+	isActiveMetric : boolean,
 	// Control Panel
 	defMeasure : string,
 	curMeasure : string,
 	// Workspace
 	selectElement : boolean,
-	workspace : IWorkspace,
+	workspace : IWorkspace
 }
 
 export const INITIAL_STATE : IEditorAll = {
 	isInitWorkspace : false,
+	isActiveMetric : false,
 	// Control Panel
 	defMeasure : 'px',
 	curMeasure : 'm',
@@ -34,6 +36,9 @@ export const EditorAllReducer : Reducer<IEditorAll> = (state : IEditorAll = INIT
 		}
 		case EditorActions.INIT_WORKSPACE : {
 			return Object.assign({}, state, { isInitWorkspace : action.payload.state });
+		}
+		case EditorActions.ACTIVE_METRIC : {
+			return Object.assign({}, state, { isActiveMetric : action.payload.state });
 		}
 		case EditorActions.UPDATE_WORKSPACE : {
 			let workspace : IWorkspace = _.cloneDeep(action.payload.workspace);

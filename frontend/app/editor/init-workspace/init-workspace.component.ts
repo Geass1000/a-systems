@@ -8,6 +8,9 @@ import { ModalActions } from '../../actions/modal.actions';
 import { Config } from '../../config';
 import * as _ from 'lodash';
 
+import { LoggerService } from '../../core/logger.service';
+import { MetricService } from '../metric.service';
+
 import { IWorkspace } from '../../shared/interfaces/editor.interface';
 import { Metric, Measure } from '../metric.class';
 
@@ -18,6 +21,8 @@ import { Metric, Measure } from '../metric.class';
   styleUrls: [ 'init-workspace.component.css' ]
 })
 export class InitWorkspaceComponent implements OnInit, OnDestroy {
+	/* Private Variable */
+	private metric : Metric = null;
 	/* Redux */
 	private subscription : any[] = [];
 	@select(['modal', 'initWorkspace']) initWorkspace$ : Observable<boolean>;
@@ -26,27 +31,50 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 	@select(['editor', 'all', 'defMeasure']) defMeasure$ : Observable<string>;
 	private defMeasure : string = null;
 
+	@select(['editor', 'all', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
+	private isActiveMetric : boolean = null;
+
 	/* Private Variable */
 	private workspace : IWorkspace = null;
 	private workspaceMeasure : string = null;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
-						 	 private modalActions : ModalActions) {
+						 	 private modalActions : ModalActions,
+						 	 private logger : LoggerService,
+						 	 private metricService : MetricService) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.defMeasure$.subscribe((data) => this.defMeasure = data));
+		this.subscription.push(this.isActiveMetric$.subscribe((data) => {
+			this.isActiveMetric = data;
+			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - isActiveMetric -', this.isActiveMetric);
+		}));
+		this.subscription.push(this.defMeasure$.subscribe((data) => {
+			this.defMeasure = data;
+			this.init();
+		}));
 		this.subscription.push(this.curMeasure$.subscribe((data) => {
 			this.curMeasure = data;
-			if (!this.workspace) {
-				this.workspace = _.cloneDeep(Config.workspace);
-				this.workspaceMeasure = this.defMeasure;
+			this.init();
+			if (this.metric) {
+				this.metric.setNewMeasure(this.curMeasure);
 			}
+
 			this.convert();
 		}));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
+	}
+
+	init () {
+		if (!this.metric && this.defMeasure && this.curMeasure) {
+			this.metric = new Metric (this.curMeasure, this.defMeasure);
+		}
+		if (!this.workspace) {
+			this.workspace = _.cloneDeep(Config.workspace); // rewrite to project
+			this.workspaceMeasure = this.defMeasure; // depricated
+		}
 	}
 
 	convert () {

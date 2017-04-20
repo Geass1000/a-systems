@@ -29,18 +29,25 @@ header::before {
   background-color: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
   .control-section .base-block {
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: center; }
+    -ms-flex-pack: justify;
+        justify-content: space-between;
+    -ms-flex-align: center;
+        align-items: center; }
   .control-section .left-block, .control-section .right-block {
     height: 100%;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center; }
+    -ms-flex-align: center;
+        align-items: center; }
   .control-section a {
     height: 100%;
     margin: 0 10px;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -ms-flex-align: center;
+        align-items: center;
     color: #5C5C5C;
     text-decoration: none; }
     .control-section a:hover, .control-section a:focus {
@@ -53,23 +60,30 @@ header::before {
   .control-section .switch {
     height: 32px;
     box-sizing: border-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -ms-flex-align: center;
+        align-items: center;
     position: relative;
     padding: 0 3px;
     border-radius: 3px;
     background: rgba(0, 0, 0, 0.05);
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1); }
     .control-section .switch div, .control-section .switch form {
+      display: -ms-flexbox;
       display: flex;
-      align-items: center; }
+      -ms-flex-align: center;
+          align-items: center; }
     .control-section .switch .switch-label {
       width: 50px;
       height: 100%;
+      display: -ms-flexbox;
       display: flex;
       z-index: 9;
-      align-items: center;
-      justify-content: center;
+      -ms-flex-align: center;
+          align-items: center;
+      -ms-flex-pack: center;
+          justify-content: center;
       color: rgba(0, 0, 0, 0.95);
       font-size: 15px;
       font-weight: bold;
