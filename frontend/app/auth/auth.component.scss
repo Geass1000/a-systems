@@ -4,18 +4,13 @@
 $placeholder-height: 24px;
 
 .modal-window {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
 	width: 350px;
+	margin: 0 -175px;
 
 	position: fixed;
 	top: 230px;
 	left: 50%;
-	z-index: $z-index-modal-2;
-
-	margin: 0 -175px;
+	z-index: $z-index-modal-block;
 
 	background: rgba(255, 255, 255, 1);
 	border-radius: 5px;
@@ -31,173 +26,5 @@ $placeholder-height: 24px;
 		opacity: 1;
   	transform: scale(1);
 		transition: transform 0.4s ease-out, visibility 0.2s, opacity 0.2s 0.0s;
-	}
-
-	& > section {
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		align-items: center;
-
-		box-sizing: border-box;
-
-		width: 100%;
-
-		&.modal-end {
-			margin-bottom: 19px;
-		}
-	}
-}
-
-.icon-close {
-	position: absolute;
-	top: 20px;
-	right: 20px;
-
-	color: rgba(31, 45, 61, 0.2);
-
-	cursor: pointer;
-
-	&:hover {
-		color: rgba(31, 45, 61, 0.5);
-	}
-}
-
-.modal-header {
-	margin-top: 35px;
-
-	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-
-	h1 {
-		margin-bottom: 10px;
-
-		color: $color-text-3;
-		text-align: center;
-	}
-	p {
-		margin-bottom: 25px;
-
-		color: $color-text-3;
-		font-size: $font-size-medium;
-	}
-}
-
-.modal-footer {
-	margin: 15px 0 25px 0;
-}
-
-.modal-body {
-	margin-top: 15px;
-
-	form {
-		box-sizing: border-box;
-		display: block;
-		width: 100%;
-
-		padding: 0 30px;
-
-		.form-group {
-			margin-bottom: 12px;
-			padding-top: $placeholder-height;
-
-			position: relative;
-
-			label {
-				display: block;
-
-				color: rgba(0, 0, 0, 0.4);
-				font-size: $font-size-medium;
-
-				cursor: text;
-
-				position: absolute;
-				top: $placeholder-height;
-				z-index: $z-index-modal-3;
-
-				transition: color 0.25s, font-size 0.25s, top 0.25s;
-			}
-			&.focused label {
-				color: $color-text-1;
-				font-size: $font-size-little;
-
-				top: 0;
-
-				cursor: pointer;
-			}
-
-			input {
-				box-sizing: border-box;
-				display: block;
-				width: 100%;
-
-				background: none;
-				border: none;
-				border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-
-				font-size: $font-size-medium;
-
-				margin-bottom: 6px;
-				padding-bottom: 5px;
-
-				position: relative;
-				z-index: $z-index-modal-4;
-
-				transition: border 0.3s;
-
-				&:focus {
-					border-bottom: 1px solid $color-text-1;
-
-					color: $color-text-1;
-				}
-			}
-
-			a.form-forgotton {
-				display: block;
-
-				position: absolute;
-				top: $placeholder-height;
-				right: 0;
-				z-index: $z-index-modal-5;
-
-				& + input[name="password"] {
-					padding-right: 90px;
-				}
-			}
-		}
-		button {
-			width: 100%;
-
-			margin-top: 8px;
-			margin-bottom: 6px;
-			padding: 10px 15px;
-
-			background: $color-button-1;
-			border: 0;
-			border-radius: 5px;
-
-			color: #fff;
-			font-size: $font-size-medium;
-			font-weight: bold;
-			text-transform: uppercase;
-
-			cursor: pointer;
-
-			&:not([disabled]):hover,
-			&:not([disabled]):focus {
-				background: $color-button-2;
-			}
-			&[disabled] {
-				background: #f6f6f6;
-				color: $color-text-3;
-			}
-			& + .form-error {
-				margin-bottom: 6px;
-			}
-		}
-
-		.form-error {
-			color: $color-error-1;
-			font-size: $font-size-little;
-		}
 	}
 }

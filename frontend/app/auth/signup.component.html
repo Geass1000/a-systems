@@ -7,11 +7,10 @@
 	<section class="modal-body">
 		<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
 			<div class="form-group"
-				[class.focused]="signupForm.get('name').value || focusInput.name">
-				<label>Login</label>
+				[class.focused]="signupForm.get('name').value">
 				<input type="text" name="name" class="form-control"
-					required formControlName="name"
-					(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
+					required formControlName="name" />
+				<label>Login</label>
 
 				<div *ngIf="formError.name" class="form-error">
 					{{formError.name}}
@@ -19,24 +18,22 @@
 			</div>
 
 			<div class="form-group"
-				[class.focused]="signupForm.get('email').value || focusInput.email">
-				<label>E-mail</label>
+				[class.focused]="signupForm.get('email').value">
 				<input type="email" name="email" class="form-control"
-					required formControlName="email"
-					(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
+					required formControlName="email" />
+				<label>E-mail</label>
 
 				<div *ngIf="formError.email" class="form-error">
 					{{formError.email}}
 				</div>
 			</div>
 
-			<div formGroupName="passwords">
+			<div class="form-column" formGroupName="passwords">
 				<div class="form-group"
-					[class.focused]="signupForm.get('passwords').get('password').value || focusInput.password">
-					<label>Password</label>
+					[class.focused]="signupForm.get('passwords').get('password').value">
 					<input type="password" name="password" class="form-control"
-						required formControlName="password"
-						(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
+						required formControlName="password" />
+					<label>Password</label>
 
 					<div *ngIf="formError.password" class="form-error">
 						{{formError.password}}
@@ -44,11 +41,10 @@
 				</div>
 
 				<div class="form-group"
-					[class.focused]="signupForm.get('passwords').get('passwordConfirm').value || focusInput.passwordConfirm">
-					<label>Confirm password</label>
+					[class.focused]="signupForm.get('passwords').get('passwordConfirm').value">
 					<input type="password" name="passwordConfirm" class="form-control"
-						required formControlName="passwordConfirm"
-						(focus)="onInputFocus($event)" (blur)="onInputBlur()" />
+						required formControlName="passwordConfirm" />
+					<label>Confirm password</label>
 
 					<div *ngIf="formError.passwordConfirm" class="form-error">
 						{{formError.passwordConfirm}}

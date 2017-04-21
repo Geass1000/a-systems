@@ -28,16 +28,27 @@ export const ModalReducer : Reducer<IModal> = (state = INITIAL_STATE, action : I
 	switch (action.type) {
 		case ModalActions.OPEN_MODAL : {
 			let modal = Object.assign({}, state, {
-				open : action.payload.state,
-				active : action.payload.name
+				open : action.payload.state
 			});
-			modal[action.payload.name] = true;
+			if (modal.active !== null) {
+				modal[modal.active] = false;
+			}
+			if (modal.active !== action.payload.name) {
+				modal[action.payload.name] = true;
+				modal.active = action.payload.name;
+			}
+			else {
+				modal.active = null;
+				modal.open = false;
+			}
 			return modal;
 		}
 		case ModalActions.CLOSE_ACTIVE_MODAL : {
 			let modal = Object.assign({}, state, { open : false });
-			modal[modal.active] = false;
-			modal.active = null;
+			if (modal.active !== null) {
+				modal[modal.active] = false;
+				modal.active = null;
+			}
 			return modal;
 		}
 	}

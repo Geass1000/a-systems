@@ -13,99 +13,13 @@
 /* No important context */
 /* Main context */
 /* Important context */
-.initWorkspace {
-  width: 475px;
-  margin: 0 auto;
-  margin-top: 25px;
-  z-index: 11;
-  position: relative;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: row;
-      flex-direction: row;
-  -ms-flex-align: stretch;
-      align-items: stretch;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  background: #fff; }
-  .initWorkspace .initWorkspaceLogo {
-    width: 220px;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: center;
-        justify-content: center;
-    -ms-flex-align: center;
-        align-items: center;
-    background-color: #55acee; }
-    .initWorkspace .initWorkspaceLogo img {
-      width: 100px; }
-  .initWorkspace .initWorkspaceContent {
-    padding: 25px 30px; }
-    .initWorkspace .initWorkspaceContent .form-header {
-      margin-bottom: 15px;
-      color: #5C5C5C; }
-    .initWorkspace .initWorkspaceContent .form-content {
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-direction: row;
-          flex-direction: row;
-      -ms-flex-align: end;
-          align-items: flex-end; }
-    .initWorkspace .initWorkspaceContent .form-texture {
-      width: 100%;
-      margin-bottom: 15px; }
-    .initWorkspace .initWorkspaceContent .form-group {
-      margin-right: 15px; }
-      .initWorkspace .initWorkspaceContent .form-group:last-child {
-        margin-right: 0; }
-    .initWorkspace .initWorkspaceContent label {
-      margin-bottom: 10px;
-      color: #5C5C5C; }
-    .initWorkspace .initWorkspaceContent input {
-      box-sizing: border-box;
-      width: 200px;
-      margin-bottom: 15px;
-      padding: 7px 10px;
-      border: 1px solid #5C5C5C;
-      border-radius: 3px; }
-      .initWorkspace .initWorkspaceContent input:hover, .initWorkspace .initWorkspaceContent input:focus {
-        border-color: #1e83ec;
-        color: #1e83ec; }
-    .initWorkspace .initWorkspaceContent select {
-      width: 45px;
-      margin-bottom: 15px;
-      padding: 7px 0 7px 3px;
-      border: 1px solid #5C5C5C;
-      border-radius: 3px;
-      font-size: 14px; }
-      .initWorkspace .initWorkspaceContent select:hover, .initWorkspace .initWorkspaceContent select:focus {
-        border-color: #1e83ec;
-        color: #1e83ec; }
-    .initWorkspace .initWorkspaceContent button {
-      box-sizing: border-box;
-      width: 200px;
-      margin-right: 15px;
-      padding: 7px 15px;
-      background: #55acee;
-      border: 0;
-      border-radius: 5px;
-      color: #fff;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer; }
-      .initWorkspace .initWorkspaceContent button:last-child {
-        margin-right: 0; }
-      .initWorkspace .initWorkspaceContent button:not([disabled]):hover, .initWorkspace .initWorkspaceContent button:not([disabled]):focus {
-        background: #7bb3ef; }
-      .initWorkspace .initWorkspaceContent button[disabled] {
-        background: #f6f6f6;
-        color: #5C5C5C; }
-  .initWorkspace .flex-row {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: row;
-        flex-direction: row; }
-  .initWorkspace .flex-column {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-        flex-direction: column; }
+.modal-window {
+  width: 350px;
+  margin: 0 -175px;
+  position: fixed;
+  z-index: 12;
+  top: 230px;
+  left: 50%;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15); }

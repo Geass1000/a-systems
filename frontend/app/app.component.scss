@@ -96,7 +96,7 @@ header::before {
 	top: 0;
 	left: 0;
 
-	z-index: $z-index-modal-1;
+	z-index: $z-index-modal-overlay;
 
 	visibility: hidden;
 	opacity: 0;

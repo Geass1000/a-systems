@@ -15,20 +15,12 @@
 /* Important context */
 /* Variable */
 .modal-window {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-      flex-direction: column;
-  -ms-flex-pack: start;
-      justify-content: flex-start;
-  -ms-flex-align: center;
-      align-items: center;
   width: 350px;
+  margin: 0 -175px;
   position: fixed;
   top: 230px;
   left: 50%;
   z-index: 12;
-  margin: 0 -175px;
   background: white;
   border-radius: 5px;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
@@ -41,113 +33,3 @@
     opacity: 1;
     transform: scale(1);
     transition: transform 0.4s ease-out, visibility 0.2s, opacity 0.2s 0.0s; }
-  .modal-window > section {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-        flex-direction: column;
-    -ms-flex-pack: start;
-        justify-content: flex-start;
-    -ms-flex-align: center;
-        align-items: center;
-    box-sizing: border-box;
-    width: 100%; }
-    .modal-window > section.modal-end {
-      margin-bottom: 19px; }
-
-.icon-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  color: rgba(31, 45, 61, 0.2);
-  cursor: pointer; }
-  .icon-close:hover {
-    color: rgba(31, 45, 61, 0.5); }
-
-.modal-header {
-  margin-top: 35px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
-  .modal-header h1 {
-    margin-bottom: 10px;
-    color: #5C5C5C;
-    text-align: center; }
-  .modal-header p {
-    margin-bottom: 25px;
-    color: #5C5C5C;
-    font-size: 16px; }
-
-.modal-footer {
-  margin: 15px 0 25px 0; }
-
-.modal-body {
-  margin-top: 15px; }
-  .modal-body form {
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
-    padding: 0 30px; }
-    .modal-body form .form-group {
-      margin-bottom: 12px;
-      padding-top: 24px;
-      position: relative; }
-      .modal-body form .form-group label {
-        display: block;
-        color: rgba(0, 0, 0, 0.4);
-        font-size: 16px;
-        cursor: text;
-        position: absolute;
-        top: 24px;
-        z-index: 13;
-        transition: color 0.25s, font-size 0.25s, top 0.25s; }
-      .modal-body form .form-group.focused label {
-        color: #1e83ec;
-        font-size: 13px;
-        top: 0;
-        cursor: pointer; }
-      .modal-body form .form-group input {
-        box-sizing: border-box;
-        display: block;
-        width: 100%;
-        background: none;
-        border: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-        font-size: 16px;
-        margin-bottom: 6px;
-        padding-bottom: 5px;
-        position: relative;
-        z-index: 14;
-        transition: border 0.3s; }
-        .modal-body form .form-group input:focus {
-          border-bottom: 1px solid #1e83ec;
-          color: #1e83ec; }
-      .modal-body form .form-group a.form-forgotton {
-        display: block;
-        position: absolute;
-        top: 24px;
-        right: 0;
-        z-index: 15; }
-        .modal-body form .form-group a.form-forgotton + input[name="password"] {
-          padding-right: 90px; }
-    .modal-body form button {
-      width: 100%;
-      margin-top: 8px;
-      margin-bottom: 6px;
-      padding: 10px 15px;
-      background: #55acee;
-      border: 0;
-      border-radius: 5px;
-      color: #fff;
-      font-size: 16px;
-      font-weight: bold;
-      text-transform: uppercase;
-      cursor: pointer; }
-      .modal-body form button:not([disabled]):hover, .modal-body form button:not([disabled]):focus {
-        background: #7bb3ef; }
-      .modal-body form button[disabled] {
-        background: #f6f6f6;
-        color: #5C5C5C; }
-      .modal-body form button + .form-error {
-        margin-bottom: 6px; }
-    .modal-body form .form-error {
-      color: red;
-      font-size: 13px; }

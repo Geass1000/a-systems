@@ -21,8 +21,8 @@ $font-size-large: 20px;
 	$z-index-panel-4: 9; /* Main context */
 	$z-index-panel-5: 10; /* Important context */
 	/* Modal */
-	$z-index-modal-1: 11; /* Overlay */
-	$z-index-modal-2: 12; /* Form block */
-	$z-index-modal-3: 13; /* No important context */
-	$z-index-modal-4: 14; /* Main context */
-	$z-index-modal-5: 15; /* Important context */
+	$z-index-modal-overlay: 11; /* Overlay */
+	$z-index-modal-block: 12; /* Form block */
+	$z-index-modal-c1: 13; /* No important context */
+	$z-index-modal-c2: 14; /* Main context */
+	$z-index-modal-c3: 15; /* Important context */

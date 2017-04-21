@@ -55,10 +55,13 @@ export class MetricService implements OnDestroy {
 		}
 	}
 
-	convertToDef (num : number) {
+	convertFromDefToCur (num : number) {
+		return this.convertor({ from : this.defMeasure, to : this.curMeasure }, num);
+	}
+	convertFromCurToDef (num : number) {
 		return this.convertor({ from : this.curMeasure, to : this.defMeasure }, num);
 	}
-	convert (num : number) {
+	convertFromPrevToCur (num : number) {
 		return this.convertor({ from : this.prevMeasure, to : this.curMeasure }, num);
 	}
 	convertor (dir : { from : string, to : string }, num : number) {

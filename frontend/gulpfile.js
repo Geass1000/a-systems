@@ -8,7 +8,7 @@ const scssPath = ['app/**/*.scss', '*.scss'];
 
 gulp.task('scss', function(){
 	return gulp.src(scssPath, { since : gulp.lastRun('scss') })
-		.pipe(sass().on('error', sass.logError))
+		.pipe(sass({ linefeed : 'crlf' }).on('error', sass.logError))
 		//.pipe(debug({ title : 'scss' }))
 		.pipe(autoprefixer({ browsers: ['last 2 versions' ], cascade: true }))
 		.pipe(gulp.dest(function(file){

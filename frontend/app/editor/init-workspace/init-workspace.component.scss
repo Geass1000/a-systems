@@ -1,123 +1,15 @@
 @import "../../shared/scss/global.scss";
 
-.initWorkspace {
-	width: 475px;
-	margin: 0 auto;
-	margin-top: 25px;
-	z-index: $z-index-modal-1;
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	align-items: stretch;
+.modal-window {
+	width: 350px;
+	margin: 0 -175px;
 
-	border: 1px solid rgba(0, 0, 0, 0.12);
+	position: fixed;
+	z-index: $z-index-modal-block;
+	top: 230px;
+	left: 50%;
 
-	background: #fff;
-
-	.initWorkspaceLogo {
-		width: 220px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		background-color: $color-button-1;
-
-		img {
-			width: 100px;
-		}
-	}
-	.initWorkspaceContent {
-		padding: 25px 30px;
-
-		.form-header {
-			margin-bottom: 15px;
-			color: $color-text-3;
-		}
-		.form-content {
-			display: flex;
-			flex-direction: row;
-			align-items: flex-end;
-		}
-		.form-texture {
-			width: 100%;			
-			margin-bottom: 15px;
-		}
-		.form-group {
-			margin-right: 15px;
-			&:last-child {
-				margin-right: 0;
-			}
-		}
-		label {
-			margin-bottom: 10px;
-			color: $color-text-3;
-		}
-		input {
-			box-sizing: border-box;
-			width: 200px;
-			margin-bottom: 15px;
-			padding: 7px 10px;
-
-			border: 1px solid $color-text-3;
-			border-radius: 3px;
-
-			&:hover, &:focus {
-				border-color: $color-text-1;
-				color: $color-text-1;
-			}
-		}
-		select {
-			width: 45px;
-			margin-bottom: 15px;
-			padding: 7px 0 7px 3px;
-
-			border: 1px solid $color-text-3;
-			border-radius: 3px;
-
-			font-size: 14px;
-
-			&:hover, &:focus {
-				border-color: $color-text-1;
-				color: $color-text-1;
-			}
-		}
-		button {
-			box-sizing: border-box;
-			width: 200px;
-
-			margin-right: 15px;
-			padding: 7px 15px;
-
-			background: $color-button-1;
-			border: 0;
-			border-radius: 5px;
-
-			color: #fff;
-			font-size: $font-size-medium;
-			font-weight: bold;
-
-			cursor: pointer;
-
-			&:last-child {
-				margin-right: 0;
-			}
-			&:not([disabled]):hover,
-			&:not([disabled]):focus {
-				background: $color-button-2;
-			}
-			&[disabled] {
-				background: #f6f6f6;
-				color: $color-text-3;
-			}
-		}
-	}
-
-	.flex-row {
-		display: flex;
-		flex-direction: row;
-	}
-	.flex-column {
-		display: flex;
-		flex-direction: column;
-	}
+	background: rgba(255, 255, 255, 1);
+	border-radius: 5px;
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
 }
