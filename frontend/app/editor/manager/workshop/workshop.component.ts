@@ -36,14 +36,14 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 		this.subscription.push(this.itemCategories$.subscribe((data) => {
 			this.itemCategoriesData = data;
 			this.itemCategories = Array.from(data.values());
-			this.itemCategoriesDisplay = this.itemCategories.filter((data) => data._pid === this.activeCategory);
+			this.itemCategoriesDisplay = this.itemCategories.filter((d2) => d2._pid === this.activeCategory);
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - itemCategories -', this.itemCategories);
 
 			if (data.size === 0) {
 				this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux -', 'Load item catygories...');
-				this.editorService.getItemCategories().subscribe((data) => {
-					if (data.categories && data.categories.length !== 0) {
-						this.ngRedux.dispatch(this.editorActions.addItemCategories(data.categories));
+				this.editorService.getItemCategories().subscribe((d2) => {
+					if (d2.categories && d2.categories.length !== 0) {
+						this.ngRedux.dispatch(this.editorActions.addItemCategories(d2.categories));
 					}
 				}, (error) => {});
 			}
@@ -60,8 +60,7 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - categoryId', el.dataset.categoryId);
 			if (el.dataset.categoryId === 'back') {
 				this.activeCategory = this.getParentCategoryId(this.activeCategory);
-			}
-			else {
+			} else {
 				this.activeCategory = el.dataset.categoryId;
 			}
 			this.prevCategory = this.getParentCategoryName(this.activeCategory);
@@ -69,8 +68,7 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 
 			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - prevCategory -', this.prevCategory);
 			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - activeCategory -', this.activeCategory);
-		}
-		else {
+		}	else {
 			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - Not navigation element');
 		}
 	}

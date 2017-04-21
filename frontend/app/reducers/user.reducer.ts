@@ -3,8 +3,8 @@ import { IAction } from '../shared/interfaces/action.interface';
 import { UserActions } from '../actions/user.actions';
 
 export interface IUser {
-	id : number,
-	name : string
+	id : number;
+	name : string;
 }
 
 export const INITIAL_STATE : IUser = {
@@ -23,5 +23,5 @@ export const UserReducer : Reducer<IUser> = (state = INITIAL_STATE, action : IAc
 			return user;
 		}
 	}
-	return state
-}
+	return state;
+};

@@ -10,7 +10,7 @@
     "forin": true,
     "indent": [
       true,
-      "spaces"
+      "tab"
     ],
     "label-position": true,
     "label-undefined": true,
@@ -40,12 +40,14 @@
     "no-duplicate-variable": true,
     "no-empty": false,
     "no-eval": true,
-    "no-inferrable-types": true,
     "no-shadowed-variable": true,
     "no-string-literal": false,
-    "no-switch-case-fall-through": true,
+    "no-switch-case-fall-through": false,
     "no-trailing-whitespace": true,
-    "no-unused-expression": true,
+    "no-unused-expression": [
+			true,
+			"allow-fast-null-checks"
+		],
     "no-unused-variable": true,
     "no-unreachable": true,
     "no-use-before-declare": true,
@@ -71,13 +73,13 @@
       "allow-null-check"
     ],
     "typedef-whitespace": [
-      true,
+      false,
       {
-        "call-signature": "nospace",
-        "index-signature": "nospace",
-        "parameter": "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
+        "call-signature": "onespace",
+        "index-signature": "onespace",
+        "parameter": "onespace",
+        "property-declaration": "onespace",
+        "variable-declaration": "onespace"
       }
     ],
     "variable-name": false,

@@ -18,6 +18,9 @@ export class ResetComponent implements OnInit  {
 	@select(['modal', 'reset']) modalOpen : any;
 
 	resetForm : FormGroup;
+	formError = {
+		'serverError' : ''
+	};
 
 	constructor (private fb : FormBuilder,
 							 private authService : AuthService,
@@ -31,32 +34,11 @@ export class ResetComponent implements OnInit  {
     });
   }
 
-	formError = {
-		'serverError' : ''
-	};
 	resetFormError () {
 		for (const key in this.formError) {
-			this.formError[key] = ' ';
-		}
-	}
-
-	/* CSS effect - focus/blur */
-	focusInput = {
-		email : false,
-		password : false
-	};
-	onInputFocus (event : any) {
-		let target = event.target;
-		if (target.localName === "input") {
-			for (let i in this.focusInput) {
-				this.focusInput[i] = false;
+			if (this.formError.hasOwnProperty(key)) {
+				this.formError[key] = ' ';
 			}
-			this.focusInput[target.name] = true;
-		}
-	}
-	onInputBlur () {
-		for (let i in this.focusInput) {
-			this.focusInput[i] = false;
 		}
 	}
 

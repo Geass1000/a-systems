@@ -34,7 +34,7 @@ import { MetricService } from './metric.service';
   exports:      [ EditorComponent ],
   providers:    [
 		EditorService,
-		MetricService 
+		MetricService
 	]
 })
 export class EditorModule { }

@@ -79,8 +79,10 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 
 	convert () {
 		if (this.workspace) {
-			this.workspace.width  = Metric.convert({ from : Measure.get(this.workspaceMeasure), to : Measure.get(this.curMeasure) }, this.workspace.width);
-			this.workspace.height = Metric.convert({ from : Measure.get(this.workspaceMeasure), to : Measure.get(this.curMeasure) }, this.workspace.height);
+			this.workspace.width  = Metric.convert({ from : Measure.get(this.workspaceMeasure),
+																							 to : Measure.get(this.curMeasure) }, this.workspace.width);
+			this.workspace.height = Metric.convert({ from : Measure.get(this.workspaceMeasure),
+																							 to : Measure.get(this.curMeasure) }, this.workspace.height);
 			this.workspaceMeasure = this.curMeasure;
 		}
 	}

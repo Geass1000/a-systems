@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 
 /* App Routing - Service */
-//import { AuthGuard } from '../core/auth-guard.service';
+// import { AuthGuard } from '../core/auth-guard.service';
 // { path: 'home', component: HomeComponent, canActivate: [ AuthGuard ] }
 
 const routes: Routes = [

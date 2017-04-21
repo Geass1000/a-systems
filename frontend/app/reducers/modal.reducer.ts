@@ -3,14 +3,14 @@ import { IAction } from '../shared/interfaces/action.interface';
 import { ModalActions } from '../actions/modal.actions';
 
 export interface IModal {
-	open : boolean,
-	active : string,
+	open : boolean;
+	active : string;
 	/* Auth Modals */
-	login : boolean,
-	signup : boolean,
-	reset : boolean,
+	login : boolean;
+	signup : boolean;
+	reset : boolean;
 	/* Editor Modals */
-	initWorkspace : boolean
+	initWorkspace : boolean;
 }
 
 export const INITIAL_STATE : IModal = {
@@ -36,8 +36,7 @@ export const ModalReducer : Reducer<IModal> = (state = INITIAL_STATE, action : I
 			if (modal.active !== action.payload.name) {
 				modal[action.payload.name] = true;
 				modal.active = action.payload.name;
-			}
-			else {
+			}	else {
 				modal.active = null;
 				modal.open = false;
 			}
@@ -52,5 +51,5 @@ export const ModalReducer : Reducer<IModal> = (state = INITIAL_STATE, action : I
 			return modal;
 		}
 	}
-	return state
-}
+	return state;
+};

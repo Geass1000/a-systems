@@ -2,15 +2,12 @@ import { Reducer } from 'redux';
 import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
-import { Config } from '../../config';
-import * as _ from 'lodash';
-
-import { IWorkspace, ITexture, ITextureType } from '../../shared/interfaces/editor.interface';
+import { ITexture, ITextureType } from '../../shared/interfaces/editor.interface';
 
 export interface IEditorTexture {
-	types : Map<string, ITextureType>,
-	textures : Map<string, ITexture>,
-	loaded : Map<string, boolean>
+	types : Map<string, ITextureType>;
+	textures : Map<string, ITexture>;
+	loaded : Map<string, boolean>;
 }
 
 export const INITIAL_STATE : IEditorTexture = {
@@ -19,7 +16,8 @@ export const INITIAL_STATE : IEditorTexture = {
 	loaded : new Map()
 };
 
-export const EditorTextureReducer : Reducer<IEditorTexture> = (state : IEditorTexture = INITIAL_STATE, action : IAction) : IEditorTexture => {
+export const EditorTextureReducer : Reducer<IEditorTexture> =
+	(state : IEditorTexture = INITIAL_STATE, action : IAction) : IEditorTexture => {
 	switch (action.type) {
 		case EditorActions.ADD_TEXTURE : {
 			let textures = new Map(state.textures);
@@ -64,5 +62,5 @@ export const EditorTextureReducer : Reducer<IEditorTexture> = (state : IEditorTe
 			});
 		}
 	}
-	return state
-}
+	return state;
+};

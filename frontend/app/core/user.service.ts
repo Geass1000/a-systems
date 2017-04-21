@@ -20,8 +20,7 @@ export class UserService {
 			let decodeToken = this.jwtHelper.decodeToken(token);
 
 			this.userName = decodeToken.name;
-		}
-		else {
+		}	else {
 			this.userName = '';
 		}
 	}

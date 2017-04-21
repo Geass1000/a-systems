@@ -6,7 +6,6 @@ import { EditorActions } from '../actions/editor.actions';
 
 import { Config } from '../config';
 
-import { HttpService } from '../core/http.service';
 import { LoggerService } from '../core/logger.service';
 
 let Measure : Map<string, number> = new Map<string, number>([
@@ -18,7 +17,6 @@ export class MetricService implements OnDestroy {
 	private defMeasure : string = Config.defMeasure;
 	private prevMeasure : string = this.defMeasure;
 
-	private isInit : boolean = false;
 	/* Redux */
 	private subscription : any[] = [];
 	@select(['editor', 'all', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
@@ -72,7 +70,7 @@ export class MetricService implements OnDestroy {
 		let fromScale : number = Measure.get(dir.from);
 		let toScale : number = Measure.get(dir.to);
 		if (!(fromScale && toScale)) {
-			return num
+			return num;
 		};
 
 		let cof : number = toScale / fromScale;

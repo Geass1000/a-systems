@@ -9,6 +9,13 @@ export class Metric {
 	private prevMeasure : string = null;
 	private curMeasure : string = null;
 	private defMeasure : string = null;
+	static convert (dir : { from : number, to : number }, num : number) {
+		if (!(dir.from && dir.to)) {
+			return num;
+		}
+		let cof : number = dir.to / dir.from;
+		return cof * num;
+	}
 	constructor (curMeasure : string, defMeasure : string) {
 		this.curMeasure = curMeasure;
 		this.defMeasure = defMeasure;
@@ -32,15 +39,10 @@ export class Metric {
 		let fromScale : number = Measure.get(dir.from);
 		let toScale : number = Measure.get(dir.to);
 		if (!(fromScale && toScale)) {
-			return num
+			return num;
 		};
 
 		let cof : number = toScale / fromScale;
-		return cof * num;
-	}
-	static convert (dir : { from : number, to : number }, num : number) {
-		if (!(dir.from && dir.to)) return num;
-		let cof : number = dir.to / dir.from;
 		return cof * num;
 	}
 }

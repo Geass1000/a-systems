@@ -5,8 +5,6 @@ import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 import { ModalActions } from '../../actions/modal.actions';
 
-import { IWorkspace } from '../../shared/interfaces/editor.interface';
-
 @Component({
 	moduleId: module.id,
   selector: 'as-editor-control-panel',

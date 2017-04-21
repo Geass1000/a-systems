@@ -17,7 +17,6 @@ export class RoomComponent implements OnInit, OnDestroy {
 	title = 'Home';
 
 	private room : Room;
-	private rooms : Room[];
 
 	/* Redux */
 	private subscription : any[] = [];

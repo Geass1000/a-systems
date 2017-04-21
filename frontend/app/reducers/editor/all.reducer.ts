@@ -8,14 +8,14 @@ import * as _ from 'lodash';
 import { IWorkspace } from '../../shared/interfaces/editor.interface';
 
 export interface IEditorAll {
-	isInitWorkspace : boolean,
-	isActiveMetric : boolean,
+	isInitWorkspace : boolean;
+	isActiveMetric : boolean;
 	// Control Panel
-	defMeasure : string,
-	curMeasure : string,
+	defMeasure : string;
+	curMeasure : string;
 	// Workspace
-	selectElement : boolean,
-	workspace : IWorkspace
+	selectElement : boolean;
+	workspace : IWorkspace;
 }
 
 export const INITIAL_STATE : IEditorAll = {
@@ -48,5 +48,5 @@ export const EditorAllReducer : Reducer<IEditorAll> = (state : IEditorAll = INIT
 			return Object.assign({}, state, { curMeasure : action.payload.measure });
 		}
 	}
-	return state
-}
+	return state;
+};

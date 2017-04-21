@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Headers, Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
 
 import { Config } from '../config';
 import { LoggerService } from './logger.service';
@@ -17,11 +17,10 @@ export class HttpService {
 
 	retry (errorObs : Observable<any>) {
 		return errorObs.delay(Config.retryDelay).scan((errorCount : number, error : any) => {
-			if(errorCount >= Config.minRetryCount) {
+			if (errorCount >= Config.minRetryCount) {
 				if (error.status !== 0) {
 					throw error;
-				}
-				else if (errorCount >= Config.maxRetryCount) {
+				}	else if (errorCount >= Config.maxRetryCount) {
 					throw error;
 				}
 			}

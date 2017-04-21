@@ -51,17 +51,6 @@ export class ManagerComponent implements OnInit, OnDestroy {
 	/* Angular Animation */
 	private aPanelState : string = 'open';
 	private aItemPanelState : string = 'close';
-	aTogglePanelStarted (event : any) {
-		this.aItemPanelState = 'close';
-		this.logger.info(`${this.constructor.name}:`, `aTogglePanelStarted - ${event.toState}`);
-	}
-	aTogglePanelDone (event : any) {
-		this.aItemPanelState = 'open';
-	}
-
-	/* Input */
-
-	/* Output */
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -88,13 +77,22 @@ export class ManagerComponent implements OnInit, OnDestroy {
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
+
+	/* Angular Animation */
+	aTogglePanelStarted (event : any) {
+		this.aItemPanelState = 'close';
+		this.logger.info(`${this.constructor.name}:`, `aTogglePanelStarted - ${event.toState}`);
+	}
+	aTogglePanelDone (event : any) {
+		this.aItemPanelState = 'open';
+	}
+
 	openPanel (event : any) {
 		let el : any = event.target.closest('.item-navigation');
 		if (el !== null) {
 			this.logger.info(`${this.constructor.name}:`, 'openPanel -', el.dataset.panelName);
 			this.ngRedux.dispatch(this.editorActions.openManagerPanel(el.dataset.panelName));
-		}
-		else {
+		}	else {
 			this.logger.info(`${this.constructor.name}:`, 'openPanel - Not navigation element');
 		}
 	}

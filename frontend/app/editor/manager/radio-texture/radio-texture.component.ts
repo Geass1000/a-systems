@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
@@ -17,16 +17,8 @@ import { ITexture, ITextureType } from '../../../shared/interfaces/editor.interf
 export class RadioTextureComponent implements OnInit, OnDestroy {
 	/* Private variable */
 	private activeTextureId : string = null;
-	private activeTextureTypeId : string = "";
+	private activeTextureTypeId : string = '';
 	private texturesView : Array<ITexture> = [];
-
-	/* Input */
-	private type : string = 'none';
-
-	/* Output */
-	textureChange (_id_texture : string) {
-		this.logger.info(`${this.constructor.name}:`, 'textureChange -', '...');
-	}
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -42,6 +34,7 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 							 private editorActions : EditorActions,
 						 	 private editorService : EditorService,
 						 	 private logger : LoggerService) {
+		this.activeTextureId = null;
 	}
 	ngOnInit () {
 		this.subscription.push(this.textureLoaded$.subscribe((data) => {
@@ -54,9 +47,9 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 
 			if (data.size === 0) {
 				this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux -', 'Load texture types...');
-				this.editorService.getTextureTypes().subscribe((data) => {
-					if (data.types && data.types.length !== 0) {
-						this.ngRedux.dispatch(this.editorActions.addTextureTypes(data.types));
+				this.editorService.getTextureTypes().subscribe((d2) => {
+					if (d2.types && d2.types.length !== 0) {
+						this.ngRedux.dispatch(this.editorActions.addTextureTypes(d2.types));
 					}
 				}, (error) => {});
 			}
@@ -67,7 +60,7 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 
 			if (data.size !== 0) {
 				this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux -', 'Use loaded textures...');
-				this.texturesView = this.textures.filter((data) => data.type === this.activeTextureTypeId);
+				this.texturesView = this.textures.filter((d2) => d2.type === this.activeTextureTypeId);
 			}
 		}));
 	}
@@ -75,15 +68,18 @@ export class RadioTextureComponent implements OnInit, OnDestroy {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
+	textureChange (_id_texture : string) {
+		this.logger.info(`${this.constructor.name}:`, 'textureChange -', '...');
+	}
+
 	onChangeTextureType (event : any) {
 		this.logger.info(`${this.constructor.name}:`, 'onChangeTextureType -',
 			`${this.activeTextureTypeId} = ${this.textureTypesData.get(this.activeTextureTypeId).name}`);
 
-		if(this.textureLoadedData.get(this.activeTextureTypeId)) {
+		if (this.textureLoadedData.get(this.activeTextureTypeId)) {
 			this.logger.info(`${this.constructor.name}:`, 'onChangeTextureType -', 'Use loaded textures...');
 			this.texturesView = this.textures.filter((data) => data.type === this.activeTextureTypeId);
-		}
-		else {
+		}	else {
 			this.logger.info(`${this.constructor.name}:`, 'onChangeTextureType -', 'Load textures...');
 			this.editorService.getTextures(this.activeTextureTypeId).subscribe((data) => {
 				this.texturesView = [];

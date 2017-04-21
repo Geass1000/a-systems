@@ -11,7 +11,7 @@ import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/scan';
 
-import { NgRedux, select } from '@angular-redux/store';
+import { NgRedux } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 
 import { HttpService } from '../core/http.service';
@@ -31,32 +31,32 @@ export class EditorService {
 						 	 private logger : LoggerService) {
 	}
 
-	getTextures (type : string) {
+	getTextures (type : string) : Observable<any> {
 		let query : string = type ? `?type=${type}` : '';
 		return this.http.get(Config.serverUrl + this.texturUrl + query, { headers : this.headers })
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
-											this.logger.info(`${this.constructor.name}:`, "getTextures -", `status = ${resp.status} -`, jResp);
+											this.logger.info(`${this.constructor.name}:`, 'getTextures -', `status = ${resp.status} -`, jResp);
 											return jResp;
 										})
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))
 										.catch(this.httpService.handleError);
 	}
-	getTextureTypes () {
+	getTextureTypes () : Observable<any> {
 		return this.http.get(Config.serverUrl + this.texturTypeUrl, { headers : this.headers })
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
-											this.logger.info(`${this.constructor.name}:`, "getTextureTypes -", `status = ${resp.status} -`, jResp);
+											this.logger.info(`${this.constructor.name}:`, 'getTextureTypes -', `status = ${resp.status} -`, jResp);
 											return jResp;
 										})
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))
 										.catch(this.httpService.handleError);
 	}
-	getItemCategories () {
+	getItemCategories () : Observable<any> {
 		return this.http.get(Config.serverUrl + this.itemCategoryUrl, { headers : this.headers })
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
-											this.logger.info(`${this.constructor.name}:`, "getItemCategories -", `status = ${resp.status} -`, jResp);
+											this.logger.info(`${this.constructor.name}:`, 'getItemCategories -', `status = ${resp.status} -`, jResp);
 											return jResp;
 										})
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))

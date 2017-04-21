@@ -26,17 +26,17 @@ import { INITIAL_STATE as INITIAL_STATE_EDITOR_PROJECT } from './editor/project.
 
 /* Second Interface */
 interface IEditor {
-	all : IEditorAll,
-	texture : IEditorTexture,
-	manager : IEditorManager,
-	item : IEditorItem,
-	project : IEditorProject
+	all : IEditorAll;
+	texture : IEditorTexture;
+	manager : IEditorManager;
+	item : IEditorItem;
+	project : IEditorProject;
 }
 
 /* Store Interface */
 export interface IAppState {
-	modal : IModal,
-	editor : IEditor
+	modal : IModal;
+	editor : IEditor;
 }
 
 /* Store Initial State */
@@ -49,7 +49,7 @@ export const INITIAL_STATE : IAppState = {
 		item : INITIAL_STATE_EDITOR_ITEM,
 		project : INITIAL_STATE_EDITOR_PROJECT
 	}
-}
+};
 
 /* Combine All Reducers */
 export const AppReducer = combineReducers<IAppState>({

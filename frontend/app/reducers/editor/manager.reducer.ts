@@ -2,14 +2,11 @@ import { Reducer } from 'redux';
 import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
-import { Config } from '../../config';
-import * as _ from 'lodash';
-
 export interface IEditorManager {
-	open : boolean,
-	active : string,
-	workshop : boolean,
-	workstate : boolean
+	open : boolean;
+	active : string;
+	workshop : boolean;
+	workstate : boolean;
 }
 
 export const INITIAL_STATE : IEditorManager = {
@@ -19,7 +16,8 @@ export const INITIAL_STATE : IEditorManager = {
 	workstate : false
 };
 
-export const EditorManagerReducer : Reducer<IEditorManager> = (state : IEditorManager = INITIAL_STATE, action : IAction) : IEditorManager => {
+export const EditorManagerReducer : Reducer<IEditorManager> =
+	(state : IEditorManager = INITIAL_STATE, action : IAction) : IEditorManager => {
 	switch (action.type) {
 		case EditorActions.OPEN_MANAGER_PANEL : {
 			let panel = Object.assign({}, state, {
@@ -31,8 +29,7 @@ export const EditorManagerReducer : Reducer<IEditorManager> = (state : IEditorMa
 			if (panel.active !== action.payload.name) {
 				panel[action.payload.name] = true;
 				panel.active = action.payload.name;
-			}
-			else {
+			} else {
 				panel.active = null;
 				panel.open = false;
 			}
@@ -49,5 +46,5 @@ export const EditorManagerReducer : Reducer<IEditorManager> = (state : IEditorMa
 			return panel;
 		}
 	}
-	return state
-}
+	return state;
+};

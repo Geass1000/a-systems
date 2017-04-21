@@ -14,7 +14,7 @@ import { MatrixTransform } from './matrix-transform.class';
   styleUrls: [ 'editor.component.css' ]
 })
 export class EditorComponent implements OnInit, OnDestroy {
-	private loc : string = location.href;
+	private loc : string = '';
 
 	private workspaceWidth : number;
 	private workspaceHeight : number;
@@ -22,6 +22,12 @@ export class EditorComponent implements OnInit, OnDestroy {
 	private workspaceMatrix : MatrixTransform;
 	private workspaceX : number;
 	private workspaceY : number;
+
+	private prevX : number;
+	private prevY : number;
+	private startX : number;
+	private startY : number;
+	private selectWorkspace : boolean = false;
 
 	private subscription : any[] = [];
 	@select(['modal', 'initWorkspace']) initWorkspace$ : Observable<boolean>;
@@ -33,13 +39,14 @@ export class EditorComponent implements OnInit, OnDestroy {
 	constructor (private ngRedux : NgRedux<any>,
 						 	 private editorActions : EditorActions,
 						 	 private modalActions : ModalActions) {
+		this.loc = location.href;
 		this.workspaceWidth = 2000;
 		this.workspaceHeight = 2000;
 		this.initWorkspace();
 		this.ngRedux.dispatch(this.modalActions.openModal('initWorkspace', false));
 		//
-		//this.ngRedux.dispatch(this.modalActions.closeActiveModal());
-		//this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
+		// this.ngRedux.dispatch(this.modalActions.closeActiveModal());
+		// this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
 	}
 	ngOnInit () {
 		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
@@ -68,12 +75,6 @@ export class EditorComponent implements OnInit, OnDestroy {
 
 	/* Event Section */
 
-	private prevX : number;
-	private prevY : number;
-	private startX : number;
-	private startY : number;
-	private selectWorkspace : boolean = false;
-
 	onMouseDownWorkspace (event : any) {
 		this.startX = event.clientX;
 		this.startY = event.clientY;
@@ -81,8 +82,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 		this.prevX = event.clientX;
 		this.prevY = event.clientY;
 		let el = event.target.closest('.element');
-		this.selectWorkspace = !(this.selectElement && el && el.classList.contains("selected"));
-		//console.log(event);
+		this.selectWorkspace = !(this.selectElement && el && el.classList.contains('selected'));
+		// console.log(event);
 	}
 	onMouseMoveWorkspace (event : any) {
 		if (this.selectWorkspace) {
@@ -91,18 +92,17 @@ export class EditorComponent implements OnInit, OnDestroy {
 			this.prevX = event.clientX;
 			this.prevY = event.clientY;
 			this.matrixTransform = this.workspaceMatrix.translate(dX, dY);
-			//console.log(this.matrixTransform);
+			// console.log(this.matrixTransform);
 		}
 	}
 	onMouseUpWorkspace (event : any) {
 		if (this.startX === event.clientX && this.startY === event.clientY) {
 			if (event.target.closest('.element')) {
 				this.ngRedux.dispatch(this.editorActions.selectElement(true));
-				console.log("Selected!");
-			}
-			else {
+				console.log('Selected!');
+			}	else {
 				this.ngRedux.dispatch(this.editorActions.selectElement(false));
-				console.log("No Selected!");
+				console.log('No Selected!');
 			}
 		}
 

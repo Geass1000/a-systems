@@ -4,7 +4,7 @@ import { ITexture, IWorkspace, ITextureType, IItemCategory } from '../shared/int
 
 @Injectable()
 export class EditorActions {
-	static readonly CLASS_NAME = "EDITOR_ACTIONS:";
+	static readonly CLASS_NAME = 'EDITOR_ACTIONS:';
 	static readonly SELECT_ELEMENT = EditorActions.CLASS_NAME + 'SELECT_ELEMENT';
 	static readonly INIT_WORKSPACE = EditorActions.CLASS_NAME + 'INIT_WORKSPACE';
 	static readonly ACTIVE_METRIC = EditorActions.CLASS_NAME + 'ACTIVE_METRIC';

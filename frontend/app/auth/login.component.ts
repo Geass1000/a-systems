@@ -19,6 +19,10 @@ export class LoginComponent implements OnInit  {
 
 	loginForm : FormGroup;
 
+	formError = {
+		'serverError' : ''
+	};
+
 	constructor (private fb : FormBuilder,
 							 private authService : AuthService,
 						 	 private ngRedux : NgRedux<any>,
@@ -31,32 +35,11 @@ export class LoginComponent implements OnInit  {
     });
   }
 
-	formError = {
-		'serverError' : ''
-	};
 	resetFormError () {
 		for (const key in this.formError) {
-			this.formError[key] = ' ';
-		}
-	}
-
-	/* CSS effect - focus/blur */
-	focusInput = {
-		name : false,
-		password : false
-	};
-	onInputFocus (event : any) {
-		let target = event.target;
-		if (target.localName === "input") {
-			for (let i in this.focusInput) {
-				this.focusInput[i] = false;
+			if (this.formError.hasOwnProperty(key)) {
+				this.formError[key] = ' ';
 			}
-			this.focusInput[target.name] = true;
-		}
-	}
-	onInputBlur () {
-		for (let i in this.focusInput) {
-			this.focusInput[i] = false;
 		}
 	}
 

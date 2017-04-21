@@ -18,6 +18,35 @@ export class SignupComponent implements OnInit  {
 	@select(['modal', 'signup']) modalOpen : any;
 
 	signupForm : FormGroup;
+	formError = {
+		'name' : '',
+		'email'	: '',
+		'passwords' : '',
+		'password' : '',
+		'passwordConfirm' : '',
+		'serverError' : ''
+	};
+	validationMessages = {
+		'name' : {
+			'required' : 'Name is required.',
+			'minlength' : 'Name must be at least 3 characters long.',
+			'maxlength' : 'Name cannot be more than 30 characters long.'
+		},
+		'email' : {
+			'required' : 'E-mail is required.'
+		},
+		'passwords' : {
+			'mismatch' : 'Passwords must be equal.'
+		},
+		'password' : {
+			'required' : 'Password is required.',
+			'minlength' : 'Password must be at least 8 characters long.',
+			'maxlength' : 'Password cannot be more than 50 characters long.'
+		},
+		'passwordConfirm' : {
+			'required' : 'Confirm password is required.'
+		}
+	};
 
 	constructor (private fb : FormBuilder,
 							 private authService : AuthService,
@@ -67,12 +96,16 @@ export class SignupComponent implements OnInit  {
     const form = this.signupForm;
 
     for (const f1 in form.value) {
-			this.checkFields(form, f1);
-			const control = form.get(f1);
+			if (form.value.hasOwnProperty(f1)) {
+				this.checkFields(form, f1);
+				const control = form.get(f1);
 
-			if ("controls" in control) {
-				for (const f2 in control.value) {
-					this.checkFields(control, f2);
+				if ('controls' in control) {
+					for (const f2 in control.value) {
+						if (control.value.hasOwnProperty(f2)) {
+							this.checkFields(control, f2);
+						}
+					}
 				}
 			}
     }
@@ -85,66 +118,18 @@ export class SignupComponent implements OnInit  {
 		if (control && control.dirty && !control.valid) {
 			const messages = this.validationMessages[field];
 			for (const key in control.errors) {
-				this.formError[field] += messages[key] + ' ';
+				if (control.errors.hasOwnProperty(key)) {
+					this.formError[field] += messages[key] + ' ';
+				}
 			}
 		}
 	}
 
-	formError = {
-		'name' : '',
-		'email'	: '',
-		'passwords' : '',
-		'password' : '',
-		'passwordConfirm' : '',
-		'serverError' : ''
-	};
 	resetFormError () {
 		for (const key in this.formError) {
-			this.formError[key] = ' ';
-		}
-	}
-
-	validationMessages = {
-    'name' : {
-      'required' : 'Name is required.',
-      'minlength' : 'Name must be at least 3 characters long.',
-      'maxlength' : 'Name cannot be more than 30 characters long.'
-    },
-    'email' : {
-      'required' : 'E-mail is required.'
-    },
-		'passwords' : {
-      'mismatch' : 'Passwords must be equal.'
-    },
-    'password' : {
-      'required' : 'Password is required.',
-			'minlength' : 'Password must be at least 8 characters long.',
-      'maxlength' : 'Password cannot be more than 50 characters long.'
-    },
-		'passwordConfirm' : {
-      'required' : 'Confirm password is required.'
-    }
-  };
-
-	/* CSS effect - focus/blur */
-	focusInput = {
-		name : false,
-		email : false,
-		password : false,
-		passwordConfirm : false
-	};
-	onInputFocus (event : any) {
-		let target = event.target;
-		if (target.localName === "input") {
-			for (let i in this.focusInput) {
-				this.focusInput[i] = false;
+			if (this.formError.hasOwnProperty(key)) {
+				this.formError[key] = ' ';
 			}
-			this.focusInput[target.name] = true;
-		}
-	}
-	onInputBlur () {
-		for (let i in this.focusInput) {
-			this.focusInput[i] = false;
 		}
 	}
 
