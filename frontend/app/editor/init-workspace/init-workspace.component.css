@@ -16,9 +16,9 @@
 .modal-window {
   width: 350px;
   margin: 0 -175px;
-  position: fixed;
+  position: absolute;
   z-index: 12;
-  top: 230px;
+  top: 55px;
   left: 50%;
   background: white;
   border-radius: 5px;

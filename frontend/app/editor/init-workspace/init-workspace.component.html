@@ -2,27 +2,32 @@
 	<div class="modal-window modal-reset">
 		<i class="fa fa-times icon-close" aria-hidden="true"></i>
 		<section class="modal-header">
-			<h1>Reset</h1>
-			<p>Reset your password.</p>
+			<h1>Project</h1>
+			<p>Create your project here.</p>
 		</section>
-		<section class="modal-body">
+		<section class="modal-body" *ngIf="workspace">
 			<form>
+				<div class="form-group" [class.focused]="workspace.width">
+					<input type="text" class="form-control"
+						required name="projectName" id="project-name" />
+					<label>Project Name</label>
+				</div>
 				<div class="form-row">
 					<div class="form-group" [class.focused]="workspace.width">
 						<input type="text" class="form-control"
 							required name="width" id="width" [(ngModel)]="workspace.width" />
-						<label for="width">Width</label>
+						<label>Width</label>
 					</div>
 
 					<div class="form-group" [class.focused]="workspace.height">
 						<input type="text" class="form-control"
 							required name="height" id="height" [(ngModel)]="workspace.height" />
-						<label for="height">Height</label>
+						<label>Height</label>
 					</div>
 				</div>
 
-				<button (click)="onInitWorkspace()">Create</button>
-				<button (click)="onOpenWorkspace()">Open</button>
+				<button type="button" (click)="onInitWorkspace()">Create</button>
+				<button type="button" (click)="onOpenWorkspace()">Open</button>
 			</form>
 		</section>
 	</div>

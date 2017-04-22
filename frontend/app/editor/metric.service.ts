@@ -74,6 +74,7 @@ export class MetricService implements OnDestroy {
 		};
 
 		let cof : number = toScale / fromScale;
-		return cof * num;
+		let result : number = cof * num;
+		return +result.toFixed(10);
 	}
 }
