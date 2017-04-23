@@ -21,16 +21,13 @@ import { IWorkspace } from '../../shared/interfaces/editor.interface';
 })
 export class InitWorkspaceComponent implements OnInit, OnDestroy {
 	/* Private Variable */
+	private workspace : IWorkspace = null;
+	private projectName : string = null;
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['modal', 'initWorkspace']) initWorkspace$ : Observable<boolean>;
-
 	@select(['editor', 'all', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
-
-	/* Private Variable */
-	private workspace : IWorkspace = null;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
@@ -44,9 +41,12 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 			if (this.isActiveMetric) {
 				if (!this.workspace) {
 					this.workspace = _.cloneDeep(Config.workspace);
+					this.projectName = Config.projectName;
+					this.prepareData();
 					this.workspace.width = this.metricService.convertFromDefToCur(this.workspace.width);
 					this.workspace.height = this.metricService.convertFromDefToCur(this.workspace.height);
 				} else {
+					this.prepareData();
 					this.workspace.width = this.metricService.convertFromPrevToCur(this.workspace.width);
 					this.workspace.height = this.metricService.convertFromPrevToCur(this.workspace.height);
 				}
@@ -58,16 +58,38 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
+	prepareData () {
+		if (this.workspace) {
+			this.workspace.width = this.toNumber(this.workspace.width);
+			this.workspace.height = this.toNumber(this.workspace.height);
+		}
+	}
+	toNumber (data : any) {
+		if (isFinite(+data)) {
+			return +data;
+		}
+		return data;
+	}
+
 	onInitWorkspace () {
-		let obj : IWorkspace = Object.assign({}, this.workspace);
-		obj.width  = this.metricService.convertFromCurToDef(this.workspace.width);
-		obj.height = this.metricService.convertFromCurToDef(this.workspace.height);
-		this.ngRedux.dispatch(this.editorActions.updateWorkspace(obj));
-		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
+		this.prepareData();
+		let resultWorkspace : IWorkspace = {
+			width : this.metricService.convertFromCurToDef(this.workspace.width),
+			height : this.metricService.convertFromCurToDef(this.workspace.height),
+			texture : null
+		};
+		this.ngRedux.dispatch(this.editorActions.updateProjectName(this.projectName));
+		this.ngRedux.dispatch(this.editorActions.updateWorkspace(resultWorkspace));
+		this.ngRedux.dispatch(this.editorActions.closeActiveControlModal());
 		this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
 	}
 
 	onOpenWorkspace (el ?: boolean) {
-		console.log(el);
+		this.prepareData();
+		console.log(this.workspace);
+	}
+
+	closeModal () {
+		this.ngRedux.dispatch(this.editorActions.closeActiveControlModal());
 	}
 }

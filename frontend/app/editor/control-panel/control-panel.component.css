@@ -15,17 +15,17 @@
 /* Important context */
 /* Variable */
 header::before {
-  content: "";
   display: block;
+  content: "";
   width: 100%;
   height: 55px; }
 
 .control-section {
   height: 55px;
   position: fixed;
+  z-index: 7;
   top: 56px;
   left: 0px;
-  z-index: 6;
   background-color: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
   .control-section .base-block {
@@ -34,20 +34,23 @@ header::before {
     -ms-flex-pack: justify;
         justify-content: space-between;
     -ms-flex-align: center;
-        align-items: center; }
+        align-items: center;
+    z-index: 7; }
   .control-section .left-block, .control-section .right-block {
-    height: 100%;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-        align-items: center; }
-  .control-section a {
-    height: 100%;
-    margin: 0 10px;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
         align-items: center;
+    z-index: 7;
+    height: 100%; }
+  .control-section a {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center;
+    z-index: 9;
+    height: 100%;
+    margin: 0 10px;
     color: #5C5C5C;
     text-decoration: none; }
     .control-section a:hover, .control-section a:focus {
@@ -58,47 +61,43 @@ header::before {
       font-size: 15px;
       font-weight: bold; }
   .control-section .switch {
-    height: 32px;
-    box-sizing: border-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
         align-items: center;
-    position: relative;
+    box-sizing: border-box;
+    height: 32px;
     padding: 0 3px;
-    border-radius: 3px;
+    position: relative;
+    z-index: 7;
     background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1); }
-    .control-section .switch div, .control-section .switch form {
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-align: center;
-          align-items: center; }
     .control-section .switch .switch-label {
-      width: 50px;
-      height: 100%;
       display: -ms-flexbox;
       display: flex;
-      z-index: 9;
-      -ms-flex-align: center;
-          align-items: center;
       -ms-flex-pack: center;
           justify-content: center;
+      -ms-flex-align: center;
+          align-items: center;
+      width: 50px;
+      height: 100%;
+      z-index: 9;
+      cursor: pointer;
       color: rgba(0, 0, 0, 0.95);
       font-size: 15px;
       font-weight: bold;
-      cursor: pointer;
       transition: none; }
     .control-section .switch .switch-selection {
-      width: 50px;
       display: block;
-      z-index: 8;
+      width: 50px;
       position: absolute;
+      z-index: 8;
       top: 3px;
       bottom: 3px;
       left: 3px;
-      border-radius: 3px;
       background: #55acee;
+      border-radius: 3px;
       box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
       transition: left 0.15s ease-out; }
     .control-section .switch .switch-input {

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 /* Routing Module */
 import { EditorRoutingModule } from './editor-routing.module';
@@ -22,6 +22,7 @@ import { MetricService } from './metric.service';
   imports: [
 		CommonModule,
 		FormsModule,
+		ReactiveFormsModule,
 		EditorRoutingModule,
 		ManagerModule
 	],

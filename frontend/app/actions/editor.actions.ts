@@ -8,7 +8,6 @@ export class EditorActions {
 	static readonly SELECT_ELEMENT = EditorActions.CLASS_NAME + 'SELECT_ELEMENT';
 	static readonly INIT_WORKSPACE = EditorActions.CLASS_NAME + 'INIT_WORKSPACE';
 	static readonly ACTIVE_METRIC = EditorActions.CLASS_NAME + 'ACTIVE_METRIC';
-	static readonly UPDATE_WORKSPACE = EditorActions.CLASS_NAME + 'UPDATE_WORKSPACE';
 	static readonly SET_MEASURE = EditorActions.CLASS_NAME + 'SET_MEASURE';
 	/* Texture Action */
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
@@ -18,9 +17,15 @@ export class EditorActions {
 	/* Manager Action */
 	static readonly OPEN_MANAGER_PANEL = EditorActions.CLASS_NAME + 'OPEN_MANAGER_PANEL';
 	static readonly CLOSE_ACTIVE_MANAGER_PANEL = EditorActions.CLASS_NAME + 'CLOSE_ACTIVE_MANAGER_PANEL';
+	/* Control Action */
+	static readonly OPEN_CONTROL_MODAL = EditorActions.CLASS_NAME + 'OPEN_CONTROL_MODAL';
+	static readonly CLOSE_ACTIVE_CONTROL_MODAL = EditorActions.CLASS_NAME + 'CLOSE_ACTIVE_CONTROL_MODAL';
 	/* Item Action */
 	static readonly ADD_ITEM_CATEGORIES = EditorActions.CLASS_NAME + 'ADD_ITEM_CATEGORIES';
 	static readonly SET_ACTIVE_ITEM_CATEGORIES = EditorActions.CLASS_NAME + 'SET_ACTIVE_ITEM_CATEGORIES';
+	/* Project Action */
+	static readonly UPDATE_WORKSPACE = EditorActions.CLASS_NAME + 'UPDATE_WORKSPACE';
+	static readonly UPDATE_PROJECT_NAME = EditorActions.CLASS_NAME + 'UPDATE_PROJECT_NAME';
 
 	setMeasure (measure : string) : IAction {
     return {
@@ -51,14 +56,6 @@ export class EditorActions {
       type : EditorActions.ACTIVE_METRIC,
 			payload : {
 				state : state
-			}
-    };
-  }
-	updateWorkspace (workspace : IWorkspace) : IAction {
-    return {
-      type : EditorActions.UPDATE_WORKSPACE,
-			payload : {
-				workspace : workspace
 			}
     };
   }
@@ -110,6 +107,20 @@ export class EditorActions {
 			type : EditorActions.CLOSE_ACTIVE_MANAGER_PANEL
 		};
 	}
+	/* Control Action */
+	openControlModal (name : string) : IAction {
+		return {
+			type : EditorActions.OPEN_CONTROL_MODAL,
+			payload : {
+				name : name
+			}
+		};
+	}
+	closeActiveControlModal () : IAction {
+		return {
+			type : EditorActions.CLOSE_ACTIVE_CONTROL_MODAL
+		};
+	}
 	/* Item Action */
 	addItemCategories (categories : IItemCategory[]) : IAction {
 		return {
@@ -127,4 +138,21 @@ export class EditorActions {
 			}
 		};
 	}
+	/* Project Action */
+	updateWorkspace (workspace : IWorkspace) : IAction {
+    return {
+      type : EditorActions.UPDATE_WORKSPACE,
+			payload : {
+				workspace : workspace
+			}
+    };
+  }
+	updateProjectName (name : string) : IAction {
+    return {
+      type : EditorActions.UPDATE_PROJECT_NAME,
+			payload : {
+				name : name
+			}
+    };
+  }
 }

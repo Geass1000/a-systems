@@ -13,11 +13,11 @@
 				<div class="separator"></div>
 				<form #f="ngForm" (change)="formChange(f, $event)" class="switch">
 					<input type="radio" class="switch-input" name="measure" value="cm" id="cm" [(ngModel)]="curMeasure">
-					<label for="cm" class="switch-label switch-label-off">cm</label>
+					<label for="cm" class="switch-label">cm</label>
 					<input type="radio" class="switch-input" name="measure" value="m" id="m" [(ngModel)]="curMeasure">
-					<label for="m" class="switch-label switch-label-on">m</label>
+					<label for="m" class="switch-label">m</label>
 					<input type="radio" class="switch-input" name="measure" value="px" id="px" [(ngModel)]="curMeasure">
-					<label for="px" class="switch-label switch-label-on">px</label>
+					<label for="px" class="switch-label">px</label>
 					<span class="switch-selection"></span>
 				</form>
 			</div>

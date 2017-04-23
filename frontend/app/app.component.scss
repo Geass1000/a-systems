@@ -4,8 +4,9 @@
 $height-navigation-section: 55px;
 
 header::before {
-	content: "";
 	display: block;
+	content: "";
+
 	width: 100%;
 	height: $height-navigation-section;
 }
@@ -13,9 +14,9 @@ header::before {
 	height: $height-navigation-section;
 
 	position: fixed;
+	z-index: $z-index-panel-block;
 	top: 0px;
 	left: 0px;
-	z-index: $z-index-panel-1;
 
 	background-color: rgba(255, 255, 255, 0.95);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -24,36 +25,48 @@ header::before {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
+		z-index: $z-index-panel-block;
 	}
 	a.main-logo {
-		height: 100%;
 		display: flex;
 		align-items: center;
+
+		height: 100%;
+
+		z-index: $z-index-panel-c2;
 
 		img {
 			height: 40px;
 		}
 	}
 	nav {
-		height: 100%;
 		display: flex;
 		align-items: center;
 
+		height: 100%;
+
+		z-index: $z-index-panel-block;
+
 		.nav-group {
-			height: 100%;
 			display: flex;
 			align-items: center;
+
+			height: 100%;
 		}
 
 		a {
-			height: 100%;
-			margin: 0 10px;
 			display: flex;
 			align-items: center;
 
+			height: 100%;
+			margin: 0 10px;
+
+			z-index: $z-index-panel-c2;
+
+			color: rgba(0,0,0,0.45);
 			font-size: 15px;
 			font-weight: bold;
-			color: rgba(0,0,0,0.45);
 			text-decoration: none;
 
 			&:hover, &:focus, &.active {
@@ -64,10 +77,11 @@ header::before {
 				position: relative;
 
 				&:after {
-					content: "";
 					display: block;
-					height: 2px;
+					content: "";
+
 					width: 0%;
+					height: 2px;
 
 					position: absolute;
 					bottom: -5px;
@@ -80,6 +94,7 @@ header::before {
 			}
 			&:hover span:after, &:focus span:after, &.active span:after {
 				width: 100%;
+
 				left: 0%;
 			}
 		}
@@ -87,22 +102,24 @@ header::before {
 }
 
 .modal-overlay {
+	visibility: hidden;
+
 	width: 100%;
 	height: 100%;
 
-	background: rgba(31, 45, 61, 0.9);
-
-	position: absolute;;
+	position: absolute;
+	z-index: $z-index-modal-overlay;
 	top: 0;
 	left: 0;
 
-	z-index: $z-index-modal-overlay;
-
-	visibility: hidden;
 	opacity: 0;
+	background: rgba(31, 45, 61, 0.9);
+
 	transition: opacity 0.4s ease-out, visibility 0.4s;
+	;
 }
 .modal-overlay.visible {
 	visibility: visible;
+
 	opacity: 1;
 }

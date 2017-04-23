@@ -5,6 +5,7 @@ export class Config {
 	static readonly scale : number = 100; // Пикслей в метре
 	static readonly defMeasure : string = 'px';
 	/* Editor */
+	static readonly projectName : string = 'Project';
 	static readonly workspace : IWorkspace = {
 		width : 2000,
 		height : 2000,

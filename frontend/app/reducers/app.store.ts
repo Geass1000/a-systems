@@ -7,6 +7,7 @@ import { IEditorTexture } from './editor/texture.reducer';
 import { IEditorManager } from './editor/manager.reducer';
 import { IEditorItem } from './editor/item.reducer';
 import { IEditorProject } from './editor/project.reducer';
+import { IEditorControl } from './editor/control.reducer';
 
 /* Reducers */
 import { ModalReducer } from './modal.reducer';
@@ -15,6 +16,7 @@ import { EditorTextureReducer } from './editor/texture.reducer';
 import { EditorManagerReducer } from './editor/manager.reducer';
 import { EditorItemReducer } from './editor/item.reducer';
 import { EditorProjectReducer } from './editor/project.reducer';
+import { EditorControlReducer } from './editor/control.reducer';
 
 /* Store Initial States */
 import { INITIAL_STATE as INITIAL_STATE_MODAL } from './modal.reducer';
@@ -23,6 +25,7 @@ import { INITIAL_STATE as INITIAL_STATE_EDITOR_TEXTURE } from './editor/texture.
 import { INITIAL_STATE as INITIAL_STATE_EDITOR_MANAGER } from './editor/manager.reducer';
 import { INITIAL_STATE as INITIAL_STATE_EDITOR_ITEM } from './editor/item.reducer';
 import { INITIAL_STATE as INITIAL_STATE_EDITOR_PROJECT } from './editor/project.reducer';
+import { INITIAL_STATE as INITIAL_STATE_EDITOR_CONTROL } from './editor/control.reducer';
 
 /* Second Interface */
 interface IEditor {
@@ -31,6 +34,7 @@ interface IEditor {
 	manager : IEditorManager;
 	item : IEditorItem;
 	project : IEditorProject;
+	control : IEditorControl;
 }
 
 /* Store Interface */
@@ -47,7 +51,8 @@ export const INITIAL_STATE : IAppState = {
 		texture : INITIAL_STATE_EDITOR_TEXTURE,
 		manager : INITIAL_STATE_EDITOR_MANAGER,
 		item : INITIAL_STATE_EDITOR_ITEM,
-		project : INITIAL_STATE_EDITOR_PROJECT
+		project : INITIAL_STATE_EDITOR_PROJECT,
+		control : INITIAL_STATE_EDITOR_CONTROL
 	}
 };
 
@@ -59,6 +64,7 @@ export const AppReducer = combineReducers<IAppState>({
 		texture : EditorTextureReducer,
 		manager : EditorManagerReducer,
 		item : EditorItemReducer,
-		project : EditorProjectReducer
+		project : EditorProjectReducer,
+		control : EditorControlReducer
 	})
 });

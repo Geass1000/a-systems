@@ -15,11 +15,11 @@ $font-size-large: 20px;
 
 /* Z-index */
 	/* Control Panel */
-	$z-index-panel-1: 6; /* Overlay */
-	$z-index-panel-2: 7; /* Form block */
-	$z-index-panel-3: 8; /* No important context */
-	$z-index-panel-4: 9; /* Main context */
-	$z-index-panel-5: 10; /* Important context */
+	$z-index-panel-overlay: 6; /* Overlay */
+	$z-index-panel-block: 7; /* Form block */
+	$z-index-panel-c1: 8; /* No important context */
+	$z-index-panel-c2: 9; /* Main context */
+	$z-index-panel-c3: 10; /* Important context */
 	/* Modal */
 	$z-index-modal-overlay: 11; /* Overlay */
 	$z-index-modal-block: 12; /* Form block */

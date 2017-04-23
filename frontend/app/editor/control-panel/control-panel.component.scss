@@ -1,24 +1,26 @@
 @import "../../shared/scss/global.scss";
 
 /* Variable */
-$control-section-height : 55px;
-$switch-amount : 3;
-$switch-inner-padding : 3px;
-$switch-width : 50px;
+$control-section-height: 55px;
+$switch-amount: 3;
+$switch-inner-padding: 3px;
+$switch-width: 50px;
 
 header::before {
-	content: "";
 	display: block;
+	content: "";
+
 	width: 100%;
 	height: $control-section-height;
 }
+
 .control-section {
 	height: $control-section-height;
 
 	position: fixed;
+	z-index: $z-index-panel-block;
 	top: $control-section-height + 1;
 	left: 0px;
-	z-index: $z-index-panel-1;
 
 	background-color: rgba(255, 255, 255, 0.95);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -27,18 +29,25 @@ header::before {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
+		z-index: $z-index-panel-block;
 	}
 	.left-block, .right-block {
-		height: 100%;
 		display: flex;
 		align-items: center;
+
+		z-index: $z-index-panel-block;
+
+		height: 100%;
 	}
 	a {
-		height: 100%;
-		margin: 0 10px;
-
 		display: flex;
 		align-items: center;
+
+		z-index: $z-index-panel-c2;
+
+		height: 100%;
+		margin: 0 10px;
 
 		color: $color-text-3;
 		text-decoration: none;
@@ -56,48 +65,52 @@ header::before {
 		}
 	}
 	.switch {
-		height: 32px;
-		box-sizing: border-box;
 		display: flex;
 		align-items: center;
-		position: relative;
+
+		box-sizing: border-box;
+		height: 32px;
 		padding: 0 $switch-inner-padding;
-	  border-radius: 3px;
+
+		position: relative;
+		z-index: $z-index-panel-block;
 
 		background: rgba(0, 0, 0, 0.05);
-	  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+		border-radius: 3px;
+		box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
 
-		div, form {
-			display: flex;
-			align-items: center;
-		}
 		.switch-label {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
 			width: $switch-width;
 			height: 100%;
-			display: flex;
-			z-index: $z-index-panel-4;
-			align-items: center;
-			justify-content: center;
 
+			z-index: $z-index-panel-c2;
+
+
+			cursor: pointer;
 			color: rgba(0, 0, 0, 0.95);
-		  font-size: 15px;
+			font-size: 15px;
 			font-weight: bold;
-		  cursor: pointer;
 
 			transition: none;
 		}
 		.switch-selection {
-			width: $switch-width;
 			display: block;
-			z-index: $z-index-panel-3;
+
+			width: $switch-width;
+
 			position: absolute;
+			z-index: $z-index-panel-c1;
 			top: $switch-inner-padding;
 			bottom: $switch-inner-padding;
 			left: $switch-inner-padding;
-			border-radius: 3px;
 
 			background: $color-text-2;
-		  box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
+			border-radius: 3px;
+			box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
 
 			transition: left 0.15s ease-out;
 		}
@@ -105,6 +118,7 @@ header::before {
 			display: none;
 			&:checked + .switch-label {
 				color: rgba(255, 255, 255, 0.8);
+
 				transition: color 0.30s ease-out 0.10s;
 			}
 			@for $i from 1 through $switch-amount {

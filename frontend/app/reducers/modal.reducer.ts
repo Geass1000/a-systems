@@ -43,7 +43,9 @@ export const ModalReducer : Reducer<IModal> = (state = INITIAL_STATE, action : I
 			return modal;
 		}
 		case ModalActions.CLOSE_ACTIVE_MODAL : {
-			let modal = Object.assign({}, state, { open : false });
+			let modal = Object.assign({}, state, {
+				open : false
+			});
 			if (modal.active !== null) {
 				modal[modal.active] = false;
 				modal.active = null;

@@ -63,7 +63,7 @@ export class MetricService implements OnDestroy {
 		return this.convertor({ from : this.prevMeasure, to : this.curMeasure }, num);
 	}
 	convertor (dir : { from : string, to : string }, num : number) {
-		if (!(dir.from && dir.to)) {
+		if (!(dir.from && dir.to) || !isFinite(num)) {
 			return num;
 		}
 

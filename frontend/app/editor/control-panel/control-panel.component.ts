@@ -3,7 +3,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
-import { ModalActions } from '../../actions/modal.actions';
 
 @Component({
 	moduleId: module.id,
@@ -20,11 +19,10 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 	private curMeasure : string;
 
 	constructor (private ngRedux : NgRedux<any>,
-							 private editorActions : EditorActions,
-						 	 private modalActions : ModalActions) {
+							 private editorActions : EditorActions) {
 	}
 	openModalInitWorkspace () {
-		this.ngRedux.dispatch(this.modalActions.openModal('initWorkspace', false));
+		this.ngRedux.dispatch(this.editorActions.openControlModal('initProject'));
 	}
 	ngOnInit () {
 		this.subscription.push(this.curMeasure$.subscribe((data) => this.curMeasure = data));
