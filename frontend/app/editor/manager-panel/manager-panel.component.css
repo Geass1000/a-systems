@@ -22,16 +22,16 @@
 .manager-section {
   z-index: 7; }
   .manager-section .manager-component {
-    position: absolute;
+    position: fixed;
     z-index: 7;
     top: 112px;
     bottom: 0;
-    left: 0;
+    right: 0;
     background-color: rgba(255, 255, 255, 0.95);
-    border-right: 1px solid rgba(0, 0, 0, 0.12); }
+    border-left: 1px solid rgba(0, 0, 0, 0.12); }
   .manager-section .manager-panel {
     width: 272px;
-    left: 56px; }
+    right: 56px; }
     .manager-section .manager-panel .manager-panel-block {
       overflow: hidden;
       width: 100%;

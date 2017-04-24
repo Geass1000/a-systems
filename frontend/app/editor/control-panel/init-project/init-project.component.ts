@@ -15,17 +15,18 @@ import { IWorkspace } from '../../../shared/interfaces/editor.interface';
 
 @Component({
 	moduleId: module.id,
-  selector: 'as-editor-init-workspace',
-	templateUrl: 'init-workspace.component.html',
-  styleUrls: [ 'init-workspace.component.css' ]
+  selector: 'as-editor-init-project',
+	templateUrl: 'init-project.component.html',
+  styleUrls: [ 'init-project.component.css' ]
 })
-export class InitWorkspaceComponent implements OnInit, OnDestroy {
+export class InitProjectComponent implements OnInit, OnDestroy {
 	/* Private Variable */
 	private workspace : IWorkspace = null;
 	private projectName : string = null;
 
 	/* Redux */
 	private subscription : any[] = [];
+	@select(['modal', 'initProject']) modalOpen : any;
 	@select(['editor', 'all', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
 
@@ -53,8 +54,6 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 			}
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - isActiveMetric -', this.isActiveMetric);
 		}));
-		// Del
-		this.onInitWorkspace();
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
@@ -82,7 +81,7 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 		};
 		this.ngRedux.dispatch(this.editorActions.updateProjectName(this.projectName));
 		this.ngRedux.dispatch(this.editorActions.updateWorkspace(resultWorkspace));
-		this.ngRedux.dispatch(this.editorActions.closeActiveControlModal());
+		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 		this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
 	}
 
@@ -92,6 +91,6 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 	}
 
 	closeModal () {
-		this.ngRedux.dispatch(this.editorActions.closeActiveControlModal());
+		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 	}
 }

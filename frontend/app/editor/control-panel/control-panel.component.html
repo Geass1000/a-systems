@@ -1,8 +1,8 @@
 <header>
 	<section class="base-section control-section">
-		<div class="base-block page-block">
+		<div class="base-block page-block" (click)="openModal($event)">
 			<div class="left-block">
-				<a (click)="openModalInitWorkspace()">
+				<a class="item-navigation" data-modal-name="initProject">
 					<i class="fa fa-file-text" aria-hidden="true"></i>
 					<span class="description">New</span>
 				</a>
@@ -11,6 +11,9 @@
 					<span class="description">Save</span>
 				</a>
 				<div class="separator"></div>
+
+			</div>
+			<div class="right-block">
 				<form #f="ngForm" (change)="formChange(f, $event)" class="switch">
 					<input type="radio" class="switch-input" name="measure" value="cm" id="cm" [(ngModel)]="curMeasure">
 					<label for="cm" class="switch-label">cm</label>
@@ -21,15 +24,10 @@
 					<span class="switch-selection"></span>
 				</form>
 			</div>
-			<div class="right-block">
-
-			</div>
 		</div>
 	</section>
 </header>
 
 <section class="base-section">
-	<div *ngIf="initProject$ | async">
-		<as-editor-init-workspace></as-editor-init-workspace>
-	</div>
+	<as-editor-init-project></as-editor-init-project>
 </section>

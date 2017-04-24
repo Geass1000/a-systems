@@ -101,25 +101,37 @@ header::before {
 	}
 }
 
-.modal-overlay {
+.overlay {
 	visibility: hidden;
 
 	width: 100%;
 	height: 100%;
 
 	position: absolute;
-	z-index: $z-index-modal-overlay;
+	z-index: $z-index-panel-overlay;
 	top: 0;
 	left: 0;
 
 	opacity: 0;
-	background: rgba(31, 45, 61, 0.9);
+	background: #f6f6f6;
 
 	transition: opacity 0.4s ease-out, visibility 0.4s;
-	;
-}
-.modal-overlay.visible {
-	visibility: visible;
 
-	opacity: 1;
+	&.visible {
+		visibility: visible;
+
+		opacity: 1;
+	}
+}
+
+.panel-overlay {
+	z-index: $z-index-panel-overlay;
+
+	background: #f6f6f6;
+}
+
+.modal-overlay {
+	z-index: $z-index-modal-overlay;
+
+	background: rgba(31, 45, 61, 0.9);
 }

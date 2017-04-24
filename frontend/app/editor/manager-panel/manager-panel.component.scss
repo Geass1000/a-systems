@@ -7,20 +7,20 @@ $size-manager-panel: $width-manager-panel + 1;
 .manager-section {
 	z-index: $z-index-editor-panel-block;
 	.manager-component {
-		position: absolute;
+		position: fixed;
 		z-index: $z-index-editor-panel-block;
 		top: 112px;
 		bottom: 0;
-		left: 0;
+		right: 0;
 
 		background-color: rgba(255, 255, 255, 0.95);
-		border-right: 1px solid rgba(0, 0, 0, 0.12);
+		border-left: 1px solid rgba(0, 0, 0, 0.12);
 	}
 
 	.manager-panel {
 		width: 272px;
 
-		left: $size-manager-navigation;
+		right: $size-manager-navigation;
 
 		.manager-panel-block {
 			overflow: hidden;

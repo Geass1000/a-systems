@@ -22,21 +22,21 @@ import { LoggerService } from '../../core/logger.service';
 			})),
 			transition('void => open', [
 				style({
-					transform: 'translateX(-100%)',
+					transform: 'translateX(100%)',
 					opacity: '0'
 				}),
 				animate(200)
 			]),
 			transition('open => void', [
 				animate(200, style({
-					transform: 'translateX(100%)',
+					transform: 'translateX(-100%)',
 					opacity: '0'
 				}))
 			]),
 		]),
 		trigger('togglePanel', [
 			state('close', style({
-				transform: 'translateX(-100%)',
+				transform: 'translateX(100%)',
 			})),
 			state('open', style({
 				transform: 'translateX(0)',

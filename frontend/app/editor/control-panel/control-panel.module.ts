@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /* App Feature - Component */
 import { ControlPanelComponent } from './control-panel.component';
-import { InitWorkspaceComponent } from './init-workspace/init-workspace.component';
+import { InitProjectComponent } from './init-project/init-project.component';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { InitWorkspaceComponent } from './init-workspace/init-workspace.componen
 	],
   declarations: [
 		ControlPanelComponent,
-		InitWorkspaceComponent
+		InitProjectComponent
 	],
   exports:      [ ControlPanelComponent ],
   providers:    [ ]
