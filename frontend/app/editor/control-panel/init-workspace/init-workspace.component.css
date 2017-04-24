@@ -1,6 +1,12 @@
 /* Palette Color */
 /* Font-size variable */
 /* Z-index */
+/* Editor Panel */
+/* Overlay */
+/* Form block */
+/* No important context */
+/* Main context */
+/* Important context */
 /* Control Panel */
 /* Overlay */
 /* Form block */
@@ -17,7 +23,7 @@
   width: 350px;
   margin: 0 -175px;
   position: absolute;
-  z-index: 12;
+  z-index: 17;
   top: 55px;
   left: 50%;
   background: white;

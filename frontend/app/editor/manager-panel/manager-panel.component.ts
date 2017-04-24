@@ -10,9 +10,9 @@ import { LoggerService } from '../../core/logger.service';
 
 @Component({
 	moduleId: module.id,
-  selector: 'as-editor-manager',
-	templateUrl: 'manager.component.html',
-  styleUrls: [ 'manager.component.css' ],
+  selector: 'as-editor-manager-panel',
+	templateUrl: 'manager-panel.component.html',
+  styleUrls: [ 'manager-panel.component.css' ],
 	animations: [
 		trigger('flyInOut', [
 			state('close', style({ opacity: '1' })),
@@ -45,7 +45,7 @@ import { LoggerService } from '../../core/logger.service';
 		])
 	]
 })
-export class ManagerComponent implements OnInit, OnDestroy {
+export class ManagerPanelComponent implements OnInit, OnDestroy {
 	/* Private variable */
 
 	/* Angular Animation */

@@ -8,14 +8,17 @@
 		margin-bottom: 5px;
 
 		.form-header {
-			padding: 10px 20px;
 			margin-bottom: 15px;
+			padding: 10px 20px;
 
 			background-color: rgba(128, 128, 128, 0.1);
 			border-top: 1px solid rgba(0, 0, 0, 0.1);
 			border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
 			color: $color-text-3;
+			&:first-child {
+				border-top: none;
+			}
 		}
 
 		.form-content {
@@ -25,11 +28,11 @@
 
 			label {
 				display: block;
+
 				margin-bottom: 10px;
 
-				color: $color-text-3;
-
 				cursor: pointer;
+				color: $color-text-3;
 			}
 			input {
 				box-sizing: border-box;
@@ -41,13 +44,13 @@
 
 				&:hover, &:focus {
 					border-color: $color-text-1;
+
 					color: $color-text-1;
 				}
 			}
 			button {
 				box-sizing: border-box;
 				width: 100%;
-
 				margin-bottom: 15px;
 				padding: 7px 15px;
 
@@ -55,11 +58,10 @@
 				border: 0;
 				border-radius: 5px;
 
+				cursor: pointer;
 				color: #fff;
 				font-size: $font-size-medium;
 				font-weight: bold;
-
-				cursor: pointer;
 
 				&:not([disabled]):hover,
 				&:not([disabled]):focus {
@@ -67,6 +69,7 @@
 				}
 				&[disabled] {
 					background: #f6f6f6;
+
 					color: $color-text-3;
 				}
 			}

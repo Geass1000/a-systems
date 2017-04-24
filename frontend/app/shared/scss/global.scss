@@ -14,15 +14,21 @@ $font-size-medium: 16px;
 $font-size-large: 20px;
 
 /* Z-index */
+	/* Editor Panel */
+	$z-index-editor-panel-overlay: 6; /* Overlay */
+	$z-index-editor-panel-block: 7; /* Form block */
+	$z-index-editor-panel-c1: 8; /* No important context */
+	$z-index-editor-panel-c2: 9; /* Main context */
+	$z-index-editor-panel-c3: 10; /* Important context */
 	/* Control Panel */
-	$z-index-panel-overlay: 6; /* Overlay */
-	$z-index-panel-block: 7; /* Form block */
-	$z-index-panel-c1: 8; /* No important context */
-	$z-index-panel-c2: 9; /* Main context */
-	$z-index-panel-c3: 10; /* Important context */
+	$z-index-panel-overlay: 11; /* Overlay */
+	$z-index-panel-block: 12; /* Form block */
+	$z-index-panel-c1: 13; /* No important context */
+	$z-index-panel-c2: 14; /* Main context */
+	$z-index-panel-c3: 15; /* Important context */
 	/* Modal */
-	$z-index-modal-overlay: 11; /* Overlay */
-	$z-index-modal-block: 12; /* Form block */
-	$z-index-modal-c1: 13; /* No important context */
-	$z-index-modal-c2: 14; /* Main context */
-	$z-index-modal-c3: 15; /* Important context */
+	$z-index-modal-overlay: 16; /* Overlay */
+	$z-index-modal-block: 17; /* Form block */
+	$z-index-modal-c1: 18; /* No important context */
+	$z-index-modal-c2: 19; /* Main context */
+	$z-index-modal-c3: 20; /* Important context */

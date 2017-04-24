@@ -6,12 +6,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EditorRoutingModule } from './editor-routing.module';
 
 /* Other Module */
-import { ManagerModule } from './manager/manager.module';
+import { ManagerPanelModule } from './manager-panel/manager-panel.module';
+import { ControlPanelModule } from './control-panel/control-panel.module';
 
 /* App Feature - Component */
 import { EditorComponent } from './editor.component';
-import { InitWorkspaceComponent } from './init-workspace/init-workspace.component';
-import { ControlPanelComponent } from './control-panel/control-panel.component';
 import { RoomComponent } from './room/room.component';
 
 /* App Feature - Service */
@@ -24,12 +23,11 @@ import { MetricService } from './metric.service';
 		FormsModule,
 		ReactiveFormsModule,
 		EditorRoutingModule,
-		ManagerModule
+		ManagerPanelModule,
+		ControlPanelModule
 	],
   declarations: [
 		EditorComponent,
-		InitWorkspaceComponent,
-		ControlPanelComponent,
 		RoomComponent
 	],
   exports:      [ EditorComponent ],

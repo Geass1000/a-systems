@@ -1,6 +1,12 @@
 /* Palette Color */
 /* Font-size variable */
 /* Z-index */
+/* Editor Panel */
+/* Overlay */
+/* Form block */
+/* No important context */
+/* Main context */
+/* Important context */
 /* Control Panel */
 /* Overlay */
 /* Form block */
@@ -23,7 +29,7 @@ header::before {
 .navigation-section {
   height: 55px;
   position: fixed;
-  z-index: 7;
+  z-index: 12;
   top: 0px;
   left: 0px;
   background-color: rgba(255, 255, 255, 0.95);
@@ -35,14 +41,14 @@ header::before {
         justify-content: space-between;
     -ms-flex-align: center;
         align-items: center;
-    z-index: 7; }
+    z-index: 12; }
   .navigation-section a.main-logo {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
         align-items: center;
     height: 100%;
-    z-index: 9; }
+    z-index: 14; }
     .navigation-section a.main-logo img {
       height: 40px; }
   .navigation-section nav {
@@ -51,7 +57,7 @@ header::before {
     -ms-flex-align: center;
         align-items: center;
     height: 100%;
-    z-index: 7; }
+    z-index: 12; }
     .navigation-section nav .nav-group {
       display: -ms-flexbox;
       display: flex;
@@ -65,7 +71,7 @@ header::before {
           align-items: center;
       height: 100%;
       margin: 0 10px;
-      z-index: 9;
+      z-index: 14;
       color: rgba(0, 0, 0, 0.45);
       font-size: 15px;
       font-weight: bold;
@@ -93,7 +99,7 @@ header::before {
   width: 100%;
   height: 100%;
   position: absolute;
-  z-index: 11;
+  z-index: 16;
   top: 0;
   left: 0;
   opacity: 0;

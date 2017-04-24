@@ -2,16 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
-import { EditorActions } from '../../actions/editor.actions';
-import { ModalActions } from '../../actions/modal.actions';
+import { EditorActions } from '../../../actions/editor.actions';
+import { ModalActions } from '../../../actions/modal.actions';
 
-import { Config } from '../../config';
+import { Config } from '../../../config';
 import * as _ from 'lodash';
 
-import { LoggerService } from '../../core/logger.service';
-import { MetricService } from '../metric.service';
+import { LoggerService } from '../../../core/logger.service';
+import { MetricService } from '../../metric.service';
 
-import { IWorkspace } from '../../shared/interfaces/editor.interface';
+import { IWorkspace } from '../../../shared/interfaces/editor.interface';
 
 @Component({
 	moduleId: module.id,

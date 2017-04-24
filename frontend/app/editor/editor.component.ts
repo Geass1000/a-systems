@@ -29,7 +29,6 @@ export class EditorComponent implements OnInit, OnDestroy {
 	private selectWorkspace : boolean = false;
 
 	private subscription : any[] = [];
-	@select(['editor', 'control', 'initProject']) initProject$ : Observable<boolean>;
 	@select(['editor', 'all', 'selectElement']) selectElement$ : Observable<boolean>;
 	private selectElement : boolean;
 	@select(['editor', 'all', 'isInitWorkspace']) isInitWorkspace$ : Observable<boolean>;

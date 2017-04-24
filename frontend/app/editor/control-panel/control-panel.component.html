@@ -27,3 +27,9 @@
 		</div>
 	</section>
 </header>
+
+<section class="base-section">
+	<div *ngIf="initProject$ | async">
+		<as-editor-init-workspace></as-editor-init-workspace>
+	</div>
+</section>

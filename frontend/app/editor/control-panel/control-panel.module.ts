@@ -5,10 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /* App Feature - Component */
-import { ManagerComponent } from './manager.component';
-import { WorkshopComponent } from './workshop/workshop.component';
-import { WorkstateComponent } from './workstate/workstate.component';
-import { RadioTextureComponent } from './radio-texture/radio-texture.component';
+import { ControlPanelComponent } from './control-panel.component';
+import { InitWorkspaceComponent } from './init-workspace/init-workspace.component';
 
 @NgModule({
   imports: [
@@ -18,12 +16,10 @@ import { RadioTextureComponent } from './radio-texture/radio-texture.component';
 		BrowserAnimationsModule
 	],
   declarations: [
-		ManagerComponent,
-		WorkshopComponent,
-		WorkstateComponent,
-		RadioTextureComponent
+		ControlPanelComponent,
+		InitWorkspaceComponent
 	],
-  exports:      [ ManagerComponent ],
+  exports:      [ ControlPanelComponent ],
   providers:    [ ]
 })
-export class ManagerModule { }
+export class ControlPanelModule { }
