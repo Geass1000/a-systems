@@ -130,6 +130,8 @@
       z-index: 17; }
       .modal-body form .form-group label {
         display: block;
+        padding-right: 7px;
+        padding-left: 7px;
         position: absolute;
         z-index: 18;
         top: 24px;
@@ -147,7 +149,9 @@
         box-sizing: border-box;
         width: 100%;
         margin-bottom: 6px;
+        padding-right: 7px;
         padding-bottom: 5px;
+        padding-left: 7px;
         position: relative;
         z-index: 19;
         background: none;

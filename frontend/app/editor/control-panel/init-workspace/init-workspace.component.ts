@@ -53,6 +53,8 @@ export class InitWorkspaceComponent implements OnInit, OnDestroy {
 			}
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - isActiveMetric -', this.isActiveMetric);
 		}));
+		// Del
+		this.onInitWorkspace();
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());

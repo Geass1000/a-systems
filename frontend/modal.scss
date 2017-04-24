@@ -2,6 +2,7 @@
 
 /* Variable */
 $placeholder-height: 24px;
+$padding-rl-input: 7px;
 
 .modal-window {
 	display: flex;
@@ -129,6 +130,9 @@ $placeholder-height: 24px;
 			label {
 				display: block;
 
+				padding-right: $padding-rl-input;
+				padding-left: $padding-rl-input;
+
 				position: absolute;
 				z-index: $z-index-modal-c1;
 				top: $placeholder-height;
@@ -154,7 +158,9 @@ $placeholder-height: 24px;
 				box-sizing: border-box;
 				width: 100%;
 				margin-bottom: 6px;
+				padding-right: $padding-rl-input;
 				padding-bottom: 5px;
+				padding-left: $padding-rl-input;
 
 				position: relative;
 				z-index: $z-index-modal-c2;
