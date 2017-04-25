@@ -18,7 +18,7 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'all', 'curMeasure']) curMeasure$ : Observable<string>;
+	@select(['editor', 'state', 'curMeasure']) curMeasure$ : Observable<string>;
 	private curMeasure : string;
 	@select(['modal', 'initProject']) initProject$ : Observable<boolean>;
 

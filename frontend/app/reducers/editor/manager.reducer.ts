@@ -7,13 +7,15 @@ export interface IEditorManager {
 	active : string;
 	workshop : boolean;
 	workstate : boolean;
+	texture : boolean;
 }
 
 export const INITIAL_STATE : IEditorManager = {
 	open : true,
 	active : 'workstate',
 	workshop : false,
-	workstate : true
+	workstate : true,
+	texture : false
 };
 
 export const EditorManagerReducer : Reducer<IEditorManager> =

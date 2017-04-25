@@ -14,7 +14,7 @@
 			</div>
 			<div class="form-row">
 				<div class="form-group" [class.focused]="workspace.width">
-					<input type="text" class="form-control" required
+					<input type="number" class="form-control" required
 						name="workspaceWidth" id="workspaceWidth" [(ngModel)]="workspace.width"
 						pattern="[0-9]+(\.[0-9]*)?" />
 					<label>Width</label>
@@ -28,7 +28,7 @@
 				</div>
 			</div>
 
-			<button type="button" (click)="onInitWorkspace()" [disabled]="!f.valid">Create</button>
+			<button type="button" (click)="onInitProject()" [disabled]="!f.valid">Create</button>
 			<button type="button" (click)="onOpenWorkspace()">Open</button>
 		</form>
 	</section>

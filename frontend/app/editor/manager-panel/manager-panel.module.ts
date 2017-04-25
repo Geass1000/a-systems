@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ManagerPanelComponent } from './manager-panel.component';
 import { WorkshopComponent } from './workshop/workshop.component';
 import { WorkstateComponent } from './workstate/workstate.component';
-import { RadioTextureComponent } from './radio-texture/radio-texture.component';
+import { TextureComponent } from './texture/texture.component';
 
 @NgModule({
   imports: [
@@ -21,7 +21,7 @@ import { RadioTextureComponent } from './radio-texture/radio-texture.component';
 		ManagerPanelComponent,
 		WorkshopComponent,
 		WorkstateComponent,
-		RadioTextureComponent
+		TextureComponent
 	],
   exports:      [ ManagerPanelComponent ],
   providers:    [ ]

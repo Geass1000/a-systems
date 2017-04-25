@@ -14,6 +14,7 @@ import { EditorComponent } from './editor.component';
 import { RoomComponent } from './room/room.component';
 
 /* App Feature - Service */
+import { DataLoadService } from './data-load.service';
 import { EditorService } from './editor.service';
 import { MetricService } from './metric.service';
 
@@ -33,7 +34,8 @@ import { MetricService } from './metric.service';
   exports:      [ EditorComponent ],
   providers:    [
 		EditorService,
-		MetricService
+		MetricService,
+		DataLoadService
 	]
 })
 export class EditorModule { }

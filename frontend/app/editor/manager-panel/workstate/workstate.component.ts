@@ -22,7 +22,7 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 	private subscription : any[] = [];
 	@select(['editor', 'project', 'workspace']) workspace$ : Observable<IWorkspace>;
 	private workspace : IWorkspace;
-	@select(['editor', 'all', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
+	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
 
 	constructor (private ngRedux : NgRedux<any>,
@@ -70,5 +70,9 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 			return +data;
 		}
 		return data;
+	}
+
+	onAccept () {
+		return true;
 	}
 }

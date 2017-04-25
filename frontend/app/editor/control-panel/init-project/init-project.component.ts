@@ -10,6 +10,7 @@ import * as _ from 'lodash';
 
 import { LoggerService } from '../../../core/logger.service';
 import { MetricService } from '../../metric.service';
+import { DataLoadService } from '../../data-load.service';
 
 import { IWorkspace } from '../../../shared/interfaces/editor.interface';
 
@@ -27,14 +28,15 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 	/* Redux */
 	private subscription : any[] = [];
 	@select(['modal', 'initProject']) modalOpen : any;
-	@select(['editor', 'all', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
+	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
 						 	 private modalActions : ModalActions,
 						 	 private logger : LoggerService,
-						 	 private metricService : MetricService) {
+						 	 private metricService : MetricService,
+						 	 private dataLoadService : DataLoadService) {
 	}
 	ngOnInit () {
 		this.subscription.push(this.isActiveMetric$.subscribe((data) => {
@@ -54,6 +56,7 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 			}
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - isActiveMetric -', this.isActiveMetric);
 		}));
+		this.onInitProject();
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
@@ -72,7 +75,7 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 		return data;
 	}
 
-	onInitWorkspace () {
+	onInitProject () {
 		this.prepareData();
 		let resultWorkspace : IWorkspace = {
 			width : this.metricService.convertFromCurToDef(this.workspace.width),
@@ -82,7 +85,7 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 		this.ngRedux.dispatch(this.editorActions.updateProjectName(this.projectName));
 		this.ngRedux.dispatch(this.editorActions.updateWorkspace(resultWorkspace));
 		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
-		this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
+		this.dataLoadService.getInitData();
 	}
 
 	onOpenWorkspace (el ?: boolean) {

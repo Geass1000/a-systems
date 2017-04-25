@@ -60,6 +60,8 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	private workshop : boolean;
 	@select(['editor', 'manager', 'workstate']) workstate$ : Observable<boolean>;
 	private workstate : boolean;
+	@select(['editor', 'manager', 'texture']) texture$ : Observable<boolean>;
+	private texture : boolean;
 
 	constructor (private ngRedux : NgRedux<any>,
 						 	 private editorActions : EditorActions,
@@ -73,6 +75,7 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 		}));
 		this.subscription.push(this.workshop$.subscribe((data) => this.workshop = data));
 		this.subscription.push(this.workstate$.subscribe((data) => this.workstate = data));
+		this.subscription.push(this.texture$.subscribe((data) => this.texture = data));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());

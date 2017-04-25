@@ -10,11 +10,11 @@ import { ITexture, ITextureType } from '../../../shared/interfaces/editor.interf
 
 @Component({
 	moduleId: module.id,
-  selector: 'as-editor-radio-texture',
-	templateUrl: 'radio-texture.component.html',
-  styleUrls: [ 'radio-texture.component.css' ]
+  selector: 'as-editor-manager-texture',
+	templateUrl: 'texture.component.html',
+  styleUrls: [ 'texture.component.css' ]
 })
-export class RadioTextureComponent implements OnInit, OnDestroy {
+export class TextureComponent implements OnInit, OnDestroy {
 	/* Private variable */
 	private activeTextureId : string = null;
 	private activeTextureTypeId : string = '';

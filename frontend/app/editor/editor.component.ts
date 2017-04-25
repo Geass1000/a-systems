@@ -29,10 +29,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 	private selectWorkspace : boolean = false;
 
 	private subscription : any[] = [];
-	@select(['editor', 'all', 'selectElement']) selectElement$ : Observable<boolean>;
+	@select(['editor', 'state', 'selectElement']) selectElement$ : Observable<boolean>;
 	private selectElement : boolean;
-	@select(['editor', 'all', 'isInitWorkspace']) isInitWorkspace$ : Observable<boolean>;
-	private isInitWorkspace : boolean;
+	@select(['editor', 'state', 'isInitProject']) isInitProject$ : Observable<boolean>;
+	private isInitProject : boolean;
 
 	@select(['editor', 'control', 'open']) modalOpen$ : Observable<boolean>;
 
@@ -45,14 +45,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 	}
 	ngOnInit () {
 		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
-		this.subscription.push(this.isInitWorkspace$.subscribe((data) => this.isInitWorkspace = data));
+		this.subscription.push(this.isInitProject$.subscribe((data) => this.isInitProject = data));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
-	}
-
-	closeAllModal () {
-		this.ngRedux.dispatch(this.editorActions.closeActiveControlModal());
 	}
 
 	initWorkspace () {
@@ -66,10 +62,6 @@ export class EditorComponent implements OnInit, OnDestroy {
 		this.workspaceY = halfWindowHeight - halfWorkspaceHeight;
 		this.workspaceMatrix = new MatrixTransform (this.workspaceX, this.workspaceY);
 		this.matrixTransform = this.workspaceMatrix.getMatrix();
-	}
-
-	onInitWorkspace () {
-		this.ngRedux.dispatch(this.editorActions.initWorkspace(true));
 	}
 
 	/* Event Section */

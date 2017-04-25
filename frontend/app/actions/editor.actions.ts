@@ -5,10 +5,12 @@ import { ITexture, IWorkspace, ITextureType, IItemCategory } from '../shared/int
 @Injectable()
 export class EditorActions {
 	static readonly CLASS_NAME = 'EDITOR_ACTIONS:';
+	/* State Action */
 	static readonly SELECT_ELEMENT = EditorActions.CLASS_NAME + 'SELECT_ELEMENT';
 	static readonly INIT_WORKSPACE = EditorActions.CLASS_NAME + 'INIT_WORKSPACE';
 	static readonly ACTIVE_METRIC = EditorActions.CLASS_NAME + 'ACTIVE_METRIC';
 	static readonly SET_MEASURE = EditorActions.CLASS_NAME + 'SET_MEASURE';
+	static readonly INIT_PROJECT = EditorActions.CLASS_NAME + 'INIT_PROJECT';
 	/* Texture Action */
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
 	static readonly ADD_TEXTURES = EditorActions.CLASS_NAME + 'ADD_TEXTURES';
@@ -17,9 +19,6 @@ export class EditorActions {
 	/* Manager Action */
 	static readonly OPEN_MANAGER_PANEL = EditorActions.CLASS_NAME + 'OPEN_MANAGER_PANEL';
 	static readonly CLOSE_ACTIVE_MANAGER_PANEL = EditorActions.CLASS_NAME + 'CLOSE_ACTIVE_MANAGER_PANEL';
-	/* Control Action */
-	static readonly OPEN_CONTROL_MODAL = EditorActions.CLASS_NAME + 'OPEN_CONTROL_MODAL';
-	static readonly CLOSE_ACTIVE_CONTROL_MODAL = EditorActions.CLASS_NAME + 'CLOSE_ACTIVE_CONTROL_MODAL';
 	/* Item Action */
 	static readonly ADD_ITEM_CATEGORIES = EditorActions.CLASS_NAME + 'ADD_ITEM_CATEGORIES';
 	static readonly SET_ACTIVE_ITEM_CATEGORIES = EditorActions.CLASS_NAME + 'SET_ACTIVE_ITEM_CATEGORIES';
@@ -59,6 +58,15 @@ export class EditorActions {
 			}
     };
   }
+	initProject (state : boolean) : IAction {
+    return {
+      type : EditorActions.INIT_PROJECT,
+			payload : {
+				state : state
+			}
+    };
+  }
+	/* Texture Action*/
 	addTexture (texture : ITexture) : IAction {
 		return {
 			type : EditorActions.ADD_TEXTURE,
@@ -105,20 +113,6 @@ export class EditorActions {
 	closeActiveManagerPanel () : IAction {
 		return {
 			type : EditorActions.CLOSE_ACTIVE_MANAGER_PANEL
-		};
-	}
-	/* Control Action */
-	openControlModal (name : string) : IAction {
-		return {
-			type : EditorActions.OPEN_CONTROL_MODAL,
-			payload : {
-				name : name
-			}
-		};
-	}
-	closeActiveControlModal () : IAction {
-		return {
-			type : EditorActions.CLOSE_ACTIVE_CONTROL_MODAL
 		};
 	}
 	/* Item Action */

@@ -19,9 +19,9 @@ export class MetricService implements OnDestroy {
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'all', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
+	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
-	@select(['editor', 'all', 'curMeasure']) curMeasure$ : Observable<string>;
+	@select(['editor', 'state', 'curMeasure']) curMeasure$ : Observable<string>;
 	private curMeasure : string = null;
 
 	constructor (private ngRedux : NgRedux<any>,
