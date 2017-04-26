@@ -9,6 +9,10 @@
 	z-index: 0;
 }
 
+.moved {
+	cursor: move;
+}
+
 .smallGrid {
 	fill: none;
 	stroke: rgba(128, 128, 128, 0.8);
@@ -17,8 +21,4 @@
 .grid {
 	stroke: rgba(128, 128, 128, 1);
 	stroke-width: 1px;
-}
-
-svg:active {
-	cursor: move;
 }

@@ -27,6 +27,9 @@
   left: 0;
   z-index: 0; }
 
+.moved {
+  cursor: move; }
+
 .smallGrid {
   fill: none;
   stroke: rgba(128, 128, 128, 0.8);
@@ -35,6 +38,3 @@
 .grid {
   stroke: gray;
   stroke-width: 1px; }
-
-svg:active {
-  cursor: move; }

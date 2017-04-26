@@ -37,6 +37,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 	private selectElement : boolean;
 	@select(['editor', 'state', 'isInitProject']) isInitProject$ : Observable<boolean>;
 	private isInitProject : boolean;
+	@select(['editor', 'state', 'isMove']) isMove$ : Observable<boolean>;
+	private isMove : boolean;
 	@select(['editor', 'state', 'workspaceCoord']) workspaceCoord$ : Observable<IWorkspaceCoord>;
 	private workspaceCoord : IWorkspaceCoord;
 
@@ -52,6 +54,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 		this.initWorkspace();
 	}
 	ngOnInit () {
+		this.subscription.push(this.isMove$.subscribe((data) => this.isMove = data));
 		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
 		this.subscription.push(this.isInitProject$.subscribe((data) => this.isInitProject = data));
 		this.subscription.push(this.workspaceCoord$.subscribe((data) => {

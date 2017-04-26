@@ -1,7 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import { NgRedux, select } from '@angular-redux/store';
+import { NgRedux } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 
 import { LoggerService } from '../core/logger.service';
@@ -13,7 +12,11 @@ export class DragAndDropService implements OnDestroy {
 	private shiftX : number;
 	private shiftY : number;
 
+	private precision : number = 3;
+
 	private isWorkspace : boolean;
+	private isCaptured : boolean;
+	private avatar : boolean;
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -26,15 +29,32 @@ export class DragAndDropService implements OnDestroy {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
+	initData () {
+		this.isWorkspace = false;
+		this.isCaptured = false;
+		this.avatar = false;
+		this.ngRedux.dispatch(this.editorActions.toggleMove(false));
+	}
+
+	detectLeftButton (event : any) : boolean {
+		if ('buttons' in event) {
+			return event.buttons === 1;
+		}
+		return (event.which || event.button) === 1;
+	}
+
 	onMouseDown (event : any) {
-		if (event.button !== 0) {
+		if (!this.detectLeftButton(event)) {
 			return false;
 		}
 
+		this.initData();
+
 		let el : any = event.target.closest('.draggable');
-		if (el) {
-			this.isWorkspace = false;
-		} else {
+		this.isCaptured = true;
+		this.logger.info(`${this.constructor.name}:`, 'onMouseDown - el -', el);
+
+		if (!el) {
 			this.isWorkspace = true;
 		}
 
@@ -46,20 +66,36 @@ export class DragAndDropService implements OnDestroy {
 		event.preventDefault();
 	}
 	onMouseMove (event : any) {
+		if (!this.isCaptured) {
+			return;
+		}
+		if (!this.detectLeftButton(event)) {
+			this.isCaptured = false;
+			this.ngRedux.dispatch(this.editorActions.toggleMove(false));
+			return;
+		}
+		if (!this.avatar) {
+			if (Math.abs(event.clientX - this.startX) < this.precision &&
+					Math.abs(event.clientY - this.startY) < this.precision) {
+				return false;
+			}
+			this.ngRedux.dispatch(this.editorActions.toggleMove(true));
+			this.avatar = true;
+		}
+
+		let dX = event.clientX - this.shiftX;
+		let dY = event.clientY - this.shiftY;
+		this.shiftX = event.clientX;
+		this.shiftY = event.clientY;
+
 		if (this.isWorkspace) {
-			let dX = event.clientX - this.shiftX;
-			let dY = event.clientY - this.shiftY;
-			this.shiftX = event.clientX;
-			this.shiftY = event.clientY;
 			this.ngRedux.dispatch(this.editorActions.translateWorkspace(dX, dY));
 			// Data sending to redux
 		}
 		event.preventDefault();
 	}
 	onMouseUp (event : any) {
-		if (this.isWorkspace) {
-			this.isWorkspace = false;
-		}
+		this.initData();
 		event.preventDefault();
 	}
 }

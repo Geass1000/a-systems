@@ -15,6 +15,7 @@ export interface IEditorState {
 	selectElement : boolean;
 	workstate : IWorkstate;
 	// Camera
+	isMove : boolean;
 	workspaceCoord : IWorkspaceCoord;
 }
 
@@ -29,6 +30,7 @@ export const INITIAL_STATE : IEditorState = {
 	selectElement : false,
 	workstate : null,
 	// Camera
+	isMove : false,
 	workspaceCoord : { x : 0, y : 0 }
 };
 
@@ -49,6 +51,9 @@ export const EditorStateReducer : Reducer<IEditorState> =
 		}
 		case EditorActions.SET_MEASURE : {
 			return Object.assign({}, state, { curMeasure : action.payload.measure });
+		}
+		case EditorActions.TOGGLE_MOVE : {
+			return Object.assign({}, state, { isMove : action.payload.state });
 		}
 		case EditorActions.TRANSLATE_WORKSPACE : {
 			let workspaceCoord : IWorkspaceCoord = Object.assign({}, state.workspaceCoord, {

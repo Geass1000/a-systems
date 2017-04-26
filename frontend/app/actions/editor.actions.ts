@@ -11,6 +11,7 @@ export class EditorActions {
 	static readonly ACTIVE_METRIC = EditorActions.CLASS_NAME + 'ACTIVE_METRIC';
 	static readonly SET_MEASURE = EditorActions.CLASS_NAME + 'SET_MEASURE';
 	static readonly INIT_PROJECT = EditorActions.CLASS_NAME + 'INIT_PROJECT';
+	static readonly TOGGLE_MOVE = EditorActions.CLASS_NAME + 'TOGGLE_MOVE';
 	static readonly TRANSLATE_WORKSPACE = EditorActions.CLASS_NAME + 'TRANSLATE_WORKSPACE';
 	/* Texture Action */
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
@@ -62,6 +63,14 @@ export class EditorActions {
 	initProject (state : boolean) : IAction {
     return {
       type : EditorActions.INIT_PROJECT,
+			payload : {
+				state : state
+			}
+    };
+  }
+	toggleMove (state : boolean) : IAction {
+    return {
+      type : EditorActions.TOGGLE_MOVE,
 			payload : {
 				state : state
 			}
