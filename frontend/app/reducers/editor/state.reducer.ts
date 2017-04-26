@@ -2,6 +2,8 @@ import { Reducer } from 'redux';
 import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
+import { IWorkstate, IWorkspaceCoord } from '../../shared/interfaces/editor.interface';
+
 export interface IEditorState {
 	isInitProject : boolean;
 	isInitWorkspace : boolean;
@@ -11,6 +13,9 @@ export interface IEditorState {
 	curMeasure : string;
 	// Workspace
 	selectElement : boolean;
+	workstate : IWorkstate;
+	// Camera
+	workspaceCoord : IWorkspaceCoord;
 }
 
 export const INITIAL_STATE : IEditorState = {
@@ -21,7 +26,10 @@ export const INITIAL_STATE : IEditorState = {
 	defMeasure : 'px',
 	curMeasure : 'm',
 	// Workspace
-	selectElement : false
+	selectElement : false,
+	workstate : null,
+	// Camera
+	workspaceCoord : { x : 0, y : 0 }
 };
 
 export const EditorStateReducer : Reducer<IEditorState> =
@@ -41,6 +49,15 @@ export const EditorStateReducer : Reducer<IEditorState> =
 		}
 		case EditorActions.SET_MEASURE : {
 			return Object.assign({}, state, { curMeasure : action.payload.measure });
+		}
+		case EditorActions.TRANSLATE_WORKSPACE : {
+			let workspaceCoord : IWorkspaceCoord = Object.assign({}, state.workspaceCoord, {
+				x : state.workspaceCoord.x + action.payload.dX,
+				y : state.workspaceCoord.y + action.payload.dY,
+			});
+			return Object.assign({}, state, {
+				workspaceCoord : workspaceCoord
+			});
 		}
 	}
 	return state;

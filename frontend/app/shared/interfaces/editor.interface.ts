@@ -1,7 +1,17 @@
 export interface IWorkspace {
-	height : number;
-	width : number;
+	height : number | string;
+	width : number | string;
 	texture : string;
+}
+
+export interface IWorkspaceCoord {
+	x : number;
+	y : number;
+}
+
+export interface IWorkstate {
+	type : string;
+	model : any;
 }
 
 export interface ITexture {

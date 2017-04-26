@@ -3,9 +3,9 @@
 <section *ngIf="isInitProject">
 	<as-editor-manager-panel></as-editor-manager-panel>
 	<svg version="1.1" class="svg-element" width="100%" height="100%"
-		(mousedown)="onMouseDownWorkspace($event)"
-		(mousemove)="onMouseMoveWorkspace($event)"
-		(mouseup)="onMouseUpWorkspace($event)"
+		(mousedown)="dragAndDropService.onMouseDown($event)"
+		(mousemove)="dragAndDropService.onMouseMove($event)"
+		(mouseup)="dragAndDropService.onMouseUp($event)"
 		(mouseout)="onMouseOutWorkspace($event)"
 	>
 		<svg:defs>

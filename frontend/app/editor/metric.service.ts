@@ -53,17 +53,17 @@ export class MetricService implements OnDestroy {
 		}
 	}
 
-	convertFromDefToCur (num : number) {
+	convertFromDefToCur (num : number | string) {
 		return this.convertor({ from : this.defMeasure, to : this.curMeasure }, num);
 	}
-	convertFromCurToDef (num : number) {
+	convertFromCurToDef (num : number | string) {
 		return this.convertor({ from : this.curMeasure, to : this.defMeasure }, num);
 	}
-	convertFromPrevToCur (num : number) {
+	convertFromPrevToCur (num : number | string) {
 		return this.convertor({ from : this.prevMeasure, to : this.curMeasure }, num);
 	}
-	convertor (dir : { from : string, to : string }, num : number) {
-		if (!(dir.from && dir.to) || !isFinite(num)) {
+	convertor (dir : { from : string, to : string }, num : number | string) {
+		if (!(dir.from && dir.to) || !isFinite(+num)) {
 			return num;
 		}
 
@@ -74,7 +74,7 @@ export class MetricService implements OnDestroy {
 		};
 
 		let cof : number = toScale / fromScale;
-		let result : number = cof * num;
+		let result : number = cof * (+num);
 		return +result.toFixed(10);
 	}
 }

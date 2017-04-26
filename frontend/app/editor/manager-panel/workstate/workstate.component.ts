@@ -7,7 +7,7 @@ import { EditorActions } from '../../../actions/editor.actions';
 import { LoggerService } from '../../../core/logger.service';
 import { MetricService } from '../../metric.service';
 
-import { IWorkspace } from '../../../shared/interfaces/editor.interface';
+import { Workspace } from '../../../shared/lib/workspace.class';
 
 @Component({
 	moduleId: module.id,
@@ -20,8 +20,9 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'project', 'workspace']) workspace$ : Observable<IWorkspace>;
-	private workspace : IWorkspace;
+	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
+	private workspace : Workspace;
+	private workspaceInit : boolean = false;
 	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
 
@@ -32,22 +33,21 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 	}
 	ngOnInit () {
 		this.subscription.push(this.workspace$.subscribe((data) => {
-			this.workspace = Object.assign({}, data);
-			if (this.isActiveMetric) {
-				this.prepareData();
+			this.workspace = new Workspace(data);
+			if (this.isActiveMetric && !this.workspaceInit) {
 				this.workspace.width = this.metricService.convertFromDefToCur(this.workspace.width);
 				this.workspace.height = this.metricService.convertFromDefToCur(this.workspace.height);
+				this.workspaceInit = true;
 			}
 		}));
 		this.subscription.push(this.isActiveMetric$.subscribe((data) => {
 			this.isActiveMetric = data;
 			if (this.isActiveMetric) {
-				if (!this.workspace) {
-					this.prepareData();
+				if (!this.workspaceInit) {
 					this.workspace.width = this.metricService.convertFromDefToCur(this.workspace.width);
 					this.workspace.height = this.metricService.convertFromDefToCur(this.workspace.height);
+					this.workspaceInit = true;
 				} else {
-					this.prepareData();
 					this.workspace.width = this.metricService.convertFromPrevToCur(this.workspace.width);
 					this.workspace.height = this.metricService.convertFromPrevToCur(this.workspace.height);
 				}
@@ -57,19 +57,6 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
-	}
-
-	prepareData () {
-		if (this.workspace) {
-			this.workspace.width = this.toNumber(this.workspace.width);
-			this.workspace.height = this.toNumber(this.workspace.height);
-		}
-	}
-	toNumber (data : any) {
-		if (isFinite(+data)) {
-			return +data;
-		}
-		return data;
 	}
 
 	onAccept () {

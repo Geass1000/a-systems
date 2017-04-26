@@ -14,6 +14,11 @@ export class MatrixTransform {
 		this.matrix[4] = x || this.matrix[4];
 		this.matrix[5] = y || this.matrix[5];
 	}
+	setCoord (x : number, y : number) {
+		this.matrix[4] = x || 0;
+		this.matrix[5] = y || 0;
+		return this.getMatrix();
+	}
 
 	getMatrix () {
 		return `matrix(${this.matrix.join(',')})` ;

@@ -17,6 +17,7 @@ import { RoomComponent } from './room/room.component';
 import { DataLoadService } from './data-load.service';
 import { EditorService } from './editor.service';
 import { MetricService } from './metric.service';
+import { DragAndDropService } from './drag-and-drop.service';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { MetricService } from './metric.service';
   providers:    [
 		EditorService,
 		MetricService,
-		DataLoadService
+		DataLoadService,
+		DragAndDropService
 	]
 })
 export class EditorModule { }
