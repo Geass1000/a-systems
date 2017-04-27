@@ -12,6 +12,7 @@ import { MetricService } from '../../metric.service';
 import { DataLoadService } from '../../data-load.service';
 
 import { Workspace } from '../../../shared/lib/workspace.class';
+import { IModelInitProject } from '../../../shared/interfaces/model.interface';
 
 @Component({
 	moduleId: module.id,
@@ -21,8 +22,7 @@ import { Workspace } from '../../../shared/lib/workspace.class';
 })
 export class InitProjectComponent implements OnInit, OnDestroy {
 	/* Private Variable */
-	private workspace : Workspace = null;
-	private projectName : string = null;
+	private model : IModelInitProject = null;
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -41,14 +41,15 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 		this.subscription.push(this.isActiveMetric$.subscribe((data) => {
 			this.isActiveMetric = data;
 			if (this.isActiveMetric) {
-				if (!this.workspace) {
-					this.workspace = new Workspace(Config.workspace);
-					this.projectName = Config.projectName;
-					this.workspace.width = this.metricService.convertFromDefToCur(this.workspace.width);
-					this.workspace.height = this.metricService.convertFromDefToCur(this.workspace.height);
+				if (!this.model) {
+					this.model = {
+						name : Config.projectName,
+						width : this.metricService.convertFromDefToCur(Config.workspace.width).toString(),
+						height : this.metricService.convertFromDefToCur(Config.workspace.width).toString()
+					};
 				} else {
-					this.workspace.width = this.metricService.convertFromPrevToCur(this.workspace.width);
-					this.workspace.height = this.metricService.convertFromPrevToCur(this.workspace.height);
+					this.model.width = this.metricService.convertFromPrevToCur(this.model.width).toString();
+					this.model.height = this.metricService.convertFromPrevToCur(this.model.height).toString();
 				}
 			}
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - isActiveMetric -', this.isActiveMetric);
@@ -60,19 +61,18 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 	}
 
 	onInitProject () {
-		let resultWorkspace : Workspace = new Workspace({
-			width : this.metricService.convertFromCurToDef(this.workspace.width),
-			height : this.metricService.convertFromCurToDef(this.workspace.height),
-			texture : null
-		});
-		this.ngRedux.dispatch(this.editorActions.updateProjectName(this.projectName));
+		let resultWorkspace : Workspace = new Workspace();
+		resultWorkspace.width = +this.metricService.convertFromCurToDef(this.model.width);
+		resultWorkspace.height = +this.metricService.convertFromCurToDef(this.model.height);
+
+		this.ngRedux.dispatch(this.editorActions.updateProjectName(this.model.height));
 		this.ngRedux.dispatch(this.editorActions.updateWorkspace(resultWorkspace));
 		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 		this.dataLoadService.getInitData();
 	}
 
 	onOpenWorkspace (el ?: boolean) {
-		console.log(this.workspace);
+		console.log(this.model);
 	}
 
 	closeModal () {

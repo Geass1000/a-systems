@@ -35,8 +35,8 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 		this.subscription.push(this.workspace$.subscribe((data) => {
 			this.workspace = new Workspace(data);
 			if (this.isActiveMetric && !this.workspaceInit) {
-				this.workspace.width = this.metricService.convertFromDefToCur(this.workspace.width);
-				this.workspace.height = this.metricService.convertFromDefToCur(this.workspace.height);
+				this.workspace.width = +this.metricService.convertFromDefToCur(this.workspace.width);
+				this.workspace.height = +this.metricService.convertFromDefToCur(this.workspace.height);
 				this.workspaceInit = true;
 			}
 		}));
@@ -44,12 +44,12 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 			this.isActiveMetric = data;
 			if (this.isActiveMetric) {
 				if (!this.workspaceInit) {
-					this.workspace.width = this.metricService.convertFromDefToCur(this.workspace.width);
-					this.workspace.height = this.metricService.convertFromDefToCur(this.workspace.height);
+					this.workspace.width = +this.metricService.convertFromDefToCur(this.workspace.width);
+					this.workspace.height = +this.metricService.convertFromDefToCur(this.workspace.height);
 					this.workspaceInit = true;
 				} else {
-					this.workspace.width = this.metricService.convertFromPrevToCur(this.workspace.width);
-					this.workspace.height = this.metricService.convertFromPrevToCur(this.workspace.height);
+					this.workspace.width = +this.metricService.convertFromPrevToCur(this.workspace.width);
+					this.workspace.height = +this.metricService.convertFromPrevToCur(this.workspace.height);
 				}
 			}
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - isActiveMetric -', this.isActiveMetric);

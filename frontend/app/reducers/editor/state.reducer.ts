@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
-import { IWorkstate, IWorkspaceCoord } from '../../shared/interfaces/editor.interface';
+import { IWorkstate, ICoord } from '../../shared/interfaces/editor.interface';
 
 export interface IEditorState {
 	isInitProject : boolean;
@@ -16,7 +16,7 @@ export interface IEditorState {
 	workstate : IWorkstate;
 	// Camera
 	isMove : boolean;
-	workspaceCoord : IWorkspaceCoord;
+	workspaceCoord : ICoord;
 }
 
 export const INITIAL_STATE : IEditorState = {
@@ -56,7 +56,7 @@ export const EditorStateReducer : Reducer<IEditorState> =
 			return Object.assign({}, state, { isMove : action.payload.state });
 		}
 		case EditorActions.TRANSLATE_WORKSPACE : {
-			let workspaceCoord : IWorkspaceCoord = Object.assign({}, state.workspaceCoord, {
+			let workspaceCoord : ICoord = Object.assign({}, state.workspaceCoord, {
 				x : state.workspaceCoord.x + action.payload.dX,
 				y : state.workspaceCoord.y + action.payload.dY,
 			});

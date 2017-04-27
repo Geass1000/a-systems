@@ -6,23 +6,23 @@
 	</section>
 	<section class="modal-body">
 		<form #f="ngForm">
-			<div class="form-group" [class.focused]="projectName">
+			<div class="form-group" [class.focused]="model.name">
 				<input type="text" class="form-control"	required
-					name="projectName" id="projectName" [(ngModel)]="projectName"
+					name="projectName" id="projectName" [(ngModel)]="model.name"
 					pattern=".+" />
 				<label>Project Name</label>
 			</div>
 			<div class="form-row">
-				<div class="form-group" [class.focused]="workspace.width">
-					<input type="number" class="form-control" required
-						name="workspaceWidth" id="workspaceWidth" [(ngModel)]="workspace.width"
+				<div class="form-group" [class.focused]="model.width">
+					<input type="text" class="form-control" required
+						name="workspaceWidth" id="workspaceWidth" [(ngModel)]="model.width"
 						pattern="[0-9]+(\.[0-9]*)?" />
 					<label>Width</label>
 				</div>
 
-				<div class="form-group" [class.focused]="workspace.height">
-					<input type="number" class="form-control" required
-						name="workspaceHeight" id="workspaceHeight" [(ngModel)]="workspace.height"
+				<div class="form-group" [class.focused]="model.height">
+					<input type="text" class="form-control" required
+						name="workspaceHeight" id="workspaceHeight" [(ngModel)]="model.height"
 						pattern="[0-9]+(\.[0-9]*)?" />
 					<label>Height</label>
 				</div>

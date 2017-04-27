@@ -4,19 +4,18 @@ import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 
-import { Room } from './room.class';
-import { Point } from './point.class';
+import { Point } from '../../shared/lib/point.class';
 
 @Component({
 	moduleId: module.id,
-  selector: '[as-editor-room]',
-	templateUrl: 'room.component.html',
-  styleUrls: [ 'room.component.css' ]
+  selector: '[as-editor-surface]',
+	templateUrl: 'surface.component.html',
+  styleUrls: [ 'surface.component.css' ]
 })
 export class RoomComponent implements OnInit, OnDestroy {
 	title = 'Home';
 
-	private room : Room;
+	private surface : Array<Point>;
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -25,12 +24,12 @@ export class RoomComponent implements OnInit, OnDestroy {
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions) {
-		this.room = new Room ([
-			new Point(1000, 1000),
-			new Point(1200, 1000),
-			new Point(1200, 1200),
-			new Point(1000, 1200)
-		], 20);
+		this.surface = [
+			new Point({ x: 0, y : 0}),
+			new Point({ x: 0, y : 500}),
+			new Point({ x: 500, y : 500}),
+			new Point({ x: 500, y : 0})
+		];
 	}
 	ngOnInit () {
 		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
@@ -42,6 +41,5 @@ export class RoomComponent implements OnInit, OnDestroy {
 		console.log(this.selectElement);
 		console.log(el);
 		el.x = 800;
-		this.room.updatePoints();
 	}
 }

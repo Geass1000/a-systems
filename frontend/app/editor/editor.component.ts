@@ -7,7 +7,7 @@ import { EditorActions } from '../actions/editor.actions';
 import { LoggerService } from '../core/logger.service';
 import { DragAndDropService } from './drag-and-drop.service';
 
-import { IWorkspaceCoord } from '../shared/interfaces/editor.interface';
+import { ICoord } from '../shared/interfaces/editor.interface';
 import { MatrixTransform } from './matrix-transform.class';
 
 @Component({
@@ -30,8 +30,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 	@select(['editor', 'state', 'isInitProject']) isInitProject$ : Observable<boolean>;
 	private isInitProject : boolean;
 	@select(['editor', 'state', 'isMove']) isMove$ : Observable<boolean>;
-	@select(['editor', 'state', 'workspaceCoord']) workspaceCoord$ : Observable<IWorkspaceCoord>;
-	private workspaceCoord : IWorkspaceCoord;
+	@select(['editor', 'state', 'workspaceCoord']) workspaceCoord$ : Observable<ICoord>;
+	private workspaceCoord : ICoord;
 
 	@select(['editor', 'control', 'open']) modalOpen$ : Observable<boolean>;
 

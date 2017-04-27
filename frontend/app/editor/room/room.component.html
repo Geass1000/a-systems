@@ -1,9 +1,0 @@
-<svg:g class="element" class="draggable">
-	<svg:polygon class="floor" [attr.stroke-width]="room.wall"
-		[attr.points]='room.viewPts' />
-	<svg:g class="selectable">
-		<svg:circle *ngFor="let pt of room.pts"
-			[attr.cx]="pt.x" [attr.cy]="pt.y" [attr.r]="room.wall"
-		 	(click)="pointClick(pt)"/>
-	</svg:g>
-</svg:g>

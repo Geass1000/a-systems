@@ -1,0 +1,9 @@
+<svg:g class="draggable" tranlate="matrix(1,0,0,1,300,300)">
+	<svg:polygon class="floor" [attr.stroke-width]="20"
+		[attr.points]="surface.join(' ')" />
+	<svg:g class="selectable">
+		<svg:circle *ngFor="let pt of surface"
+			[attr.cx]="pt.x" [attr.cy]="pt.y" [attr.r]="20"
+		 	(click)="pointClick(pt)"/>
+	</svg:g>
+</svg:g>

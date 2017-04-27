@@ -1,10 +1,10 @@
 export interface IWorkspace {
-	height : number | string;
-	width : number | string;
+	height : number;
+	width : number;
 	texture : string;
 }
 
-export interface IWorkspaceCoord {
+export interface ICoord {
 	x : number;
 	y : number;
 }
