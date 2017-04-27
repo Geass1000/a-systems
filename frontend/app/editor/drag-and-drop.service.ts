@@ -80,10 +80,6 @@ export class DragAndDropService implements OnDestroy {
 		if (!this.isMouseDown) {
 			return;
 		}
-		if (!this.detectLeftButton(event)) {
-			this.initData();
-			return;
-		}
 		if (!this.isMove) {
 			if (Math.abs(event.clientX - this.startX) < this.precision &&
 					Math.abs(event.clientY - this.startY) < this.precision) {
@@ -116,5 +112,11 @@ export class DragAndDropService implements OnDestroy {
 		this.logger.info(`${this.constructor.name}:`, 'onMouseUp - isCaptured -', this.isCaptured);
 		this.initData();
 		event.preventDefault();
+	}
+	onMouseLeave (event : any) {
+		this.logger.info(`${this.constructor.name}:`, 'onMouseLeave - initData');
+		if (this.isMouseDown) {
+			this.initData();
+		}
 	}
 }

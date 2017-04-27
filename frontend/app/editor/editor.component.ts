@@ -26,8 +26,6 @@ export class EditorComponent implements OnInit, OnDestroy {
 	private workspaceX : number;
 	private workspaceY : number;
 
-	private selectWorkspace : boolean = false;
-
 	private subscription : any[] = [];
 	@select(['editor', 'state', 'isInitProject']) isInitProject$ : Observable<boolean>;
 	private isInitProject : boolean;
@@ -69,13 +67,5 @@ export class EditorComponent implements OnInit, OnDestroy {
 		this.workspaceY = halfWindowHeight - halfWorkspaceHeight;
 		this.workspaceMatrix = new MatrixTransform (this.workspaceX, this.workspaceY);
 		this.matrixTransform = this.workspaceMatrix.getMatrix();
-	}
-
-	/* Event Section */
-	// Depricated
-	onMouseOutWorkspace (event : any) {
-		if (!event.relatedTarget || !event.relatedTarget.closest('svg')) {
-			this.selectWorkspace = false;
-		}
 	}
 }

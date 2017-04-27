@@ -7,7 +7,7 @@
 		(mousedown)="dragAndDropService.onMouseDown($event)"
 		(mousemove)="dragAndDropService.onMouseMove($event)"
 		(mouseup)="dragAndDropService.onMouseUp($event)"
-		(mouseout)="onMouseOutWorkspace($event)"
+		(mouseleave)="dragAndDropService.onMouseLeave($event)"
 	>
 		<svg:defs>
 			<svg:pattern id="p-smallGrid" width="20" height="20" x="0" y="0" patternUnits="userSpaceOnUse">
