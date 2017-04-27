@@ -29,9 +29,12 @@ export class Point implements IPoint {
 	get y () : number {
 		return this._y;
 	}
-
 	prepareNumberData (data : number) : number {
 		return isFinite(data) ? data : 0;
+	}
+
+	transform () {
+		return `translate(${this.x}, ${this.y})`;
 	}
 
 	toString () {

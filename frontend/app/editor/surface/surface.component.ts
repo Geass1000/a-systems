@@ -4,7 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 
-import { Point } from '../../shared/lib/point.class';
+import { LoggerService } from '../../core/logger.service';
+
+import { Surface } from '../../shared/lib/surface.class';
+//import { Point } from '../../shared/lib/point.class';
 
 @Component({
 	moduleId: module.id,
@@ -13,33 +16,26 @@ import { Point } from '../../shared/lib/point.class';
   styleUrls: [ 'surface.component.css' ]
 })
 export class RoomComponent implements OnInit, OnDestroy {
-	title = 'Home';
-
-	private surface : Array<Point>;
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'state', 'selectElement']) selectElement$ : Observable<boolean>;
-	private selectElement : boolean;
+	@select(['editor', 'project', 'surfaces']) surfaces$ : Observable<Array<Surface>>;
+	private surfaces : Array<Surface>;
 
 	constructor (private ngRedux : NgRedux<any>,
-							 private editorActions : EditorActions) {
-		this.surface = [
-			new Point({ x: 0, y : 0}),
-			new Point({ x: 0, y : 500}),
-			new Point({ x: 500, y : 500}),
-			new Point({ x: 500, y : 0})
-		];
+							 private editorActions : EditorActions,
+							 private logger : LoggerService) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
+		this.subscription.push(this.surfaces$.subscribe((data) => {
+			this.surfaces = data;
+			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - surfaces -', this.surfaces);
+		}));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 	pointClick (el : any) {
-		console.log(this.selectElement);
 		console.log(el);
-		el.x = 800;
 	}
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IAction } from '../shared/interfaces/action.interface';
+
 import { ITexture, IWorkspace, ITextureType, IItemCategory } from '../shared/interfaces/editor.interface';
+import { Surface } from '../shared/lib/surface.class';
 
 @Injectable()
 export class EditorActions {
@@ -27,6 +29,7 @@ export class EditorActions {
 	/* Project Action */
 	static readonly UPDATE_WORKSPACE = EditorActions.CLASS_NAME + 'UPDATE_WORKSPACE';
 	static readonly UPDATE_PROJECT_NAME = EditorActions.CLASS_NAME + 'UPDATE_PROJECT_NAME';
+	static readonly ADD_SURFACE = EditorActions.CLASS_NAME + 'ADD_SURFACE';
 
 	setMeasure (measure : string) : IAction {
     return {
@@ -165,6 +168,14 @@ export class EditorActions {
       type : EditorActions.UPDATE_PROJECT_NAME,
 			payload : {
 				name : name
+			}
+    };
+  }
+	addSurface (surface : Surface) : IAction {
+    return {
+      type : EditorActions.ADD_SURFACE,
+			payload : {
+				surface : surface
 			}
     };
   }

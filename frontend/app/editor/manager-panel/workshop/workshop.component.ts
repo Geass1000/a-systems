@@ -6,7 +6,10 @@ import { EditorActions } from '../../../actions/editor.actions';
 
 import { EditorService } from '../../editor.service';
 import { LoggerService } from '../../../core/logger.service';
+
 import { IItemCategory } from '../../../shared/interfaces/editor.interface';
+import { Surface } from '../../../shared/lib/surface.class';
+import { Point } from '../../../shared/lib/point.class';
 
 @Component({
 	moduleId: module.id,
@@ -54,6 +57,24 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	}
 
 	/* Events */
+	addElement (event : any) {
+		let el : any = event.target.closest('.form-item');
+		if (!el) {
+			return;
+		}
+		let surface : Surface = new Surface({
+			x : 300,
+			y : 300,
+			points : [
+				new Point({ x : 0, y : 0 }),
+				new Point({ x : 500, y : 0 }),
+				new Point({ x : 500, y : 500 }),
+				new Point({ x : 0, y : 500 })
+			]
+		});
+		this.ngRedux.dispatch(this.editorActions.addSurface(surface));
+		this.logger.info(`${this.constructor.name}:`, 'addElement');
+	}
 	onChangeCategory (event : any) {
 		let el : any = event.target.closest('.form-item');
 		if (el !== null) {

@@ -3,15 +3,18 @@ import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
 import { Workspace } from '../../shared/lib/workspace.class';
+import { Surface } from '../../shared/lib/surface.class';
 
 export interface IEditorProject {
 	name : string;
 	workspace : Workspace;
+	surfaces : Array<Surface>;
 }
 
 export const INITIAL_STATE : IEditorProject = {
 	name : '',
-	workspace : null
+	workspace : null,
+	surfaces : []
 };
 
 export const EditorProjectReducer : Reducer<IEditorProject> =
@@ -24,6 +27,11 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 		case EditorActions.UPDATE_PROJECT_NAME : {
 			let name : string = action.payload.name;
 			return Object.assign({}, state, { name : name });
+		}
+		case EditorActions.ADD_SURFACE : {
+			return Object.assign({}, state, {
+				surfaces : [...state.surfaces, action.payload.surface]
+			});
 		}
 	}
 	return state;
