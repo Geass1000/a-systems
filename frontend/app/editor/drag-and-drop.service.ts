@@ -19,6 +19,7 @@ export class DragAndDropService implements OnDestroy {
 	private isCaptured : boolean;			// Element захвачен (был одиночный клик ранее)?
 	private isMouseDown : boolean;		// Нажата ли левая кнопка мыши над областью?
 	private isMove : boolean;					// Было ли движение мыши (с учётом мёртвой зоны)?
+	private isLeave : boolean;				// Покинута ли рабочая зона?
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -38,6 +39,7 @@ export class DragAndDropService implements OnDestroy {
 		this.isWorkspace = false;
 		this.isMouseDown = false;
 		this.isMove = false;
+		this.isLeave = false;
 		this.ngRedux.dispatch(this.editorActions.toggleMove(false));
 	}
 
@@ -101,6 +103,10 @@ export class DragAndDropService implements OnDestroy {
 		event.preventDefault();
 	}
 	onMouseUp (event : any) {
+		if (this.isLeave) {
+			this.logger.info(`${this.constructor.name}:`, 'onMouseUp - isLeave -', this.isLeave);
+			return;
+		}
 		if (!this.isMove) {
 			if (this.isWorkspace) {
 				this.isCaptured = false;
@@ -114,9 +120,8 @@ export class DragAndDropService implements OnDestroy {
 		event.preventDefault();
 	}
 	onMouseLeave (event : any) {
-		this.logger.info(`${this.constructor.name}:`, 'onMouseLeave - initData');
-		if (this.isMouseDown) {
-			this.initData();
-		}
+		this.logger.info(`${this.constructor.name}:`, 'onMouseLeave - isLeave -', this.isLeave);
+		this.initData();
+		this.isLeave = true;
 	}
 }
