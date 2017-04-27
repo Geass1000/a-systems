@@ -17,8 +17,8 @@ export class Surface implements ISurface {
 
 	constructor (obj ?: ISurface) {
 		if (obj) {
-			this.x = obj.x;
-			this.y = obj.y;
+			this.x = obj.x || 0;
+			this.y = obj.y || 0;
 			this.tStroke = obj.tStroke || null;
 			this.tFill = obj.tFill || null;
 			this._points = obj.points.map((data : IPoint) => { return new Point(data); });
