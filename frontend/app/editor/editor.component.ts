@@ -26,19 +26,12 @@ export class EditorComponent implements OnInit, OnDestroy {
 	private workspaceX : number;
 	private workspaceY : number;
 
-	private prevX : number;
-	private prevY : number;
-	private startX : number;
-	private startY : number;
 	private selectWorkspace : boolean = false;
 
 	private subscription : any[] = [];
-	@select(['editor', 'state', 'selectElement']) selectElement$ : Observable<boolean>;
-	private selectElement : boolean;
 	@select(['editor', 'state', 'isInitProject']) isInitProject$ : Observable<boolean>;
 	private isInitProject : boolean;
 	@select(['editor', 'state', 'isMove']) isMove$ : Observable<boolean>;
-	private isMove : boolean;
 	@select(['editor', 'state', 'workspaceCoord']) workspaceCoord$ : Observable<IWorkspaceCoord>;
 	private workspaceCoord : IWorkspaceCoord;
 
@@ -54,8 +47,6 @@ export class EditorComponent implements OnInit, OnDestroy {
 		this.initWorkspace();
 	}
 	ngOnInit () {
-		this.subscription.push(this.isMove$.subscribe((data) => this.isMove = data));
-		this.subscription.push(this.selectElement$.subscribe((data) => this.selectElement = data));
 		this.subscription.push(this.isInitProject$.subscribe((data) => this.isInitProject = data));
 		this.subscription.push(this.workspaceCoord$.subscribe((data) => {
 			this.workspaceCoord = data;
@@ -82,39 +73,6 @@ export class EditorComponent implements OnInit, OnDestroy {
 
 	/* Event Section */
 	// Depricated
-	onMouseDownWorkspace (event : any) {
-		this.startX = event.clientX;
-		this.startY = event.clientY;
-
-		this.prevX = event.clientX;
-		this.prevY = event.clientY;
-		let el = event.target.closest('.element');
-		this.selectWorkspace = !(this.selectElement && el && el.classList.contains('selected'));
-		// console.log(event);
-	}
-	onMouseMoveWorkspace (event : any) {
-		if (this.selectWorkspace) {
-			let dX = event.clientX - this.prevX,
-					dY = event.clientY - this.prevY;
-			this.prevX = event.clientX;
-			this.prevY = event.clientY;
-			this.matrixTransform = this.workspaceMatrix.translate(dX, dY);
-			// console.log(this.matrixTransform);
-		}
-	}
-	onMouseUpWorkspace (event : any) {
-		if (this.startX === event.clientX && this.startY === event.clientY) {
-			if (event.target.closest('.element')) {
-				this.ngRedux.dispatch(this.editorActions.selectElement(true));
-				console.log('Selected!');
-			}	else {
-				this.ngRedux.dispatch(this.editorActions.selectElement(false));
-				console.log('No Selected!');
-			}
-		}
-
-		this.selectWorkspace = false;
-	}
 	onMouseOutWorkspace (event : any) {
 		if (!event.relatedTarget || !event.relatedTarget.closest('svg')) {
 			this.selectWorkspace = false;
