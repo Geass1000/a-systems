@@ -5,6 +5,11 @@ import { EditorActions } from '../actions/editor.actions';
 
 import { LoggerService } from '../core/logger.service';
 
+interface Element {
+	type : string;
+	id : number;
+}
+
 @Injectable()
 export class DragAndDropService implements OnDestroy {
 	private startX : number;					// Начальная координата нажатия по оси X
@@ -20,6 +25,9 @@ export class DragAndDropService implements OnDestroy {
 	private isMouseDown : boolean;		// Нажата ли левая кнопка мыши над областью?
 	private isMove : boolean;					// Было ли движение мыши (с учётом мёртвой зоны)?
 	private isLeave : boolean;				// Покинута ли рабочая зона?
+
+	private element : Element = null;
+	private target : Element = null;
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -40,6 +48,7 @@ export class DragAndDropService implements OnDestroy {
 		this.isMouseDown = false;
 		this.isMove = false;
 		this.isLeave = false;
+		this.target = null;
 		this.ngRedux.dispatch(this.editorActions.toggleMove(false));
 	}
 
@@ -63,6 +72,23 @@ export class DragAndDropService implements OnDestroy {
 
 		if (el) {
 			this.isElement = true;
+			this.target = {
+				type : el.dataset.type,
+				id : +el.dataset.id
+			};
+			this.logger.info(`${this.constructor.name}:`, 'onMouseDown - element - type -', this.target.type);
+			this.logger.info(`${this.constructor.name}:`, 'onMouseDown - element - id -', this.target.id);
+
+			if (this.isCaptured && this.element) {
+				if (this.element.type !== this.target.type || this.element.id !== this.target.id) {
+					this.isWorkspace = true;
+				}
+			} else if (el.dataset.type === 'surface') {
+				this.element = {
+					type : el.dataset.type,
+					id : +el.dataset.id
+				};
+			}
 		} else {
 			this.isWorkspace = true;
 		}
@@ -99,6 +125,10 @@ export class DragAndDropService implements OnDestroy {
 		if (this.isWorkspace || !this.isCaptured) {
 			this.ngRedux.dispatch(this.editorActions.translateWorkspace(dX, dY));
 			// Data sending to redux
+		} else {
+			if (this.element.type === 'surface') {
+				this.ngRedux.dispatch(this.editorActions.translateSurface(this.element.id, dX, dY));
+			}
 		}
 		event.preventDefault();
 	}
@@ -109,7 +139,8 @@ export class DragAndDropService implements OnDestroy {
 		}
 		if (!this.isMove) {
 			if (this.isWorkspace) {
-				this.isCaptured = false;
+				this.isCaptured = this.isElement;
+				this.element = this.target;
 			} else {
 				this.isCaptured = true;
 			}

@@ -11,7 +11,7 @@ import { ControlPanelModule } from './control-panel/control-panel.module';
 
 /* App Feature - Component */
 import { EditorComponent } from './editor.component';
-import { RoomComponent } from './surface/surface.component';
+import { SurfaceComponent } from './surface/surface.component';
 
 /* App Feature - Service */
 import { DataLoadService } from './data-load.service';
@@ -30,7 +30,7 @@ import { DragAndDropService } from './drag-and-drop.service';
 	],
   declarations: [
 		EditorComponent,
-		RoomComponent
+		SurfaceComponent
 	],
   exports:      [ EditorComponent ],
   providers:    [

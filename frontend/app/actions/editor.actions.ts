@@ -15,6 +15,7 @@ export class EditorActions {
 	static readonly INIT_PROJECT = EditorActions.CLASS_NAME + 'INIT_PROJECT';
 	static readonly TOGGLE_MOVE = EditorActions.CLASS_NAME + 'TOGGLE_MOVE';
 	static readonly TRANSLATE_WORKSPACE = EditorActions.CLASS_NAME + 'TRANSLATE_WORKSPACE';
+	static readonly TRANSLATE_SURFACE = EditorActions.CLASS_NAME + 'TRANSLATE_SURFACE';
 	/* Texture Action */
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
 	static readonly ADD_TEXTURES = EditorActions.CLASS_NAME + 'ADD_TEXTURES';
@@ -83,6 +84,16 @@ export class EditorActions {
     return {
       type : EditorActions.TRANSLATE_WORKSPACE,
 			payload : {
+				dX : dX,
+				dY : dY
+			}
+    };
+  }
+	translateSurface (id : number, dX : number, dY : number) : IAction {
+    return {
+      type : EditorActions.TRANSLATE_SURFACE,
+			payload : {
+				id : id,
 				dX : dX,
 				dY : dY
 			}

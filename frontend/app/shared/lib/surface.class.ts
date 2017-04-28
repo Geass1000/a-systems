@@ -6,6 +6,7 @@ export interface ISurface {
 	tStroke ?: string;
 	tFill ?: string;
 	points : Array<IPoint>;
+	id ?: number;
 }
 
 export class Surface implements ISurface {
@@ -14,6 +15,7 @@ export class Surface implements ISurface {
 	private _tStroke : string;				// Текстура границы поверхности
 	private _tFill : string;					// Текстура поверхности
 	private _points : Array<Point>;		// Массив точек, определяющие границы поверхности
+	private _id : number;
 
 	constructor (obj ?: ISurface) {
 		if (obj) {
@@ -22,12 +24,14 @@ export class Surface implements ISurface {
 			this.tStroke = obj.tStroke || null;
 			this.tFill = obj.tFill || null;
 			this._points = obj.points.map((data : IPoint) => { return new Point(data); });
+			this.id = obj.id || null;
 		} else {
 			this.x = 0;
 			this.y = 0;
 			this.tStroke = null;
 			this.tFill = null;
 			this.points = [];
+			this.id = null;
 		}
 	}
 
@@ -60,6 +64,12 @@ export class Surface implements ISurface {
 	}
 	get points () : Array<Point> {
 		return this._points;
+	}
+	set id (data : number) {
+		this._id = this.prepareNumberData(data);
+	}
+	get id () : number {
+		return this._id;
 	}
 	prepareNumberData (data : number) : number {
 		return isFinite(data) ? data : 0;

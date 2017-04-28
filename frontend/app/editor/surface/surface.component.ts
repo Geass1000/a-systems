@@ -15,7 +15,7 @@ import { Surface } from '../../shared/lib/surface.class';
 	templateUrl: 'surface.component.html',
   styleUrls: [ 'surface.component.css' ]
 })
-export class RoomComponent implements OnInit, OnDestroy {
+export class SurfaceComponent implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -29,7 +29,6 @@ export class RoomComponent implements OnInit, OnDestroy {
 	ngOnInit () {
 		this.subscription.push(this.surfaces$.subscribe((data) => {
 			this.surfaces = data;
-			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - surfaces -', this.surfaces);
 		}));
 	}
 	ngOnDestroy () {
