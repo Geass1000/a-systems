@@ -2,7 +2,8 @@ import { Reducer } from 'redux';
 import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
-import { IWorkstate, ICoord } from '../../shared/interfaces/editor.interface';
+import { IWorkstate, IElement } from '../../shared/interfaces/editor.interface';
+import { Point } from '../../shared/lib/point.class';
 
 export interface IEditorState {
 	isInitProject : boolean;
@@ -12,11 +13,11 @@ export interface IEditorState {
 	defMeasure : string;
 	curMeasure : string;
 	// Workspace
-	selectElement : boolean;
 	workstate : IWorkstate;
 	// Camera
 	isMove : boolean;
-	workspaceCoord : ICoord;
+	workspaceCoord : Point;
+	element : IElement;
 }
 
 export const INITIAL_STATE : IEditorState = {
@@ -27,19 +28,16 @@ export const INITIAL_STATE : IEditorState = {
 	defMeasure : 'px',
 	curMeasure : 'm',
 	// Workspace
-	selectElement : false,
 	workstate : null,
 	// Camera
 	isMove : false,
-	workspaceCoord : { x : 0, y : 0 }
+	workspaceCoord : new Point(),
+	element : null
 };
 
 export const EditorStateReducer : Reducer<IEditorState> =
 	(state : IEditorState = INITIAL_STATE, action : IAction) : IEditorState => {
 	switch (action.type) {
-		case EditorActions.SELECT_ELEMENT : {
-			return Object.assign({}, state, { selectElement : action.payload.state });
-		}
 		case EditorActions.INIT_WORKSPACE : {
 			return Object.assign({}, state, { isInitWorkspace : action.payload.state });
 		}
@@ -56,13 +54,22 @@ export const EditorStateReducer : Reducer<IEditorState> =
 			return Object.assign({}, state, { isMove : action.payload.state });
 		}
 		case EditorActions.TRANSLATE_WORKSPACE : {
-			let workspaceCoord : ICoord = Object.assign({}, state.workspaceCoord, {
+			/*
+			let workspaceCoord : Point = new Point({
 				x : state.workspaceCoord.x + action.payload.dX,
 				y : state.workspaceCoord.y + action.payload.dY,
 			});
 			return Object.assign({}, state, {
 				workspaceCoord : workspaceCoord
 			});
+			*/
+			state.workspaceCoord.x += action.payload.dX;
+			state.workspaceCoord.y += action.payload.dY;
+			return state;
+		}
+		case EditorActions.SET_ELEMENT : {
+			let element = Object.assign({}, action.payload.element);
+			return Object.assign({}, state, { element : element });
 		}
 	}
 	return state;

@@ -1,14 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
-import { NgRedux } from '@angular-redux/store';
+import { Observable } from 'rxjs/Observable';
+import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 
 import { LoggerService } from '../core/logger.service';
 
-interface Element {
-	type : string;
-	id : number;
-}
+import { IElement } from '../shared/interfaces/editor.interface';
 
 @Injectable()
 export class DragAndDropService implements OnDestroy {
@@ -26,17 +24,22 @@ export class DragAndDropService implements OnDestroy {
 	private isMove : boolean;					// Было ли движение мыши (с учётом мёртвой зоны)?
 	private isLeave : boolean;				// Покинута ли рабочая зона?
 
-	private element : Element = null;
-	private target : Element = null;
+	//private element : IElement = null;
+	private target : IElement = null;
 
 	/* Redux */
 	private subscription : any[] = [];
+	@select(['editor', 'state', 'element']) element$ : Observable<IElement>;
+	private element : IElement;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
 						 	 private logger : LoggerService) {
 		this.initData();
 		this.isCaptured = false;
+		this.subscription.push(this.element$.subscribe((data) => {
+			this.element = data;
+		}));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
@@ -83,14 +86,10 @@ export class DragAndDropService implements OnDestroy {
 				if (this.element.type !== this.target.type || this.element.id !== this.target.id) {
 					this.isWorkspace = true;
 				}
-			} else if (el.dataset.type === 'surface') {
-				this.element = {
-					type : el.dataset.type,
-					id : +el.dataset.id
-				};
 			}
 		} else {
 			this.isWorkspace = true;
+			this.target = null;
 		}
 
 		this.logger.info(`${this.constructor.name}:`, 'onMouseDown - isElement -', this.isElement);
@@ -140,10 +139,10 @@ export class DragAndDropService implements OnDestroy {
 		if (!this.isMove) {
 			if (this.isWorkspace) {
 				this.isCaptured = this.isElement;
-				this.element = this.target;
 			} else {
 				this.isCaptured = true;
 			}
+			this.ngRedux.dispatch(this.editorActions.setElement(this.target));
 		}
 		this.logger.info(`${this.constructor.name}:`, 'onMouseUp - isMove -', this.isMove);
 		this.logger.info(`${this.constructor.name}:`, 'onMouseUp - isCaptured -', this.isCaptured);

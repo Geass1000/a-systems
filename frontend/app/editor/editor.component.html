@@ -19,7 +19,7 @@
 			</svg:pattern>
 		</svg:defs>
 
-		<svg:g [attr.transform]="matrixTransform">
+		<svg:g [attr.transform]="workspaceCoord.transform()">
 			<svg:rect class="grid" x="0" y="0" [attr.fill]="'url(' + loc + '#p-grid)'"
 				[attr.width]="workspaceWidth" [attr.height]="workspaceHeight"/>
 			<svg:rect class="fil0 str0" x="100" y="100" width="50" height="50"/>

@@ -7,8 +7,7 @@ import { EditorActions } from '../actions/editor.actions';
 import { LoggerService } from '../core/logger.service';
 import { DragAndDropService } from './drag-and-drop.service';
 
-import { ICoord } from '../shared/interfaces/editor.interface';
-import { MatrixTransform } from './matrix-transform.class';
+import { Point } from '../shared/lib/point.class';
 
 @Component({
 	moduleId: module.id,
@@ -21,8 +20,6 @@ export class EditorComponent implements OnInit, OnDestroy {
 
 	private workspaceWidth : number;
 	private workspaceHeight : number;
-	private matrixTransform : string;
-	private workspaceMatrix : MatrixTransform;
 	private workspaceX : number;
 	private workspaceY : number;
 
@@ -30,8 +27,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 	@select(['editor', 'state', 'isInitProject']) isInitProject$ : Observable<boolean>;
 	private isInitProject : boolean;
 	@select(['editor', 'state', 'isMove']) isMove$ : Observable<boolean>;
-	@select(['editor', 'state', 'workspaceCoord']) workspaceCoord$ : Observable<ICoord>;
-	private workspaceCoord : ICoord;
+	@select(['editor', 'state', 'workspaceCoord']) workspaceCoord$ : Observable<Point>;
+	private workspaceCoord : Point;
 
 	@select(['editor', 'control', 'open']) modalOpen$ : Observable<boolean>;
 
@@ -48,7 +45,6 @@ export class EditorComponent implements OnInit, OnDestroy {
 		this.subscription.push(this.isInitProject$.subscribe((data) => this.isInitProject = data));
 		this.subscription.push(this.workspaceCoord$.subscribe((data) => {
 			this.workspaceCoord = data;
-			this.matrixTransform = this.workspaceMatrix.setCoord(this.workspaceCoord.x, this.workspaceCoord.y);
 			//this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - workspaceCoord -', this.workspaceCoord);
 		}));
 	}
@@ -65,7 +61,6 @@ export class EditorComponent implements OnInit, OnDestroy {
 				halfWorkspaceHeight : number = this.workspaceHeight / 2;
 		this.workspaceX = halfWindowWidth - halfWorkspaceWidth;
 		this.workspaceY = halfWindowHeight - halfWorkspaceHeight;
-		this.workspaceMatrix = new MatrixTransform (this.workspaceX, this.workspaceY);
-		this.matrixTransform = this.workspaceMatrix.getMatrix();
+		this.ngRedux.dispatch(this.editorActions.translateWorkspace(this.workspaceX, this.workspaceY));
 	}
 }

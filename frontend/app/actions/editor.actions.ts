@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { IAction } from '../shared/interfaces/action.interface';
 
-import { ITexture, IWorkspace, ITextureType, IItemCategory } from '../shared/interfaces/editor.interface';
+import { ITexture, IWorkspace, IElement, ITextureType, IItemCategory } from '../shared/interfaces/editor.interface';
 import { Surface } from '../shared/lib/surface.class';
 
 @Injectable()
 export class EditorActions {
 	static readonly CLASS_NAME = 'EDITOR_ACTIONS:';
 	/* State Action */
-	static readonly SELECT_ELEMENT = EditorActions.CLASS_NAME + 'SELECT_ELEMENT';
 	static readonly INIT_WORKSPACE = EditorActions.CLASS_NAME + 'INIT_WORKSPACE';
 	static readonly ACTIVE_METRIC = EditorActions.CLASS_NAME + 'ACTIVE_METRIC';
 	static readonly SET_MEASURE = EditorActions.CLASS_NAME + 'SET_MEASURE';
@@ -16,6 +15,7 @@ export class EditorActions {
 	static readonly TOGGLE_MOVE = EditorActions.CLASS_NAME + 'TOGGLE_MOVE';
 	static readonly TRANSLATE_WORKSPACE = EditorActions.CLASS_NAME + 'TRANSLATE_WORKSPACE';
 	static readonly TRANSLATE_SURFACE = EditorActions.CLASS_NAME + 'TRANSLATE_SURFACE';
+	static readonly SET_ELEMENT = EditorActions.CLASS_NAME + 'SET_ELEMENT';
 	/* Texture Action */
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
 	static readonly ADD_TEXTURES = EditorActions.CLASS_NAME + 'ADD_TEXTURES';
@@ -37,14 +37,6 @@ export class EditorActions {
       type : EditorActions.SET_MEASURE,
 			payload : {
 				measure : measure
-			}
-    };
-  }
-	selectElement (state : boolean) : IAction {
-    return {
-      type : EditorActions.SELECT_ELEMENT,
-			payload : {
-				state : state
 			}
     };
   }
@@ -96,6 +88,14 @@ export class EditorActions {
 				id : id,
 				dX : dX,
 				dY : dY
+			}
+    };
+  }
+	setElement (element : IElement) : IAction {
+    return {
+      type : EditorActions.SET_ELEMENT,
+			payload : {
+				element : element
 			}
     };
   }

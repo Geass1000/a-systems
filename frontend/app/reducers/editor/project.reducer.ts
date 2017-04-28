@@ -42,12 +42,17 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 			});
 		}
 		case EditorActions.TRANSLATE_SURFACE : {
+			/*
 			let surfaces = [...state.surfaces];
 			surfaces[action.payload.id].x += action.payload.dX;
 			surfaces[action.payload.id].y += action.payload.dY;
 			return Object.assign({}, state, {
 				surfaces : surfaces
 			});
+			*/
+			state.surfaces[action.payload.id].x += action.payload.dX;
+			state.surfaces[action.payload.id].y += action.payload.dY;
+			return state;
 		}
 	}
 	return state;
