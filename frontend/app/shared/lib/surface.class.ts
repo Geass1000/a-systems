@@ -1,23 +1,23 @@
 import { Point, IPoint } from './point.class';
 
 export interface ISurface {
+	id ?: number;
 	x : number;
 	y : number;
 	tStroke ?: string;
 	tFill ?: string;
 	points : Array<IPoint>;
-	id ?: number;
 }
 
 export class Surface implements ISurface {
-	private _x : number;							// Смещение по X от верхнего левого угла
-	private _y : number;							// Смещение по Y от верхнего левого угла
+	private _id : number;
+	private _coord : Point;						// Координаты смещения относительно верхнего левого угла
 	private _tStroke : string;				// Текстура границы поверхности
 	private _tFill : string;					// Текстура поверхности
 	private _points : Array<Point>;		// Массив точек, определяющие границы поверхности
-	private _id : number;
 
 	constructor (obj ?: ISurface) {
+		this._coord = new Point();
 		if (obj) {
 			this.x = obj.x || 0;
 			this.y = obj.y || 0;
@@ -36,16 +36,16 @@ export class Surface implements ISurface {
 	}
 
 	set x (data : number) {
-		this._x = this.prepareNumberData(data);
+		this._coord.x = data;
 	}
 	get x () : number {
-		return this._x;
+		return this._coord.x;
 	}
 	set y (data : number) {
-		this._y = this.prepareNumberData(data);
+		this._coord.y = data;
 	}
 	get y () : number {
-		return this._y;
+		return this._coord.y;
 	}
 	set tStroke (data : string) {
 		this._tStroke = data && data.toString();
@@ -75,6 +75,14 @@ export class Surface implements ISurface {
 		return isFinite(data) ? data : 0;
 	}
 
+	valueOf () : ISurface {
+		return {
+			id : this.id,	x : this.x,	y : this.y,
+			tStroke : this.tStroke, tFill : this.tFill,
+			points : this.points
+		};
+	}
+
 	/**
 	 * poliPoints - возвращает строку с координатами для аттрибута points из
 	 * полученных из массива точек surface.points.
@@ -93,6 +101,6 @@ export class Surface implements ISurface {
 	 * @return {String}  description
 	 */
 	transform () {
-		return `translate(${this.x}, ${this.y})`;
+		return this._coord.transform();
 	}
 }

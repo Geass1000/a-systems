@@ -1,5 +1,7 @@
 import { Config } from '../../config';
 
+import { Point } from './point.class';
+
 export interface IWorkspace {
 	height : number;
 	width : number;
@@ -9,13 +11,13 @@ export interface IWorkspace {
 }
 
 export class Workspace implements IWorkspace {
+	private _coord : Point;
 	private _width : number;
 	private _height : number;
 	private _texture : string;
-	private _x : number;
-	private _y : number;
 
 	constructor (obj ?: IWorkspace) {
+		this._coord = new Point();
 		if (obj) {
 			this.width = obj.width;
 			this.height = obj.height;
@@ -31,6 +33,18 @@ export class Workspace implements IWorkspace {
 		}
 	}
 
+	set x (data : number) {
+		this._coord.x = data;
+	}
+	get x () : number {
+		return this._coord.x;
+	}
+	set y (data : number) {
+		this._coord.y = data;
+	}
+	get y () : number {
+		return this._coord.y;
+	}
 	set width (data : number) {
 		this._width = this.prepareNumberData(data);
 	}
@@ -49,21 +63,10 @@ export class Workspace implements IWorkspace {
 	get texture () : string {
 		return this._texture;
 	}
-	set x (data : number) {
-		this._x = this.prepareNumberData(data);
-	}
-	get x () : number {
-		return this._x;
-	}
-	set y (data : number) {
-		this._y = this.prepareNumberData(data);
-	}
-	get y () : number {
-		return this._y;
-	}
 	prepareNumberData (data : number) : number {
 		return isFinite(data) ? data : 0;
 	}
+
 	valueOf () : IWorkspace {
 		return {
 			width : this.width,
@@ -71,7 +74,14 @@ export class Workspace implements IWorkspace {
 			texture : this.texture
 		};
 	}
+
+	/**
+	 * transform - возвращает строку для атрибута transform
+	 *
+	 * @class Workspace
+	 * @return {String}  description
+	 */
 	transform () {
-		return `translate(${this.x}, ${this.y})`;
+		return this._coord.transform();
 	}
 }

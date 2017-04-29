@@ -33,11 +33,7 @@ export class Point implements IPoint {
 		return isFinite(data) ? data : 0;
 	}
 
-	transform () {
-		return `translate(${this.x}, ${this.y})`;
-	}
-
-	toString () {
+	toString () : string {
 		return `${this.x},${this.y}`;
 	}
 	valueOf () : IPoint {
@@ -45,5 +41,15 @@ export class Point implements IPoint {
 			x : this.x,
 			y : this.y
 		};
+	}
+
+	/**
+	 * transform - возвращает строку для атрибута transform
+	 *
+	 * @class Point
+	 * @return {String}  description
+	 */
+	transform () {
+		return `translate(${this.x}, ${this.y})`;
 	}
 }
