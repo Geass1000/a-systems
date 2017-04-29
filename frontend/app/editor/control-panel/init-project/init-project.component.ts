@@ -9,7 +9,7 @@ import { Config } from '../../../config';
 
 import { LoggerService } from '../../../core/logger.service';
 import { MetricService } from '../../metric.service';
-import { DataLoadService } from '../../data-load.service';
+import { DataInitService } from '../../data-init.service';
 
 import { Workspace } from '../../../shared/lib/workspace.class';
 import { IModelInitProject } from '../../../shared/interfaces/model.interface';
@@ -35,7 +35,7 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 						 	 private modalActions : ModalActions,
 						 	 private logger : LoggerService,
 						 	 private metricService : MetricService,
-						 	 private dataLoadService : DataLoadService) {
+						 	 private dataInitService : DataInitService) {
 	}
 	ngOnInit () {
 		this.subscription.push(this.isActiveMetric$.subscribe((data) => {
@@ -68,7 +68,7 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 		this.ngRedux.dispatch(this.editorActions.updateProjectName(this.model.height));
 		this.ngRedux.dispatch(this.editorActions.updateWorkspace(resultWorkspace));
 		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
-		this.dataLoadService.initData();
+		this.dataInitService.initData();
 	}
 
 	onOpenWorkspace (el ?: boolean) {

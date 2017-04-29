@@ -13,10 +13,12 @@ import { ControlPanelModule } from './control-panel/control-panel.module';
 import { EditorComponent } from './editor.component';
 import { SurfaceComponent } from './surface/surface.component';
 
+/* App Feature - Directive */
 import { DragAndDropDirective } from './drag-and-drop.directive';
 
 /* App Feature - Service */
 import { DataLoadService } from './data-load.service';
+import { DataInitService } from './data-init.service';
 import { EditorService } from './editor.service';
 import { MetricService } from './metric.service';
 
@@ -38,7 +40,8 @@ import { MetricService } from './metric.service';
   providers:    [
 		EditorService,
 		MetricService,
-		DataLoadService
+		DataLoadService,
+		DataInitService
 	]
 })
 export class EditorModule { }

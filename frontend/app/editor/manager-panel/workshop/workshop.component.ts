@@ -41,15 +41,6 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 			this.itemCategories = Array.from(data.values());
 			this.itemCategoriesDisplay = this.itemCategories.filter((d2) => d2._pid === this.activeCategory);
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - itemCategories -', this.itemCategories);
-
-			if (data.size === 0) {
-				this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux -', 'Load item catygories...');
-				this.editorService.getItemCategories().subscribe((d2) => {
-					if (d2.categories && d2.categories.length !== 0) {
-						this.ngRedux.dispatch(this.editorActions.addItemCategories(d2.categories));
-					}
-				}, (error) => {});
-			}
 		}));
 	}
 	ngOnDestroy () {
