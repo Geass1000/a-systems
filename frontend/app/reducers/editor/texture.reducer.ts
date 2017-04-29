@@ -2,10 +2,10 @@ import { Reducer } from 'redux';
 import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
-import { ITexture, ITextureType } from '../../shared/interfaces/editor.interface';
+import { ITexture, ITextureCategory } from '../../shared/interfaces/editor.interface';
 
 export interface IEditorTexture {
-	types : Map<string, ITextureType>;
+	types : Map<string, ITextureCategory>;
 	textures : Map<string, ITexture>;
 	loaded : Map<string, boolean>;
 }
@@ -33,19 +33,19 @@ export const EditorTextureReducer : Reducer<IEditorTexture> =
 
 			ATextures.map((data : ITexture) => {
 				textures.set(data._id, data);
-				loaded.set(data.type, true);
+				loaded.set(data._cid, true);
 			});
 			return Object.assign({}, state, {
 				textures : textures,
 				loaded : loaded
 			});
 		}
-		case EditorActions.ADD_TEXTURE_TYPES : {
+		case EditorActions.ADD_TEXTURE_CATEGORIES : {
 			let types = new Map(state.types);
 			let loaded = new Map(state.loaded);
 			let ATypes = action.payload.types;
 
-			ATypes.map((data : ITextureType) => {
+			ATypes.map((data : ITextureCategory) => {
 				types.set(data._id, data);
 				loaded.set(data._id, false);
 			});

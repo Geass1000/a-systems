@@ -5,8 +5,15 @@ let Schema = mongoose.Schema;
 
 let connection = require('../config/mongodb.database');
 
+/**
+ * _cid - ID категории;
+ * type - Surface или Furniture
+ * preview - url адрес изображения превью;
+ * payload - данные о элементе, зависит от типа;
+ *
+ */
 let textureSchema = new Schema({
-	type : {
+	_cid : {
 		type : String,
 		require : true
 	},
@@ -30,7 +37,7 @@ let textureSchema = new Schema({
  * @param  {Object} user user info
  */
 textureSchema.statics.getAllTextures = function (type) {
-	let sel = '_id type url width height';
+	let sel = '_id _cid url width height';
 	return type ? this.find({ type : { $in : type} }).select(sel).exec() :
 								this.find().select(sel).exec();
 };

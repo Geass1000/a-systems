@@ -11,13 +11,13 @@ export interface IElement {
 
 export interface ITexture {
 	_id : string;
-	type : string;
+	_cid : string;
 	url : string;
 	width : number;
 	height : number;
 }
 
-export interface ITextureType {
+export interface ITextureCategory {
 	_id : string;
 	name : string;
 }

@@ -17,7 +17,7 @@ router.route('/texture')
 			.get(EditorController.getTextures)
 			.put(EditorController.addTexture);
 router.route('/texture/type')
-			.get(EditorController.getAllTextureTypes);
+			.get(EditorController.getAllTextureCategories);
 
 router.route('/item/category')
 			.get(EditorController.getAllItemCategories);

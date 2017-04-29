@@ -5,9 +5,15 @@ let Schema = mongoose.Schema;
 
 let connection = require('../config/mongodb.database');
 
+/**
+ * _pid - ID родительской категории (если нет, то равен null);
+ * name - название категории;
+ *
+ */
 let itemCategorySchema = new Schema({
 	_pid : {
-		type : String
+		type : String,
+		require : true
 	},
 	name : {
 		type : String,

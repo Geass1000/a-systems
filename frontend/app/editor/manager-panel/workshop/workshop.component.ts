@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../actions/editor.actions';
 
-import { EditorService } from '../../editor.service';
 import { LoggerService } from '../../../core/logger.service';
 
 import { IItemCategory } from '../../../shared/interfaces/editor.interface';
@@ -32,7 +31,6 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
-							 private editorService : EditorService,
 							 private logger : LoggerService) {
 	}
 	ngOnInit () {

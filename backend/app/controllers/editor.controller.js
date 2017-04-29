@@ -3,7 +3,7 @@
 let logger = require('../config/logger.config');
 
 let Texture = require('../models/texture.model');
-let TextureType = require('../models/texture-type.model');
+let TextureCategory = require('../models/texture-category.model');
 let ItemCategory = require('../models/item-category.model');
 
 /**
@@ -102,24 +102,24 @@ class EditorController {
  	 * @class EditorController
  	 * @method getTextures
  	 */
-	getAllTextureTypes (req, res) {
-		TextureType.getAllTextureTypes()
+	getAllTextureCategories (req, res) {
+		TextureCategory.getAllTextureCategories()
 			.then((doc) => {
-				logger.info('EditorController: getAllTextureTypes', JSON.stringify(doc));
+				logger.info('EditorController: getAllTextureCategories', JSON.stringify(doc));
 				if (doc.length === 0) {
-					logger.info('EditorController: getAllTextureTypes', '204:No Content');
+					logger.info('EditorController: getAllTextureCategories', '204:No Content');
 					res.status(204).send();
 				}
 				else {
-					logger.info('EditorController: getAllTextureTypes', '200:Success');
+					logger.info('EditorController: getAllTextureCategories', '200:Success');
 					res.status(200).json({
-						"types" : doc
+						"categories" : doc
 					});
 				}
 			})
 			.catch((err) => {
 				if (err) {
-					logger.info('EditorController: getAllTextureTypes', '500:Error!');
+					logger.info('EditorController: getAllTextureCategories', '500:Error!');
 					res.status(500).json({ "message" : "Try later" });
 					return;
 				}

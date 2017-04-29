@@ -60,8 +60,8 @@ export class DataInitService implements OnDestroy {
 				if (res[0].categories && res[0].categories.length !== 0) {
 					this.ngRedux.dispatch(this.editorActions.addItemCategories(res[0].categories));
 				}
-				if (res[1].types && res[1].types.length !== 0) {
-					this.ngRedux.dispatch(this.editorActions.addTextureTypes(res[1].types));
+				if (res[1].categories && res[1].categories.length !== 0) {
+					this.ngRedux.dispatch(this.editorActions.addTextureCategories(res[1].categories));
 				}
 				if (res[2].textures && res[2].textures.length !== 0) {
 					this.ngRedux.dispatch(this.editorActions.addTextures(res[2].textures));

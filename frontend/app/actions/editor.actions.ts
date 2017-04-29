@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IAction } from '../shared/interfaces/action.interface';
 
-import { ITexture, IElement, ITextureType, IItemCategory } from '../shared/interfaces/editor.interface';
+import { ITexture, IElement, ITextureCategory, IItemCategory } from '../shared/interfaces/editor.interface';
 import { Surface } from '../shared/lib/surface.class';
 import { IWorkspace } from '../shared/lib/workspace.class';
 
@@ -20,7 +20,7 @@ export class EditorActions {
 	/* Texture Action */
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
 	static readonly ADD_TEXTURES = EditorActions.CLASS_NAME + 'ADD_TEXTURES';
-	static readonly ADD_TEXTURE_TYPES = EditorActions.CLASS_NAME + 'ADD_TEXTURE_TYPES';
+	static readonly ADD_TEXTURE_CATEGORIES = EditorActions.CLASS_NAME + 'ADD_TEXTURE_CATEGORIES';
 	static readonly UPDATE_TEXTURE_LOAD = EditorActions.CLASS_NAME + 'UPDATE_TEXTURE_LOAD';
 	/* Manager Action */
 	static readonly OPEN_MANAGER_PANEL = EditorActions.CLASS_NAME + 'OPEN_MANAGER_PANEL';
@@ -117,9 +117,9 @@ export class EditorActions {
 			}
 		};
 	}
-	addTextureTypes (types : ITextureType[]) : IAction {
+	addTextureCategories (types : ITextureCategory[]) : IAction {
 		return {
-			type : EditorActions.ADD_TEXTURE_TYPES,
+			type : EditorActions.ADD_TEXTURE_CATEGORIES,
 			payload : {
 				types : types
 			}

@@ -6,7 +6,7 @@ import { EditorActions } from '../../../actions/editor.actions';
 
 import { EditorService } from '../../editor.service';
 import { LoggerService } from '../../../core/logger.service';
-import { ITexture, ITextureType } from '../../../shared/interfaces/editor.interface';
+import { ITexture, ITextureCategory } from '../../../shared/interfaces/editor.interface';
 
 @Component({
 	moduleId: module.id,
@@ -22,9 +22,9 @@ export class TextureComponent implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'texture', 'types']) textureTypes$ : Observable<Map<string, ITextureType>>;
-	private textureTypesData : Map<string, ITextureType> = new Map();
-	private textureTypes : Array<ITextureType> = [];
+	@select(['editor', 'texture', 'types']) textureTypes$ : Observable<Map<string, ITextureCategory>>;
+	private textureTypesData : Map<string, ITextureCategory> = new Map();
+	private textureTypes : Array<ITextureCategory> = [];
 	@select(['editor', 'texture', 'loaded']) textureLoaded$ : Observable<Map<string, boolean>>;
 	private textureLoadedData : Map<string, boolean> = new Map();
 	@select(['editor', 'texture', 'textures']) textures$ : Observable<Map<string, ITexture>>;
@@ -49,7 +49,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 				this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux -', 'Load texture types...');
 				this.editorService.getTextureTypes().subscribe((d2) => {
 					if (d2.types && d2.types.length !== 0) {
-						this.ngRedux.dispatch(this.editorActions.addTextureTypes(d2.types));
+						this.ngRedux.dispatch(this.editorActions.addTextureCategories(d2.types));
 					}
 				}, (error) => {});
 			}
@@ -60,7 +60,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 
 			if (data.size !== 0) {
 				this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux -', 'Use loaded textures...');
-				this.texturesView = this.textures.filter((d2) => d2.type === this.activeTextureTypeId);
+				this.texturesView = this.textures.filter((d2) => d2._cid === this.activeTextureTypeId);
 			}
 		}));
 	}
@@ -78,7 +78,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 
 		if (this.textureLoadedData.get(this.activeTextureTypeId)) {
 			this.logger.info(`${this.constructor.name}:`, 'onChangeTextureType -', 'Use loaded textures...');
-			this.texturesView = this.textures.filter((data) => data.type === this.activeTextureTypeId);
+			this.texturesView = this.textures.filter((data) => data._cid === this.activeTextureTypeId);
 		}	else {
 			this.logger.info(`${this.constructor.name}:`, 'onChangeTextureType -', 'Load textures...');
 			this.editorService.getTextures(this.activeTextureTypeId).subscribe((data) => {
