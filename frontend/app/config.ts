@@ -1,4 +1,4 @@
-import { IWorkspace } from './shared/interfaces/editor.interface';
+import { IWorkspace } from './shared/lib/workspace.class';
 
 export class Config {
 	static readonly serverUrl : string = 'http://localhost:3005/';

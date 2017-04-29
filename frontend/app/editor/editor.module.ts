@@ -13,11 +13,12 @@ import { ControlPanelModule } from './control-panel/control-panel.module';
 import { EditorComponent } from './editor.component';
 import { SurfaceComponent } from './surface/surface.component';
 
+import { DragAndDropDirective } from './drag-and-drop.directive';
+
 /* App Feature - Service */
 import { DataLoadService } from './data-load.service';
 import { EditorService } from './editor.service';
 import { MetricService } from './metric.service';
-import { DragAndDropService } from './drag-and-drop.service';
 
 @NgModule({
   imports: [
@@ -30,14 +31,14 @@ import { DragAndDropService } from './drag-and-drop.service';
 	],
   declarations: [
 		EditorComponent,
-		SurfaceComponent
+		SurfaceComponent,
+		DragAndDropDirective
 	],
   exports:      [ EditorComponent ],
   providers:    [
 		EditorService,
 		MetricService,
-		DataLoadService,
-		DragAndDropService
+		DataLoadService
 	]
 })
 export class EditorModule { }

@@ -68,7 +68,7 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 		this.ngRedux.dispatch(this.editorActions.updateProjectName(this.model.height));
 		this.ngRedux.dispatch(this.editorActions.updateWorkspace(resultWorkspace));
 		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
-		this.dataLoadService.getInitData();
+		this.dataLoadService.initData();
 	}
 
 	onOpenWorkspace (el ?: boolean) {

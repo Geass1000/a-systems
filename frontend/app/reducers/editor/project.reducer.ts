@@ -41,6 +41,20 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 				surfaces : [...state.surfaces, surface]
 			});
 		}
+		case EditorActions.TRANSLATE_WORKSPACE : {
+			/*
+			let workspace : Point = new Point({
+				x : state.workspace.x + action.payload.dX,
+				y : state.workspace.y + action.payload.dY,
+			});
+			return Object.assign({}, state, {
+				workspace : workspace
+			});
+			*/
+			state.workspace.x += action.payload.dX;
+			state.workspace.y += action.payload.dY;
+			return state;
+		}
 		case EditorActions.TRANSLATE_SURFACE : {
 			/*
 			let surfaces = [...state.surfaces];

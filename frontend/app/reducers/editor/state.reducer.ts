@@ -3,35 +3,32 @@ import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
 import { IWorkstate, IElement } from '../../shared/interfaces/editor.interface';
-import { Point } from '../../shared/lib/point.class';
 
 export interface IEditorState {
+	// Init Editor
 	isInitProject : boolean;
 	isInitWorkspace : boolean;
+	// Metrc Service
 	isActiveMetric : boolean;
-	// Control Panel
-	defMeasure : string;
 	curMeasure : string;
 	// Workspace
 	workstate : IWorkstate;
-	// Camera
+	// DragAndDrop
 	isMove : boolean;
-	workspaceCoord : Point;
 	element : IElement;
 }
 
 export const INITIAL_STATE : IEditorState = {
+	// Init Editor
 	isInitProject : false,
 	isInitWorkspace : false,
+	// Metrc Service
 	isActiveMetric : false,
-	// Control Panel
-	defMeasure : 'px',
 	curMeasure : 'm',
 	// Workspace
 	workstate : null,
-	// Camera
+	// DragAndDrop
 	isMove : false,
-	workspaceCoord : new Point(),
 	element : null
 };
 
@@ -52,20 +49,6 @@ export const EditorStateReducer : Reducer<IEditorState> =
 		}
 		case EditorActions.TOGGLE_MOVE : {
 			return Object.assign({}, state, { isMove : action.payload.state });
-		}
-		case EditorActions.TRANSLATE_WORKSPACE : {
-			/*
-			let workspaceCoord : Point = new Point({
-				x : state.workspaceCoord.x + action.payload.dX,
-				y : state.workspaceCoord.y + action.payload.dY,
-			});
-			return Object.assign({}, state, {
-				workspaceCoord : workspaceCoord
-			});
-			*/
-			state.workspaceCoord.x += action.payload.dX;
-			state.workspaceCoord.y += action.payload.dY;
-			return state;
 		}
 		case EditorActions.SET_ELEMENT : {
 			let element = Object.assign({}, action.payload.element);

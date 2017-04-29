@@ -40,4 +40,10 @@ export class Point implements IPoint {
 	toString () {
 		return `${this.x},${this.y}`;
 	}
+	valueOf () : IPoint {
+		return {
+			x : this.x,
+			y : this.y
+		};
+	}
 }

@@ -1,14 +1,3 @@
-export interface IWorkspace {
-	height : number;
-	width : number;
-	texture : string;
-}
-
-export interface ICoord {
-	x : number;
-	y : number;
-}
-
 export interface IWorkstate {
 	type : string;
 	model : any;

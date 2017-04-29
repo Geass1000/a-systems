@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { IAction } from '../shared/interfaces/action.interface';
 
-import { ITexture, IWorkspace, IElement, ITextureType, IItemCategory } from '../shared/interfaces/editor.interface';
+import { ITexture, IElement, ITextureType, IItemCategory } from '../shared/interfaces/editor.interface';
 import { Surface } from '../shared/lib/surface.class';
+import { IWorkspace } from '../shared/lib/workspace.class';
 
 @Injectable()
 export class EditorActions {
