@@ -67,7 +67,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		return (event.which || event.button) === 1;
 	}
 
-	@HostListener('mousedown', ['$event']) onMouseDown (event : any) {
+	@HostListener('mousedown', ['$event']) onMouseDown (event : MouseEvent) {
 		if (!this.detectLeftButton(event)) {
 			return false;
 		}
@@ -75,7 +75,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		this.initData();
 		this.isMouseDown = true;
 
-		let el : any = event.target.closest('.draggable');
+		let el : any = (<SVGElement>event.target).closest('.draggable');
 		this.logger.info(`${this.constructor.name}:`, 'onMouseDown - el -', el);
 
 		if (el) {
@@ -108,7 +108,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 
 		event.preventDefault();
 	}
-	@HostListener('mousemove', ['$event']) onMouseMove (event : any) {
+	@HostListener('mousemove', ['$event']) onMouseMove (event : MouseEvent) {
 		if (!this.isMouseDown) {
 			return;
 		}
@@ -136,7 +136,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		}
 		event.preventDefault();
 	}
-	@HostListener('mouseup', ['$event']) onMouseUp (event : any) {
+	@HostListener('mouseup', ['$event']) onMouseUp (event : MouseEvent) {
 		if (this.isLeave) {
 			this.logger.info(`${this.constructor.name}:`, 'onMouseUp - isLeave -', this.isLeave);
 			return;
@@ -154,7 +154,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		this.initData();
 		event.preventDefault();
 	}
-	@HostListener('mouseleave', ['$event']) onMouseLeave (event : any) {
+	@HostListener('mouseleave', ['$event']) onMouseLeave (event : MouseEvent) {
 		this.logger.info(`${this.constructor.name}:`, 'onMouseLeave - isLeave -', this.isLeave);
 		this.initData();
 		this.isLeave = true;
