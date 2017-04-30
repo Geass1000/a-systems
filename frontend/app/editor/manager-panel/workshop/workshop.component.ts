@@ -8,7 +8,6 @@ import { LoggerService } from '../../../core/logger.service';
 
 import { IItem, IItemCategory } from '../../../shared/interfaces/editor.interface';
 import { Surface } from '../../../shared/lib/surface.class';
-import { Point } from '../../../shared/lib/point.class';
 
 @Component({
 	moduleId: module.id,
@@ -61,20 +60,18 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 		if (!el) {
 			return;
 		}
-		let surface : Surface = new Surface({
-			x : 300,
-			y : 300,
-			tStroke : null,
-			tFill : null,
-			points : [
-				new Point({ x : 0, y : 0 }),
-				new Point({ x : 500, y : 0 }),
-				new Point({ x : 500, y : 500 }),
-				new Point({ x : 0, y : 500 })
-			]
-		});
-		this.ngRedux.dispatch(this.editorActions.addSurface(surface));
-		this.logger.info(`${this.constructor.name}:`, 'addElement');
+		let id : string = el.dataset.itemId;
+		let element : IItem = this.itemsData.get(id);
+		this.logger.info(`${this.constructor.name}:`, 'addElement -', id);
+		this.logger.info(`${this.constructor.name}:`, 'addElement -', this.itemsData.get(id));
+		if (element.type === 'surface') {
+			let offsetX : number = 300;
+			let offsetY : number = 300;
+			let surface : Surface = new Surface(element.payload);
+			surface.x = offsetX;
+			surface.y = offsetY;
+			this.ngRedux.dispatch(this.editorActions.addSurface(surface));
+		}
 	}
 	onChangeCategory (event : any) {
 		let el : any = event.target.closest('.form-item');
