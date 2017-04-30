@@ -21,6 +21,7 @@ export class DataLoadService implements OnDestroy {
 	private headers = new Headers({ 'Content-Type': 'application/json' });
 	private texturUrl = 'api/texture';
 	private texturTypeUrl = 'api/texture/type';
+	private itemUrl = 'api/item';
 	private itemCategoryUrl = 'api/item/category';
 
 	constructor (private http : Http,
@@ -48,6 +49,17 @@ export class DataLoadService implements OnDestroy {
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
 											this.logger.info(`${this.constructor.name}:`, 'getTextureTypes -', `status = ${resp.status} -`, jResp);
+											return jResp;
+										})
+										.retryWhen((errorObs) => this.httpService.retry(errorObs))
+										.catch(this.httpService.handleError);
+	}
+	getItems () : Observable<any> {
+		this.logger.info(`${this.constructor.name}:`, 'getItems -', 'Items loads...');
+		return this.http.get(Config.serverUrl + this.itemUrl, { headers : this.headers })
+										.map((resp : Response) => {
+											let jResp = resp.json() || {};
+											this.logger.info(`${this.constructor.name}:`, 'getItems -', `status = ${resp.status} -`, jResp);
 											return jResp;
 										})
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))

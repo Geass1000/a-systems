@@ -8,9 +8,11 @@ let connection = require('../config/mongodb.database');
 /**
  * _cid - ID категории;
  * type - Surface или Object
- * preview - url адрес изображения превью;
  * payload - данные о элементе, зависит от типа;
  *
+ * payload : { surface, object }
+ * surface :  { points, tStroke, tFill }
+ * object : { url, size }
  */
 let itemSchema = new Schema({
 	_cid : {
@@ -21,22 +23,11 @@ let itemSchema = new Schema({
 		type : String,
 		require : true
 	},
-	preview : {
-		type : String,
-		require : true
-	},
 	payload : {
 		type : Schema.Types.Mixed,
 		require : true
 	}
 });
-
-/**
- * payload : { surface, object }
- * surface :  { points, tStroke, tFill }
- * object : { url, size }
- *
- */
 
 /**
  * Получить все элементы из БД "Items"

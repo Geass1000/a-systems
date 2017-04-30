@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IAction } from '../shared/interfaces/action.interface';
 
-import { ITexture, IElement, ITextureCategory, IItemCategory } from '../shared/interfaces/editor.interface';
+import { IElement, ITexture, ITextureCategory, IItem, IItemCategory } from '../shared/interfaces/editor.interface';
 import { Surface } from '../shared/lib/surface.class';
 import { IWorkspace } from '../shared/lib/workspace.class';
 
@@ -27,7 +27,7 @@ export class EditorActions {
 	static readonly CLOSE_ACTIVE_MANAGER_PANEL = EditorActions.CLASS_NAME + 'CLOSE_ACTIVE_MANAGER_PANEL';
 	/* Item Action */
 	static readonly ADD_ITEM_CATEGORIES = EditorActions.CLASS_NAME + 'ADD_ITEM_CATEGORIES';
-	static readonly SET_ACTIVE_ITEM_CATEGORIES = EditorActions.CLASS_NAME + 'SET_ACTIVE_ITEM_CATEGORIES';
+	static readonly ADD_ITEMS = EditorActions.CLASS_NAME + 'ADD_ITEMS';
 	/* Project Action */
 	static readonly UPDATE_WORKSPACE = EditorActions.CLASS_NAME + 'UPDATE_WORKSPACE';
 	static readonly UPDATE_PROJECT_NAME = EditorActions.CLASS_NAME + 'UPDATE_PROJECT_NAME';
@@ -117,11 +117,11 @@ export class EditorActions {
 			}
 		};
 	}
-	addTextureCategories (types : ITextureCategory[]) : IAction {
+	addTextureCategories (categories : ITextureCategory[]) : IAction {
 		return {
 			type : EditorActions.ADD_TEXTURE_CATEGORIES,
 			payload : {
-				types : types
+				categories : categories
 			}
 		};
 	}
@@ -158,11 +158,11 @@ export class EditorActions {
 			}
 		};
 	}
-	setActiveItemCategories (category : string) : IAction {
+	addItems (items : IItem[]) : IAction {
 		return {
-			type : EditorActions.ADD_ITEM_CATEGORIES,
+			type : EditorActions.ADD_ITEMS,
 			payload : {
-				category : category
+				items : items
 			}
 		};
 	}

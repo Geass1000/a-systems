@@ -54,7 +54,8 @@ export class DataInitService implements OnDestroy {
 		Observable.forkJoin([
 			this.dataLoadService.getItemCategories(),
 			this.dataLoadService.getTextureTypes(),
-			this.dataLoadService.getTextures()
+			this.dataLoadService.getTextures(),
+			this.dataLoadService.getItems()
 		]).subscribe(
 			(res) => {
 				if (res[0].categories && res[0].categories.length !== 0) {
@@ -65,6 +66,9 @@ export class DataInitService implements OnDestroy {
 				}
 				if (res[2].textures && res[2].textures.length !== 0) {
 					this.ngRedux.dispatch(this.editorActions.addTextures(res[2].textures));
+				}
+				if (res[3].items && res[3].items.length !== 0) {
+					this.ngRedux.dispatch(this.editorActions.addItems(res[3].items));
 				}
 
 				this.logger.info(`${this.constructor.name}:`, 'Initialization - initLoadData - Request -', res);

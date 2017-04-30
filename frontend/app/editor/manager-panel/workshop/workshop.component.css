@@ -32,8 +32,6 @@
     box-sizing: border-box;
     width: 100%; }
     .workstate .form-content .form-item {
-      box-sizing: border-box;
-      width: 100%;
       display: -ms-flexbox;
       display: flex;
       -ms-flex-pack: start;
@@ -42,10 +40,12 @@
           align-items: center;
       -ms-flex-line-pack: center;
           align-content: center;
+      box-sizing: border-box;
+      width: 100%;
       padding: 10px 20px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      color: #5C5C5C;
-      cursor: pointer; }
+      cursor: pointer;
+      color: #5C5C5C; }
       .workstate .form-content .form-item i {
         margin-right: 5px; }
       .workstate .form-content .form-item:hover {
@@ -54,52 +54,53 @@
       .workstate .form-content .form-item.form-back {
         font-weight: bold; }
         .workstate .form-content .form-item.form-back.lock {
-          transition: background-color 0.4s, color 0.4s;
           background-color: rgba(128, 128, 128, 0.1);
-          color: #5C5C5C; }
+          color: #5C5C5C;
+          transition: background-color 0.4s, color 0.4s; }
   .workstate .form-list-item {
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
     display: -ms-flexbox;
     display: flex;
+    overflow-y: scroll;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -ms-flex-pack: start;
+        justify-content: flex-start;
     -ms-flex-align: start;
         align-items: flex-start;
     -ms-flex-line-pack: start;
         align-content: flex-start;
-    -ms-flex-pack: start;
-        justify-content: flex-start;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    padding: 1px;
-    overflow-y: scroll; }
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 1px; }
     .workstate .form-list-item .form-item {
+      display: block;
       box-sizing: border-box;
       width: 126px;
       height: 126px;
       position: relative;
-      display: block;
-      background-color: lightblue;
       border: 1px solid white; }
       .workstate .form-list-item .form-item img {
+        box-sizing: border-box;
         width: 100%;
-        height: 100%; }
+        height: 100%;
+        border: 1px solid #e8e8e8; }
       .workstate .form-list-item .form-item .overlay {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+            flex-direction: column;
+        -ms-flex-pack: center;
+            justify-content: center;
+        -ms-flex-align: center;
+            align-items: center;
+        -ms-flex-line-pack: center;
+            align-content: center;
         width: 100%;
         height: 100%;
         position: absolute;
         top: 0;
         left: 0;
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-direction: column;
-            flex-direction: column;
-        -ms-flex-align: center;
-            align-items: center;
-        -ms-flex-line-pack: center;
-            align-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
         background-color: transparent;
         cursor: pointer;
         transition: background-color 0.3s; }
@@ -114,5 +115,5 @@
         .workstate .form-list-item .form-item .overlay:hover {
           background-color: rgba(0, 0, 0, 0.6); }
         .workstate .form-list-item .form-item .overlay:hover .description {
-          opacity: 1;
-          margin-top: 0; }
+          margin-top: 0;
+          opacity: 1; }

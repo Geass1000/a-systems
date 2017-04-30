@@ -12,8 +12,8 @@
 		</div>
 	</div>
 	<div class="form-list-item" (click)="addElement($event)">
-		<div class="form-item" *ngFor="let item of [1, 2, 3]" [attr.data-item-id]="item">
-			<img src="app/shared/images/l1.jpg" />
+		<div class="form-item" *ngFor="let item of itemsDisplay" [attr.data-item-id]="item._id">
+			<img [attr.src]="getSrcItemPreview(item)" />
 			<div class="overlay">
 				<span class="description">Add<br />element?</span>
 			</div>

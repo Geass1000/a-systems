@@ -4,7 +4,7 @@ const sass = require('gulp-sass');
 const debug = require('gulp-debug');
 const autoprefixer = require('gulp-autoprefixer');
 
-const scssPath = ['app/**/*.scss', '*.scss'];
+const scssPath = ['app/**/*.scss', 'assets/scss/*.scss'];
 
 gulp.task('scss', function(){
 	return gulp.src(scssPath, { since : gulp.lastRun('scss') })

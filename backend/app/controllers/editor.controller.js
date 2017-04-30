@@ -2,9 +2,10 @@
 
 let logger = require('../config/logger.config');
 
-let Texture = require('../models/texture.model');
 let TextureCategory = require('../models/texture-category.model');
+let Texture = require('../models/texture.model');
 let ItemCategory = require('../models/item-category.model');
+let Item = require('../models/item.model');
 
 /**
  * Контроллер редактора.
@@ -28,20 +29,20 @@ class EditorController {
  	 * @param {express.Response} res
  	 *
  	 * @class EditorController
- 	 * @method getTextures
+ 	 * @method getAllTextures
  	 */
-	getTextures (req, res) {
+	getAllTextures (req, res) {
 		let type = req.query.type ? req.query.type.split(" ") : null;
 
 		Texture.getAllTextures(type)
 			.then((doc) => {
-				logger.info('EditorController: getTextures', JSON.stringify(doc));
+				logger.info('EditorController: getAllTextures', JSON.stringify(doc));
 				if (doc.length === 0) {
-					logger.info('EditorController: getTextures', '204:No Content');
+					logger.info('EditorController: getAllTextures', '204:No Content');
 					res.status(204).send();
 				}
 				else {
-					logger.info('EditorController: getTextures', '200:Success');
+					logger.info('EditorController: getAllTextures', '200:Success');
 					res.status(200).json({
 						"textures" : doc
 					});
@@ -49,7 +50,7 @@ class EditorController {
 			})
 			.catch((err) => {
 				if (err) {
-					logger.info('EditorController: getTextures', '500:Error!');
+					logger.info('EditorController: getAllTextures', '500:Error!');
 					res.status(500).json({ "message" : "Try later" });
 					return;
 				}
@@ -63,7 +64,7 @@ class EditorController {
  	 * @param {express.Response} res
  	 *
  	 * @class EditorController
- 	 * @method getTextures
+ 	 * @method addTexture
  	 */
 	addTexture (req, res) {
 		let info = req.body;
@@ -100,7 +101,7 @@ class EditorController {
  	 * @param {express.Response} res
  	 *
  	 * @class EditorController
- 	 * @method getTextures
+ 	 * @method getAllTextureCategories
  	 */
 	getAllTextureCategories (req, res) {
 		TextureCategory.getAllTextureCategories()
@@ -133,7 +134,7 @@ class EditorController {
  	 * @param {express.Response} res
  	 *
  	 * @class EditorController
- 	 * @method getTextures
+ 	 * @method getAllItemCategories
  	 */
 	getAllItemCategories (req, res) {
 		ItemCategory.getAllItemCategories()
@@ -153,6 +154,38 @@ class EditorController {
 			.catch((err) => {
 				if (err) {
 					logger.info('EditorController: getAllItemCategories', '500:Error!');
+					res.status(500).json({ "message" : "Try later" });
+					return;
+				}
+			});
+	}
+	/**
+ 	 * Получение всех предметов из БД 'Item'.
+ 	 *
+ 	 * @param {express.Request} req
+ 	 * @param {express.Response} res
+ 	 *
+ 	 * @class EditorController
+ 	 * @method getAllItems
+ 	 */
+	getAllItems (req, res) {
+		Item.getAllItems()
+			.then((doc) => {
+				logger.info('EditorController: getAllItems', JSON.stringify(doc));
+				if (doc.length === 0) {
+					logger.info('EditorController: getAllItems', '204:No Content');
+					res.status(204).send();
+				}
+				else {
+					logger.info('EditorController: getAllItems', '200:Success');
+					res.status(200).json({
+						"items" : doc
+					});
+				}
+			})
+			.catch((err) => {
+				if (err) {
+					logger.info('EditorController: getAllItems', '500:Error!');
 					res.status(500).json({ "message" : "Try later" });
 					return;
 				}

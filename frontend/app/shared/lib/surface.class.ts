@@ -2,10 +2,10 @@ import { Point, IPoint } from './point.class';
 
 export interface ISurface {
 	id ?: number;
-	x : number;
-	y : number;
-	tStroke ?: string;
-	tFill ?: string;
+	x ?: number;
+	y ?: number;
+	tStroke : string;
+	tFill : string;
 	points : Array<IPoint>;
 }
 
@@ -21,8 +21,8 @@ export class Surface implements ISurface {
 		if (obj) {
 			this.x = obj.x || 0;
 			this.y = obj.y || 0;
-			this.tStroke = obj.tStroke || null;
-			this.tFill = obj.tFill || null;
+			this.tStroke = obj.tStroke;
+			this.tFill = obj.tFill;
 			this._points = obj.points.map((data : IPoint) => { return new Point(data); });
 			this.id = obj.id || null;
 		} else {

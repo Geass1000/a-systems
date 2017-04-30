@@ -14,11 +14,13 @@ let jwtCheck = jwt({
 });
 
 router.route('/texture')
-			.get(EditorController.getTextures)
+			.get(EditorController.getAllTextures)
 			.put(EditorController.addTexture);
 router.route('/texture/type')
 			.get(EditorController.getAllTextureCategories);
 
+router.route('/item')
+			.get(EditorController.getAllItems);
 router.route('/item/category')
 			.get(EditorController.getAllItemCategories);
 //... other paths

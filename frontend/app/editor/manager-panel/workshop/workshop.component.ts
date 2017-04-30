@@ -6,7 +6,7 @@ import { EditorActions } from '../../../actions/editor.actions';
 
 import { LoggerService } from '../../../core/logger.service';
 
-import { IItemCategory } from '../../../shared/interfaces/editor.interface';
+import { IItem, IItemCategory } from '../../../shared/interfaces/editor.interface';
 import { Surface } from '../../../shared/lib/surface.class';
 import { Point } from '../../../shared/lib/point.class';
 
@@ -28,6 +28,10 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	private itemCategoriesData : Map<string, IItemCategory> = new Map();
 	private itemCategories : Array<IItemCategory> = [];
 	private itemCategoriesDisplay : Array<IItemCategory> = [];
+	@select(['editor', 'item', 'items']) items$ : Observable<Map<string, IItem>>;
+	private itemsData : Map<string, IItem> = new Map();
+	private items : Array<IItem> = [];
+	private itemsDisplay : Array<IItem> = [];
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
@@ -39,6 +43,12 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 			this.itemCategories = Array.from(data.values());
 			this.itemCategoriesDisplay = this.itemCategories.filter((d2) => d2._pid === this.activeCategory);
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - itemCategories -', this.itemCategories);
+		}));
+		this.subscription.push(this.items$.subscribe((data) => {
+			this.itemsData = data;
+			this.items = Array.from(data.values());
+			this.itemsDisplay = this.items.filter((d2) => d2._cid === this.activeCategory);
+			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - items -', this.items);
 		}));
 	}
 	ngOnDestroy () {
@@ -54,6 +64,8 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 		let surface : Surface = new Surface({
 			x : 300,
 			y : 300,
+			tStroke : null,
+			tFill : null,
 			points : [
 				new Point({ x : 0, y : 0 }),
 				new Point({ x : 500, y : 0 }),
@@ -66,21 +78,22 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	}
 	onChangeCategory (event : any) {
 		let el : any = event.target.closest('.form-item');
-		if (el !== null) {
-			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - categoryId', el.dataset.categoryId);
-			if (el.dataset.categoryId === 'back') {
-				this.activeCategory = this.getParentCategoryId(this.activeCategory);
-			} else {
-				this.activeCategory = el.dataset.categoryId;
-			}
-			this.prevCategory = this.getParentCategoryName(this.activeCategory);
-			this.itemCategoriesDisplay = this.itemCategories.filter((data) => data._pid === this.activeCategory);
-
-			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - prevCategory -', this.prevCategory);
-			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - activeCategory -', this.activeCategory);
-		}	else {
+		if (!el) {
 			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - Not navigation element');
+			return;
 		}
+		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - categoryId', el.dataset.categoryId);
+		if (el.dataset.categoryId === 'back') {
+			this.activeCategory = this.getParentCategoryId(this.activeCategory);
+		} else {
+			this.activeCategory = el.dataset.categoryId;
+		}
+		this.prevCategory = this.getParentCategoryName(this.activeCategory);
+		this.itemCategoriesDisplay = this.itemCategories.filter((data) => data._pid === this.activeCategory);
+
+		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - prevCategory -', this.prevCategory);
+		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - activeCategory -', this.activeCategory);
+		this.itemsDisplay = this.items.filter((d1) => d1._cid === this.activeCategory);
 	}
 	getParentCategoryId (id : string) {
 		return id ? this.itemCategoriesData.get(id)._pid : id;
@@ -88,5 +101,9 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	getParentCategoryName (id : string) {
 		let parent = this.getParentCategoryId(id);
 		return parent ? this.itemCategoriesData.get(parent).name : this.rootCategory;
+	}
+
+	getSrcItemPreview (item : IItem) {
+		return `assets/items-preview/${item._id}.png`;
 	}
 }

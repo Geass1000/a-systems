@@ -2,38 +2,43 @@ import { Reducer } from 'redux';
 import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
-import { IItemCategory } from '../../shared/interfaces/editor.interface';
+import { IItem, IItemCategory } from '../../shared/interfaces/editor.interface';
 
 export interface IEditorItem {
 	categories : Map<string, IItemCategory>;
-	loaded : Map<string, boolean>;
 	activeCategory : string;
+	items : Map<string, IItem>;
 }
 
 export const INITIAL_STATE : IEditorItem = {
 	categories : new Map(),
-	loaded : new Map(),
-	activeCategory : null
+	activeCategory : null,
+	items : new Map()
 };
 
 export const EditorItemReducer : Reducer<IEditorItem> = (state : IEditorItem = INITIAL_STATE, action : IAction) : IEditorItem => {
 	switch (action.type) {
 		case EditorActions.ADD_ITEM_CATEGORIES : {
 			let categories = new Map(state.categories);
-			let loaded = new Map(state.loaded);
 			let ACategories = action.payload.categories;
 
 			ACategories.map((data : IItemCategory) => {
 				categories.set(data._id, data);
-				loaded.set(data._id, false);
 			});
 			return Object.assign({}, state, {
-				categories : categories,
-				loaded : loaded
+				categories : categories
 			});
 		}
-		case EditorActions.SET_ACTIVE_ITEM_CATEGORIES : {
-			return state;
+		case EditorActions.ADD_ITEMS : {
+			let items = new Map(state.items);
+			let AItems = action.payload.items;
+
+			AItems.map((data : IItem) => {
+				items.set(data._id, data);
+			});
+			return Object.assign({}, state, {
+				items : items
+			});
 		}
 	}
 	return state;

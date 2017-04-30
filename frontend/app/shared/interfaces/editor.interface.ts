@@ -1,3 +1,5 @@
+import { ISurface } from '../lib/surface.class';
+
 export interface IWorkstate {
 	type : string;
 	model : any;
@@ -16,12 +18,17 @@ export interface ITexture {
 	width : number;
 	height : number;
 }
-
 export interface ITextureCategory {
 	_id : string;
 	name : string;
 }
 
+export interface IItem {
+	_id : string;
+	_cid : string;
+	type : string;
+	payload : ISurface;
+}
 export interface IItemCategory {
 	_id : string;
 	_pid : string;

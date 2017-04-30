@@ -5,13 +5,13 @@ import { IAction } from '../../shared/interfaces/action.interface';
 import { ITexture, ITextureCategory } from '../../shared/interfaces/editor.interface';
 
 export interface IEditorTexture {
-	types : Map<string, ITextureCategory>;
+	categories : Map<string, ITextureCategory>;
 	textures : Map<string, ITexture>;
 	loaded : Map<string, boolean>;
 }
 
 export const INITIAL_STATE : IEditorTexture = {
-	types : new Map(),
+	categories : new Map(),
 	textures : new Map(),
 	loaded : new Map()
 };
@@ -41,16 +41,16 @@ export const EditorTextureReducer : Reducer<IEditorTexture> =
 			});
 		}
 		case EditorActions.ADD_TEXTURE_CATEGORIES : {
-			let types = new Map(state.types);
+			let categories = new Map(state.categories);
 			let loaded = new Map(state.loaded);
-			let ATypes = action.payload.types;
+			let ATypes = action.payload.categories;
 
 			ATypes.map((data : ITextureCategory) => {
-				types.set(data._id, data);
+				categories.set(data._id, data);
 				loaded.set(data._id, false);
 			});
 			return Object.assign({}, state, {
-				types : types,
+				categories : categories,
 				loaded : loaded
 			});
 		}
