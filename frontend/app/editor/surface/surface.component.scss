@@ -20,8 +20,10 @@
 		display: block;
 		fill : rgba(30,131,236,0.2);
 		cursor: pointer;
-		&:hover {
-			fill : rgba(30,131,236,0.5);
+		circle {
+			&:hover, &.activated {
+				fill : rgba(30,131,236,0.5);
+			}
 		}
 	}
 }

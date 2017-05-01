@@ -16,6 +16,7 @@ export class EditorActions {
 	static readonly TOGGLE_MOVE = EditorActions.CLASS_NAME + 'TOGGLE_MOVE';
 	static readonly TRANSLATE_WORKSPACE = EditorActions.CLASS_NAME + 'TRANSLATE_WORKSPACE';
 	static readonly TRANSLATE_SURFACE = EditorActions.CLASS_NAME + 'TRANSLATE_SURFACE';
+	static readonly TRANSLATE_SURFACE_POINT = EditorActions.CLASS_NAME + 'TRANSLATE_SURFACE_POINT';
 	static readonly SET_ACTIVE_ELEMENTS = EditorActions.CLASS_NAME + 'SET_ACTIVE_ELEMENTS';
 	/* Texture Action */
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
@@ -86,9 +87,20 @@ export class EditorActions {
     return {
       type : EditorActions.TRANSLATE_SURFACE,
 			payload : {
-				id : arr[0],
-				dX : arr[1],
-				dY : arr[2]
+				dX : arr[0],
+				dY : arr[1],
+				id : arr[2]
+			}
+    };
+  }
+	translateSurfacePoint (arr : Array<number>) : IAction {
+    return {
+      type : EditorActions.TRANSLATE_SURFACE_POINT,
+			payload : {
+				dX : arr[0],
+				dY : arr[1],
+				id : arr[2],
+				pid : arr[3]
 			}
     };
   }

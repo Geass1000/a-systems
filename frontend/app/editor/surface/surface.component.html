@@ -6,6 +6,6 @@
 	<svg:g class="points">
 		<svg:circle class="draggable" *ngFor="let pt of surface.points; let j = index"
 			cx="0" cy="0" r="20" [attr.transform]="pt.transform()"
-			data-type="point" [attr.data-id]="j" />
+			[class.activated]="isActivePoint(j)" data-type="point" [attr.data-id]="j" />
 	</svg:g>
 </svg:g>

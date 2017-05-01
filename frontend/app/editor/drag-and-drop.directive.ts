@@ -200,7 +200,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		this.shiftX = event.clientX;
 		this.shiftY = event.clientY;
 
-		let action = this.editorActions[this.nameTranslateMethod]([...this.argsTranslateMethod, dX, dY]);
+		let action = this.editorActions[this.nameTranslateMethod]([dX, dY, ...this.argsTranslateMethod]);
 		this.ngRedux.dispatch(action);
 		event.preventDefault();
 	}

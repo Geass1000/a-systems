@@ -12,7 +12,7 @@
   display: block;
   fill: rgba(30, 131, 236, 0.2);
   cursor: pointer; }
-  .activated .points:hover {
+  .activated .points circle:hover, .activated .points circle.activated {
     fill: rgba(30, 131, 236, 0.5); }
 
 .selected polygon {

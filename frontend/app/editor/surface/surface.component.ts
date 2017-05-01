@@ -47,4 +47,10 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 		}
 		return this.activeElements[0].type === 'surface' && this.activeElements[0].id === index;
 	}
+	isActivePoint (index : number) {
+		if (!this.activeElements || this.activeElements.length < 2) {
+			return false;
+		}
+		return this.activeElements[1].type === 'point' && this.activeElements[1].id === index;
+	}
 }
