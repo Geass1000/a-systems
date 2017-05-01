@@ -86,7 +86,7 @@ export class DataInitService implements OnDestroy {
 				halfWorkspaceHeight : number = this.workspace.height / 2;
 		let workspaceX = halfWindowWidth - halfWorkspaceWidth;
 		let workspaceY = halfWindowHeight - halfWorkspaceHeight;
-		this.ngRedux.dispatch(this.editorActions.translateWorkspace(workspaceX, workspaceY));
+		this.ngRedux.dispatch(this.editorActions.translateWorkspace([workspaceX, workspaceY]));
 
 		this.logger.info(`${this.constructor.name}:`, `Initialization - initWorkspace - X - ${workspaceX} - Y - ${workspaceY}`);
 		this.isInit.set('workspace', true);
