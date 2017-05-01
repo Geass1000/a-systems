@@ -1,10 +1,11 @@
 <svg:g class="draggable" *ngFor="let surface of surfaces; let i = index"
-	data-type="surface" [attr.data-id]="i" [class.activated]="isActivated(i)"
+	data-type="surface" [attr.data-id]="i" [class.activated]="isActiveSurface(i)"
 	[attr.transform]="surface.transform()">
 	<svg:polygon class="floor" [attr.stroke-width]="20"
 		[attr.points]="surface.poliPoints()" />
 	<svg:g class="points">
-		<svg:circle class="draggable" *ngFor="let pt of surface.points"
-			cx="0" cy="0" r="20" [attr.transform]="pt.transform()" />
+		<svg:circle class="draggable" *ngFor="let pt of surface.points; let j = index"
+			cx="0" cy="0" r="20" [attr.transform]="pt.transform()"
+			data-type="point" [attr.data-id]="j" />
 	</svg:g>
 </svg:g>

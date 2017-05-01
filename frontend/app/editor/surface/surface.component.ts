@@ -20,8 +20,8 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'state', 'element']) element$ : Observable<IElement>;
-	private element : IElement;
+	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
+	private activeElements : Array<IElement>;
 	@select(['editor', 'project', 'surfaces']) surfaces$ : Observable<Array<Surface>>;
 	private surfaces : Array<Surface>;
 
@@ -30,9 +30,9 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 							 private logger : LoggerService) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.element$.subscribe((data) => {
-			this.element = data;
-			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux -', this.element);
+		this.subscription.push(this.activeElements$.subscribe((data) => {
+			this.activeElements = data;
+			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - activeElements -', this.activeElements);
 		}));
 		this.subscription.push(this.surfaces$.subscribe((data) => {
 			this.surfaces = data;
@@ -41,7 +41,10 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
-	isActivated (index : number) {
-		return this.element && this.element.type === 'surface' && this.element.id === index;
+	isActiveSurface (index : number) {
+		if (!this.activeElements || !this.activeElements.length) {
+			return false;
+		}
+		return this.activeElements[0].type === 'surface' && this.activeElements[0].id === index;
 	}
 }

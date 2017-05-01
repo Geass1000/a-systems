@@ -16,6 +16,7 @@ export interface IEditorState {
 	// DragAndDrop
 	isMove : boolean;
 	element : IElement;
+	activeElements : Array<IElement>;
 }
 
 export const INITIAL_STATE : IEditorState = {
@@ -29,7 +30,8 @@ export const INITIAL_STATE : IEditorState = {
 	workstate : null,
 	// DragAndDrop
 	isMove : false,
-	element : null
+	element : null,
+	activeElements : []
 };
 
 export const EditorStateReducer : Reducer<IEditorState> =
@@ -50,9 +52,9 @@ export const EditorStateReducer : Reducer<IEditorState> =
 		case EditorActions.TOGGLE_MOVE : {
 			return Object.assign({}, state, { isMove : action.payload.state });
 		}
-		case EditorActions.SET_ELEMENT : {
-			let element = Object.assign({}, action.payload.element);
-			return Object.assign({}, state, { element : element });
+		case EditorActions.SET_ACTIVE_ELEMENTS : {
+			let activeElements = [...action.payload.elements];
+			return Object.assign({}, state, { activeElements : activeElements });
 		}
 	}
 	return state;

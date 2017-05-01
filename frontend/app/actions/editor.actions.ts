@@ -16,7 +16,7 @@ export class EditorActions {
 	static readonly TOGGLE_MOVE = EditorActions.CLASS_NAME + 'TOGGLE_MOVE';
 	static readonly TRANSLATE_WORKSPACE = EditorActions.CLASS_NAME + 'TRANSLATE_WORKSPACE';
 	static readonly TRANSLATE_SURFACE = EditorActions.CLASS_NAME + 'TRANSLATE_SURFACE';
-	static readonly SET_ELEMENT = EditorActions.CLASS_NAME + 'SET_ELEMENT';
+	static readonly SET_ACTIVE_ELEMENTS = EditorActions.CLASS_NAME + 'SET_ACTIVE_ELEMENTS';
 	/* Texture Action */
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
 	static readonly ADD_TEXTURES = EditorActions.CLASS_NAME + 'ADD_TEXTURES';
@@ -73,30 +73,30 @@ export class EditorActions {
 			}
     };
   }
-	translateWorkspace (dX : number, dY : number) : IAction {
+	translateWorkspace (arr : Array<number>) : IAction {
     return {
       type : EditorActions.TRANSLATE_WORKSPACE,
 			payload : {
-				dX : dX,
-				dY : dY
+				dX : arr[0],
+				dY : arr[1]
 			}
     };
   }
-	translateSurface (id : number, dX : number, dY : number) : IAction {
+	translateSurface (arr : Array<number>) : IAction {
     return {
       type : EditorActions.TRANSLATE_SURFACE,
 			payload : {
-				id : id,
-				dX : dX,
-				dY : dY
+				id : arr[0],
+				dX : arr[1],
+				dY : arr[2]
 			}
     };
   }
-	setElement (element : IElement) : IAction {
+	setActiveElements (elements : Array<IElement>) : IAction {
     return {
-      type : EditorActions.SET_ELEMENT,
+      type : EditorActions.SET_ACTIVE_ELEMENTS,
 			payload : {
-				element : element
+				elements : elements
 			}
     };
   }

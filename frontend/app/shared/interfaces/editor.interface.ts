@@ -8,7 +8,6 @@ export interface IWorkstate {
 export interface IElement {
 	type : string;
 	id : number;
-	pid ?: number;										// Point id
 }
 
 export interface ITexture {
