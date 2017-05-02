@@ -1,2 +1,4 @@
-<svg:use x="0" y="0" *ngFor="let thing of things; let i = index"
-	[attr.xlink:href]="createPath(thing.url)" />
+<svg:use *ngFor="let thing of things; let i = index"
+	class="draggable" data-type="thing" [attr.data-id]="i"
+	x="0" y="0"
+	[attr.xlink:href]="createPath(thing.url)" [attr.transform]="thing.transform()" />

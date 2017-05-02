@@ -4,24 +4,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="161px" height="70px" version="1.1" viewBox="0 0 161 70"
  xmlns:xlink="http://www.w3.org/1999/xlink">
 	<defs>
-		<style type="text/css">
-			<![CDATA[
-				.fil0 {fill:#2B2A29}
-				.fil1 {fill:#B8A28C}
-			]]>
-		</style>
 		<g id="element">
-			<rect id="overlay" class="fil0" x="0" width="161px" height="70px"/>
-			<rect id="d0" class="fil1" y="1" x="1" width="15px" height="68px"/>
-			<rect id="d1" class="fil1" y="1" x="17" width="15px" height="68px"/>
-			<rect id="d2" class="fil1" y="1" x="33" width="15px" height="68px"/>
-			<rect id="d3" class="fil1" y="1" x="49" width="15px" height="68px"/>
-			<rect id="d4" class="fil1" y="1" x="65" width="15px" height="68px"/>
-			<rect id="d5" class="fil1" y="1" x="81" width="15px" height="68px"/>
-			<rect id="d6" class="fil1" y="1" x="97" width="15px" height="68px"/>
-			<rect id="d7" class="fil1" y="1" x="113" width="15px" height="68px"/>
-			<rect id="d8" class="fil1" y="1" x="129" width="15px" height="68px"/>
-			<rect id="d9" class="fil1" y="1" x="145" width="15px" height="68px"/>
+			<rect id="overlay" style="fill:#2B2A29" x="0" width="161px" height="70px"/>
+			<rect id="d0" style="fill:#B8A28C" y="1" x="1" width="15px" height="68px"/>
+			<rect id="d1" style="fill:#B8A28C" y="1" x="17" width="15px" height="68px"/>
+			<rect id="d2" style="fill:#B8A28C" y="1" x="33" width="15px" height="68px"/>
+			<rect id="d3" style="fill:#B8A28C" y="1" x="49" width="15px" height="68px"/>
+			<rect id="d4" style="fill:#B8A28C" y="1" x="65" width="15px" height="68px"/>
+			<rect id="d5" style="fill:#B8A28C" y="1" x="81" width="15px" height="68px"/>
+			<rect id="d6" style="fill:#B8A28C" y="1" x="97" width="15px" height="68px"/>
+			<rect id="d7" style="fill:#B8A28C" y="1" x="113" width="15px" height="68px"/>
+			<rect id="d8" style="fill:#B8A28C" y="1" x="129" width="15px" height="68px"/>
+			<rect id="d9" style="fill:#B8A28C" y="1" x="145" width="15px" height="68px"/>
 		</g>
-	</defs>	
+	</defs>
 </svg>
