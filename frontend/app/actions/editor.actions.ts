@@ -3,6 +3,7 @@ import { IAction } from '../shared/interfaces/action.interface';
 
 import { IElement, ITexture, ITextureCategory, IItem, IItemCategory } from '../shared/interfaces/editor.interface';
 import { Surface } from '../shared/lib/surface.class';
+import { Thing } from '../shared/lib/thing.class';
 import { IWorkspace } from '../shared/lib/workspace.class';
 
 @Injectable()
@@ -33,6 +34,7 @@ export class EditorActions {
 	static readonly UPDATE_WORKSPACE = EditorActions.CLASS_NAME + 'UPDATE_WORKSPACE';
 	static readonly UPDATE_PROJECT_NAME = EditorActions.CLASS_NAME + 'UPDATE_PROJECT_NAME';
 	static readonly ADD_SURFACE = EditorActions.CLASS_NAME + 'ADD_SURFACE';
+	static readonly ADD_THING = EditorActions.CLASS_NAME + 'ADD_THING';
 
 	setMeasure (measure : string) : IAction {
     return {
@@ -200,6 +202,14 @@ export class EditorActions {
       type : EditorActions.ADD_SURFACE,
 			payload : {
 				surface : surface
+			}
+    };
+  }
+	addThing (thing : Thing) : IAction {
+    return {
+      type : EditorActions.ADD_THING,
+			payload : {
+				thing : thing
 			}
     };
   }

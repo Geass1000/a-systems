@@ -1,4 +1,5 @@
 import { ISurface } from '../lib/surface.class';
+import { IThing } from '../lib/thing.class';
 
 export interface IWorkstate {
 	type : string;
@@ -26,7 +27,7 @@ export interface IItem {
 	_id : string;
 	_cid : string;
 	type : string;
-	payload : ISurface;
+	payload : ISurface | IThing;
 }
 export interface IItemCategory {
 	_id : string;

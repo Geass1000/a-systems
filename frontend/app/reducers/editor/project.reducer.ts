@@ -4,17 +4,20 @@ import { IAction } from '../../shared/interfaces/action.interface';
 
 import { Workspace } from '../../shared/lib/workspace.class';
 import { Surface } from '../../shared/lib/surface.class';
+import { Thing } from '../../shared/lib/thing.class';
 
 export interface IEditorProject {
 	name : string;
 	workspace : Workspace;
 	surfaces : Array<Surface>;
+	things : Array<Thing>;
 }
 
 export const INITIAL_STATE : IEditorProject = {
 	name : '',
 	workspace : null,
-	surfaces : []
+	surfaces : [],
+	things : []
 };
 
 export const EditorProjectReducer : Reducer<IEditorProject> =
@@ -39,6 +42,19 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 			surface.id = index;
 			return Object.assign({}, state, {
 				surfaces : [...state.surfaces, surface]
+			});
+		}
+		case EditorActions.ADD_THING : {
+			let thing : Thing = new Thing(action.payload.thing);
+			let index = 0;
+			state.things.map((data : Thing) => {
+				if (data.id >= index) {
+					index = data.id + 1;
+				}
+			});
+			thing.id = index;
+			return Object.assign({}, state, {
+				things : [...state.things, thing]
 			});
 		}
 		case EditorActions.TRANSLATE_WORKSPACE : {

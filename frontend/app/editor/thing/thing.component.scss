@@ -1,0 +1,33 @@
+.floor {
+	fill : orange;
+
+	stroke : rgba(150, 150, 150, 1);
+}
+
+.draggable {
+	-moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.points {
+	display: none;
+}
+.activated {
+
+	.points {
+		display: block;
+		fill : rgba(30,131,236,0.2);
+		cursor: pointer;
+		circle {
+			&:hover, &.activated {
+				fill : rgba(30,131,236,0.5);
+			}
+		}
+	}
+}
+
+.selected polygon {
+	stroke : rgba(30,131,236,1);
+}

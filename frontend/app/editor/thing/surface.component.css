@@ -1,0 +1,19 @@
+.floor {
+  fill: orange;
+  stroke: #969696; }
+
+.draggable {
+  transition: all 0.2s ease-in-out; }
+
+.points {
+  display: none; }
+
+.activated .points {
+  display: block;
+  fill: rgba(30, 131, 236, 0.2);
+  cursor: pointer; }
+  .activated .points circle:hover, .activated .points circle.activated {
+    fill: rgba(30, 131, 236, 0.5); }
+
+.selected polygon {
+  stroke: #1e83ec; }

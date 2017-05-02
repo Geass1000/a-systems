@@ -12,6 +12,7 @@ import { ControlPanelModule } from './control-panel/control-panel.module';
 /* App Feature - Component */
 import { EditorComponent } from './editor.component';
 import { SurfaceComponent } from './surface/surface.component';
+import { ThingComponent } from './thing/thing.component';
 
 /* App Feature - Directive */
 import { DragAndDropDirective } from './drag-and-drop.directive';
@@ -34,6 +35,7 @@ import { MetricService } from './metric.service';
   declarations: [
 		EditorComponent,
 		SurfaceComponent,
+		ThingComponent,
 		DragAndDropDirective
 	],
   exports:      [ EditorComponent ],

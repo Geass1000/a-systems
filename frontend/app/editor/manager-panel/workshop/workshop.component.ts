@@ -7,7 +7,8 @@ import { EditorActions } from '../../../actions/editor.actions';
 import { LoggerService } from '../../../core/logger.service';
 
 import { IItem, IItemCategory } from '../../../shared/interfaces/editor.interface';
-import { Surface } from '../../../shared/lib/surface.class';
+import { ISurface, Surface } from '../../../shared/lib/surface.class';
+import { IThing, Thing } from '../../../shared/lib/thing.class';
 
 @Component({
 	moduleId: module.id,
@@ -67,11 +68,20 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 		if (element.type === 'surface') {
 			let offsetX : number = 300;
 			let offsetY : number = 300;
-			let surface : Surface = new Surface(element.payload);
+			let surface : any = new Surface(<ISurface>element.payload);
 			surface.x = offsetX;
 			surface.y = offsetY;
 			this.ngRedux.dispatch(this.editorActions.addSurface(surface));
+		} else if (element.type === 'thing') {
+			let offsetX : number = 300;
+			let offsetY : number = 300;
+			let thing : any = new Thing(<IThing>element.payload);
+			thing.x = offsetX;
+			thing.y = offsetY;
+			thing.url = element._id;
+			this.ngRedux.dispatch(this.editorActions.addThing(thing));
 		}
+		console.log(this.ngRedux.getState().editor.project);
 	}
 	onChangeCategory (event : any) {
 		let el : any = event.target.closest('.form-item');
