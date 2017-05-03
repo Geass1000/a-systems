@@ -69,6 +69,8 @@ export class Workspace implements IWorkspace {
 
 	valueOf () : IWorkspace {
 		return {
+			x : this.x,
+			y : this.y,
 			width : this.width,
 			height : this.height,
 			texture : this.texture

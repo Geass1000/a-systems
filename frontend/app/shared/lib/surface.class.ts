@@ -77,8 +77,11 @@ export class Surface implements ISurface {
 
 	valueOf () : ISurface {
 		return {
-			id : this.id,	x : this.x,	y : this.y,
-			tStroke : this.tStroke, tFill : this.tFill,
+			id : this.id,
+			x : this.x,
+			y : this.y,
+			tStroke : this.tStroke,
+			tFill : this.tFill,
 			points : this.points
 		};
 	}

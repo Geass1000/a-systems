@@ -6,7 +6,7 @@ export interface IThing {
 	width : number;
 	x ?: number;
 	y ?: number;
-	url ?: string;
+	url : string;
 }
 
 export class Thing implements IThing {
@@ -73,7 +73,10 @@ export class Thing implements IThing {
 	valueOf () : IThing {
 		return {
 			width : this.width,
-			height : this.height
+			height : this.height,
+			url : this.url,
+			x : this.x,
+			y : this.y
 		};
 	}
 
