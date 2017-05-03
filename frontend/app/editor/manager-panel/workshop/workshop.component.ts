@@ -9,6 +9,8 @@ import { LoggerService } from '../../../core/logger.service';
 import { IItem, IItemCategory } from '../../../shared/interfaces/editor.interface';
 import { ISurface, Surface } from '../../../shared/lib/surface.class';
 import { IThing, Thing } from '../../../shared/lib/thing.class';
+import { Workspace } from '../../../shared/lib/workspace.class';
+import { IPoint } from '../../../shared/lib/point.class';
 
 @Component({
 	moduleId: module.id,
@@ -32,6 +34,8 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	private itemsData : Map<string, IItem> = new Map();
 	private items : Array<IItem> = [];
 	private itemsDisplay : Array<IItem> = [];
+	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
+	private workspace : Workspace;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
@@ -50,50 +54,78 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 			this.itemsDisplay = this.items.filter((d2) => d2._cid === this.activeCategory);
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - items -', this.items);
 		}));
+		this.subscription.push(this.workspace$.subscribe((data) => {
+ 			this.workspace = data;
+ 		}));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
 	/* Events */
-	addElement (event : any) {
+	addItem (event : any) {
 		let el : any = event.target.closest('.form-item');
 		if (!el) {
 			return;
 		}
-		let id : string = el.dataset.itemId;
-		let element : IItem = this.itemsData.get(id);
-		this.logger.info(`${this.constructor.name}:`, 'addElement -', id);
-		this.logger.info(`${this.constructor.name}:`, 'addElement -', this.itemsData.get(id));
-		if (element.type === 'surface') {
-			let offsetX : number = 300;
-			let offsetY : number = 300;
-			let surface : any = new Surface(<ISurface>element.payload);
-			surface.x = offsetX;
-			surface.y = offsetY;
+		let itemId : string = el.getAttribute('data-item-id').toString();
+		let item : IItem = this.itemsData.get(itemId);
+		this.logger.info(`${this.constructor.name}:`, 'addItem -', itemId);
+		this.logger.info(`${this.constructor.name}:`, 'addItem -', item);
+
+		if (item.type === 'surface') {
+			let itemSurface : ISurface = <ISurface>item.payload;
+			let surface : any = new Surface(itemSurface);
+			// Coord Surface
+			let offset : IPoint = this.getCoordItem(500, 500);
+			surface.x = offset.x;
+			surface.y = offset.y;
+
 			this.ngRedux.dispatch(this.editorActions.addSurface(surface));
-		} else if (element.type === 'thing') {
-			let offsetX : number = 300;
-			let offsetY : number = 300;
-			let thing : any = new Thing(<IThing>element.payload);
-			thing.x = offsetX;
-			thing.y = offsetY;
-			thing.url = element._id;
+		} else if (item.type === 'thing') {
+			let itemThing : IThing = <IThing>item.payload;
+			let thing : any = new Thing(itemThing);
+			// Coord Thing
+			let offset : IPoint = this.getCoordItem(itemThing.width, itemThing.height);
+			thing.x = offset.x;
+			thing.y = offset.y;
+			// Set link
+			thing.url = `${thing.url}#${item._id}`;
+
 			this.ngRedux.dispatch(this.editorActions.addThing(thing));
 		}
-		console.log(this.ngRedux.getState().editor.project);
 	}
+
+	getCoordItem (itemWidth : number, itemHeight : number) : IPoint {
+		let widthManagerPanel : number = 328;
+		let heightControlPanel : number = 112;
+		let windowWidth  : number = document.documentElement.clientWidth  - widthManagerPanel,
+				windowHeight : number = document.documentElement.clientHeight;
+
+		let halfItemWidth  : number = itemWidth / 2,
+				halfItemHeight : number = itemHeight / 2;
+		let halfWindowWidth  : number = windowWidth / 2,
+				halfWindowHeight : number = (windowHeight + heightControlPanel) / 2 ;
+
+		let elementX = halfWindowWidth  - halfItemWidth - this.workspace.x;
+		let elementY = halfWindowHeight - halfItemHeight - this.workspace.y;
+		let result = { x : elementX, y : elementY };
+		this.logger.info(`${this.constructor.name}:`, 'addItem -', result);
+		return result;
+	}
+
 	onChangeCategory (event : any) {
 		let el : any = event.target.closest('.form-item');
 		if (!el) {
 			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - Not navigation element');
 			return;
 		}
-		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - categoryId', el.dataset.categoryId);
-		if (el.dataset.categoryId === 'back') {
+		let categoryId : string = el.getAttribute('data-category-id').toString();
+		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - categoryId', categoryId);
+		if (categoryId === 'back') {
 			this.activeCategory = this.getParentCategoryId(this.activeCategory);
 		} else {
-			this.activeCategory = el.dataset.categoryId;
+			this.activeCategory = categoryId;
 		}
 		this.prevCategory = this.getParentCategoryName(this.activeCategory);
 		this.itemCategoriesDisplay = this.itemCategories.filter((data) => data._pid === this.activeCategory);

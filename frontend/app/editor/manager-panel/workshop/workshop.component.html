@@ -11,7 +11,7 @@
 			<span>{{category.name}}</span>
 		</div>
 	</div>
-	<div class="form-list-item" (click)="addElement($event)">
+	<div class="form-list-item" (click)="addItem($event)">
 		<div class="form-item" *ngFor="let item of itemsDisplay" [attr.data-item-id]="item._id">
 			<img [attr.src]="getSrcItemPreview(item)" />
 			<div class="overlay">

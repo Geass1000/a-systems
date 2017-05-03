@@ -41,8 +41,9 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 	openModal (event : any) {
 		let el : any = event.target.closest('.item-navigation');
 		if (el !== null) {
-			this.logger.info(`${this.constructor.name}:`, 'openModal -', el.dataset.modalName);
-			this.ngRedux.dispatch(this.modalActions.openPanel(el.dataset.modalName));
+			let modalName : string = el.getAttribute('data-modal-name').toString();
+			this.logger.info(`${this.constructor.name}:`, 'openModal -', modalName);
+			this.ngRedux.dispatch(this.modalActions.openPanel(modalName));
 		}	else {
 			this.logger.info(`${this.constructor.name}:`, 'openModal - Not navigation element');
 		}

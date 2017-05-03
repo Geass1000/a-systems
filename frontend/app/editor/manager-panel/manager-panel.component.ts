@@ -93,8 +93,9 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	openPanel (event : any) {
 		let el : any = event.target.closest('.item-navigation');
 		if (el !== null) {
-			this.logger.info(`${this.constructor.name}:`, 'openPanel -', el.dataset.panelName);
-			this.ngRedux.dispatch(this.editorActions.openManagerPanel(el.dataset.panelName));
+			let panelName : string = el.getAttribute('data-panel-name').toString();
+			this.logger.info(`${this.constructor.name}:`, 'openPanel -', panelName);
+			this.ngRedux.dispatch(this.editorActions.openManagerPanel(panelName));
 		}	else {
 			this.logger.info(`${this.constructor.name}:`, 'openPanel - Not navigation element');
 		}

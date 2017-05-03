@@ -4,7 +4,6 @@ export interface IThing {
 	id ?: number;
 	height : number;
 	width : number;
-	depth : number;
 	x ?: number;
 	y ?: number;
 	url ?: string;
@@ -15,7 +14,6 @@ export class Thing implements IThing {
 	private _coord : Point;
 	private _width : number;
 	private _height : number;
-	private _depth : number;
 	private _url : string;
 
 	constructor (obj ?: IThing) {
@@ -23,7 +21,6 @@ export class Thing implements IThing {
 		if (obj) {
 			this.width = obj.width;
 			this.height = obj.height;
-			this.depth = obj.depth;
 			this.x = obj.x || 0;
 			this.y = obj.y || 0;
 			this.id = obj.id || null;
@@ -57,12 +54,6 @@ export class Thing implements IThing {
 	get height () : number {
 		return this._height;
 	}
-	set depth (data : number) {
-		this._depth = this.prepareNumberData(data);
-	}
-	get depth () : number {
-		return this._depth;
-	}
 	set id (data : number) {
 		this._id = this.prepareNumberData(data);
 	}
@@ -82,8 +73,7 @@ export class Thing implements IThing {
 	valueOf () : IThing {
 		return {
 			width : this.width,
-			height : this.height,
-			depth : this.depth
+			height : this.height
 		};
 	}
 
