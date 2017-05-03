@@ -77,8 +77,8 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		let el : any = element;
 		while (el = el.closest('.draggable')) {
 			activeElements.push({
-				type : el.dataset.type,
-				id : +el.dataset.id
+				type : el.getAttribute('data-type'),
+				id : +el.getAttribute('data-id')
 			});
 			el = el.parentElement;
 		}

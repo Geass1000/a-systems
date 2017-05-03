@@ -42,7 +42,16 @@ export class ThingComponent implements OnInit, OnDestroy {
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
-	createPath(str : string) {
+	createFilterUrl (str : string) {
+		return `url(${location.href}#${str})`;
+	}
+	createUseUrl (str : string) {
 		return `assets/items/${str}.svg#element`;
+	}
+	isActiveThing (index : number) {
+		if (!this.activeElements || !this.activeElements.length) {
+			return false;
+		}
+		return this.activeElements[0].type === 'thing' && this.activeElements[0].id === index;
 	}
 }

@@ -1,4 +1,11 @@
-<svg:use *ngFor="let thing of things; let i = index"
+<svg:g *ngFor="let thing of things; let i = index"
 	class="draggable" data-type="thing" [attr.data-id]="i"
-	x="0" y="0"
-	[attr.xlink:href]="createPath(thing.url)" [attr.transform]="thing.transform()" />
+	[class.activated]="isActiveThing(i)" [attr.transform]="thing.transform()">
+	<svg:rect x="0" y="0" [attr.filter]="createFilterUrl('shadow-thing')"
+		[attr.width]="thing.width" [attr.height]="thing.height">
+	</svg:rect>
+	<svg:rect x="-10" y="-10" class="highlight"
+		[attr.width]="thing.width + 20" [attr.height]="thing.height + 20">
+	</svg:rect>
+	<svg:use x="0" y="0" [attr.xlink:href]="createUseUrl(thing.url)" />
+</svg:g>
