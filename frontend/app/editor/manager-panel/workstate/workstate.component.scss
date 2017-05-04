@@ -1,0 +1,17 @@
+@import "../../../shared/scss/global.scss";
+
+/* Variable */
+$placeholder-height: 27px;
+$padding-rl-input: 7px;
+
+.workstate {
+	height: 100%;
+	width: 100%;
+
+	.workstate-item {
+		width: 1000%
+	}
+	.fullHeight {
+		height: 100%;
+	}
+}

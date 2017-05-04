@@ -5,7 +5,7 @@
 		[attr.points]="surface.poliPoints()" />
 	<svg:g class="points">
 		<svg:circle *ngFor="let pt of surface.points; let j = index"
-			class="draggable" data-type="point" [attr.data-id]="j"
+			class="draggable" data-type="point" [attr.data-id]="j" data-no-capture
 			cx="0" cy="0" r="20"
 			[class.activated]="isActivePoint(j)" [attr.transform]="pt.transform()" />
 	</svg:g>

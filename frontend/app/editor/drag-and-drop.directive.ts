@@ -19,7 +19,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 
 	private precision : number = 3;		// Размер мёртвой зоны (ширина и высота)
 
-	private isDown : boolean;		// Нажата ли левая кнопка мыши над областью?
+	private isDown : boolean;					// Нажата ли левая кнопка мыши над областью?
 	private isMove : boolean;					// Было ли движение мыши (с учётом мёртвой зоны)?
 
 	//private element : IElement = null;
@@ -57,11 +57,29 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		this.ngRedux.dispatch(this.editorActions.toggleMove(false));
 	}
 
+
+	/**
+	 * detectLeftButton - определение нажатия левой кнопки мыши.
+	 *
+	 * @return {boolean}
+	 */
 	detectLeftButton (event : any) : boolean {
 		if ('buttons' in event) {
 			return event.buttons === 1;
 		}
 		return (event.which || event.button) === 1;
+	}
+
+
+	/**
+	 * setActiveElements - установка активно элемента в виде элемента els.
+	 *
+	 * @param  {Array<IElement>} els
+	 * @return {type}
+	 */
+	setActiveElements (els : Array<IElement>) {
+		this.activeElements = els;
+		this.ngRedux.dispatch(this.editorActions.setActiveElements(this.activeElements));
 	}
 
 
@@ -78,7 +96,8 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		while (el = el.closest('.draggable')) {
 			activeElements.push({
 				type : el.getAttribute('data-type'),
-				id : +el.getAttribute('data-id')
+				id : +el.getAttribute('data-id'),
+				capture : !el.hasAttribute('data-no-capture')
 			});
 			el = el.parentElement;
 		}
@@ -86,24 +105,51 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * compareElements - поэлементное сравнение двух массивов со структурами IElement.
-	 * Возвращает true в случае полной идентичности.
+	 * createDraggableArray - создание массива с переносимыми элементами и установка
+	 * активного элемента если переносимый объект не требует выделения.
 	 *
-	 * @param  {Array<IElement>} el1 : массив 1
-	 * @param  {Array<IElement>} el2 : массив 1
 	 * @return {Array<IElement>}
 	 */
-	compareElements (el1 : Array<IElement>, el2 : Array<IElement>) : Array<IElement> {
-		if (!el1 || !el2) {
+	createDraggableArray () : Array<IElement> {
+		if (!this.activeElements || !this.targetElements) {
 			return [];
 		}
 		let result : Array<IElement> = [];
-		for (let i = 0; i < el1.length; i++) {
-			if (!el1[i] || !el2[i]) {
+		for (let i = 0; i < this.activeElements.length; i++) {
+			if (!this.activeElements[i] || !this.targetElements[i]) {
 				break;
 			}
-			if (el1[i].type === el2[i].type && el1[i].id === el2[i].id) {
-				result.push(el1[i]);
+			if (this.activeElements[i].type === this.targetElements[i].type &&
+					this.activeElements[i].id === this.targetElements[i].id) {
+				result.push(this.activeElements[i]);
+			} else {
+				break;
+			}
+		}
+		let correctResult : Array<IElement> = this.correctTarget(result);
+		if (result.length !== correctResult.length) {
+			result = correctResult;
+			this.setActiveElements(result);
+		}
+		return result;
+	}
+
+
+	/**
+	 * correctTarget - функция дополняет массив els значениями из массива targetElements
+	 * у которых значение capture = false.
+	 *
+	 * @param  {Array<IElement>} els
+	 * @return {Array<IElement>}
+	 */
+	correctTarget (els : Array<IElement>) {
+		if (!els || els.length === this.targetElements.length) {
+			return this.targetElements;
+		}
+		let result : Array<IElement> = [...els];
+		for (let i = els.length; i < this.targetElements.length; i++) {
+			if (!this.targetElements[i].capture) {
+				result.push(this.targetElements[i]);
 			} else {
 				break;
 			}
@@ -164,7 +210,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		this.logger.info(`${this.constructor.name}:`, 'onMouseDown - targetElements -', this.targetElements);
 		this.logger.info(`${this.constructor.name}:`, 'onMouseDown - activeElements -', this.activeElements);
 
-		let compare : Array<IElement> = this.compareElements(this.targetElements, this.activeElements);
+		let compare : Array<IElement> = this.createDraggableArray();
 		this.nameTranslateMethod = this.createNameTranslateMethod(compare);
 		if (!this.editorActions[this.nameTranslateMethod]) {
 			this.logger.warn(`${this.constructor.name}:`, 'onMouseDown - Method isn\'t exist -', this.nameTranslateMethod);
@@ -209,8 +255,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 			return;
 		}
 		if (!this.isMove) {
-			this.activeElements = this.targetElements;
-			this.ngRedux.dispatch(this.editorActions.setActiveElements(this.activeElements));
+			this.setActiveElements(this.targetElements);
 		}
 		this.logger.info(`${this.constructor.name}:`, 'onMouseUp - isMove -', this.isMove);
 		this.initData();

@@ -93,7 +93,6 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 				surfaces : surfaces
 			});
 			*/
-			console.log(action.payload);
 			state.surfaces[action.payload.id].points[action.payload.pid].x += action.payload.dX;
 			state.surfaces[action.payload.id].points[action.payload.pid].y += action.payload.dY;
 			return state;

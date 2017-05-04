@@ -4,10 +4,10 @@
 		(@togglePanel.start)="aTogglePanelStarted($event)"
     (@togglePanel.done)="aTogglePanelDone($event)">
 		<div class="manager-panel-block">
-			<div class="item-panel" *ngIf="workshop" [@flyInOut]="aItemPanelState">
+			<div class="item-panel" *ngIf="workshop$ | async" [@flyInOut]="aItemPanelState">
 				<as-editor-manager-workshop></as-editor-manager-workshop>
 			</div>
-			<div class="item-panel" *ngIf="workstate" [@flyInOut]="aItemPanelState">
+			<div class="item-panel" *ngIf="workstate$ | async" [@flyInOut]="aItemPanelState">
 				<as-editor-manager-workstate></as-editor-manager-workstate>
 			</div>
 		</div>

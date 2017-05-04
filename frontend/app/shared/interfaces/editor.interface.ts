@@ -9,6 +9,7 @@ export interface IWorkstate {
 export interface IElement {
 	type : string;
 	id : number;
+	capture : boolean;
 }
 
 export interface ITexture {

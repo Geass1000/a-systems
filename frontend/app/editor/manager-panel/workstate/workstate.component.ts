@@ -57,8 +57,10 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 	private workspaceInit : boolean = false;
 	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
-	@select(['editor', 'manager', 'texture']) texture$ : Observable<boolean>;
-	private texture : boolean;
+	@select(['editor', 'manager', 'workstateTexture']) workstateTexture$ : Observable<boolean>;
+	private workstateTexture : boolean = null;
+	@select(['editor', 'manager', 'workstateWorkspace']) workstateWorkspace$ : Observable<boolean>;
+	private workstateWorkspace : boolean = null;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
@@ -66,7 +68,12 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 						 	 private metricService : MetricService) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.texture$.subscribe((data) => this.texture = data));
+		this.subscription.push(this.workstateTexture$.subscribe((data) => {
+			this.workstateTexture = data;
+		}));
+		this.subscription.push(this.workstateWorkspace$.subscribe((data) => {
+			this.workstateWorkspace = data;
+		}));
 		this.subscription.push(this.workspace$.subscribe((data) => {
 			this.workspace = new Workspace(data);
 			if (this.isActiveMetric && !this.workspaceInit) {

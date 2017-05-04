@@ -3,6 +3,7 @@ import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
 import { IWorkstate, IElement } from '../../shared/interfaces/editor.interface';
+import { IModelWorkspace } from '../../shared/interfaces/model.interface';
 
 export interface IEditorState {
 	// Init Editor
@@ -17,6 +18,7 @@ export interface IEditorState {
 	isMove : boolean;
 	element : IElement;
 	activeElements : Array<IElement>;
+	workstateModel : IModelWorkspace;
 }
 
 export const INITIAL_STATE : IEditorState = {
@@ -31,7 +33,8 @@ export const INITIAL_STATE : IEditorState = {
 	// DragAndDrop
 	isMove : false,
 	element : null,
-	activeElements : []
+	activeElements : [],
+	workstateModel : null
 };
 
 export const EditorStateReducer : Reducer<IEditorState> =

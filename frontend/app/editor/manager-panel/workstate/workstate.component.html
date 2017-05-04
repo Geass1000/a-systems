@@ -1,8 +1,8 @@
-<section class="workstate">
-	<div class="state-item" [@flyInOut]="'open'">
+<section class="workstate" *ngIf="workstateWorkspace || workstateTexture">
+	<div class="state-item" *ngIf="workstateWorkspace" [@flyInOut]="'open'">
 		<as-editor-manager-workspace></as-editor-manager-workspace>
 	</div>
-	<div class="state-item fullHeight" [@flyInOut]="'open'">
+	<div class="state-item fullHeight" *ngIf="workstateTexture" [@flyInOut]="'open'">
 		<as-editor-manager-texture></as-editor-manager-texture>
 	</div>
 </section>

@@ -57,9 +57,7 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	@select(['editor', 'manager', 'open']) managerOpen$ : Observable<boolean>;
 	private managerOpen : boolean;
 	@select(['editor', 'manager', 'workshop']) workshop$ : Observable<boolean>;
-	private workshop : boolean;
 	@select(['editor', 'manager', 'workstate']) workstate$ : Observable<boolean>;
-	private workstate : boolean;
 
 	constructor (private ngRedux : NgRedux<any>,
 						 	 private editorActions : EditorActions,
@@ -71,8 +69,6 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 			this.aPanelState = data ? 'open' : 'close';
 			this.managerOpen = data;
 		}));
-		this.subscription.push(this.workshop$.subscribe((data) => this.workshop = data));
-		this.subscription.push(this.workstate$.subscribe((data) => this.workstate = data));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
