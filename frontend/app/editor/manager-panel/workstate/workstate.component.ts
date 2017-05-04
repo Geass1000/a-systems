@@ -35,15 +35,6 @@ import { Workspace } from '../../../shared/lib/workspace.class';
 					opacity: '0'
 				}))
 			]),
-		]),
-		trigger('togglePanel', [
-			state('close', style({
-				transform: 'translateX(100%)',
-			})),
-			state('open', style({
-				transform: 'translateX(0)',
-			})),
-			transition('close <=> open', animate('200ms ease-in'))
 		])
 	]
 })
