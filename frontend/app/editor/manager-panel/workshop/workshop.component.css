@@ -21,17 +21,16 @@
 /* Important context */
 .workstate {
   width: 100%;
-  height: 100%;
-  /* ----- form-content */ }
+  height: 100%; }
   .workstate .form-header {
     padding: 10px 20px;
     background-color: rgba(128, 128, 128, 0.1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     color: #5C5C5C; }
-  .workstate .form-content {
+  .workstate .list-categories {
     box-sizing: border-box;
     width: 100%; }
-    .workstate .form-content .form-item {
+    .workstate .list-categories .item {
       display: -ms-flexbox;
       display: flex;
       -ms-flex-pack: start;
@@ -46,18 +45,18 @@
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       cursor: pointer;
       color: #5C5C5C; }
-      .workstate .form-content .form-item i {
+      .workstate .list-categories .item i {
         margin-right: 5px; }
-      .workstate .form-content .form-item:hover {
+      .workstate .list-categories .item:hover {
         background-color: #7bb3ef;
         color: #fff; }
-      .workstate .form-content .form-item.form-back {
+      .workstate .list-categories .item.form-back {
         font-weight: bold; }
-        .workstate .form-content .form-item.form-back.lock {
+        .workstate .list-categories .item.form-back.lock {
           background-color: rgba(128, 128, 128, 0.1);
           color: #5C5C5C;
           transition: background-color 0.4s, color 0.4s; }
-  .workstate .form-list-item {
+  .workstate .list-item {
     display: -ms-flexbox;
     display: flex;
     overflow-y: scroll;
@@ -73,19 +72,19 @@
     width: 100%;
     height: 100%;
     padding: 1px; }
-    .workstate .form-list-item .form-item {
+    .workstate .list-item .item {
       display: block;
       box-sizing: border-box;
       width: 126px;
       height: 126px;
       position: relative;
       border: 1px solid white; }
-      .workstate .form-list-item .form-item img {
+      .workstate .list-item .item img {
         box-sizing: border-box;
         width: 100%;
         height: 100%;
         border: 1px solid #e8e8e8; }
-      .workstate .form-list-item .form-item .overlay {
+      .workstate .list-item .item .overlay {
         display: -ms-flexbox;
         display: flex;
         -ms-flex-direction: column;
@@ -104,7 +103,7 @@
         background-color: transparent;
         cursor: pointer;
         transition: background-color 0.3s; }
-        .workstate .form-list-item .form-item .overlay .description {
+        .workstate .list-item .item .overlay .description {
           margin-top: 60px;
           opacity: 0;
           color: #fff;
@@ -112,8 +111,8 @@
           font-weight: bold;
           text-align: center;
           transition: opacity 0.3s, margin-top 0.3s; }
-        .workstate .form-list-item .form-item .overlay:hover {
+        .workstate .list-item .item .overlay:hover {
           background-color: rgba(0, 0, 0, 0.6); }
-        .workstate .form-list-item .form-item .overlay:hover .description {
+        .workstate .list-item .item .overlay:hover .description {
           margin-top: 0;
           opacity: 1; }

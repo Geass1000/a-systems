@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
+import { ModalActions } from '../actions/modal.actions';
 
 import { LoggerService } from '../core/logger.service';
 
@@ -28,10 +29,12 @@ export class EditorComponent implements OnInit, OnDestroy {
 
 	constructor (private ngRedux : NgRedux<any>,
 						 	 private editorActions : EditorActions,
+							 private modalActions : ModalActions,
 						 	 private logger : LoggerService) {
 		this.loc = location.href;
 	}
 	ngOnInit () {
+		this.ngRedux.dispatch(this.modalActions.openPanel('initProject', false));
 		this.subscription.push(this.isInitProject$.subscribe((data) => this.isInitProject = data));
 		this.subscription.push(this.workspace$.subscribe((data) => {
 			this.workspace = data;

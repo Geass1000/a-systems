@@ -63,9 +63,12 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	}
 
 	/* Events */
-	addItem (event : any) {
-		let el : any = event.target.closest('.form-item');
+	onClickAddItem (event : MouseEvent) {
+		let el : Element = (<HTMLElement>event.target).closest('.item');
 		if (!el) {
+			return;
+		}
+		if (!el.getAttribute('data-item-id')) {
 			return;
 		}
 		let itemId : string = el.getAttribute('data-item-id').toString();
@@ -114,8 +117,8 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 		return result;
 	}
 
-	onChangeCategory (event : any) {
-		let el : any = event.target.closest('.form-item');
+	onClickSelectCategory (event : any) {
+		let el : any = event.target.closest('.item');
 		if (!el) {
 			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - Not navigation element');
 			return;

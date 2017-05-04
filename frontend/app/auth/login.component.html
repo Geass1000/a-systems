@@ -5,7 +5,7 @@
 		<p>Login into your account here.</p>
 	</section>
 	<section class="modal-body">
-		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-1">
 			<div class="form-group"
 				[class.focused]="loginForm.get('name').value">
 				<input type="text" class="form-control" required

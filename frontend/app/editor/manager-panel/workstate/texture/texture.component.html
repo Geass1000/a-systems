@@ -1,0 +1,25 @@
+<div class="workstate-block workstate-texture">
+	<div class="workstate-header">
+		<h4>Texture</h4>
+	</div>
+	<div class="workstate-content">
+		<form>
+			<select name="textureCategory" class="list-categories"
+				[(ngModel)]="activeTextureCategoryId" (change)="onChangeTextureCategory($event)">
+	      <option value="" disabled>Choose a type</option>
+	      <option *ngFor="let textureCategory of textureCategories" [ngValue]="textureCategory._id">
+	        {{ textureCategory.name }}
+	      </option>
+	    </select>
+		</form>
+
+		<div class="list-textures" (click)="onClickSetTexture($event)">
+			<div class="item" *ngFor="let item of texturesDisplay" [attr.data-item-id]="item._id">
+				<img [attr.src]="getSrcTexture(item)" />
+				<div class="active-item" *ngIf="item._id === activeTextureId">
+					<i class="fa fa-check-circle-o" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

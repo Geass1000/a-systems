@@ -5,7 +5,7 @@
 		<p>Sign up to create your account.</p>
 	</section>
 	<section class="modal-body">
-		<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+		<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="form-1">
 			<div class="form-group"
 				[class.focused]="signupForm.get('name').value">
 				<input type="text" name="name" class="form-control"

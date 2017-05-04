@@ -5,7 +5,7 @@
 		<p>Reset your password.</p>
 	</section>
 	<section class="modal-body modal-end">
-		<form [formGroup]="resetForm" (ngSubmit)="onSubmit()">
+		<form [formGroup]="resetForm" (ngSubmit)="onSubmit()" class="form-1">
 			<div class="form-group"
 				[class.focused]="resetForm.get('email').value">
 				<input type="text" class="form-control" required

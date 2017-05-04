@@ -1,0 +1,23 @@
+@import "../../../../shared/scss/global.scss";
+
+/* Variable */
+$placeholder-height: 27px;
+$padding-rl-input: 7px;
+
+.workstate-workspace {
+	.workstate-header {
+		&:first-child {
+			border-top: none;
+		}
+	}
+
+	.workstate-content {
+		box-sizing: border-box;
+		width: 100%;
+		padding: 10px 20px;
+
+		button {
+			text-transform: capitalize;
+		}
+	}
+}

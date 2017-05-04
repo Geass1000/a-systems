@@ -1,0 +1,70 @@
+@import "../../../../shared/scss/global.scss";
+
+.workstate-texture {
+
+	.workstate-content {
+		.list-categories {
+			width: 100%;
+			padding: 5px;
+
+			border: none;
+			border-bottom: 1px solid rgba(0,0,0,0.2);
+
+			color: $color-text-3;
+			font-size: 15px;
+		}
+
+		.list-textures {
+			display: flex;
+			overflow-y: scroll;
+			flex-wrap: wrap;
+			justify-content: flex-start;
+			align-items: flex-start;
+			align-content: flex-start;
+
+			box-sizing: border-box;
+			width: 100%;
+			height: 100%;
+			padding: 1px;
+
+			.item {
+				display: block;
+
+				box-sizing: border-box;
+				width: 126px;
+				height: 126px;
+
+				position: relative;
+
+				border: 1px solid white;
+
+				.active-item {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+
+					width: 100%;
+					height: 100%;
+
+					position: absolute;
+					top: 0;
+					left: 0;
+
+					color: rgba(0,0,0,0.6);
+
+					i {
+						font-size: 4em;
+					}
+				}
+
+				img {
+					box-sizing: border-box;
+					width: 100%;
+					height: 100%;
+
+					border: 1px solid #e8e8e8;
+				}
+			}
+		}
+	}
+}

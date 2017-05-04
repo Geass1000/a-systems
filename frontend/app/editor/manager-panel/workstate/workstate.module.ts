@@ -4,26 +4,24 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-/* Other Module */
-import { WorkstateModule } from './workstate/workstate.module';
-
 /* App Feature - Component */
-import { ManagerPanelComponent } from './manager-panel.component';
-import { WorkshopComponent } from './workshop/workshop.component';
+import { WorkstateComponent } from './workstate.component';
+import { TextureComponent } from './texture/texture.component';
+import { WorkspaceComponent } from './workspace/workspace.component';
 
 @NgModule({
   imports: [
 		CommonModule,
 		FormsModule,
 		BrowserModule,
-		BrowserAnimationsModule,
-		WorkstateModule
+		BrowserAnimationsModule
 	],
   declarations: [
-		ManagerPanelComponent,
-		WorkshopComponent
+		WorkstateComponent,
+		TextureComponent,
+		WorkspaceComponent
 	],
-  exports:      [ ManagerPanelComponent ],
+  exports:      [ WorkstateComponent ],
   providers:    [ ]
 })
-export class ManagerPanelModule { }
+export class WorkstateModule { }

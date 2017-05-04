@@ -28,7 +28,6 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 						 	 private logger : LoggerService) {
 	}
 	ngOnInit () {
-		this.ngRedux.dispatch(this.modalActions.openPanel('initProject'));
 		this.subscription.push(this.curMeasure$.subscribe((data) => this.curMeasure = data));
 	}
 	ngOnDestroy () {

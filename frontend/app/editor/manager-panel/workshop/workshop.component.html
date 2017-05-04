@@ -2,17 +2,17 @@
 	<div class="form-header">
 		<h4>Workshop</h4>
 	</div>
-	<div class="form-content" (mousedown)="onChangeCategory($event)">
-		<div class="form-item form-back" [class.lock]="activeCategory === null" data-category-id="back">
+	<div class="list-categories" (click)="onClickSelectCategory($event)">
+		<div class="item form-back" [class.lock]="activeCategory === null" data-category-id="back">
 			<i class="fa fa-chevron-left" aria-hidden="true"></i>
 			<span>Back to {{prevCategory}}</span>
 		</div>
-		<div class="form-item" *ngFor="let category of itemCategoriesDisplay" [attr.data-category-id]="category._id">
+		<div class="item" *ngFor="let category of itemCategoriesDisplay" [attr.data-category-id]="category._id">
 			<span>{{category.name}}</span>
 		</div>
 	</div>
-	<div class="form-list-item" (click)="addItem($event)">
-		<div class="form-item" *ngFor="let item of itemsDisplay" [attr.data-item-id]="item._id">
+	<div class="list-item" (click)="onClickAddItem($event)">
+		<div class="item" *ngFor="let item of itemsDisplay" [attr.data-item-id]="item._id">
 			<img [attr.src]="getSrcItemPreview(item)" />
 			<div class="overlay">
 				<span class="description">Add<br />element?</span>

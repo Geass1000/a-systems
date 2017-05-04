@@ -1,0 +1,31 @@
+/* Palette Color */
+/* Font-size variable */
+/* Z-index */
+/* Editor Panel */
+/* Overlay */
+/* Form block */
+/* No important context */
+/* Main context */
+/* Important context */
+/* Control Panel */
+/* Overlay */
+/* Form block */
+/* No important context */
+/* Main context */
+/* Important context */
+/* Modal */
+/* Overlay */
+/* Form block */
+/* No important context */
+/* Main context */
+/* Important context */
+/* Variable */
+.workstate-workspace .workstate-header:first-child {
+  border-top: none; }
+
+.workstate-workspace .workstate-content {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 20px; }
+  .workstate-workspace .workstate-content button {
+    text-transform: capitalize; }

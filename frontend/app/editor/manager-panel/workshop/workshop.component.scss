@@ -13,11 +13,11 @@
 		color: $color-text-3;
 	}
 
-	.form-content {
+	.list-categories {
 		box-sizing: border-box;
 		width: 100%;
 
-		.form-item {
+		.item {
 			display: flex;
 			justify-content: flex-start;
 			align-items: center;
@@ -52,8 +52,8 @@
 			}
 		}
 	}
-	/* ----- form-content */
-	.form-list-item {
+
+	.list-item {
 		display: flex;
 		overflow-y: scroll;
 		flex-wrap: wrap;
@@ -66,7 +66,7 @@
 		height: 100%;
 		padding: 1px;
 
-		.form-item {
+		.item {
 			display: block;
 
 			box-sizing: border-box;

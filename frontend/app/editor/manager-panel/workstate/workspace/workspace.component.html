@@ -1,0 +1,22 @@
+<div class="workstate-block workstate-workspace">
+	<div class="workstate-header">
+		<h4>Workspace</h4>
+	</div>
+	<div class="workstate-content">
+		<form #f="ngForm" class="form-1">
+			<div class="form-group">
+				<input type='text' class="form-control"	required
+					name="workspaceWidth" id="workspaceWidth" [(ngModel)]="width"
+					pattern="[0-9]+(\.[0-9]*)?" />
+				<label for="workspaceWidth">Width</label>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" required
+					name="workspaceHeight" id="workspaceHeight" [(ngModel)]="height"
+					pattern="[0-9]+(\.[0-9]*)?" />
+				<label for="workspaceHeight">Height</label>
+			</div>
+			<button type="button" (click)="onAccept()" [disabled]="!f.valid">Accept</button>
+		</form>
+	</div>
+</div>
