@@ -3,16 +3,16 @@
 		<h4>Workspace</h4>
 	</div>
 	<div class="workstate-content">
-		<form #f="ngForm" class="form-1">
-			<div class="form-group">
+		<form #f="ngForm" class="form-1" *ngIf="model">
+			<div class="form-group" [class.focused]="model.width">
 				<input type='text' class="form-control"	required
-					name="workspaceWidth" id="workspaceWidth" [(ngModel)]="width"
+					name="workspaceWidth" id="workspaceWidth" [(ngModel)]="model.width"
 					pattern="[0-9]+(\.[0-9]*)?" />
 				<label for="workspaceWidth">Width</label>
 			</div>
-			<div class="form-group">
+			<div class="form-group" [class.focused]="model.height">
 				<input type="text" class="form-control" required
-					name="workspaceHeight" id="workspaceHeight" [(ngModel)]="height"
+					name="workspaceHeight" id="workspaceHeight" [(ngModel)]="model.height"
 					pattern="[0-9]+(\.[0-9]*)?" />
 				<label for="workspaceHeight">Height</label>
 			</div>

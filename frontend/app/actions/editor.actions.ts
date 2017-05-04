@@ -32,7 +32,7 @@ export class EditorActions {
 	static readonly ADD_ITEM_CATEGORIES = EditorActions.CLASS_NAME + 'ADD_ITEM_CATEGORIES';
 	static readonly ADD_ITEMS = EditorActions.CLASS_NAME + 'ADD_ITEMS';
 	/* Project Action */
-	static readonly UPDATE_WORKSPACE = EditorActions.CLASS_NAME + 'UPDATE_WORKSPACE';
+	static readonly SET_WORKSPACE = EditorActions.CLASS_NAME + 'SET_WORKSPACE';
 	static readonly UPDATE_PROJECT_NAME = EditorActions.CLASS_NAME + 'UPDATE_PROJECT_NAME';
 	static readonly ADD_SURFACE = EditorActions.CLASS_NAME + 'ADD_SURFACE';
 	static readonly ADD_THING = EditorActions.CLASS_NAME + 'ADD_THING';
@@ -192,9 +192,9 @@ export class EditorActions {
 		};
 	}
 	/* Project Action */
-	updateWorkspace (workspace : IWorkspace) : IAction {
+	setWorkspace (workspace : IWorkspace) : IAction {
     return {
-      type : EditorActions.UPDATE_WORKSPACE,
+      type : EditorActions.SET_WORKSPACE,
 			payload : {
 				workspace : workspace
 			}

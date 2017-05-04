@@ -23,7 +23,7 @@ export const INITIAL_STATE : IEditorProject = {
 export const EditorProjectReducer : Reducer<IEditorProject> =
 	(state : IEditorProject = INITIAL_STATE, action : IAction) : IEditorProject => {
 	switch (action.type) {
-		case EditorActions.UPDATE_WORKSPACE : {
+		case EditorActions.SET_WORKSPACE : {
 			let workspace : Workspace = new Workspace(action.payload.workspace);
 			return Object.assign({}, state, { workspace : workspace });
 		}

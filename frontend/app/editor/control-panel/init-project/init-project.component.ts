@@ -66,7 +66,7 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 		resultWorkspace.height = +this.metricService.convertFromCurToDef(this.model.height);
 
 		this.ngRedux.dispatch(this.editorActions.updateProjectName(this.model.height));
-		this.ngRedux.dispatch(this.editorActions.updateWorkspace(resultWorkspace));
+		this.ngRedux.dispatch(this.editorActions.setWorkspace(resultWorkspace));
 		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 		this.dataInitService.initData();
 	}

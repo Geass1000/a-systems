@@ -19,16 +19,14 @@ import { IModelWorkspace } from '../../../../shared/interfaces/model.interface';
 export class WorkspaceComponent implements OnInit, OnDestroy {
 	/* Private Variable */
 	private model : IModelWorkspace = null;
-	title = 'Home';
-	width = 100;
-	height = 100;
-
-	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
-	private isActiveMetric : boolean = null;
-	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
+	private isInit : boolean = false;
 
 	/* Redux */
 	private subscription : any[] = [];
+	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
+	private isActiveMetric : boolean = null;
+	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
+	private workspace : Workspace = null;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
@@ -37,6 +35,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	}
 	ngOnInit () {
 		this.subscription.push(this.workspace$.subscribe((data) => {
+			this.workspace = data;
 			if (data) {
 				this.model = {
 					width : data.width.toString(),
@@ -45,16 +44,21 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 				if (this.isActiveMetric) {
 					this.model.width = this.metricService.convertFromDefToCur(this.model.width).toString();
 					this.model.height = this.metricService.convertFromDefToCur(this.model.height).toString();
+					this.isInit = true;
 				}
 			}
-			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - isActiveMetric -', this.isActiveMetric);
+			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - workspace -', data);
 		}));
 		this.subscription.push(this.isActiveMetric$.subscribe((data) => {
 			this.isActiveMetric = data;
 			if (this.isActiveMetric) {
-				if (this.model) {
+				if (this.isInit) {
 					this.model.width = this.metricService.convertFromPrevToCur(this.model.width).toString();
 					this.model.height = this.metricService.convertFromPrevToCur(this.model.height).toString();
+				} else if (this.model) {
+					this.model.width = this.metricService.convertFromDefToCur(this.model.width).toString();
+					this.model.height = this.metricService.convertFromDefToCur(this.model.height).toString();
+					this.isInit = true;
 				}
 			}
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - isActiveMetric -', this.isActiveMetric);
@@ -65,6 +69,10 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	}
 
 	onAccept () {
+		let resultWorkspace : Workspace = new Workspace(this.workspace);
+		resultWorkspace.width = +this.metricService.convertFromCurToDef(this.model.width);
+		resultWorkspace.height = +this.metricService.convertFromCurToDef(this.model.height);
+		this.ngRedux.dispatch(this.editorActions.setWorkspace(resultWorkspace));
 		return true;
 	}
 }
