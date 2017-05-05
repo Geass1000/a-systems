@@ -59,11 +59,13 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 
 
 	/**
-	 * detectLeftButton - определение нажатия левой кнопки мыши.
+	 * detectLeftButton - функция, отвечающая за определение нажатия левой кнопки мыши.
 	 *
+	 * @kind {function}
+	 * @param  {MouseEvent} event
 	 * @return {boolean}
 	 */
-	detectLeftButton (event : any) : boolean {
+	detectLeftButton (event : MouseEvent) : boolean {
 		if ('buttons' in event) {
 			return event.buttons === 1;
 		}
@@ -74,6 +76,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	/**
 	 * setActiveElements - установка активно элемента в виде элемента els.
 	 *
+	 * @kind {function}
 	 * @param  {Array<IElement>} els
 	 * @return {type}
 	 */
@@ -87,6 +90,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * captureElement - поиск элементов с классом 'draggable'. Найденые элементы
 	 * заносятся в массив в виде структур IElement.
 	 *
+	 * @kind {function}
 	 * @param  {SVGElement} element : SVGElement
 	 * @return {Array<IElement>}
 	 */
@@ -108,6 +112,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * createDraggableArray - создание массива с переносимыми элементами и установка
 	 * активного элемента если переносимый объект не требует выделения.
 	 *
+	 * @kind {function}
 	 * @return {Array<IElement>}
 	 */
 	createDraggableArray () : Array<IElement> {
@@ -139,6 +144,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * correctTarget - функция дополняет массив els значениями из массива targetElements
 	 * у которых значение capture = false.
 	 *
+	 * @kind {function}
 	 * @param  {Array<IElement>} els
 	 * @return {Array<IElement>}
 	 */
@@ -160,6 +166,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	/**
 	 * createNameTranslateMethod - генерация названия метода перенесоа.
 	 *
+	 * @kind {function}
 	 * @param  {Array<IElement>} els : Array<IElement>
 	 * @return {String}
 	 */
@@ -176,6 +183,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	/**
 	 * createArgsTranslateMethod - генерация массива аргументов для метода пенреноса.
 	 *
+	 * @kind {function}
 	 * @param  {Array<IElement>} els
 	 * @return {Array<number>}
 	 */
@@ -192,6 +200,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	/**
 	 * capitalizeFirstLetter - преобразование первой буквы в заглавную.
 	 *
+	 * @kind {function}
 	 * @param  {String} str : исходная строка
 	 * @return {String}
 	 */
@@ -199,6 +208,13 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 
+	/**
+	 * onMouseDown - событие, отвечающее за обработка нажатия кнопки мыши.
+	 *
+	 * @kind {event}
+	 * @param  {MouseEvent} event
+	 * @return {boolean}
+	 */
 	@HostListener('mousedown', ['$event']) onMouseDown (event : MouseEvent) {
 		if (!this.detectLeftButton(event)) {
 			return false;
@@ -228,9 +244,17 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 
 		event.preventDefault();
 	}
+
+	/**
+	 * onMouseMove - событие, отвечающее за обработка перемещения мыши в области переноса.
+	 *
+	 * @kind {event}
+	 * @param  {MouseEvent} event
+	 * @return {boolean}
+	 */
 	@HostListener('mousemove', ['$event']) onMouseMove (event : MouseEvent) {
 		if (!this.isDown) {
-			return;
+			return false;
 		}
 		if (!this.isMove) {
 			if (Math.abs(event.clientX - this.startX) < this.precision &&
@@ -250,9 +274,17 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		this.ngRedux.dispatch(action);
 		event.preventDefault();
 	}
+
+	/**
+	 * onMouseUp - событие, отвечающее за отжатие кнопки мыши.
+	 *
+	 * @kind {event}
+	 * @param  {MouseEvent} event
+	 * @return {boolean}
+	 */
 	@HostListener('mouseup', ['$event']) onMouseUp (event : MouseEvent) {
 		if (!this.isDown) {
-			return;
+			return false;
 		}
 		if (!this.isMove) {
 			this.setActiveElements(this.targetElements);
@@ -261,6 +293,14 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		this.initData();
 		event.preventDefault();
 	}
+
+	/**
+	 * onMouseUp - событие, отвечающее за выход курсора за пределы области переноса.
+	 *
+	 * @kind {event}
+	 * @param  {MouseEvent} event
+	 * @return {boolean}
+	 */
 	@HostListener('mouseleave', ['$event']) onMouseLeave (event : MouseEvent) {
 		this.logger.info(`${this.constructor.name}:`, 'onMouseLeave');
 		this.initData();

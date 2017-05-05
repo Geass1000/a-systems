@@ -54,7 +54,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 	 * getSrcTexture - функция, возвращающая путь к изображениям с текстурами.
 	 *
 	 * @kind {function}
-	 * @param  {texture} ITexture - объект с данными о текстуре
+	 * @param  {ITexture} texture - объект с данными о текстуре
 	 * @return {type}
 	 */
 	getSrcTexture (texture : ITexture) {
@@ -66,7 +66,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 	 * фиксацию полученых данных.
 	 *
 	 * @kind {event}
-	 * @param  {event} MouseEvent
+	 * @param  {MouseEvent} event
 	 * @return {type}
 	 */
 	onClickSetTexture (event : MouseEvent) {
@@ -88,7 +88,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 	 * выполняющее фильтрацию списка отображаемых текстур.
 	 *
 	 * @kind {event}
-	 * @param  {event} Event
+	 * @param  {Event} event
 	 * @return {type}
 	 */
 	onChangeTextureCategory (event : Event) {

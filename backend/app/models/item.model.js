@@ -8,6 +8,7 @@ let connection = require('../config/mongodb.database');
 /**
  * _cid - ID категории;
  * type - Surface или Object
+ * preview - изображение-превью элемента
  * payload - данные о элементе, зависит от типа;
  *
  * payload : { surface, object }
@@ -20,6 +21,10 @@ let itemSchema = new Schema({
 		require : true
 	},
 	type : {
+		type : String,
+		require : true
+	},
+	preview : {
 		type : String,
 		require : true
 	},

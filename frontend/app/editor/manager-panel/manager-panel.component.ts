@@ -79,7 +79,7 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	 * aTogglePanelStarted - событие, отслеживающее начало анимации 'togglePanel'.
 	 *
 	 * @kind {event}
-	 * @param  {event} any
+	 * @param  {any} event
 	 * @return {type}
 	 */
 	aTogglePanelStarted (event : any) {
@@ -91,7 +91,7 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	 * aTogglePanelDone - событие, отслеживающее завершение анимации 'togglePanel'.
 	 *
 	 * @kind {event}
-	 * @param  {event} any
+	 * @param  {any} event
 	 * @return {type}
 	 */
 	aTogglePanelDone (event : any) {
@@ -102,7 +102,7 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	 * onClickOpenPanel - событие, отвечающее за переключение 'Manager' панелей.
 	 *
 	 * @kind {event}
-	 * @param  {event} MouseEvent
+	 * @param  {MouseEvent} event
 	 * @return {type}
 	 */
 	onClickOpenPanel (event : MouseEvent) {

@@ -47,7 +47,7 @@ export class ThingComponent implements OnInit, OnDestroy {
 	 * getSrcThing - функция, возвращающая путь к файлу с моделью вещи.
 	 *
 	 * @kind {function}
-	 * @param  {thing} Thing - элемент
+	 * @param  {Thing} thing - элемент
 	 * @return {type}
 	 */
 	getSrcThing (thing : Thing) {
@@ -58,7 +58,7 @@ export class ThingComponent implements OnInit, OnDestroy {
 	 * createFilterUrl - функция, возвращающая путь к фильтру на странице.
 	 *
 	 * @kind {function}
-	 * @param  {str} string - название фильтра
+	 * @param  {string} str - название фильтра
 	 * @return {type}
 	 */
 	createFilterUrl (str : string) {
@@ -69,7 +69,7 @@ export class ThingComponent implements OnInit, OnDestroy {
 	 * isActiveThing - функция, возвращающая истину, если элемент активен.
 	 *
 	 * @kind {function}
-	 * @param  {index} number - номер элемента
+	 * @param  {number} index - номер элемента
 	 * @return {type}
 	 */
 	isActiveThing (index : number) {

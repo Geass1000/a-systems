@@ -28,6 +28,7 @@ export interface IItem {
 	_id : string;
 	_cid : string;
 	type : string;
+	preview : string;
 	payload : ISurface | IThing;
 }
 export interface IItemCategory {

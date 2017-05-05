@@ -62,7 +62,13 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
-	/* Events */
+	/**
+	 * onClickAddItem - событие, отвечающее за создание элементов на рабочей области.
+	 *
+	 * @kind {event}
+	 * @param  {MouseEvent} event
+	 * @return {type}
+	 */
 	onClickAddItem (event : MouseEvent) {
 		let el : Element = (<HTMLElement>event.target).closest('.item');
 		if (!el) {
@@ -97,6 +103,15 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	/**
+	 * getCoordItem - функция, отвечающее за нахождение смещения элемента, относительно
+	 * верхнего левого угла рабочей области.
+	 *
+	 * @kind {function}
+	 * @param  {number} itemWidth - ширина элемента
+	 * @param  {number} itemHeight - ширина элемента
+	 * @return {type}
+	 */
 	getCoordItem (itemWidth : number, itemHeight : number) : IPoint {
 		let widthManagerPanel : number = 328;
 		let heightControlPanel : number = 112;
@@ -115,8 +130,15 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 		return result;
 	}
 
-	onClickSelectCategory (event : any) {
-		let el : any = event.target.closest('.item');
+	/**
+	 * onClickSelectCategory - событие, отвечающее за переключение категорий элементов.
+	 *
+	 * @kind {event}
+	 * @param  {MouseEvent} event
+	 * @return {type}
+	 */
+	onClickSelectCategory (event : MouseEvent) {
+		let el : any = (<HTMLElement>event.target).closest('.item');
 		if (!el) {
 			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - Not navigation element');
 			return;
@@ -135,15 +157,38 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - activeCategory -', this.activeCategory);
 		this.itemsDisplay = this.items.filter((d1) => d1._cid === this.activeCategory);
 	}
+
+	/**
+	 * getParentCategoryId - функция, отвечающая за определение id категории родителя.
+	 *
+	 * @kind {function}
+	 * @param  {string} id - id текущей категории
+	 * @return {type}
+	 */
 	getParentCategoryId (id : string) {
 		return id ? this.itemCategoriesData.get(id)._pid : id;
 	}
+
+	/**
+	 * getParentCategoryName - функция, отвечающая за определение названия категории родителя.
+	 *
+	 * @kind {function}
+	 * @param  {string} id - id категории
+	 * @return {type}
+	 */
 	getParentCategoryName (id : string) {
 		let parent = this.getParentCategoryId(id);
 		return parent ? this.itemCategoriesData.get(parent).name : this.rootCategory;
 	}
 
+	/**
+	 * getParentCategoryName - функция, отвечающая за определение названия категории родителя.
+	 *
+	 * @kind {function}
+	 * @param  {string} id - id категории
+	 * @return {type}
+	 */
 	getSrcItemPreview (item : IItem) {
-		return `assets/items-preview/${item._id}.png`;
+		return `assets/items-preview/${item.preview}`;
 	}
 }
