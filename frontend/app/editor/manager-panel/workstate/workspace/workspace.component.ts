@@ -36,7 +36,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	ngOnInit () {
 		this.subscription.push(this.workspace$.subscribe((data) => {
 			this.workspace = data;
-			if (data) {
+			if (this.workspace) {
 				this.model = {
 					width : data.width.toString(),
 					height : data.height.toString()
@@ -68,11 +68,26 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
-	onAccept () {
+	/**
+	 * onClickTexture - событие, отвечающее за вызов текстурного компонента.
+	 *
+	 * @kind {event}
+	 * @return {type}
+	 */
+	onClickTexture () {
+		this.ngRedux.dispatch(this.editorActions.openManagerPanel('texture'));
+	}
+
+	/**
+	 * onClickAccept - событие, отвечающее за форматирование и сохранение данных.
+	 *
+	 * @kind {event}
+	 * @return {type}
+	 */
+	onClickAccept () {
 		let resultWorkspace : Workspace = new Workspace(this.workspace);
 		resultWorkspace.width = +this.metricService.convertFromCurToDef(this.model.width);
 		resultWorkspace.height = +this.metricService.convertFromCurToDef(this.model.height);
 		this.ngRedux.dispatch(this.editorActions.setWorkspace(resultWorkspace));
-		return true;
 	}
 }

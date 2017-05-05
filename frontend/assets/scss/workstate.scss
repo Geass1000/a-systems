@@ -29,4 +29,37 @@
 	.workstate-content {
 		height: 100%;
 	}
+
+	.form-back {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		align-content: center;
+
+		box-sizing: border-box;
+		width: 100%;
+		padding: 10px 20px;
+
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+		cursor: pointer;
+		color: $color-text-3;
+		font-weight: bold;
+
+		i {
+			margin-right: 5px;
+		}
+		&:hover {
+			background-color: $color-button-2;
+
+			color: #fff;
+		}
+		&.lock {
+			background-color: rgba(128, 128, 128, 0.1);
+
+			color: $color-text-3;
+
+			transition: background-color 0.4s, color 0.4s;
+		}
+	}
 }

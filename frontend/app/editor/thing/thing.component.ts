@@ -42,12 +42,36 @@ export class ThingComponent implements OnInit, OnDestroy {
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
+
+	/**
+	 * getSrcThing - функция, возвращающая путь к файлу с моделью вещи.
+	 *
+	 * @kind {function}
+	 * @param  {thing} Thing - элемент
+	 * @return {type}
+	 */
+	getSrcThing (thing : Thing) {
+		return `assets/items/${thing.url}`;
+	}
+
+	/**
+	 * createFilterUrl - функция, возвращающая путь к фильтру на странице.
+	 *
+	 * @kind {function}
+	 * @param  {str} string - название фильтра
+	 * @return {type}
+	 */
 	createFilterUrl (str : string) {
 		return `url(${location.href}#${str})`;
 	}
-	createUseUrl (str : string) {
-		return `assets/items/${str}.svg#element`;
-	}
+
+	/**
+	 * isActiveThing - функция, возвращающая истину, если элемент активен.
+	 *
+	 * @kind {function}
+	 * @param  {index} number - номер элемента
+	 * @return {type}
+	 */
 	isActiveThing (index : number) {
 		if (!this.activeElements || !this.activeElements.length) {
 			return false;

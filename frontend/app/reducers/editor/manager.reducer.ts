@@ -7,8 +7,7 @@ export interface IEditorManager {
 	active : string;
 	workshop : boolean;
 	workstate : boolean;
-	workstateTexture : boolean;
-	workstateWorkspace : boolean;
+	texture : boolean;
 }
 
 export const INITIAL_STATE : IEditorManager = {
@@ -16,8 +15,7 @@ export const INITIAL_STATE : IEditorManager = {
 	active : 'workstate',
 	workshop : false,
 	workstate : true,
-	workstateTexture : false,
-	workstateWorkspace : false
+	texture : false
 };
 
 export const EditorManagerReducer : Reducer<IEditorManager> =

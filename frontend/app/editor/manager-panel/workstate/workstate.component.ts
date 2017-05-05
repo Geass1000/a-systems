@@ -8,7 +8,7 @@ import { EditorActions } from '../../../actions/editor.actions';
 import { LoggerService } from '../../../core/logger.service';
 import { MetricService } from '../../metric.service';
 
-import { Workspace } from '../../../shared/lib/workspace.class';
+import { IElement } from '../../../shared/interfaces/editor.interface';
 
 @Component({
 	moduleId: module.id,
@@ -43,15 +43,8 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : any[] = [];
-	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
-	private workspace : Workspace;
-	private workspaceInit : boolean = false;
-	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
-	private isActiveMetric : boolean = null;
-	@select(['editor', 'manager', 'workstateTexture']) workstateTexture$ : Observable<boolean>;
-	private workstateTexture : boolean = null;
-	@select(['editor', 'manager', 'workstateWorkspace']) workstateWorkspace$ : Observable<boolean>;
-	private workstateWorkspace : boolean = null;
+	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
+	private activeElements : Array<IElement>;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
@@ -59,40 +52,34 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 						 	 private metricService : MetricService) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.workstateTexture$.subscribe((data) => {
-			this.workstateTexture = data;
-		}));
-		this.subscription.push(this.workstateWorkspace$.subscribe((data) => {
-			this.workstateWorkspace = data;
-		}));
-		this.subscription.push(this.workspace$.subscribe((data) => {
-			this.workspace = new Workspace(data);
-			if (this.isActiveMetric && !this.workspaceInit) {
-				this.workspace.width = +this.metricService.convertFromDefToCur(this.workspace.width);
-				this.workspace.height = +this.metricService.convertFromDefToCur(this.workspace.height);
-				this.workspaceInit = true;
-			}
-		}));
-		this.subscription.push(this.isActiveMetric$.subscribe((data) => {
-			this.isActiveMetric = data;
-			if (this.isActiveMetric) {
-				if (!this.workspaceInit) {
-					this.workspace.width = +this.metricService.convertFromDefToCur(this.workspace.width);
-					this.workspace.height = +this.metricService.convertFromDefToCur(this.workspace.height);
-					this.workspaceInit = true;
-				} else {
-					this.workspace.width = +this.metricService.convertFromPrevToCur(this.workspace.width);
-					this.workspace.height = +this.metricService.convertFromPrevToCur(this.workspace.height);
-				}
-			}
-			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - isActiveMetric -', this.isActiveMetric);
+		this.subscription.push(this.activeElements$.subscribe((data) => {
+			this.activeElements = data;
+			this.logger.info(`${this.constructor.name}:`, `Redux - activeElements -`, this.activeElements);
 		}));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
-	onAccept () {
-		return true;
+
+	/**
+	 * ifActiveElements - функция, определяющая является ли активный элемент элементом
+	 * с типом 'type'.
+	 *
+	 * @kind {function}
+	 * @param  {string} type
+	 * @return {boolean}
+	 */
+	ifActiveElements (type : string) : boolean {
+		this.logger.info(`${this.constructor.name}:`, `ifActiveElements - type -`, type);
+		this.logger.info(`${this.constructor.name}:`, `ifActiveElements - activeElements -`, this.activeElements);
+		if (!this.activeElements || !type) {
+			return false;
+		}
+		switch (type) {
+			case 'workspace' : {
+				return this.activeElements.length === 0;
+			}
+		}
 	}
 }

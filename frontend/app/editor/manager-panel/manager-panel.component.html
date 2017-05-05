@@ -10,10 +10,13 @@
 			<div class="item-panel" *ngIf="workstate$ | async" [@flyInOut]="aItemPanelState">
 				<as-editor-manager-workstate></as-editor-manager-workstate>
 			</div>
+			<div class="item-panel" *ngIf="texture$ | async" [@flyInOut]="aItemPanelState">
+				<as-editor-manager-texture></as-editor-manager-texture>
+			</div>
 		</div>
 	</div>
 
-	<div class="manager-component manager-navigation" (click)="openPanel($event)">
+	<div class="manager-component manager-navigation" (click)="onClickOpenPanel($event)">
 		<div class="item-navigation" [class.active]="workshop" data-panel-name="workshop">
 			<i class="fa fa-home" aria-hidden="true"></i>
 		</div>

@@ -22,10 +22,12 @@
 .workstate-texture .workstate-content .list-categories {
   width: 100%;
   padding: 5px;
+  padding-left: 15px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   color: #5C5C5C;
-  font-size: 15px; }
+  font-size: 15px;
+  font-weight: bold; }
 
 .workstate-texture .workstate-content .list-textures {
   display: -ms-flexbox;

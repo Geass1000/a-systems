@@ -47,7 +47,6 @@ import { LoggerService } from '../../core/logger.service';
 })
 export class ManagerPanelComponent implements OnInit, OnDestroy {
 	/* Private variable */
-
 	/* Angular Animation */
 	private aPanelState : string = 'open';
 	private aItemPanelState : string = 'close';
@@ -58,6 +57,7 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	private managerOpen : boolean;
 	@select(['editor', 'manager', 'workshop']) workshop$ : Observable<boolean>;
 	@select(['editor', 'manager', 'workstate']) workstate$ : Observable<boolean>;
+	@select(['editor', 'manager', 'texture']) texture$ : Observable<boolean>;
 
 	constructor (private ngRedux : NgRedux<any>,
 						 	 private editorActions : EditorActions,
@@ -74,17 +74,39 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
-	/* Angular Animation */
+	/**
+	 * Angular Animation
+	 * aTogglePanelStarted - событие, отслеживающее начало анимации 'togglePanel'.
+	 *
+	 * @kind {event}
+	 * @param  {event} any
+	 * @return {type}
+	 */
 	aTogglePanelStarted (event : any) {
 		this.aItemPanelState = 'close';
 		this.logger.info(`${this.constructor.name}:`, `aTogglePanelStarted - ${event.toState}`);
 	}
+	/**
+	 * Angular Animation
+	 * aTogglePanelDone - событие, отслеживающее завершение анимации 'togglePanel'.
+	 *
+	 * @kind {event}
+	 * @param  {event} any
+	 * @return {type}
+	 */
 	aTogglePanelDone (event : any) {
 		this.aItemPanelState = 'open';
 	}
 
-	openPanel (event : any) {
-		let el : any = event.target.closest('.item-navigation');
+	/**
+	 * onClickOpenPanel - событие, отвечающее за переключение 'Manager' панелей.
+	 *
+	 * @kind {event}
+	 * @param  {event} MouseEvent
+	 * @return {type}
+	 */
+	onClickOpenPanel (event : MouseEvent) {
+		let el : any = (<HTMLElement>event.target).closest('.item-navigation');
 		if (el !== null) {
 			let panelName : string = el.getAttribute('data-panel-name').toString();
 			this.logger.info(`${this.constructor.name}:`, 'openPanel -', panelName);

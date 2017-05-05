@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /* App Feature - Component */
 import { WorkstateComponent } from './workstate.component';
-import { TextureComponent } from './texture/texture.component';
 import { WorkspaceComponent } from './workspace/workspace.component';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { WorkspaceComponent } from './workspace/workspace.component';
 	],
   declarations: [
 		WorkstateComponent,
-		TextureComponent,
 		WorkspaceComponent
 	],
   exports:      [ WorkstateComponent ],

@@ -92,8 +92,6 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 			let offset : IPoint = this.getCoordItem(itemThing.width, itemThing.height);
 			thing.x = offset.x;
 			thing.y = offset.y;
-			// Set link
-			thing.url = `${thing.url}#${item._id}`;
 
 			this.ngRedux.dispatch(this.editorActions.addThing(thing));
 		}
