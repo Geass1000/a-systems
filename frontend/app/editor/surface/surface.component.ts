@@ -41,12 +41,28 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
+
+	/**
+	 * isActiveSurface - функция, возвращающая истину, если элемент 'Surface' активен.
+	 *
+	 * @kind {function}
+	 * @param  {number} index - номер элемента
+	 * @return {type}
+	 */
 	isActiveSurface (index : number) {
 		if (!this.activeElements || !this.activeElements.length) {
 			return false;
 		}
 		return this.activeElements[0].type === 'surface' && this.activeElements[0].id === index;
 	}
+
+	/**
+	 * isActivePoint - функция, возвращающая истину, если элемент 'Point' активен.
+	 *
+	 * @kind {function}
+	 * @param  {number} index - номер элемента
+	 * @return {type}
+	 */
 	isActivePoint (index : number) {
 		if (!this.activeElements || this.activeElements.length < 2) {
 			return false;

@@ -32,9 +32,9 @@ class EditorController {
  	 * @method getAllTextures
  	 */
 	getAllTextures (req, res) {
-		let type = req.query.type ? req.query.type.split(" ") : null;
+		let category = req.query.category ? req.query.category.split(" ") : null;
 
-		Texture.getAllTextures(type)
+		Texture.getAllTextures(category)
 			.then((doc) => {
 				logger.info('EditorController: getAllTextures', JSON.stringify(doc));
 				if (doc.length === 0) {

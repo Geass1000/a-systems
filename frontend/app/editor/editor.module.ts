@@ -20,7 +20,6 @@ import { DragAndDropDirective } from './drag-and-drop.directive';
 /* App Feature - Service */
 import { DataLoadService } from './data-load.service';
 import { DataInitService } from './data-init.service';
-import { EditorService } from './editor.service';
 import { MetricService } from './metric.service';
 
 @NgModule({
@@ -38,9 +37,8 @@ import { MetricService } from './metric.service';
 		ThingComponent,
 		DragAndDropDirective
 	],
-  exports:      [ EditorComponent ],
-  providers:    [
-		EditorService,
+  exports: [ EditorComponent ],
+  providers: [
 		MetricService,
 		DataLoadService,
 		DataInitService

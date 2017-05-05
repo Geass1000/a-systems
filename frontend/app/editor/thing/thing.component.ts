@@ -66,7 +66,7 @@ export class ThingComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * isActiveThing - функция, возвращающая истину, если элемент активен.
+	 * isActiveThing - функция, возвращающая истину, если элемент 'Thing' активен.
 	 *
 	 * @kind {function}
 	 * @param  {number} index - номер элемента

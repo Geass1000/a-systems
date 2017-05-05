@@ -33,12 +33,26 @@ export class DataInitService implements OnDestroy {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
+	/**
+	 * initData - функция, обеспечивающая вызыв всех функций, необходимых для
+	 * инициализации данных.
+	 *
+	 * @kind {function}
+	 * @return {type}
+	 */
 	initData () {
 		this.logger.info(`${this.constructor.name}:`, 'initData -', 'Data initialization...');
 		this.initLoadData();
 		this.initWorkspace();
 	}
 
+	/**
+	 * isInitAll - функция, обеспечивающая проверку состояния всех инициализирующих
+	 * функций. Состояния бывают 2х видов: выполнено и не выполнено.
+	 *
+	 * @kind {function}
+	 * @return {type}
+	 */
 	isInitAll () {
 		let values = Array.from(this.isInit.values());
 		let isInitAllValues = values.every((data) => { return data; });
@@ -47,13 +61,21 @@ export class DataInitService implements OnDestroy {
 			this.ngRedux.dispatch(this.editorActions.initProject(true));
 		}
 	}
+
+	/**
+	 * initLoadData - функция, обеспечивающая вызов всех методов загрузки структур
+	 * данных из сервера.
+	 *
+	 * @kind {function}
+	 * @return {type}
+	 */
 	initLoadData () {
 		if (this.isInit.get('request')) {
 			return ;
 		}
 		Observable.forkJoin([
 			this.dataLoadService.getItemCategories(),
-			this.dataLoadService.getTextureTypes(),
+			this.dataLoadService.getTextureCategories(),
 			this.dataLoadService.getTextures(),
 			this.dataLoadService.getItems()
 		]).subscribe(
@@ -77,6 +99,14 @@ export class DataInitService implements OnDestroy {
 			}
 		);
 	}
+
+	/**
+	 * initWorkspace - функция, рассчитывающая смещение камеры в центральную
+	 * позицию рабочего пространства.
+	 *
+	 * @kind {function}
+	 * @return {type}
+	 */
 	initWorkspace () {
 		let windowWidth  : number = document.documentElement.clientWidth,
 				windowHeight : number = document.documentElement.clientHeight;

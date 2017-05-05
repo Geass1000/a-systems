@@ -31,9 +31,17 @@ export class DataLoadService implements OnDestroy {
 	ngOnDestroy () {
 	}
 
-	getTextures (type ?: string) : Observable<any> {
+	/**
+	 * getTextures - функция, выполняющая GET запрос на получение списка с информацией
+	 * о текстурах.
+	 *
+	 * @kind {function}
+	 * @param  {string} category - категоря текстур
+	 * @return {type}
+	 */
+	getTextures (category ?: string) : Observable<any> {
 		this.logger.info(`${this.constructor.name}:`, 'getTextures -', 'Textures loads...');
-		let query : string = type ? `?type=${type}` : '';
+		let query : string = category ? `?category=${category}` : '';
 		return this.http.get(Config.serverUrl + this.texturUrl + query, { headers : this.headers })
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
@@ -43,17 +51,33 @@ export class DataLoadService implements OnDestroy {
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))
 										.catch(this.httpService.handleError);
 	}
-	getTextureTypes () : Observable<any> {
-		this.logger.info(`${this.constructor.name}:`, 'getTextureTypes -', 'Texture types loads...');
+
+	/**
+	 * getTextureCategories - функция, выполняющая GET запрос на получение списка с информацией
+	 * о категориях текстурах.
+	 *
+	 * @kind {function}
+	 * @return {type}
+	 */
+	getTextureCategories () : Observable<any> {
+		this.logger.info(`${this.constructor.name}:`, 'getTextureCategories -', 'Texture types loads...');
 		return this.http.get(Config.serverUrl + this.texturTypeUrl, { headers : this.headers })
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
-											this.logger.info(`${this.constructor.name}:`, 'getTextureTypes -', `status = ${resp.status} -`, jResp);
+											this.logger.info(`${this.constructor.name}:`, 'getTextureCategories -', `status = ${resp.status} -`, jResp);
 											return jResp;
 										})
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))
 										.catch(this.httpService.handleError);
 	}
+
+	/**
+	 * getItems - функция, выполняющая GET запрос на получение списка с информацией
+	 * о элементах.
+	 *
+	 * @kind {function}
+	 * @return {type}
+	 */
 	getItems () : Observable<any> {
 		this.logger.info(`${this.constructor.name}:`, 'getItems -', 'Items loads...');
 		return this.http.get(Config.serverUrl + this.itemUrl, { headers : this.headers })
@@ -65,6 +89,14 @@ export class DataLoadService implements OnDestroy {
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))
 										.catch(this.httpService.handleError);
 	}
+
+	/**
+	 * getItemCategories - функция, выполняющая GET запрос на получение списка с информацией
+	 * о категориях элементов.
+	 *
+	 * @kind {function}
+	 * @return {type}
+	 */
 	getItemCategories () : Observable<any> {
 		this.logger.info(`${this.constructor.name}:`, 'getItemCategories -', 'Item catygories loads...');
 		return this.http.get(Config.serverUrl + this.itemCategoryUrl, { headers : this.headers })
