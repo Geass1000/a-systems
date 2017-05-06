@@ -66,7 +66,7 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 	 * @kind {event}
 	 * @return {void}
 	 */
-	onClickCreateProject () {
+	onClickCreateProject () : void {
 		let resultWorkspace : Workspace = new Workspace();
 		resultWorkspace.width = +this.metricService.convertFromCurToDef(this.model.width);
 		resultWorkspace.height = +this.metricService.convertFromCurToDef(this.model.height);
@@ -83,7 +83,7 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 	 * @kind {event}
 	 * @return {void}
 	 */
-	onClickOpenWorkspace (el ?: boolean) {
+	onClickOpenWorkspace () : void {
 		console.log(this.model);
 	}
 

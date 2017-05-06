@@ -10,6 +10,7 @@ import { LoggerService } from '../../../../core/logger.service';
 import { MetricService } from '../../../metric.service';
 
 import { Workspace } from '../../../../shared/lib/workspace.class';
+import { isNumber } from '../../../../shared/validators/is-number.validator';
 
 @Component({
 	moduleId: module.id,
@@ -122,12 +123,12 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       'width' : ['', [
 					Validators.required,
-					Validators.pattern('^[0-9]+(\.[0-9]*)?$')
+					isNumber
 				]
 			],
 			'height' : ['', [
 					Validators.required,
-					Validators.pattern('^[0-9]+(\.[0-9]*)?$')
+					isNumber
 				]]
     });
   }
