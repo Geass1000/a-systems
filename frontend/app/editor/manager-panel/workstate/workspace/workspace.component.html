@@ -4,12 +4,12 @@
 	</div>
 	<div class="workstate-content">
 		<form [formGroup]="form" class="form-1">
-			<div class="form-group" [class.focused]="getForm('width')">
+			<div class="form-group" [class.focused]="getField('width')">
 				<input type='text' class="form-control"	required
 					name="workspaceWidth" id="workspaceWidth" formControlName="width" />
 				<label for="workspaceWidth">Width</label>
 			</div>
-			<div class="form-group" [class.focused]="getForm('height')">
+			<div class="form-group" [class.focused]="getField('height')">
 				<input type="text" class="form-control" required
 					name="workspaceHeight" id="workspaceHeight" formControlName="height" />
 				<label for="workspaceHeight">Height</label>

@@ -1,4 +1,4 @@
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 
 let rgxFloat : RegExp = new RegExp(/^[0-9]+(\.[0-9]*)?$/);
 
