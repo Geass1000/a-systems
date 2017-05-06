@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
@@ -20,9 +20,11 @@ import { isNumber } from '../../../../shared/validators/is-number.validator';
 })
 export class WorkspaceComponent implements OnInit, OnDestroy {
 	/* Private Variable */
-	private isInit : boolean = false;
+	private isInit : boolean = false; // флаг сигнализирующий о необходимости инициализации
 	private form : FormGroup;
-	private formChangeValue : any;
+	private subFormChange : any;
+	private changeModel : boolean; // Флаг, сигнализирующий о изменении модели
+	private changeMeasure : boolean; // флаг сигнализирующий о изменении единиц измерения
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -41,27 +43,63 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 		this.buildForm();
 		this.subscription.push(this.workspace$.subscribe((data) => {
 			this.workspace = data;
-			if (!this.isInit) {
-				this.isInit = this.initForm();
-			}
-			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - workspace -', data);
+			this.isInit = false;
+			this.setModel();
 		}));
 		this.subscription.push(this.isActiveMetric$.subscribe((data) => {
 			this.isActiveMetric = data;
 			if (this.isInit) {
-				this.updateNumberValue('width');
-				this.updateNumberValue('height');
+				this.updateModelMetric();
 			} else {
-				this.isInit = this.initForm();
+				this.setModel();
 			}
-			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - isActiveMetric -', this.isActiveMetric);
 		}));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
-		if (this.formChangeValue) {
-			this.formChangeValue.unsubscribe();
+		if (this.subFormChange) {
+			this.subFormChange.unsubscribe();
 		}
+	}
+
+	/**
+	 * setModel - функция, синхронизирующая значения формы со значениями модели из
+	 * хранилища. Не реагирует на изменение модели из данного компонента.
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
+	setModel () : void {
+		if (this.changeModel) {
+			this.changeModel = false;
+			this.isInit = true;
+			return ;
+		}
+		if (!this.workspace || !this.isActiveMetric) {
+			return ;
+		}
+		this.logger.info(`${this.constructor.name}:`, 'setModel - workspace -', this.workspace);
+		this.form.setValue({
+			width : this.metricService.convertFromDefToCur(this.workspace.width).toString(),
+			height : this.metricService.convertFromDefToCur(this.workspace.height).toString()
+		});
+		this.isInit = true;
+	}
+
+	/**
+	 * updateModelMetric - функция, обновляющая значения полей в случае изменения
+	 * величины измерения.
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
+	updateModelMetric () : void {
+		this.changeMeasure = true;
+		this.metricService.updateFormValue(this.form, 'width');
+		this.changeMeasure = true;
+		this.metricService.updateFormValue(this.form, 'height');
+		//this.updateMetricValue('width');
+		//this.updateMetricValue('height');
 	}
 
 	/**
@@ -71,15 +109,15 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @return {void}
 	 */
 	buildForm () : void {
-		if (this.formChangeValue) {
-			this.formChangeValue.unsubscribe();
+		if (this.subFormChange) {
+			this.subFormChange.unsubscribe();
 		}
 		this.form = this.fb.group({
 			'width' : [ '', [ Validators.required,	isNumber ] ],
 			'height' : [ '', [ Validators.required, isNumber ] ]
 		});
 
-		this.formChangeValue = this.form.valueChanges.subscribe((data) => this.onChangeValue(data));
+		this.subFormChange = this.form.valueChanges.subscribe((data) => this.onChangeValue(data));
 	}
 
 	/**
@@ -90,56 +128,51 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @return {void}
 	 */
 	onChangeValue (data ?: any) {
-		if (!this.workspace || !this.isActiveMetric || !this.isInit) {
+		if (this.changeMeasure) {
+			this.changeMeasure = false;
 			return;
 		}
-
+		if (!this.workspace || !this.isActiveMetric || !this.form.valid || !this.isInit) {
+			return;
+		}
+		this.logger.info(`${this.constructor.name}:`, 'onChangeValue -', this.workspace);
 		let resultWorkspace : Workspace = new Workspace(this.workspace);
 
 		let tmpWidth : number = this.prepareNumberData('width');
-		resultWorkspace.width = tmpWidth ? tmpWidth : resultWorkspace.width;
+		resultWorkspace.width = tmpWidth !== null ? tmpWidth : resultWorkspace.width;
 		let tmpHeight : number = this.prepareNumberData('height');
-		resultWorkspace.height = tmpHeight ? tmpHeight : resultWorkspace.height;
+		resultWorkspace.height = tmpHeight !== null ? tmpHeight : resultWorkspace.height;
 
+		this.changeModel = true;
 		this.ngRedux.dispatch(this.editorActions.setWorkspace(resultWorkspace));
 	}
 
-	prepareNumberData (str : string) {
-		if (this.isVailid(str)) {
-			return +this.metricService.convertFromCurToDef(this.getField(str));
-		}
-		return null;
-	}
-
 	/**
-	 * initForm - функция, отвечающее за инициализацию формы. В случае успешной
-	 * инициализации, возвращается истина, в противном случае ложь.
-	 *
-	 * @kind {function}
-	 * @return {boolean}
-	 */
-	initForm () : boolean {
-		if (!this.workspace || !this.isActiveMetric) {
-			return false;
-		}
-		this.form.setValue({
-			width : this.metricService.convertFromDefToCur(this.workspace.width).toString(),
-			height : this.metricService.convertFromDefToCur(this.workspace.height).toString()
-		});
-		return true;
-	}
-
-	/**
-	 * updateNumberValue - функция, выполняющее обновление цифрового поля 'fieldName'.
+	 * prepareNumberData - функция, выполняющая извлечение цифровых данных из поля fieldName.
 	 *
 	 * @kind {function}
 	 * @param {string} fieldName - наименование поля
 	 * @return {void}
 	 */
-	updateNumberValue (fieldName : string) : void {
+	prepareNumberData (fieldName : string) {
+		if (!this.isActiveMetric || !this.isVailid(fieldName)) {
+			return null;
+		}
+		return +this.metricService.convertFromCurToDef(this.getField(fieldName));
+	}
+
+	/**
+	 * updateMetricValue - функция, выполняющее обновление цифрового поля 'fieldName'.
+	 *
+	 * @kind {function}
+	 * @param {string} fieldName - наименование поля
+	 * @return {void}
+	 */
+	updateMetricValue (fieldName : string) : void {
 		if (!this.isActiveMetric || !this.isVailid(fieldName)) {
 			return;
 		}
+		this.changeMeasure = true;
 		let obj = {};
 		obj[fieldName] = this.metricService.convertFromPrevToCur(this.getField(fieldName)).toString();
 		this.form.patchValue(obj);
@@ -153,7 +186,11 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @return {boolean}
 	 */
 	isVailid (fieldName : string) : boolean {
-		return this.form ? this.form.get(fieldName).valid : false;
+		if (!this.form) {
+			return null;
+		}
+		let field : AbstractControl = this.form.get(fieldName);
+		return field ? field.valid : false;
 	}
 
 	/**
@@ -164,7 +201,11 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @return {string}
 	 */
 	getField (fieldName : string) : string {
-		return this.form ? this.form.get(fieldName).value.toString() : '';
+		if (!this.form) {
+			return null;
+		}
+		let field : AbstractControl = this.form.get(fieldName);
+		return field ? field.value.toString() : '';
 	}
 
 	/**

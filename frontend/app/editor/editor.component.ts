@@ -38,7 +38,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 		this.subscription.push(this.isInitProject$.subscribe((data) => this.isInitProject = data));
 		this.subscription.push(this.workspace$.subscribe((data) => {
 			this.workspace = data;
-			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - workspace -', this.workspace);
+			//this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - workspace -', this.workspace);
 		}));
 	}
 	ngOnDestroy () {

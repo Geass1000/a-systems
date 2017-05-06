@@ -1,5 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
+import { FormGroup, AbstractControl } from '@angular/forms';
+
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
@@ -76,5 +78,53 @@ export class MetricService implements OnDestroy {
 		let cof : number = toScale / fromScale;
 		let result : number = cof * (+num);
 		return +result.toFixed(10);
+	}
+
+	/**
+	 * isVailid - функция, возвращающая истину, если палое 'fieldName' прошло валидацию.
+	 *
+	 * @kind {function}
+	 * @param {string} fieldName - наименование поля
+	 * @return {boolean}
+	 */
+	isVailid (form : FormGroup, fieldName : string) : boolean {
+		if (!form) {
+			return null;
+		}
+		let field : AbstractControl = form.get(fieldName);
+		return field ? field.valid : null;
+	}
+
+	/**
+	 * getField - функция, возвращающая значение поля.
+	 *
+	 * @kind {function}
+	 * @param {string} fieldName - наименование поля
+	 * @return {string}
+	 */
+	getField (form : FormGroup, fieldName : string) : string {
+		if (!form) {
+			return null;
+		}
+		let field : AbstractControl = form.get(fieldName);
+		return field ? field.value.toString() : null;
+	}
+
+	/**
+	 * updateFormValue - функция, выполняющее обновление цифрового поля 'fieldName'.
+	 *
+	 * @kind {function}
+	 * @param {string} fieldName - наименование поля
+	 * @return {void}
+	 */
+	updateFormValue (form : FormGroup, fieldName : string) : boolean {
+		if (!this.isActiveMetric || !this.isVailid(form, fieldName)) {
+			return false;
+		}
+		this.logger.info(`${this.constructor.name}:`, `updateFormValue - ${fieldName}`);
+		let obj = {};
+		obj[fieldName] = this.convertFromPrevToCur(this.getField(form, fieldName)).toString();
+		form.patchValue(obj);
+		return true;
 	}
 }
