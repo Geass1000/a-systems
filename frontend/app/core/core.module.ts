@@ -10,8 +10,8 @@ import { LoggerService } from './logger.service';
 
 @NgModule({
   imports:      [ CommonModule ],
-  declarations: [  ],
-  exports:      [  ],
+  declarations: [ ],
+  exports:      [ ],
   providers:    [
 		AUTH_PROVIDERS,
 		AuthGuard,

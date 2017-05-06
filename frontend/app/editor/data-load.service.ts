@@ -37,7 +37,7 @@ export class DataLoadService implements OnDestroy {
 	 *
 	 * @kind {function}
 	 * @param  {string} category - категоря текстур
-	 * @return {type}
+	 * @return {Observable<any>}
 	 */
 	getTextures (category ?: string) : Observable<any> {
 		this.logger.info(`${this.constructor.name}:`, 'getTextures -', 'Textures loads...');
@@ -57,7 +57,7 @@ export class DataLoadService implements OnDestroy {
 	 * о категориях текстурах.
 	 *
 	 * @kind {function}
-	 * @return {type}
+	 * @return {Observable<any>}
 	 */
 	getTextureCategories () : Observable<any> {
 		this.logger.info(`${this.constructor.name}:`, 'getTextureCategories -', 'Texture types loads...');
@@ -76,7 +76,7 @@ export class DataLoadService implements OnDestroy {
 	 * о элементах.
 	 *
 	 * @kind {function}
-	 * @return {type}
+	 * @return {Observable<any>}
 	 */
 	getItems () : Observable<any> {
 		this.logger.info(`${this.constructor.name}:`, 'getItems -', 'Items loads...');
@@ -95,7 +95,7 @@ export class DataLoadService implements OnDestroy {
 	 * о категориях элементов.
 	 *
 	 * @kind {function}
-	 * @return {type}
+	 * @return {Observable<any>}
 	 */
 	getItemCategories () : Observable<any> {
 		this.logger.info(`${this.constructor.name}:`, 'getItemCategories -', 'Item catygories loads...');

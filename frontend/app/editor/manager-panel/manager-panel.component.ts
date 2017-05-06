@@ -80,9 +80,9 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	 *
 	 * @kind {event}
 	 * @param  {any} event
-	 * @return {type}
+	 * @return {void}
 	 */
-	aTogglePanelStarted (event : any) {
+	aTogglePanelStarted (event : any) : void {
 		this.aItemPanelState = 'close';
 		this.logger.info(`${this.constructor.name}:`, `aTogglePanelStarted - ${event.toState}`);
 	}
@@ -92,9 +92,9 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	 *
 	 * @kind {event}
 	 * @param  {any} event
-	 * @return {type}
+	 * @return {void}
 	 */
-	aTogglePanelDone (event : any) {
+	aTogglePanelDone (event : any) : void {
 		this.aItemPanelState = 'open';
 	}
 
@@ -103,9 +103,9 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	 *
 	 * @kind {event}
 	 * @param  {MouseEvent} event
-	 * @return {type}
+	 * @return {void}
 	 */
-	onClickOpenPanel (event : MouseEvent) {
+	onClickOpenPanel (event : MouseEvent) : void {
 		let el : any = (<HTMLElement>event.target).closest('.item-navigation');
 		if (el !== null) {
 			let panelName : string = el.getAttribute('data-panel-name').toString();

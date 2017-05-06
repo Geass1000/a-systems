@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+/* App Feature - Module */
+import { SharedModule } from '../shared/shared.module';
 
 /* Routing Module */
 import { EditorRoutingModule } from './editor-routing.module';
@@ -24,9 +25,7 @@ import { MetricService } from './metric.service';
 
 @NgModule({
   imports: [
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
+		SharedModule,
 		EditorRoutingModule,
 		ManagerPanelModule,
 		ControlPanelModule

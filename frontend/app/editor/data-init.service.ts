@@ -38,9 +38,9 @@ export class DataInitService implements OnDestroy {
 	 * инициализации данных.
 	 *
 	 * @kind {function}
-	 * @return {type}
+	 * @return {void}
 	 */
-	initData () {
+	initData () : void {
 		this.logger.info(`${this.constructor.name}:`, 'initData -', 'Data initialization...');
 		this.initLoadData();
 		this.initWorkspace();
@@ -51,9 +51,9 @@ export class DataInitService implements OnDestroy {
 	 * функций. Состояния бывают 2х видов: выполнено и не выполнено.
 	 *
 	 * @kind {function}
-	 * @return {type}
+	 * @return {void}
 	 */
-	isInitAll () {
+	isInitAll () : void {
 		let values = Array.from(this.isInit.values());
 		let isInitAllValues = values.every((data) => { return data; });
 		this.logger.info(`${this.constructor.name}:`, 'Initialization - isInitAll -', isInitAllValues);
@@ -67,9 +67,9 @@ export class DataInitService implements OnDestroy {
 	 * данных из сервера.
 	 *
 	 * @kind {function}
-	 * @return {type}
+	 * @return {void}
 	 */
-	initLoadData () {
+	initLoadData () : void {
 		if (this.isInit.get('request')) {
 			return ;
 		}
@@ -105,9 +105,9 @@ export class DataInitService implements OnDestroy {
 	 * позицию рабочего пространства.
 	 *
 	 * @kind {function}
-	 * @return {type}
+	 * @return {void}
 	 */
-	initWorkspace () {
+	initWorkspace () : void {
 		let windowWidth  : number = document.documentElement.clientWidth,
 				windowHeight : number = document.documentElement.clientHeight;
 		let halfWindowWidth  : number = windowWidth / 2,

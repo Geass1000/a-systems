@@ -61,7 +61,6 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
-
 	/**
 	 * ifActiveElements - функция, определяющая является ли активный элемент элементом
 	 * с типом 'type'.
@@ -71,8 +70,8 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 	 * @return {boolean}
 	 */
 	ifActiveElements (type : string) : boolean {
-		this.logger.info(`${this.constructor.name}:`, `ifActiveElements - type -`, type);
-		this.logger.info(`${this.constructor.name}:`, `ifActiveElements - activeElements -`, this.activeElements);
+		//this.logger.info(`${this.constructor.name}:`, `ifActiveElements - type -`, type);
+		//this.logger.info(`${this.constructor.name}:`, `ifActiveElements - activeElements -`, this.activeElements);
 		if (!this.activeElements || !type) {
 			return false;
 		}

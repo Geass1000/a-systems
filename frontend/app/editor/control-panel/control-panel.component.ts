@@ -33,12 +33,26 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
-	formChange (event : any) {
+
+	/**
+	 * onChangeMeasure - событие, отвечающее за изменение активной единицы измерения.
+	 *
+	 * @kind {event}
+	 * @return {void}
+	 */
+	onChangeMeasure () : void {
 		this.ngRedux.dispatch(this.editorActions.setMeasure(this.curMeasure));
 	}
 
-	openModal (event : any) {
-		let el : any = event.target.closest('.item-navigation');
+	/**
+	 * onClickOpenModal - событие, отвечающее за открытие 'Control' модельных окон.
+	 *
+	 * @kind {event}
+	 * @param  {MouseEvent} event
+	 * @return {void}
+	 */
+	onClickOpenModal (event : MouseEvent) : void {
+		let el : any = (<HTMLElement>event.target).closest('.item-navigation');
 		if (el !== null) {
 			let modalName : string = el.getAttribute('data-modal-name').toString();
 			this.logger.info(`${this.constructor.name}:`, 'openModal -', modalName);

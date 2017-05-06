@@ -1,6 +1,6 @@
 <header>
 	<section class="base-section control-section">
-		<div class="base-block page-block" (click)="openModal($event)">
+		<div class="base-block page-block" (click)="onClickOpenModal($event)">
 			<div class="left-block">
 				<a class="item-navigation" data-modal-name="initProject">
 					<i class="fa fa-file-text" aria-hidden="true"></i>
@@ -14,7 +14,7 @@
 
 			</div>
 			<div class="right-block">
-				<form #f="ngForm" (change)="formChange(f, $event)" class="switch">
+				<form #f="ngForm" (change)="onChangeMeasure()" class="switch">
 					<input type="radio" class="switch-input" name="measure" value="cm" id="cm" [(ngModel)]="curMeasure">
 					<label for="cm" class="switch-label">cm</label>
 					<input type="radio" class="switch-input" name="measure" value="m" id="m" [(ngModel)]="curMeasure">

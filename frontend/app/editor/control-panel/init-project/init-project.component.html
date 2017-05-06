@@ -1,5 +1,5 @@
 <div class="modal-window modal-init-project" [class.visible]="modalOpen | async">
-	<i class="fa fa-times icon-close" aria-hidden="true" (click)="closeModal()"></i>
+	<i class="fa fa-times icon-close" aria-hidden="true" (click)="onClickCloseModal()"></i>
 	<section class="modal-header">
 		<h1>Project</h1>
 		<p>Create your project here.</p>
@@ -28,8 +28,8 @@
 				</div>
 			</div>
 
-			<button type="button" (click)="onInitProject()" [disabled]="!f.valid">Create</button>
-			<button type="button" (click)="onOpenWorkspace()">Open</button>
+			<button type="button" (click)="onClickCreateProject()" [disabled]="!f.valid">Create</button>
+			<button type="button" (click)="onClickOpenWorkspace()">Open</button>
 		</form>
 	</section>
 </div>

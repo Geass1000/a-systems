@@ -3,21 +3,19 @@
 		<h4>Workspace</h4>
 	</div>
 	<div class="workstate-content">
-		<form #f="ngForm" class="form-1" *ngIf="model">
-			<div class="form-group" [class.focused]="model.width">
+		<form [formGroup]="form" class="form-1">
+			<div class="form-group" [class.focused]="getForm('width')">
 				<input type='text' class="form-control"	required
-					name="workspaceWidth" id="workspaceWidth" [(ngModel)]="model.width"
-					pattern="[0-9]+(\.[0-9]*)?" />
+					name="workspaceWidth" id="workspaceWidth" formControlName="width" />
 				<label for="workspaceWidth">Width</label>
 			</div>
-			<div class="form-group" [class.focused]="model.height">
+			<div class="form-group" [class.focused]="getForm('height')">
 				<input type="text" class="form-control" required
-					name="workspaceHeight" id="workspaceHeight" [(ngModel)]="model.height"
-					pattern="[0-9]+(\.[0-9]*)?" />
+					name="workspaceHeight" id="workspaceHeight" formControlName="height" />
 				<label for="workspaceHeight">Height</label>
 			</div>
-			<button type="button" (click)="onClickTexture()">Texture</button>
-			<button type="button" (click)="onClickAccept()" [disabled]="!f.valid">Accept</button>
+			<button type="button" (click)="onClickOpenTexture()">Texture</button>
+			<button type="button" (click)="onClickAccept()" [disabled]="!form.valid">Accept</button>
 		</form>
 	</div>
 </div>

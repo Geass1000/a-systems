@@ -48,9 +48,9 @@ export class ThingComponent implements OnInit, OnDestroy {
 	 *
 	 * @kind {function}
 	 * @param  {Thing} thing - элемент
-	 * @return {type}
+	 * @return {string}
 	 */
-	getSrcThing (thing : Thing) {
+	getSrcThing (thing : Thing) : string {
 		return `assets/items/${thing.url}`;
 	}
 
@@ -59,9 +59,9 @@ export class ThingComponent implements OnInit, OnDestroy {
 	 *
 	 * @kind {function}
 	 * @param  {string} str - название фильтра
-	 * @return {type}
+	 * @return {string}
 	 */
-	createFilterUrl (str : string) {
+	createFilterUrl (str : string) : string {
 		return `url(${location.href}#${str})`;
 	}
 
@@ -70,9 +70,9 @@ export class ThingComponent implements OnInit, OnDestroy {
 	 *
 	 * @kind {function}
 	 * @param  {number} index - номер элемента
-	 * @return {type}
+	 * @return {boolean}
 	 */
-	isActiveThing (index : number) {
+	isActiveThing (index : number) : boolean {
 		if (!this.activeElements || !this.activeElements.length) {
 			return false;
 		}

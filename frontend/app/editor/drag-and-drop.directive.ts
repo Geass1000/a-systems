@@ -78,9 +78,9 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 *
 	 * @kind {function}
 	 * @param  {Array<IElement>} els
-	 * @return {type}
+	 * @return {void}
 	 */
-	setActiveElements (els : Array<IElement>) {
+	setActiveElements (els : Array<IElement>) : void {
 		this.activeElements = els;
 		this.ngRedux.dispatch(this.editorActions.setActiveElements(this.activeElements));
 	}
@@ -94,7 +94,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * @param  {SVGElement} element : SVGElement
 	 * @return {Array<IElement>}
 	 */
-	captureElement (element : SVGElement) {
+	captureElement (element : SVGElement) : Array<IElement> {
 		let activeElements : Array<IElement> = [];
 		let el : any = element;
 		while (el = el.closest('.draggable')) {
@@ -148,7 +148,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * @param  {Array<IElement>} els
 	 * @return {Array<IElement>}
 	 */
-	correctTarget (els : Array<IElement>) {
+	correctTarget (els : Array<IElement>) : Array<IElement> {
 		if (!els || els.length === this.targetElements.length) {
 			return this.targetElements;
 		}
@@ -201,10 +201,10 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * capitalizeFirstLetter - преобразование первой буквы в заглавную.
 	 *
 	 * @kind {function}
-	 * @param  {String} str : исходная строка
-	 * @return {String}
+	 * @param  {string} str : исходная строка
+	 * @return {string}
 	 */
-	capitalizeFirstLetter (str : string) {
+	capitalizeFirstLetter (str : string) : string {
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 
@@ -215,7 +215,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * @param  {MouseEvent} event
 	 * @return {boolean}
 	 */
-	@HostListener('mousedown', ['$event']) onMouseDown (event : MouseEvent) {
+	@HostListener('mousedown', ['$event']) onMouseDown (event : MouseEvent) : boolean {
 		if (!this.detectLeftButton(event)) {
 			return false;
 		}
@@ -230,7 +230,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		this.nameTranslateMethod = this.createNameTranslateMethod(compare);
 		if (!this.editorActions[this.nameTranslateMethod]) {
 			this.logger.warn(`${this.constructor.name}:`, 'onMouseDown - Method isn\'t exist -', this.nameTranslateMethod);
-			return;
+			return false;
 		}
 		this.argsTranslateMethod = this.createArgsTranslateMethod(compare);
 		this.logger.info(`${this.constructor.name}:`, 'onMouseDown - nameTranslateMethod -', this.nameTranslateMethod);
@@ -243,6 +243,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		this.isDown = true;
 
 		event.preventDefault();
+		return false;
 	}
 
 	/**
@@ -252,7 +253,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * @param  {MouseEvent} event
 	 * @return {boolean}
 	 */
-	@HostListener('mousemove', ['$event']) onMouseMove (event : MouseEvent) {
+	@HostListener('mousemove', ['$event']) onMouseMove (event : MouseEvent) : boolean {
 		if (!this.isDown) {
 			return false;
 		}
@@ -282,7 +283,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * @param  {MouseEvent} event
 	 * @return {boolean}
 	 */
-	@HostListener('mouseup', ['$event']) onMouseUp (event : MouseEvent) {
+	@HostListener('mouseup', ['$event']) onMouseUp (event : MouseEvent) : boolean {
 		if (!this.isDown) {
 			return false;
 		}
@@ -301,8 +302,9 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * @param  {MouseEvent} event
 	 * @return {boolean}
 	 */
-	@HostListener('mouseleave', ['$event']) onMouseLeave (event : MouseEvent) {
+	@HostListener('mouseleave', ['$event']) onMouseLeave (event : MouseEvent) : boolean {
 		this.logger.info(`${this.constructor.name}:`, 'onMouseLeave');
 		this.initData();
+		return true;
 	}
 }

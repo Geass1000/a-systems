@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+/* App Feature - Module */
+import { SharedModule } from '../../shared/shared.module';
 
 /* Other Module */
 import { WorkstateModule } from './workstate/workstate.module';
@@ -14,8 +15,7 @@ import { TextureComponent } from './texture/texture.component';
 
 @NgModule({
   imports: [
-		CommonModule,
-		FormsModule,
+		SharedModule,
 		BrowserModule,
 		BrowserAnimationsModule,
 		WorkstateModule

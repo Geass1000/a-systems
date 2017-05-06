@@ -47,9 +47,9 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	 *
 	 * @kind {function}
 	 * @param  {number} index - номер элемента
-	 * @return {type}
+	 * @return {boolean}
 	 */
-	isActiveSurface (index : number) {
+	isActiveSurface (index : number) : boolean {
 		if (!this.activeElements || !this.activeElements.length) {
 			return false;
 		}
@@ -61,9 +61,9 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	 *
 	 * @kind {function}
 	 * @param  {number} index - номер элемента
-	 * @return {type}
+	 * @return {boolean}
 	 */
-	isActivePoint (index : number) {
+	isActivePoint (index : number) : boolean {
 		if (!this.activeElements || this.activeElements.length < 2) {
 			return false;
 		}
