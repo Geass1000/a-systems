@@ -116,6 +116,11 @@ $padding-rl-input: 7px;
 			}
 			&.ng-invalid.ng-dirty {
 				border-color: red;
+
+				color: red;
+				& + label {
+					color: red;
+				}
 			}
 		}
 

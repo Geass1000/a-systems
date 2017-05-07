@@ -114,7 +114,10 @@
         color: #1e83ec;
         font-size: 13px; }
       .form-1 .form-group input.ng-invalid.ng-dirty {
-        border-color: red; }
+        border-color: red;
+        color: red; }
+        .form-1 .form-group input.ng-invalid.ng-dirty + label {
+          color: red; }
     .form-1 .form-group a.form-forgotton {
       display: block;
       position: absolute;

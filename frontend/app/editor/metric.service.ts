@@ -165,8 +165,8 @@ export class MetricService implements OnDestroy {
 	}
 
 	/**
-	 * getFieldValue - функция, возвращающая значение поля в единицах измерения по
-	 * умолчанию.
+	 * getNumberFieldValueToDefMetric - функция, возвращающая значение поля в единицах
+	 * измерения по умолчанию.
 	 *
 	 * @kind {function}
 	 * @param {FormGroup} form - экземпляр формы
@@ -185,8 +185,8 @@ export class MetricService implements OnDestroy {
 	}
 
 	/**
-	 * updateFormValue - функция, выполняющая преобразование значения поля 'fieldName'
-	 * к новой единице измерения.
+	 * updateFormValueToCurMetric - функция, выполняющая преобразование значения поля
+	 * 'fieldName' к новой единице измерения.
 	 *
 	 * @kind {function}
 	 * @param {FormGroup} form - экземпляр формы

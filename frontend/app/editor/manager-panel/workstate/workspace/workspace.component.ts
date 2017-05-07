@@ -54,7 +54,8 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * buildForm - функция, выполняющая создание формы.
+	 * buildForm - функция, выполняющая создание формы и/или регистрацию на событие
+	 * изменения данных.
 	 *
 	 * @kind {function}
 	 * @return {void}
@@ -127,7 +128,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * getField - функция, возвращающая значение поля.
+	 * getFormField - функция, возвращающая значение поля.
 	 *
 	 * @kind {function}
 	 * @param {string} fieldName - наименование поля
@@ -139,7 +140,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * onClickTexture - событие, отвечающее за вызов текстурного компонента.
+	 * onClickOpenTexture - событие, отвечающее за вызов текстурного компонента.
 	 *
 	 * @kind {event}
 	 * @return {void}
