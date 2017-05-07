@@ -54,6 +54,23 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	}
 
 	/**
+	 * buildForm - функция, выполняющая создание формы.
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
+	buildForm () : void {
+		this.form = this.fb.group({
+			'width' : [ '', [ Validators.required,	isNumber ] ],
+			'height' : [ '', [ Validators.required, isNumber ] ]
+		});
+
+		this.editorForm = new EditorForm(this.form);
+		let sub = this.editorForm.subscribeValueChanges(this.onChangeValue.bind(this));
+		this.subscription.push(sub);
+	}
+
+	/**
 	 * setModel - функция, синхронизирующая значения формы со значениями модели из
 	 * хранилища. Возвращает истину, если синхронизация произошла успешно.
 	 *
@@ -83,23 +100,6 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 		this.logger.info(`${this.constructor.name}:`, 'updateModel');
 		this.metricService.updateFormValueToCurMetric(this.form, 'width');
 		this.metricService.updateFormValueToCurMetric(this.form, 'height');
-	}
-
-	/**
-	 * buildForm - функция, выполняющая создание формы.
-	 *
-	 * @kind {function}
-	 * @return {void}
-	 */
-	buildForm () : void {
-		this.form = this.fb.group({
-			'width' : [ '', [ Validators.required,	isNumber ] ],
-			'height' : [ '', [ Validators.required, isNumber ] ]
-		});
-
-		this.editorForm = new EditorForm(this.form);
-		let sub = this.editorForm.subscribeValueChanges(this.onChangeValue.bind(this));
-		this.subscription.push(sub);
 	}
 
 	/**

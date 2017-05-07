@@ -43,28 +43,79 @@ export class MetricService implements OnDestroy {
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
-	active () {
+
+	/**
+	 * active - функция, сигнализирующая о окончании смены единицы измерения.
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
+	active () : void {
 		if (this.defMeasure && this.curMeasure) {
 			this.logger.info(`${this.constructor.name}:`, `active - prevMeasure: ${this.prevMeasure}, curMeasure: ${this.curMeasure}`);
 			this.ngRedux.dispatch(this.editorActions.activeMetric(true));
 		}
 	}
-	deactive () {
+
+	/**
+	 * deactive - функция, сигнализирующая о начале смены единицы измерения.
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
+	deactive () : void {
 		if (this.isActiveMetric) {
 			this.logger.info(`${this.constructor.name}:`, 'deactive');
 			this.ngRedux.dispatch(this.editorActions.activeMetric(false));
 		}
 	}
 
+	/**
+	 * convertFromDefToCur - функция, выполняющая конвертацию числа 'num' из единицы
+	 * измерения по умолчанию в текущую единицу измерения.
+	 *
+	 * @kind {function}
+	 * @param {number|string} num - число
+	 * @return {string}
+	 */
 	convertFromDefToCur (num : number | string) : string  {
 		return this.convertor({ from : this.defMeasure, to : this.curMeasure }, num);
 	}
+
+	/**
+	 * convertFromCurToDef - функция, выполняющая конвертацию числа 'num' из текущей
+	 * единицы измерения в единицу измерения по умолчанию.
+	 *
+	 * @kind {function}
+	 * @param {number|string} num - число
+	 * @return {string}
+	 */
 	convertFromCurToDef (num : number | string) : string  {
 		return this.convertor({ from : this.curMeasure, to : this.defMeasure }, num);
 	}
+
+	/**
+	 * convertFromPrevToCur - функция, выполняющая конвертацию числа 'num' из предыдущей
+	 * единицы измерения в текущую единицу измерения.
+	 *
+	 * @kind {function}
+	 * @param {number|string} num - число
+	 * @return {string}
+	 */
 	convertFromPrevToCur (num : number | string) : string  {
 		return this.convertor({ from : this.prevMeasure, to : this.curMeasure }, num);
 	}
+
+	/**
+	 * convertor - функция, выполняющая конвертацию числа 'num' из одной единцы измерения
+	 * в другую (из 'dir.from' к 'dir.to'). Если 'num' не является числом, возвращается
+	 * исходный параметр 'num' в виде строки.
+	 *
+	 * @kind {function}
+	 * @param {Object} dir - объект конвертации
+	 * @param {number|string} num - число
+	 * @return {string}
+	 */
 	convertor (dir : { from : string, to : string }, num : number | string) : string {
 		if (!(dir.from && dir.to) || !isFinite(+num)) {
 			return num.toString();
@@ -98,7 +149,7 @@ export class MetricService implements OnDestroy {
 	}
 
 	/**
-	 * getFieldValue - функция, возвращающая значение поля.
+	 * getFieldValue - функция, возвращающая значение поля формы.
 	 *
 	 * @kind {function}
 	 * @param {FormGroup} form - экземпляр формы
