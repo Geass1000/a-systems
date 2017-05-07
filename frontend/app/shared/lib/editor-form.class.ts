@@ -4,13 +4,12 @@ import { Subscription } from 'rxjs/Subscription';
 
 export class EditorForm {
 	private form : FormGroup;
-	private model : any;
 
 	private isInit : boolean;
 	private changeModel : boolean;
 	private changeMeasure : boolean;
 
-	private callbackSetModel : (data ?: any) => any;
+	private callbackSetModel : (data ?: any) => boolean;
 	private callbackUpdateModel : (data ?: any) => any;
 	private callbackOnChangeValue : (data ?: any) => any;
 
@@ -18,7 +17,7 @@ export class EditorForm {
 		this.form = form;
 	}
 	subscribeValueChanges (callback : (data ?: any) => any) : Subscription {
-		return this.form.valueChanges.subscribe((data) => this.onChangeValue(callback(data)));
+		return this.form.valueChanges.subscribe((data) => this.onChangeValue(data, callback));
 	}
 
 	/**
@@ -35,11 +34,10 @@ export class EditorForm {
 	 * @param {function} callback - функция обратного вызова, изменяющая данные
 	 * @return {void}
 	 */
-	setModel (model : any, callback : (data ?: any) => any) : void {
+	setModel (callback : (data ?: any) => boolean) : void {
 		if (!this.callbackSetModel) {
 			this.callbackSetModel = callback;
 		}
-		this.model = model;
 
 		this.isInit = false;
 		if (this.changeModel) {
@@ -47,8 +45,7 @@ export class EditorForm {
 			this.isInit = true;
 			return ;
 		}
-		this.callbackSetModel(this.model);
-		this.isInit = true;
+		this.isInit = this.callbackSetModel();
 	}
 
 	updateModel (callback : (data ?: any) => any) : void {
@@ -57,12 +54,12 @@ export class EditorForm {
 		}
 
 		if (!this.isInit) {
-			this.setModel(this.model, this.callbackSetModel);
+			this.setModel(this.callbackSetModel);
 			return ;
 		}
 
 		this.changeMeasure = true;
-		this.callbackUpdateModel(this.model);
+		this.callbackUpdateModel();
 		this.changeMeasure = false;
 	}
 
@@ -73,18 +70,15 @@ export class EditorForm {
 	 * @param {any} data - объект с данными из формы
 	 * @return {void}
 	 */
-	private onChangeValue (callback : (data ?: any) => any) {
+	private onChangeValue (data : any, callback : (data ?: any) => any) {
 		if (!this.callbackOnChangeValue) {
 			this.callbackOnChangeValue = callback;
 		}
 
-		if (this.changeMeasure) {
-			return;
-		}
-		if (!this.model || !this.form.valid || !this.isInit) {
+		if (this.changeMeasure || !this.isInit || !this.form.valid) {
 			return;
 		}
 		this.changeModel = true;
-		this.callbackOnChangeValue(this.model);
+		this.callbackOnChangeValue(data);
 	}
 }

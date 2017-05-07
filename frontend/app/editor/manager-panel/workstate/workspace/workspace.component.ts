@@ -10,6 +10,7 @@ import { LoggerService } from '../../../../core/logger.service';
 import { MetricService } from '../../../metric.service';
 
 import { Workspace } from '../../../../shared/lib/workspace.class';
+import { EditorForm } from '../../../../shared/lib/editor-form.class';
 import { isNumber } from '../../../../shared/validators/is-number.validator';
 
 @Component({
@@ -20,11 +21,10 @@ import { isNumber } from '../../../../shared/validators/is-number.validator';
 })
 export class WorkspaceComponent implements OnInit, OnDestroy {
 	/* Private Variable */
-	private isInit : boolean = false; // флаг сигнализирующий о необходимости инициализации
 	private form : FormGroup;
 	private subFormChange : any;
-	private changeModel : boolean; // Флаг, сигнализирующий о изменении модели
-	private changeMeasure : boolean; // флаг сигнализирующий о изменении единиц измерения
+
+	private editorForm : EditorForm;
 
 	/* Redux */
 	private subscription : any[] = [];
@@ -43,11 +43,11 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 		this.buildForm();
 		this.subscription.push(this.workspace$.subscribe((data) => {
 			this.workspace = data;
-			this.setModel(this.workspace);
+			this.editorForm.setModel(this.setModel.bind(this));
 		}));
 		this.subscription.push(this.isActiveMetric$.subscribe((data) => {
 			this.isActiveMetric = data;
-			this.updateModelMetric();
+			this.editorForm.updateModel(this.updateModel.bind(this));
 		}));
 	}
 	ngOnDestroy () {
@@ -59,27 +59,21 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 
 	/**
 	 * setModel - функция, синхронизирующая значения формы со значениями модели из
-	 * хранилища. Не реагирует на изменение модели из данного компонента.
+	 * хранилища. Возвращает истину, если синхронизация произошла.
 	 *
 	 * @kind {function}
-	 * @return {void}
+	 * @return {boolean}
 	 */
-	setModel (model : any) : void {
-		this.isInit = false;
-		if (this.changeModel) {
-			this.changeModel = false;
-			this.isInit = true;
-			return ;
+	setModel () : boolean {
+		if (!this.workspace || !this.isActiveMetric) {
+			return false;
 		}
-		if (!model || !this.isActiveMetric) {
-			return ;
-		}
-		this.logger.info(`${this.constructor.name}:`, 'setModel - model -', model);
+		this.logger.info(`${this.constructor.name}:`, 'setModel');
 		this.form.setValue({
-			width : this.metricService.convertFromDefToCur(model.width).toString(),
-			height : this.metricService.convertFromDefToCur(model.height).toString()
+			width : this.metricService.convertFromDefToCur(this.workspace.width).toString(),
+			height : this.metricService.convertFromDefToCur(this.workspace.height).toString()
 		});
-		this.isInit = true;
+		return true;
 	}
 
 	/**
@@ -89,16 +83,10 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @kind {function}
 	 * @return {void}
 	 */
-	updateModelMetric () : void {
-		if (!this.isInit) {
-			this.setModel(this.workspace);
-			return ;
-		}
-
-		this.changeMeasure = true;
+	updateModel () : void {
+		this.logger.info(`${this.constructor.name}:`, 'updateModel');
 		this.metricService.updateFormValueToCurMetric(this.form, 'width');
 		this.metricService.updateFormValueToCurMetric(this.form, 'height');
-		this.changeMeasure = false;
 	}
 
 	/**
@@ -116,7 +104,8 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 			'height' : [ '', [ Validators.required, isNumber ] ]
 		});
 
-		this.subFormChange = this.form.valueChanges.subscribe((data) => this.onChangeValue(data));
+		this.editorForm = new EditorForm(this.form);
+		this.editorForm.subscribeValueChanges(this.onChangeValue.bind(this));
 	}
 
 	/**
@@ -126,14 +115,11 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @param {any} data - объект с данными из формы
 	 * @return {void}
 	 */
-	onChangeValue (data ?: any) {
-		if (this.changeMeasure) {
+	onChangeValue () {
+		if (!this.workspace || !this.isActiveMetric) {
 			return;
 		}
-		if (!this.workspace || !this.isActiveMetric || !this.form.valid || !this.isInit) {
-			return;
-		}
-		this.logger.info(`${this.constructor.name}:`, 'onChangeValue -', this.workspace);
+		this.logger.info(`${this.constructor.name}:`, 'onChangeValue');
 		let resultWorkspace : Workspace = new Workspace(this.workspace);
 
 		let tmpWidth : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'width');
@@ -141,7 +127,6 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 		let tmpHeight : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'height');
 		resultWorkspace.height = tmpHeight !== null ? tmpHeight : resultWorkspace.height;
 
-		this.changeModel = true;
 		this.ngRedux.dispatch(this.editorActions.setWorkspace(resultWorkspace));
 	}
 
