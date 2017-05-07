@@ -114,6 +114,9 @@ $padding-rl-input: 7px;
 				color: $color-text-1;
 				font-size: $font-size-little;
 			}
+			&.ng-invalid.ng-dirty {
+				border-color: red;
+			}
 		}
 
 		a.form-forgotton {

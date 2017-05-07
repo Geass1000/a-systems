@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
@@ -43,16 +43,11 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 		this.buildForm();
 		this.subscription.push(this.workspace$.subscribe((data) => {
 			this.workspace = data;
-			this.isInit = false;
-			this.setModel();
+			this.setModel(this.workspace);
 		}));
 		this.subscription.push(this.isActiveMetric$.subscribe((data) => {
 			this.isActiveMetric = data;
-			if (this.isInit) {
-				this.updateModelMetric();
-			} else {
-				this.setModel();
-			}
+			this.updateModelMetric();
 		}));
 	}
 	ngOnDestroy () {
@@ -69,19 +64,20 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @kind {function}
 	 * @return {void}
 	 */
-	setModel () : void {
+	setModel (model : any) : void {
+		this.isInit = false;
 		if (this.changeModel) {
 			this.changeModel = false;
 			this.isInit = true;
 			return ;
 		}
-		if (!this.workspace || !this.isActiveMetric) {
+		if (!model || !this.isActiveMetric) {
 			return ;
 		}
-		this.logger.info(`${this.constructor.name}:`, 'setModel - workspace -', this.workspace);
+		this.logger.info(`${this.constructor.name}:`, 'setModel - model -', model);
 		this.form.setValue({
-			width : this.metricService.convertFromDefToCur(this.workspace.width).toString(),
-			height : this.metricService.convertFromDefToCur(this.workspace.height).toString()
+			width : this.metricService.convertFromDefToCur(model.width).toString(),
+			height : this.metricService.convertFromDefToCur(model.height).toString()
 		});
 		this.isInit = true;
 	}
@@ -94,12 +90,15 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @return {void}
 	 */
 	updateModelMetric () : void {
+		if (!this.isInit) {
+			this.setModel(this.workspace);
+			return ;
+		}
+
 		this.changeMeasure = true;
-		this.metricService.updateFormValue(this.form, 'width');
-		this.changeMeasure = true;
-		this.metricService.updateFormValue(this.form, 'height');
-		//this.updateMetricValue('width');
-		//this.updateMetricValue('height');
+		this.metricService.updateFormValueToCurMetric(this.form, 'width');
+		this.metricService.updateFormValueToCurMetric(this.form, 'height');
+		this.changeMeasure = false;
 	}
 
 	/**
@@ -129,7 +128,6 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 */
 	onChangeValue (data ?: any) {
 		if (this.changeMeasure) {
-			this.changeMeasure = false;
 			return;
 		}
 		if (!this.workspace || !this.isActiveMetric || !this.form.valid || !this.isInit) {
@@ -138,59 +136,13 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 		this.logger.info(`${this.constructor.name}:`, 'onChangeValue -', this.workspace);
 		let resultWorkspace : Workspace = new Workspace(this.workspace);
 
-		let tmpWidth : number = this.prepareNumberData('width');
+		let tmpWidth : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'width');
 		resultWorkspace.width = tmpWidth !== null ? tmpWidth : resultWorkspace.width;
-		let tmpHeight : number = this.prepareNumberData('height');
+		let tmpHeight : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'height');
 		resultWorkspace.height = tmpHeight !== null ? tmpHeight : resultWorkspace.height;
 
 		this.changeModel = true;
 		this.ngRedux.dispatch(this.editorActions.setWorkspace(resultWorkspace));
-	}
-
-	/**
-	 * prepareNumberData - функция, выполняющая извлечение цифровых данных из поля fieldName.
-	 *
-	 * @kind {function}
-	 * @param {string} fieldName - наименование поля
-	 * @return {void}
-	 */
-	prepareNumberData (fieldName : string) {
-		if (!this.isActiveMetric || !this.isVailid(fieldName)) {
-			return null;
-		}
-		return +this.metricService.convertFromCurToDef(this.getField(fieldName));
-	}
-
-	/**
-	 * updateMetricValue - функция, выполняющее обновление цифрового поля 'fieldName'.
-	 *
-	 * @kind {function}
-	 * @param {string} fieldName - наименование поля
-	 * @return {void}
-	 */
-	updateMetricValue (fieldName : string) : void {
-		if (!this.isActiveMetric || !this.isVailid(fieldName)) {
-			return;
-		}
-		this.changeMeasure = true;
-		let obj = {};
-		obj[fieldName] = this.metricService.convertFromPrevToCur(this.getField(fieldName)).toString();
-		this.form.patchValue(obj);
-	}
-
-	/**
-	 * isVailid - функция, возвращающая истину, если палое 'fieldName' прошло валидацию.
-	 *
-	 * @kind {function}
-	 * @param {string} fieldName - наименование поля
-	 * @return {boolean}
-	 */
-	isVailid (fieldName : string) : boolean {
-		if (!this.form) {
-			return null;
-		}
-		let field : AbstractControl = this.form.get(fieldName);
-		return field ? field.valid : false;
 	}
 
 	/**
@@ -200,12 +152,9 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @param {string} fieldName - наименование поля
 	 * @return {string}
 	 */
-	getField (fieldName : string) : string {
-		if (!this.form) {
-			return null;
-		}
-		let field : AbstractControl = this.form.get(fieldName);
-		return field ? field.value.toString() : '';
+	getFormField (fieldName : string) : string {
+		let field : string = this.metricService.getFieldValue(this.form, fieldName);
+		return field ? field : '';
 	}
 
 	/**
@@ -216,18 +165,5 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 */
 	onClickOpenTexture () : void {
 		this.ngRedux.dispatch(this.editorActions.openManagerPanel('texture'));
-	}
-
-	/**
-	 * onClickAccept - событие, отвечающее за форматирование и сохранение данных.
-	 *
-	 * @kind {event}
-	 * @return {void}
-	 */
-	onClickAccept () : void {
-		let resultWorkspace : Workspace = new Workspace(this.workspace);
-		resultWorkspace.width = +this.metricService.convertFromCurToDef(this.getField('width'));
-		resultWorkspace.height = +this.metricService.convertFromCurToDef(this.getField('height'));
-		this.ngRedux.dispatch(this.editorActions.setWorkspace(resultWorkspace));
 	}
 }

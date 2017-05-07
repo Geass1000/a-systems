@@ -55,75 +55,107 @@ export class MetricService implements OnDestroy {
 		}
 	}
 
-	convertFromDefToCur (num : number | string) {
+	convertFromDefToCur (num : number | string) : string  {
 		return this.convertor({ from : this.defMeasure, to : this.curMeasure }, num);
 	}
-	convertFromCurToDef (num : number | string) {
+	convertFromCurToDef (num : number | string) : string  {
 		return this.convertor({ from : this.curMeasure, to : this.defMeasure }, num);
 	}
-	convertFromPrevToCur (num : number | string) {
+	convertFromPrevToCur (num : number | string) : string  {
 		return this.convertor({ from : this.prevMeasure, to : this.curMeasure }, num);
 	}
-	convertor (dir : { from : string, to : string }, num : number | string) {
+	convertor (dir : { from : string, to : string }, num : number | string) : string {
 		if (!(dir.from && dir.to) || !isFinite(+num)) {
-			return num;
+			return num.toString();
 		}
 
 		let fromScale : number = Measure.get(dir.from);
 		let toScale : number = Measure.get(dir.to);
 		if (!(fromScale && toScale)) {
-			return num;
+			return num.toString();
 		};
 
 		let cof : number = toScale / fromScale;
 		let result : number = cof * (+num);
-		return +result.toFixed(10);
+		return (+result.toFixed(10)).toString();
 	}
 
 	/**
-	 * isVailid - функция, возвращающая истину, если палое 'fieldName' прошло валидацию.
+	 * isFieldValid - функция, возвращающая истину, если палое 'fieldName' прошло валидацию.
 	 *
 	 * @kind {function}
+	 * @param {FormGroup} form - экземпляр формы
 	 * @param {string} fieldName - наименование поля
 	 * @return {boolean}
 	 */
-	isVailid (form : FormGroup, fieldName : string) : boolean {
-		if (!form) {
-			return null;
+	isFieldValid (form : FormGroup, fieldName : string) : boolean {
+		if (!form || !fieldName) {
+			throw new Error('isFieldValid: Not all args!');
 		}
 		let field : AbstractControl = form.get(fieldName);
 		return field ? field.valid : null;
 	}
 
 	/**
-	 * getField - функция, возвращающая значение поля.
+	 * getFieldValue - функция, возвращающая значение поля.
 	 *
 	 * @kind {function}
+	 * @param {FormGroup} form - экземпляр формы
 	 * @param {string} fieldName - наименование поля
 	 * @return {string}
 	 */
-	getField (form : FormGroup, fieldName : string) : string {
-		if (!form) {
-			return null;
+	getFieldValue (form : FormGroup, fieldName : string) : string {
+		if (!form || !fieldName) {
+			throw new Error('getFieldValue: Not all args!');
 		}
 		let field : AbstractControl = form.get(fieldName);
 		return field ? field.value.toString() : null;
 	}
 
 	/**
-	 * updateFormValue - функция, выполняющее обновление цифрового поля 'fieldName'.
+	 * getFieldValue - функция, возвращающая значение поля в единицах измерения по
+	 * умолчанию.
 	 *
 	 * @kind {function}
+	 * @param {FormGroup} form - экземпляр формы
 	 * @param {string} fieldName - наименование поля
-	 * @return {void}
+	 * @return {number}
 	 */
-	updateFormValue (form : FormGroup, fieldName : string) : boolean {
-		if (!this.isActiveMetric || !this.isVailid(form, fieldName)) {
+	getNumberFieldValueToDefMetric (form : FormGroup, fieldName : string) : number {
+		if (!form || !fieldName) {
+			throw new Error('getFieldValueToDefMetric: Not all args!');
+		}
+		if (!this.isActiveMetric) {
+			return null;
+		}
+		let fieldValue : string = this.getFieldValue(form, fieldName);
+		return isFinite(+fieldValue) ? +this.convertFromCurToDef(fieldValue) : null;
+	}
+
+	/**
+	 * updateFormValue - функция, выполняющая преобразование значения поля 'fieldName'
+	 * к новой единице измерения.
+	 *
+	 * @kind {function}
+	 * @param {FormGroup} form - экземпляр формы
+	 * @param {string} fieldName - наименование поля
+	 * @return {boolean}
+	 */
+	updateFormValueToCurMetric (form : FormGroup, fieldName : string) : boolean {
+		if (!form || !fieldName) {
+			throw new Error('updateFormValueToCurMetric: Not all args!');
+		}
+		if (!this.isActiveMetric) {
 			return false;
 		}
 		this.logger.info(`${this.constructor.name}:`, `updateFormValue - ${fieldName}`);
+		let fieldValue : string = this.getFieldValue(form, fieldName);
+		if (!isFinite(+fieldValue)) {
+			return false;
+		}
+
 		let obj = {};
-		obj[fieldName] = this.convertFromPrevToCur(this.getField(form, fieldName)).toString();
+		obj[fieldName] = this.convertFromPrevToCur(fieldValue).toString();
 		form.patchValue(obj);
 		return true;
 	}
