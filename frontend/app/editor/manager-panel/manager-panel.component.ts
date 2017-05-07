@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 import { ModalActions } from '../../actions/modal.actions';
@@ -52,7 +53,7 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	private aItemPanelState : string = 'close';
 
 	/* Redux */
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['editor', 'manager', 'open']) managerOpen$ : Observable<boolean>;
 	private managerOpen : boolean;
 	@select(['editor', 'manager', 'workshop']) workshop$ : Observable<boolean>;

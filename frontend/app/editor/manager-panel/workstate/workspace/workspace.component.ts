@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../../actions/editor.actions';
 
@@ -22,12 +23,10 @@ import { isNumber } from '../../../../shared/validators/is-number.validator';
 export class WorkspaceComponent implements OnInit, OnDestroy {
 	/* Private Variable */
 	private form : FormGroup;
-	private subFormChange : any;
-
 	private editorForm : EditorForm;
 
 	/* Redux */
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
 	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
@@ -52,14 +51,11 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
-		if (this.subFormChange) {
-			this.subFormChange.unsubscribe();
-		}
 	}
 
 	/**
 	 * setModel - функция, синхронизирующая значения формы со значениями модели из
-	 * хранилища. Возвращает истину, если синхронизация произошла.
+	 * хранилища. Возвращает истину, если синхронизация произошла успешно.
 	 *
 	 * @kind {function}
 	 * @return {boolean}
@@ -77,7 +73,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * updateModelMetric - функция, обновляющая значения полей в случае изменения
+	 * updateModel - функция, обновляющая значения полей в случае изменения
 	 * величины измерения.
 	 *
 	 * @kind {function}
@@ -96,26 +92,23 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @return {void}
 	 */
 	buildForm () : void {
-		if (this.subFormChange) {
-			this.subFormChange.unsubscribe();
-		}
 		this.form = this.fb.group({
 			'width' : [ '', [ Validators.required,	isNumber ] ],
 			'height' : [ '', [ Validators.required, isNumber ] ]
 		});
 
 		this.editorForm = new EditorForm(this.form);
-		this.editorForm.subscribeValueChanges(this.onChangeValue.bind(this));
+		let sub = this.editorForm.subscribeValueChanges(this.onChangeValue.bind(this));
+		this.subscription.push(sub);
 	}
 
 	/**
 	 * onChangeValue - событе, отвечающее за обновление данных в Redux.
 	 *
 	 * @kind {event}
-	 * @param {any} data - объект с данными из формы
 	 * @return {void}
 	 */
-	onChangeValue () {
+	onChangeValue () : void {
 		if (!this.workspace || !this.isActiveMetric) {
 			return;
 		}

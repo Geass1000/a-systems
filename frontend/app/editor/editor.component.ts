@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 import { ModalActions } from '../actions/modal.actions';
@@ -18,7 +19,7 @@ import { Workspace } from '../shared/lib/workspace.class';
 export class EditorComponent implements OnInit, OnDestroy {
 	private loc : string = '';
 
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'isInitProject']) isInitProject$ : Observable<boolean>;
 	private isInitProject : boolean;
 	@select(['editor', 'state', 'isMove']) isMove$ : Observable<boolean>;

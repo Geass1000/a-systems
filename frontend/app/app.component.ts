@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { ModalActions } from './actions/modal.actions';
 import { EditorActions } from './actions/editor.actions';
@@ -19,7 +20,7 @@ import { AppReducer, INITIAL_STATE, IAppState } from './reducers/app.store';
   styleUrls: [ 'app.component.css' ]
 })
 export class AppComponent implements OnInit, OnDestroy {
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['modal', 'openPanelOverlay']) openPanelOverlay$ : Observable<boolean>;
 	@select(['modal', 'openModalOverlay']) openModalOverlay$ : Observable<boolean>;
 

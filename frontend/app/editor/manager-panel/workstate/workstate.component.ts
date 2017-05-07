@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../actions/editor.actions';
 
@@ -42,7 +43,7 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 	title = 'Home';
 
 	/* Redux */
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
 	private activeElements : Array<IElement>;
 

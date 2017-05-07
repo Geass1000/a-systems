@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 import 'rxjs/add/observable/forkJoin';
@@ -17,7 +18,7 @@ export class DataInitService implements OnDestroy {
 	]);
 
 	/* Redux */
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
 	private workspace : Workspace;
 

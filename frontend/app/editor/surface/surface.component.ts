@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 
@@ -19,7 +20,7 @@ import { IElement } from '../../shared/interfaces/editor.interface';
 export class SurfaceComponent implements OnInit, OnDestroy {
 
 	/* Redux */
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
 	private activeElements : Array<IElement>;
 	@select(['editor', 'project', 'surfaces']) surfaces$ : Observable<Array<Surface>>;

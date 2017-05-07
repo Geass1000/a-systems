@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../actions/editor.actions';
 
@@ -19,7 +20,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 	private activeTextureCategoryId : string = '';
 
 	/* Redux */
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['editor', 'texture', 'categories']) textureCategories$ : Observable<Map<string, ITextureCategory>>;
 	private textureCategoriesData : Map<string, ITextureCategory> = new Map();
 	private textureCategories : Array<ITextureCategory> = [];

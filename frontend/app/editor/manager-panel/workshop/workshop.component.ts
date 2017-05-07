@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../actions/editor.actions';
 
@@ -25,7 +26,7 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	private activeCategory : string = null;
 
 	/* Redux */
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['editor', 'item', 'categories']) itemCategories$ : Observable<Map<string, IItemCategory>>;
 	private itemCategoriesData : Map<string, IItemCategory> = new Map();
 	private itemCategories : Array<IItemCategory> = [];

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../actions/editor.actions';
 import { ModalActions } from '../../../actions/modal.actions';
@@ -25,7 +26,7 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 	private model : IModelInitProject = null;
 
 	/* Redux */
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['modal', 'initProject']) modalOpen : any;
 	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;

@@ -1,6 +1,7 @@
 import { Directive, ElementRef, HostListener, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 
@@ -30,7 +31,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	private argsTranslateMethod : Array<number>;
 
 	/* Redux */
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'element']) element$ : Observable<IElement>;
 	private element : IElement;
 

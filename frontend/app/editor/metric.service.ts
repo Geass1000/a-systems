@@ -3,6 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { FormGroup, AbstractControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 
@@ -20,7 +21,7 @@ export class MetricService implements OnDestroy {
 	private prevMeasure : string = this.defMeasure;
 
 	/* Redux */
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
 	@select(['editor', 'state', 'curMeasure']) curMeasure$ : Observable<string>;

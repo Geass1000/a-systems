@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 import { ModalActions } from '../../actions/modal.actions';
@@ -17,7 +18,7 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 	title = 'Home';
 
 	/* Redux */
-	private subscription : any[] = [];
+	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'curMeasure']) curMeasure$ : Observable<string>;
 	private curMeasure : string;
 	@select(['modal', 'initProject']) initProject$ : Observable<boolean>;
