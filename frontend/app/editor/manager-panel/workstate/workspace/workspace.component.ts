@@ -97,6 +97,9 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @return {void}
 	 */
 	updateModel () : void {
+		if (!this.isActiveMetric) {
+			return ;
+		}
 		this.logger.info(`${this.constructor.name}:`, 'updateModel');
 		this.metricService.updateFormValueToCurMetric(this.form, 'width');
 		this.metricService.updateFormValueToCurMetric(this.form, 'height');
