@@ -140,12 +140,12 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * onClickOpenTexture - событие, отвечающее за вызов текстурного компонента.
+	 * onClickOpenMaterial - событие, отвечающее за вызов текстурного компонента.
 	 *
 	 * @kind {event}
 	 * @return {void}
 	 */
-	onClickOpenTexture () : void {
-		this.ngRedux.dispatch(this.editorActions.openManagerPanel('texture'));
+	onClickOpenMaterial () : void {
+		this.ngRedux.dispatch(this.editorActions.openManagerPanel('material'));
 	}
 }

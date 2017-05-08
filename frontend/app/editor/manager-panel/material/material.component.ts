@@ -7,7 +7,7 @@ import { EditorActions } from '../../../actions/editor.actions';
 
 import { LoggerService } from '../../../core/logger.service';
 import { ITexture, ITextureCategory } from '../../../shared/interfaces/editor.interface';
-import { Color } from '../../../shared/lib/color.class';
+// import { Color } from '../../../shared/lib/color.class';
 
 @Component({
 	moduleId: module.id,
