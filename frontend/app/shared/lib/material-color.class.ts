@@ -13,20 +13,24 @@ let RegexColor : Map<string, RegExp> = new Map([
 	['hsla', /^hsla\(\s*(\d+)\s*,\s*(\d+(?:\.\d+)?)%\s*,\s*(\d+(?:\.\d+)?)%\s*,\s*(\d+(?:\.\d+)?)\s*\)$/]
 ]);
 
-export interface IColor {
+export interface IMaterialColor {
 	red : number;
 	green : number;
 	blue : number;
 	alfa : number;
 }
 
-export class Color {
+export class MaterialColor {
 	private red : number;
 	private green : number;
 	private blue : number;
 	private alfa : number;
 
 	constructor (str : string) {
+		if (!str) {
+			throw new Error('MaterialColor - constructor: All params is required!');
+		}
+
 		let type : string = this.typeDefinition(str);
 		switch (type) {
 			case 'hex' : this.isHex(str, type); break;
@@ -219,9 +223,9 @@ export class Color {
 	 * valueOf - функция, возвращающая объектное представление класса.
 	 *
 	 * @kind {function}
-	 * @return {IColor}
+	 * @return {IMaterialColor}
 	 */
-	valueOf () : IColor {
+	valueOf () : IMaterialColor {
 		return {
 			red : this.red,
 			green : this.green,

@@ -33,7 +33,7 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 		}
 		case EditorActions.ADD_SURFACE : {
 			let surface : Surface = new Surface(action.payload.surface);
-			let index = 0;
+			let index : number = 0;
 			state.surfaces.map((data : Surface) => {
 				if (data.id >= index) {
 					index = data.id + 1;
@@ -46,7 +46,7 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 		}
 		case EditorActions.ADD_THING : {
 			let thing : Thing = new Thing(action.payload.thing);
-			let index = 0;
+			let index : number = 0;
 			state.things.map((data : Thing) => {
 				if (data.id >= index) {
 					index = data.id + 1;
