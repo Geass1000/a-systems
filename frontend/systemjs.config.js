@@ -29,7 +29,7 @@
       // other libraries
       'rxjs':                     	'npm:rxjs',
       'angular-in-memory-web-api':	'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
-			'angular2-jwt': 							'npm:angular2-jwt/angular2-jwt.js',
+			'angular2-jwt': 							'npm:angular2-jwt',
 			'lodash': 										'npm:lodash',
 			'@angular-redux/store': 			'npm:@angular-redux/store',
 			'redux': 											'npm:redux'
@@ -44,6 +44,7 @@
         defaultExtension: 'js'
       },
 			'angular2-jwt': {
+				main: 'angular2-jwt.js',
 				defaultExtension: 'js'
 			},
 			'lodash': {

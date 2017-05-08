@@ -67,6 +67,12 @@ export class Workspace implements IWorkspace {
 		return isFinite(data) ? data : 0;
 	}
 
+	/**
+	 * valueOf - функция, возвращающая объектное представление класса.
+	 *
+	 * @kind {function}
+	 * @return {IWorkspace}
+	 */
 	valueOf () : IWorkspace {
 		return {
 			x : this.x,

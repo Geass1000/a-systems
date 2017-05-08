@@ -7,14 +7,15 @@ import { EditorActions } from '../../../actions/editor.actions';
 
 import { LoggerService } from '../../../core/logger.service';
 import { ITexture, ITextureCategory } from '../../../shared/interfaces/editor.interface';
+import { Color } from '../../../shared/lib/color.class';
 
 @Component({
 	moduleId: module.id,
-  selector: 'as-editor-manager-texture',
-	templateUrl: 'texture.component.html',
-  styleUrls: [ 'texture.component.css' ]
+  selector: 'as-editor-manager-material',
+	templateUrl: 'material.component.html',
+  styleUrls: [ 'material.component.css' ]
 })
-export class TextureComponent implements OnInit, OnDestroy {
+export class MaterialComponent implements OnInit, OnDestroy {
 	/* Private variable */
 	private activeTextureId : string = null;
 	private activeTextureCategoryId : string = '';

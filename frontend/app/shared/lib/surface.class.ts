@@ -75,6 +75,12 @@ export class Surface implements ISurface {
 		return isFinite(data) ? data : 0;
 	}
 
+	/**
+	 * valueOf - функция, возвращающая объектное представление класса.
+	 *
+	 * @kind {function}
+	 * @return {ISurface}
+	 */
 	valueOf () : ISurface {
 		return {
 			id : this.id,

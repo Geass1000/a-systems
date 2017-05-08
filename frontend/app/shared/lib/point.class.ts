@@ -33,14 +33,27 @@ export class Point implements IPoint {
 		return isFinite(data) ? data : 0;
 	}
 
-	toString () : string {
-		return `${this.x},${this.y}`;
-	}
+	/**
+	 * valueOf - функция, возвращающая объектное представление класса.
+	 *
+	 * @kind {function}
+	 * @return {IPoint}
+	 */
 	valueOf () : IPoint {
 		return {
 			x : this.x,
 			y : this.y
 		};
+	}
+
+	/**
+	 * toString - функция, возвращающая строковое представление класса.
+	 *
+	 * @kind {function}
+	 * @return {string}
+	 */
+	toString () : string {
+		return `${this.x},${this.y}`;
 	}
 
 	/**

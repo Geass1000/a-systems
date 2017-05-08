@@ -70,6 +70,12 @@ export class Thing implements IThing {
 		return isFinite(data) ? data : 0;
 	}
 
+	/**
+	 * valueOf - функция, возвращающая объектное представление класса.
+	 *
+	 * @kind {function}
+	 * @return {IThing}
+	 */
 	valueOf () : IThing {
 		return {
 			width : this.width,

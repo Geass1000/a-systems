@@ -10,8 +10,8 @@
 			<div class="item-panel" *ngIf="workstate$ | async" [@flyInOut]="aItemPanelState">
 				<as-editor-manager-workstate></as-editor-manager-workstate>
 			</div>
-			<div class="item-panel" *ngIf="texture$ | async" [@flyInOut]="aItemPanelState">
-				<as-editor-manager-texture></as-editor-manager-texture>
+			<div class="item-panel" *ngIf="material$ | async" [@flyInOut]="aItemPanelState">
+				<as-editor-manager-material></as-editor-manager-material>
 			</div>
 		</div>
 	</div>

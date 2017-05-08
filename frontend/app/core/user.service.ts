@@ -16,7 +16,7 @@ export class UserService {
 	}
 	setUserData () {
 		if (this.loggedIn()) {
-			let token = localStorage.getItem('id_token');
+			let token = localStorage.getItem('token');
 			let decodeToken = this.jwtHelper.decodeToken(token);
 
 			this.userName = decodeToken.name;
@@ -26,11 +26,11 @@ export class UserService {
 	}
 
 	loggedIn () {
-		return tokenNotExpired();
+		return tokenNotExpired('token');
 	}
 
 	logout () {
-		localStorage.removeItem('id_token');
+		localStorage.removeItem('token');
 		this.setUserData();
 	}
 }

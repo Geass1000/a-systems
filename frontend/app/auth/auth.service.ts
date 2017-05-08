@@ -27,7 +27,7 @@ export class AuthService {
 
 		return this.http.post(Config.serverUrl + this.usersUrl, body, { headers : this.headers })
 										.map((resp) => {
-											localStorage.setItem('id_token', resp.json().token);
+											localStorage.setItem('token', resp.json().token);
 											this.userService.setUserData();
 										})
 										.catch(this.handleError);
@@ -38,7 +38,7 @@ export class AuthService {
 
 		return this.http.post(Config.serverUrl + this.authUrl, body, { headers : this.headers })
 										.map((resp) => {
-											localStorage.setItem('id_token', resp.json().token);
+											localStorage.setItem('token', resp.json().token);
 											this.userService.setUserData();
 										})
 										.catch(this.handleError);
@@ -49,7 +49,7 @@ export class AuthService {
 
 		return this.http.post(Config.serverUrl + this.authUrl, body, { headers : this.headers })
 										.map((resp) => {
-											localStorage.setItem('id_token', resp.json().token);
+											localStorage.setItem('token', resp.json().token);
 											this.userService.setUserData();
 										})
 										.catch(this.handleError);

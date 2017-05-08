@@ -11,7 +11,7 @@ import { WorkstateModule } from './workstate/workstate.module';
 /* App Feature - Component */
 import { ManagerPanelComponent } from './manager-panel.component';
 import { WorkshopComponent } from './workshop/workshop.component';
-import { TextureComponent } from './texture/texture.component';
+import { MaterialComponent } from './material/material.component';
 
 @NgModule({
   imports: [
@@ -23,7 +23,7 @@ import { TextureComponent } from './texture/texture.component';
   declarations: [
 		ManagerPanelComponent,
 		WorkshopComponent,
-		TextureComponent
+		MaterialComponent
 	],
   exports:      [ ManagerPanelComponent ],
   providers:    [ ]
