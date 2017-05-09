@@ -119,6 +119,16 @@ a {
     color: #55acee;
     text-decoration: underline; }
 
+select {
+  width: 100%;
+  padding: 5px;
+  padding-left: 15px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #5C5C5C;
+  font-size: 15px;
+  font-weight: bold; }
+
 .separator {
   width: 1px;
   height: 31px;

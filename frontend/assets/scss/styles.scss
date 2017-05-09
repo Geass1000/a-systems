@@ -57,6 +57,19 @@ a {
 	}
 }
 
+select {
+	width: 100%;
+	padding: 5px;
+	padding-left: 15px;
+
+	border: none;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+
+	color: $color-text-3;
+	font-size: 15px;
+	font-weight: bold;
+}
+
 .separator {
 	width: 1px;
 	height: 31px;

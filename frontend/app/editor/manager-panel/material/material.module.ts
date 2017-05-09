@@ -8,6 +8,7 @@ import { SharedModule } from '../../../shared/shared.module';
 /* App Feature - Component */
 import { MaterialComponent } from './material.component';
 import { TextureComponent } from './texture/texture.component';
+import { ColorRgbaComponent } from './color-rgba/color-rgba.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { TextureComponent } from './texture/texture.component';
 	],
   declarations: [
 		MaterialComponent,
-		TextureComponent
+		TextureComponent,
+		ColorRgbaComponent
 	],
   exports:      [ MaterialComponent ],
   providers:    [ ]

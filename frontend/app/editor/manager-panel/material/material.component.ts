@@ -17,6 +17,7 @@ import { LoggerService } from '../../../core/logger.service';
 export class MaterialComponent implements OnInit, OnDestroy {
 	/* Private variable */
 	private activeMaterialCategory : string = '';
+	private activeColorCategory : string = '';
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
@@ -39,6 +40,17 @@ export class MaterialComponent implements OnInit, OnDestroy {
 	 * @return {type}
 	 */
 	onChangeMaterialCategory (event : Event) {
+		this.logger.info(`${this.constructor.name} - onChangeMaterialCategory:`, this.activeMaterialCategory);
+	}
+
+	/**
+	 * onChangeColorCategory - событие, отслеживающее изменение категории цветовой модели.
+	 *
+	 * @kind {event}
+	 * @param  {Event} event
+	 * @return {type}
+	 */
+	onChangeColorCategory (event : Event) {
 		this.logger.info(`${this.constructor.name} - onChangeMaterialCategory:`, this.activeMaterialCategory);
 	}
 

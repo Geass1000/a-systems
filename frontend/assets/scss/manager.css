@@ -66,7 +66,16 @@
       -ms-flex-negative: 0;
           flex-shrink: 0; }
   .manager-panel-block .form-back {
-    display: block;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: start;
+        justify-content: flex-start;
+    -ms-flex-align: center;
+        align-items: center;
+    -ms-flex-line-pack: center;
+        align-content: center;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
     box-sizing: border-box;
     width: 100%;
     padding: 10px 20px;

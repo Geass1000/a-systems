@@ -1,0 +1,25 @@
+<div class="manager-panel-block manager-material-color-rgba">
+	<div class="manager-panel-block-content">
+		<form [formGroup]="form" class="form-1">
+			<div class="form-group" [class.focused]="getFormField('width')">
+				<input type='text' class="form-control"	required
+					name="workspaceWidth" id="workspaceWidth" formControlName="width" />
+				<label for="workspaceWidth">Width</label>
+			</div>
+			<div class="form-group" [class.focused]="getFormField('height')">
+				<input type="text" class="form-control" required
+					name="workspaceHeight" id="workspaceHeight" formControlName="height" />
+				<label for="workspaceHeight">Height</label>
+			</div>
+		</form>
+
+		<div class="texture-collection" (click)="onClickOpenMaterial()">
+			<div class="item-texture">
+				<img src="https://img.clipartfest.com/44139d3ef26133c329f4bfbc7ae5f2cc_texture-593-by-sirius-sdz-texture_1600-1067.jpeg" />
+				<div class="description">
+					Ground
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
