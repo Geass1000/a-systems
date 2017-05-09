@@ -30,6 +30,20 @@ export class MaterialColor {
 		if (!str) {
 			throw new Error('MaterialColor - constructor: All params is required!');
 		}
+		this.setColor(str);
+	}
+
+	/**
+	 * setColor - функция, выполняющая установку цвета.
+	 *
+	 * @kind {function}
+	 * @param {string} str - строка с цветом
+	 * @return {void}
+	 */
+	setColor (str : string) : void {
+		if (!str) {
+			throw new Error('MaterialColor - setColor: All params is required!');
+		}
 
 		let type : string = this.typeDefinition(str);
 		switch (type) {
@@ -40,6 +54,33 @@ export class MaterialColor {
 			case 'hsla' : this.isHslOrHsla(str, type); break;
 			default : this.isNotColor(); break;
 		}
+	}
+	/**
+	 * getColor - функция, возвращающая строку со значениями цвета, разделёнными запятыми.
+	 *
+	 * @kind {function}
+	 * @param {string} type - строка с цветом
+	 * @return {string}
+	 */
+	getColor (type : string = 'rgba') : string {
+		let color : string = null;
+		switch (type) {
+			case 'hex' : {
+				color = this.rgbToHex(this.red, this.green, this.blue);
+				break;
+			}
+			case 'hsl' :
+			case 'hsla' : {
+				color = this.rgbaToHsla(this.red, this.green, this.blue, this.alfa);
+				break;
+			}
+			case 'rgb' :
+			case 'rgba' : {
+				color = `${this.red},${this.green},${this.blue}${this.alfa}`;
+				break;
+			}
+		}
+		return color;
 	}
 
 	/**
@@ -134,7 +175,7 @@ export class MaterialColor {
 	 * @param {string} hex - 16-е значение цвета
 	 * @return {void}
 	 */
-	private hexToRgba (hex : string) : void {
+	public hexToRgba (hex : string) : void {
 		let rgx : RegExp = /^([a-f\d])([a-f\d])([a-f\d])$/;
 		hex = hex.replace(rgx, (m, f1, f2, f3) => {
 			return f1 + f1 + f2 + f2 + f3 + f3;
@@ -148,6 +189,26 @@ export class MaterialColor {
 	}
 
 	/**
+	 * rgbToHex - функция, выполняющая преобразование из одной цветовой модели (из rgb)
+	 * в другую (в hex).
+	 *
+	 * @kind {function}
+	 * @param {number} r - красный цвет
+	 * @param {number} g - зелёный цвет
+	 * @param {number} b - синий цвет
+	 * @return {string}
+	 */
+	public rgbToHex (r : number, g : number, b: number) : string {
+		let rgbArr : Array<number> = [r, g, b];
+		let hex : string;
+		hex = rgbArr.map((data) => {
+			let base16 : string = data.toString(16);
+			return data < 16 ? base16 + base16 : base16;
+		}).join('');
+		return hex;
+	}
+
+	/**
 	 * hslaToRgba - функция, выполняющая преобразование из одной цветовой модели (из hsla)
 	 * в другую (в rgba).
 	 *
@@ -158,7 +219,7 @@ export class MaterialColor {
 	 * @param {number} a - альфа-канал
 	 * @return {void}
 	 */
-	private hslaToRgba (h : number, s : number, l : number, a : number) : void {
+	public hslaToRgba (h : number, s : number, l : number, a : number) : void {
 		let Q : number = l < 0.5 ? l * (1 + s) : l + s - l * s;
 		let P : number = 2 * l - Q;
 
@@ -172,6 +233,46 @@ export class MaterialColor {
 		let g : number = Math.round(this.hueRgb(Q, P, Tg) * 255);
 		let b : number = Math.round(this.hueRgb(Q, P, Tb) * 255);
 		this.setRgba(r, g, b, a);
+	}
+
+	/**
+	 * rgbaToHsla - функция, выполняющая преобразование из одной цветовой модели (из rgba)
+	 * в другую (в hsla).
+	 *
+	 * @kind {function}
+	 * @param {number} r - красный цвет
+	 * @param {number} g - зелёный цвет
+	 * @param {number} b - синий цвет
+	 * @param {number} a - альфа-канал
+	 * @return {string}
+	 */
+	public rgbaToHsla (r : number, g : number, b: number, a: number) : string {
+		r /= 255;	g /= 255;	b /= 255;
+		let max : number = Math.max(r, g, b),
+				min : number = Math.min(r, g, b);
+		let sub : number = max - min,
+				sum : number = max + min;
+
+		let h : number, s : number, l : number;
+		let tmp =  60 / sub;
+		if (max === min) {
+			h = 0;
+		} else if (max === r && g >= b) {
+			h = tmp * (g - b);
+		} else if (max === r && g < b) {
+			h = tmp * (g - b) + 360;
+		} else if (max === g) {
+			h = tmp * (b - r) + 120;
+		} else if (max === b) {
+			h = tmp * (r - g) + 240;
+		}
+		s = sub / (1 - Math.abs(1 - sum));
+		l = 1 / 2 * sum;
+
+		h = Math.round(h);
+		s = +(s * 100).toFixed(2);
+		l = +(l * 100).toFixed(2);
+		return `${h},${s},${l},${a}`;
 	}
 
 	/**

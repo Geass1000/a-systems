@@ -7,7 +7,7 @@ import { EditorActions } from '../../../actions/editor.actions';
 
 import { LoggerService } from '../../../core/logger.service';
 import { ITexture, ITextureCategory } from '../../../shared/interfaces/editor.interface';
-// import { MaterialColor } from '../../../shared/lib/material-color.class';
+import { MaterialColor } from '../../../shared/lib/material-color.class';
 
 @Component({
 	moduleId: module.id,
@@ -35,6 +35,8 @@ export class MaterialComponent implements OnInit, OnDestroy {
 		this.activeTextureId = null;
 	}
 	ngOnInit () {
+		let color : MaterialColor = new MaterialColor('rgba(160,177,149,0.7)');
+		console.log(color.rgbaToHsla(160, 177, 149, 0.7));
 		this.subscription.push(this.textureCategories$.subscribe((data) => {
 			this.textureCategoriesData = data;
 			this.textureCategories = data ? Array.from(data.values()) : [];
