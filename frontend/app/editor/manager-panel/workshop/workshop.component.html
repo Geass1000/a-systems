@@ -14,7 +14,7 @@
 			</div>
 		</div>
 
-		<div class="list-item" (click)="onClickAddItem($event)">
+		<div class="list-item" (click)="onClickAddItem($event)" *ngIf="itemsDisplay.length">
 			<div class="item" *ngFor="let item of itemsDisplay" [attr.data-item-id]="item._id">
 				<img [attr.src]="getSrcItemPreview(item)" />
 				<div class="overlay">
