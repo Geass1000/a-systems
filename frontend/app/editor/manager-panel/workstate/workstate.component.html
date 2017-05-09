@@ -1,5 +1,7 @@
-<section class="workstate">
-	<div class="state-item" *ngIf="ifActiveElements('workspace')" [@flyInOut]="'open'">
-		<as-editor-manager-workspace></as-editor-manager-workspace>
+<section class="manager-panel-block manager-workstate">
+	<div class="manager-panel-block-content">
+		<div class="item-panel" *ngIf="ifActiveElements('workspace')">
+			<as-editor-manager-workstate-workspace></as-editor-manager-workstate-workspace>
+		</div>
 	</div>
 </section>

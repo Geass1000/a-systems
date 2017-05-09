@@ -146,14 +146,30 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 		}
 		let categoryId : string = el.getAttribute('data-category-id').toString();
 		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - categoryId', categoryId);
-		if (categoryId === 'back') {
-			this.activeCategory = this.getParentCategoryId(this.activeCategory);
-		} else {
-			this.activeCategory = categoryId;
-		}
+		this.changeCategory(categoryId);
+	}
+
+	/**
+	 * onClickBack - событие, отвечающее за переход в категорию на уровен выше.
+	 *
+	 * @kind {event}
+	 * @return {type}
+	 */
+	onClickBack () {
+		this.changeCategory(this.getParentCategoryId(this.activeCategory));
+	}
+
+	/**
+	 * changeCategory - функция, выполняющая смену категории.
+	 *
+	 * @kind {function}
+	 * @param  {string} id - id категории
+	 * @return {string}
+	 */
+	changeCategory (id : string) {
+		this.activeCategory = id;
 		this.prevCategory = this.getParentCategoryName(this.activeCategory);
 		this.itemCategoriesDisplay = this.itemCategories.filter((data) => data._pid === this.activeCategory);
-
 		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - prevCategory -', this.prevCategory);
 		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - activeCategory -', this.activeCategory);
 		this.itemsDisplay = this.items.filter((d1) => d1._cid === this.activeCategory);

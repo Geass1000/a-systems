@@ -5,14 +5,14 @@ $placeholder-height: 27px;
 $padding-rl-input: 7px;
 $color-texture-hover: $color-text-2;
 
-.workstate-workspace {
-	.workstate-header {
+.manager-workstate-workspace {
+	.manager-panel-block-header {
 		&:first-child {
 			border-top: none;
 		}
 	}
 
-	.workstate-content {
+	.manager-panel-block-content {
 		box-sizing: border-box;
 		width: 100%;
 		padding: 10px 20px;
@@ -21,66 +21,66 @@ $color-texture-hover: $color-text-2;
 		button {
 			text-transform: capitalize;
 		}
-	}
 
-	.texture-collection {
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		align-items: center;
+		.texture-collection {
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
 
-		width: 100%;
-		margin-top: 10px;
-
-		.item-texture {
 			width: 100%;
-			height: 150px;
-			margin-bottom: 15px;
+			margin-top: 10px;
 
-			position: relative;
-
-			border: 2px solid #e1e1e1;
-
-			cursor: pointer;
-
-			transition: border-color 0.3s;
-
-			&:last-child {
-				margin-bottom: 0;
-			}
-
-			&:hover {
-				border-color: $color-texture-hover;
-				.description {
-					border-color: $color-texture-hover;
-				}
-			}
-
-			img {
+			.item-texture {
 				width: 100%;
-				height: 100%;
-			}
+				height: 150px;
+				margin-bottom: 15px;
 
-			.description {
-				padding: 10px;
-				padding-left: 15px;
+				position: relative;
 
-				position: absolute;
-				right: 0;
-				bottom: 0;
-
-				background-color: rgba(0,0,0,0.7);
 				border: 2px solid #e1e1e1;
-				border-right: none;
-				border-bottom: none;
-				border-top-left-radius: 21px;
 
-				color: #fff;
-				font-size: 16px;
-				font-weight: bold;
-				text-decoration: underline;
+				cursor: pointer;
 
 				transition: border-color 0.3s;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+
+				&:hover {
+					border-color: $color-texture-hover;
+					.description {
+						border-color: $color-texture-hover;
+					}
+				}
+
+				img {
+					width: 100%;
+					height: 100%;
+				}
+
+				.description {
+					padding: 10px;
+					padding-left: 15px;
+
+					position: absolute;
+					right: 0;
+					bottom: 0;
+
+					background-color: rgba(0,0,0,0.7);
+					border: 2px solid #e1e1e1;
+					border-right: none;
+					border-bottom: none;
+					border-top-left-radius: 21px;
+
+					color: #fff;
+					font-size: 16px;
+					font-weight: bold;
+					text-decoration: underline;
+
+					transition: border-color 0.3s;
+				}
 			}
 		}
 	}

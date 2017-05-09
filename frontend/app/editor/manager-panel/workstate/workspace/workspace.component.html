@@ -1,8 +1,8 @@
-<div class="workstate-block workstate-workspace">
-	<div class="workstate-header">
+<div class="manager-panel-block manager-workstate-workspace">
+	<div class="manager-panel-block-header">
 		<h4>Workspace</h4>
 	</div>
-	<div class="workstate-content">
+	<div class="manager-panel-block-content">
 		<form [formGroup]="form" class="form-1">
 			<div class="form-group" [class.focused]="getFormField('width')">
 				<input type='text' class="form-control"	required
@@ -14,14 +14,15 @@
 					name="workspaceHeight" id="workspaceHeight" formControlName="height" />
 				<label for="workspaceHeight">Height</label>
 			</div>
-			<div class="texture-collection" (click)="onClickOpenMaterial()">
-				<div class="item-texture">
-					<img src="https://img.clipartfest.com/44139d3ef26133c329f4bfbc7ae5f2cc_texture-593-by-sirius-sdz-texture_1600-1067.jpeg" />
-					<div class="description">
-						Ground
-					</div>
+		</form>
+		
+		<div class="texture-collection" (click)="onClickOpenMaterial()">
+			<div class="item-texture">
+				<img src="https://img.clipartfest.com/44139d3ef26133c329f4bfbc7ae5f2cc_texture-593-by-sirius-sdz-texture_1600-1067.jpeg" />
+				<div class="description">
+					Ground
 				</div>
 			</div>
-		</form>
+		</div>
 	</div>
 </div>

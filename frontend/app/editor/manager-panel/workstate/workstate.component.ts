@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -15,29 +14,7 @@ import { IElement } from '../../../shared/interfaces/editor.interface';
 	moduleId: module.id,
   selector: 'as-editor-manager-workstate',
 	templateUrl: 'workstate.component.html',
-  styleUrls: [ 'workstate.component.css' ],
-	animations: [
-		trigger('flyInOut', [
-			state('close', style({ opacity: '1' })),
-			state('open', style({
-				transform: 'translateX(0)',
-				opacity: '1'
-			})),
-			transition('void => open', [
-				style({
-					transform: 'translateX(100%)',
-					opacity: '0'
-				}),
-				animate(200)
-			]),
-			transition('open => void', [
-				animate(200, style({
-					transform: 'translateX(-100%)',
-					opacity: '0'
-				}))
-			]),
-		])
-	]
+  styleUrls: [ 'workstate.component.css' ]
 })
 export class WorkstateComponent implements OnInit, OnDestroy {
 	title = 'Home';

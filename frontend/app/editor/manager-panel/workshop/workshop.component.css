@@ -19,18 +19,19 @@
 /* No important context */
 /* Main context */
 /* Important context */
-.workstate {
+:host {
   width: 100%;
   height: 100%; }
-  .workstate .form-header {
-    padding: 10px 20px;
-    background-color: rgba(128, 128, 128, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    color: #5C5C5C; }
-  .workstate .list-categories {
+
+.manager-workshop {
+  width: 100%;
+  height: 100%; }
+  .manager-workshop .manager-panel-block-header:first-child {
+    border-top: none; }
+  .manager-workshop .list-categories {
     box-sizing: border-box;
     width: 100%; }
-    .workstate .list-categories .item {
+    .manager-workshop .list-categories .item {
       display: -ms-flexbox;
       display: flex;
       -ms-flex-pack: start;
@@ -45,18 +46,12 @@
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       cursor: pointer;
       color: #5C5C5C; }
-      .workstate .list-categories .item i {
+      .manager-workshop .list-categories .item i {
         margin-right: 5px; }
-      .workstate .list-categories .item:hover {
+      .manager-workshop .list-categories .item:hover {
         background-color: #7bb3ef;
         color: #fff; }
-      .workstate .list-categories .item.form-back {
-        font-weight: bold; }
-        .workstate .list-categories .item.form-back.lock {
-          background-color: rgba(128, 128, 128, 0.1);
-          color: #5C5C5C;
-          transition: background-color 0.4s, color 0.4s; }
-  .workstate .list-item {
+  .manager-workshop .list-item {
     display: -ms-flexbox;
     display: flex;
     overflow-y: scroll;
@@ -72,19 +67,19 @@
     width: 100%;
     height: 100%;
     padding: 1px; }
-    .workstate .list-item .item {
+    .manager-workshop .list-item .item {
       display: block;
       box-sizing: border-box;
       width: 126px;
       height: 126px;
       position: relative;
       border: 1px solid white; }
-      .workstate .list-item .item img {
+      .manager-workshop .list-item .item img {
         box-sizing: border-box;
         width: 100%;
         height: 100%;
         border: 1px solid #e8e8e8; }
-      .workstate .list-item .item .overlay {
+      .manager-workshop .list-item .item .overlay {
         display: -ms-flexbox;
         display: flex;
         -ms-flex-direction: column;
@@ -103,7 +98,7 @@
         background-color: transparent;
         cursor: pointer;
         transition: background-color 0.3s; }
-        .workstate .list-item .item .overlay .description {
+        .manager-workshop .list-item .item .overlay .description {
           margin-top: 60px;
           opacity: 0;
           color: #fff;
@@ -111,8 +106,8 @@
           font-weight: bold;
           text-align: center;
           transition: opacity 0.3s, margin-top 0.3s; }
-        .workstate .list-item .item .overlay:hover {
+        .manager-workshop .list-item .item .overlay:hover {
           background-color: rgba(0, 0, 0, 0.6); }
-        .workstate .list-item .item .overlay:hover .description {
+        .manager-workshop .list-item .item .overlay:hover .description {
           margin-top: 0;
           opacity: 1; }

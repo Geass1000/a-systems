@@ -1,29 +1,26 @@
-<div class="workstate-block workstate-texture">
-	<div class="workstate-header">
-		<h4>Texture</h4>
+<div class="manager-panel-block manager-material">
+	<div class="manager-panel-block-header">
+		<h4>Material</h4>
 	</div>
-	<div class="workstate-content">
+	<div class="manager-panel-block-content">
 		<div class="form-back" (click)="onClickBack()">
 			<i class="fa fa-chevron-left" aria-hidden="true"></i>
 			<span>Back to Workstate</span>
 		</div>
+
 		<form>
-			<select name="textureCategory" class="list-categories"
-				[(ngModel)]="activeTextureCategoryId" (change)="onChangeTextureCategory($event)">
-	      <option value="" disabled>Choose a type</option>
-	      <option *ngFor="let textureCategory of textureCategories" [ngValue]="textureCategory._id">
-	        {{ textureCategory.name }}
-	      </option>
+			<select name="materialCategory" class="list-categories"
+				[(ngModel)]="activeMaterialCategory" (change)="onChangeMaterialCategory($event)">
+	      <option value="" disabled>Choose a type material</option>
+				<option value="color">Color</option>
+				<option value="texture">Texture</option>
 	    </select>
 		</form>
+		<div class="item-panel" *ngIf="activeMaterialCategory === 'color'">
 
-		<div class="list-textures" (click)="onClickSetTexture($event)">
-			<div class="item" *ngFor="let item of texturesDisplay" [attr.data-item-id]="item._id">
-				<img [attr.src]="getSrcTexture(item)" />
-				<div class="active-item" *ngIf="item._id === activeTextureId">
-					<i class="fa fa-check-circle-o" aria-hidden="true"></i>
-				</div>
-			</div>
+		</div>
+		<div class="item-panel" *ngIf="activeMaterialCategory === 'texture'">
+			<as-editor-manager-material-texture></as-editor-manager-material-texture>
 		</div>
 	</div>
 </div>

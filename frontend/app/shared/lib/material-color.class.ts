@@ -20,17 +20,59 @@ export interface IMaterialColor {
 	alfa : number;
 }
 
-export class MaterialColor {
-	private red : number;
-	private green : number;
-	private blue : number;
-	private alfa : number;
+export class MaterialColor implements IMaterialColor {
+	private _red : number;
+	private _green : number;
+	private _blue : number;
+	private _alfa : number;
 
-	constructor (str : string) {
-		if (!str) {
-			throw new Error('MaterialColor - constructor: All params is required!');
+	constructor (color ?: IMaterialColor) {
+		if (color) {
+			this.setRgba(color.red, color.green, color.blue, color.alfa);
+		} else {
+			this.isNotColor();
 		}
-		this.setColor(str);
+	}
+
+	set red (data : number) {
+		this._red = this.prepareColorData(data, 0, 255);
+	}
+	get red () : number {
+		return this._red;
+	}
+	set green (data : number) {
+		this._green = this.prepareColorData(data, 0, 255);
+	}
+	get green () : number {
+		return this._green;
+	}
+	set blue (data : number) {
+		this._blue = this.prepareColorData(data, 0, 255);
+	}
+	get blue () : number {
+		return this._blue;
+	}
+	set alfa (data : number) {
+		this._alfa = this.prepareColorData(data, 0, 1);
+	}
+	get alfa () : number {
+		return this._alfa;
+	}
+
+	/**
+	 * prepareColorData - функция, выполняющая подготовку цвета перед сохранением.
+	 *
+	 * @kind {function}
+	 * @param {number} data - значение цвета
+	 * @param {number} min - минимальное значение цвета
+	 * @param {number} max - максимальное значение цвета
+	 * @return {number}
+	 */
+	private prepareColorData (data : number, min : number, max : number) : number {
+		data = isFinite(data) ? data : max;
+		data = data < min ? min : data;
+		data = data > max ? max : data;
+		return data;
 	}
 
 	/**
@@ -38,23 +80,33 @@ export class MaterialColor {
 	 *
 	 * @kind {function}
 	 * @param {string} str - строка с цветом
-	 * @return {void}
+	 * @return {MaterialColor}
 	 */
-	setColor (str : string) : void {
+	public setColor (str : string) : MaterialColor {
 		if (!str) {
 			throw new Error('MaterialColor - setColor: All params is required!');
 		}
 
 		let type : string = this.typeDefinition(str);
 		switch (type) {
-			case 'hex' : this.isHex(str, type); break;
+			case 'hex' :
+				this.isHex(str, type);
+				break;
 			case 'rgb' :
-			case 'rgba' : this.isRgbOrRgba(str, type); break;
+			case 'rgba' :
+				this.isRgbOrRgba(str, type);
+				break;
 			case 'hsl' :
-			case 'hsla' : this.isHslOrHsla(str, type); break;
-			default : this.isNotColor(); break;
+			case 'hsla' :
+				this.isHslOrHsla(str, type);
+				break;
+			default :
+				this.isNotColor();
+				break;
 		}
+		return this;
 	}
+
 	/**
 	 * getColor - функция, возвращающая строку со значениями цвета, разделёнными запятыми.
 	 *
@@ -62,7 +114,7 @@ export class MaterialColor {
 	 * @param {string} type - строка с цветом
 	 * @return {string}
 	 */
-	getColor (type : string = 'rgba') : string {
+	public getColor (type : string = 'rgba') : string {
 		let color : string = null;
 		switch (type) {
 			case 'hex' : {
@@ -76,7 +128,7 @@ export class MaterialColor {
 			}
 			case 'rgb' :
 			case 'rgba' : {
-				color = `${this.red},${this.green},${this.blue}${this.alfa}`;
+				color = `${this.red},${this.green},${this.blue},${this.alfa}`;
 				break;
 			}
 		}
@@ -145,7 +197,7 @@ export class MaterialColor {
 	 * @return {void}
 	 */
 	isNotColor () : void {
-		this.setRgba(0, 0, 0, 0);
+		this.setRgba(0, 0, 0, 1);
 	}
 
 	/**

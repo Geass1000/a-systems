@@ -7,7 +7,7 @@ export interface IMaterialTexture {
 	angle : number;
 }
 
-export class MaterialTexture {
+export class MaterialTexture implements IMaterialTexture {
 	private _defWidth : number;		// Ширина текстуры по умолчанию
 	private _defHeight : number;	// Высота текстуры по умолчанию
 	private _scale : number;			// Масштаб текстуры
@@ -16,16 +16,20 @@ export class MaterialTexture {
 	private _angle : number;			// Угол поворота текстуры
 	private _url : string;				// url текстуры
 
-	constructor (obj : IMaterialTexture) {
-		if (!obj) {
-			throw new Error('MaterialTexture - constructor: All params is required!');
+	constructor (texture ?: IMaterialTexture) {
+		if (texture) {
+			this.url = texture.url;
+			this.defWidth = texture.defWidth;
+			this.defHeight = texture.defHeight;
+			this.scale = texture.scale;
+			this.angle = texture.angle;
+		} else {
+			this.url = '';
+			this.defWidth = 0;
+			this.defHeight = 0;
+			this.scale = 1;
+			this.angle = 0;
 		}
-
-		this.url = obj.url;
-		this.defWidth = obj.defWidth;
-		this.defHeight = obj.defHeight;
-		this.scale = obj.scale;
-		this.angle = obj.angle;
 	}
 
 	set angle (data : number) {
@@ -77,5 +81,19 @@ export class MaterialTexture {
 
 	prepareNumberData (data : number) : number {
 		return isFinite(data) ? data : 0;
+	}
+
+	/**
+	 * toString - функция, возвращающая строковое представление класса.
+	 *
+	 * @kind {function}
+	 * @return {string}
+	 */
+	toString () : string {
+		if (this.url) {
+			return `assets/textures/${this.url}`;
+		} else {
+			return '';
+		}
 	}
 }

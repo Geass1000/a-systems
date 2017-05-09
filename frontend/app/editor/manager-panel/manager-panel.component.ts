@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -13,49 +12,14 @@ import { LoggerService } from '../../core/logger.service';
 	moduleId: module.id,
   selector: 'as-editor-manager-panel',
 	templateUrl: 'manager-panel.component.html',
-  styleUrls: [ 'manager-panel.component.css' ],
-	animations: [
-		trigger('flyInOut', [
-			state('close', style({ opacity: '1' })),
-			state('open', style({
-				transform: 'translateX(0)',
-				opacity: '1'
-			})),
-			transition('void => open', [
-				style({
-					transform: 'translateX(100%)',
-					opacity: '0'
-				}),
-				animate(200)
-			]),
-			transition('open => void', [
-				animate(200, style({
-					transform: 'translateX(-100%)',
-					opacity: '0'
-				}))
-			]),
-		]),
-		trigger('togglePanel', [
-			state('close', style({
-				transform: 'translateX(100%)',
-			})),
-			state('open', style({
-				transform: 'translateX(0)',
-			})),
-			transition('close <=> open', animate('200ms ease-in'))
-		])
-	]
+  styleUrls: [ 'manager-panel.component.css' ]
 })
 export class ManagerPanelComponent implements OnInit, OnDestroy {
 	/* Private variable */
-	/* Angular Animation */
-	private aPanelState : string = 'open';
-	private aItemPanelState : string = 'close';
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
 	@select(['editor', 'manager', 'open']) managerOpen$ : Observable<boolean>;
-	private managerOpen : boolean;
 	@select(['editor', 'manager', 'workshop']) workshop$ : Observable<boolean>;
 	@select(['editor', 'manager', 'workstate']) workstate$ : Observable<boolean>;
 	@select(['editor', 'manager', 'material']) material$ : Observable<boolean>;
@@ -66,37 +30,9 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 						 	 private logger : LoggerService) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.managerOpen$.subscribe((data) => {
-			this.aPanelState = data ? 'open' : 'close';
-			this.managerOpen = data;
-		}));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
-	}
-
-	/**
-	 * Angular Animation
-	 * aTogglePanelStarted - событие, отслеживающее начало анимации 'togglePanel'.
-	 *
-	 * @kind {event}
-	 * @param  {any} event
-	 * @return {void}
-	 */
-	aTogglePanelStarted (event : any) : void {
-		this.aItemPanelState = 'close';
-		this.logger.info(`${this.constructor.name}:`, `aTogglePanelStarted - ${event.toState}`);
-	}
-	/**
-	 * Angular Animation
-	 * aTogglePanelDone - событие, отслеживающее завершение анимации 'togglePanel'.
-	 *
-	 * @kind {event}
-	 * @param  {any} event
-	 * @return {void}
-	 */
-	aTogglePanelDone (event : any) : void {
-		this.aItemPanelState = 'open';
 	}
 
 	/**

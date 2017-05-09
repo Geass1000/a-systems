@@ -1,18 +1,18 @@
 <section class="manager-section">
 	<div class="manager-component manager-panel"
-		[@togglePanel]="aPanelState"
-		(@togglePanel.start)="aTogglePanelStarted($event)"
-    (@togglePanel.done)="aTogglePanelDone($event)">
+		[class.open]="managerOpen$ | async">
 		<div class="manager-panel-block">
-			<div class="item-panel" *ngIf="workshop$ | async" [@flyInOut]="aItemPanelState">
-				<as-editor-manager-workshop></as-editor-manager-workshop>
-			</div>
-			<div class="item-panel" *ngIf="workstate$ | async" [@flyInOut]="aItemPanelState">
-				<as-editor-manager-workstate></as-editor-manager-workstate>
-			</div>
-			<div class="item-panel" *ngIf="material$ | async" [@flyInOut]="aItemPanelState">
-				<as-editor-manager-material></as-editor-manager-material>
-			</div>
+			<div class="manager-panel-block-content">
+				<div class="item-panel" *ngIf="workshop$ | async">
+					<as-editor-manager-workshop></as-editor-manager-workshop>
+				</div>
+				<div class="item-panel" *ngIf="workstate$ | async">
+					<as-editor-manager-workstate></as-editor-manager-workstate>
+				</div>
+				<div class="item-panel" *ngIf="material$ | async">
+					<as-editor-manager-material></as-editor-manager-material>
+				</div>
+			</div>			
 		</div>
 	</div>
 

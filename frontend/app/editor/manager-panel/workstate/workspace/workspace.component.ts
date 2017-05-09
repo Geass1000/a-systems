@@ -16,7 +16,7 @@ import { isNumber } from '../../../../shared/validators/is-number.validator';
 
 @Component({
 	moduleId: module.id,
-  selector: 'as-editor-manager-workspace',
+  selector: 'as-editor-manager-workstate-workspace',
 	templateUrl: 'workspace.component.html',
   styleUrls: [ 'workspace.component.css' ]
 })
