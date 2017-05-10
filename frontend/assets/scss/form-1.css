@@ -105,8 +105,10 @@
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       font-size: 16px;
       transition: border 0.3s; }
+      .form-1 .form-group input:hover {
+        border-bottom-color: #1e83ec; }
       .form-1 .form-group input:focus {
-        border-bottom: 1px solid #1e83ec;
+        border-bottom-color: #1e83ec;
         color: #1e83ec; }
       .form-1 .form-group input:focus + label {
         top: 0;

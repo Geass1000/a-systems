@@ -93,7 +93,7 @@ export class MaterialTexture implements IMaterialTexture {
 		if (this.url) {
 			return `assets/textures/${this.url}`;
 		} else {
-			return '';
+			return 'none';
 		}
 	}
 }

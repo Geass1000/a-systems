@@ -68,6 +68,12 @@ select {
 	color: $color-text-3;
 	font-size: 15px;
 	font-weight: bold;
+
+	transition: border 0.3s;
+	
+	&:hover {
+		border-bottom-color: $color-text-1;
+	}
 }
 
 .separator {

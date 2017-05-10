@@ -65,6 +65,11 @@ export const EditorStateReducer : Reducer<IEditorState> =
 		case EditorActions.SET_MATERIAL : {
 			return Object.assign({}, state, { material : action.payload.material });
 		}
+		case EditorActions.UPDATE_MATERIAL : {
+			let newState : IEditorState = Object.assign({}, state);
+			newState.material.payload = action.payload.material;
+			return newState;
+		}
 	}
 	return state;
 };

@@ -12,6 +12,7 @@
 			<select name="materialCategory" class="list-categories"
 				[(ngModel)]="activeMaterialCategory" (change)="onChangeMaterialCategory($event)">
 	      <option value="" disabled>Choose a type material</option>
+				<option value="none">None</option>
 				<option value="color">Color</option>
 				<option value="texture">Texture</option>
 	    </select>

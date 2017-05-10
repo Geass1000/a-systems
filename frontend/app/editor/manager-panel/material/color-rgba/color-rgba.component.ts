@@ -41,6 +41,9 @@ export class ColorRgbaComponent implements OnInit, OnDestroy {
 		this.buildForm();
 		this.subscription.push(this.material$.subscribe((data) => {
 			this.material = data;
+			if (!this.material) {
+				return;
+			}
 			this.color = <MaterialColor>this.material.payload;
 			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - material -', this.material);
 			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - color -', this.color);
@@ -63,7 +66,7 @@ export class ColorRgbaComponent implements OnInit, OnDestroy {
 			'red' : [ '', [ Validators.required, isNumber(false) ] ],
 			'green' : [ '', [ Validators.required, isNumber(false) ] ],
 			'blue' : [ '', [ Validators.required, isNumber(false) ] ],
-			'alfa' : [ '', [ Validators.required, isNumber(false) ] ]
+			'alfa' : [ '', [ Validators.required, isNumber(true) ] ]
 		});
 
 		this.editorForm = new EditorForm(this.form);
@@ -103,10 +106,15 @@ export class ColorRgbaComponent implements OnInit, OnDestroy {
 			return;
 		}
 		this.logger.info(`${this.constructor.name} - onChangeValue: Use`);
-		let result : MaterialColor = new MaterialColor();
-		result.setColor(`rgba(${this.color})`);
-
-		//this.ngRedux.dispatch(this.editorActions.setWorkspace(resultWorkspace));
+		let result : MaterialColor = new MaterialColor({
+			red : +this.getFormField('red'),
+			green : +this.getFormField('green'),
+			blue : +this.getFormField('blue'),
+			alfa : +this.getFormField('alfa')
+		});
+		this.color = result;
+		this.logger.info(`${this.constructor.name} - onChangeValue: result -`, result);
+		this.ngRedux.dispatch(this.editorActions.updateMaterial(result));
 	}
 
 	/**
@@ -117,8 +125,8 @@ export class ColorRgbaComponent implements OnInit, OnDestroy {
 	 * @return {string}
 	 */
 	getFormField (fieldName : string) : string {
-		let field : string = this.form.get(fieldName).toString();
-		return field ? field : '';
+		let field = this.form.get(fieldName);
+		return field ? field.value.toString() : '';
 	}
 
 	/**

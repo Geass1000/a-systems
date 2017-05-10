@@ -12,10 +12,15 @@ export class Material implements IMaterial {
 	private color : MaterialColor;
 	private texture : MaterialTexture;
 
-	constructor ( ) {
-		this.type = 'color';
+	constructor (obj ?: IMaterial) {
 		this.color = new MaterialColor();
 		this.texture = new MaterialTexture();
+		if (obj) {
+			this.type = obj.type;
+			this.payload = obj.payload;
+		} else {
+			this.type = 'none';
+		}
 	}
 
 	set type (data : string) {
@@ -27,10 +32,12 @@ export class Material implements IMaterial {
 	set payload (data : IMaterialColor | IMaterialTexture) {
 		switch (this.type) {
 			case 'color' :
-				this.color = new MaterialColor(<IMaterialColor>data);
+				this.color = data ? new MaterialColor(<IMaterialColor>data) : this.color;
 				break;
 			case 'texture' :
-				this.texture = new MaterialTexture(<IMaterialTexture>data);
+				this.texture = data ? new MaterialTexture(<IMaterialTexture>data) : this.texture;
+				break;
+			case 'none' :
 				break;
 		}
 	}
@@ -40,6 +47,8 @@ export class Material implements IMaterial {
 				return this.color;
 			case 'texture' :
 				return this.texture;
+			case 'none' :
+				return null;
 		}
 	}
 
@@ -77,6 +86,7 @@ export class Material implements IMaterial {
 		switch (this.type) {
 			case 'color' : return this.color.toString();
 			case 'texture' : return this.texture.toString();
+			case 'none' : return 'none';
 		}
 		return '';
 	}

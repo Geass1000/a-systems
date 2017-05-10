@@ -101,12 +101,14 @@ $padding-rl-input: 7px;
 
 			transition: border 0.3s;
 
+			&:hover {
+				border-bottom-color: $color-text-1;
+			}
 			&:focus {
-				border-bottom: 1px solid $color-text-1;
+				border-bottom-color: $color-text-1;
 
 				color: $color-text-1;
 			}
-
 			&:focus + label {
 				top: 0;
 

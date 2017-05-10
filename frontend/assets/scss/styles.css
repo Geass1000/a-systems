@@ -127,7 +127,10 @@ select {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   color: #5C5C5C;
   font-size: 15px;
-  font-weight: bold; }
+  font-weight: bold;
+  transition: border 0.3s; }
+  select:hover {
+    border-bottom-color: #1e83ec; }
 
 .separator {
   width: 1px;

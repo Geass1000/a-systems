@@ -33,7 +33,9 @@ export class MaterialComponent implements OnInit, OnDestroy {
 			this.material = data;
 			if (this.material) {
 				this.activeMaterialCategory = this.material.type;
-				this.activeColorCategory = 'rgba';
+				if (this.material.type === 'color') {
+					this.activeColorCategory = 'rgba';
+				}
 			}
 			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - material -', this.material);
 		}));
@@ -53,6 +55,10 @@ export class MaterialComponent implements OnInit, OnDestroy {
 	 * @return {type}
 	 */
 	onChangeMaterialCategory (event : Event) {
+		if (!this.material) {
+			return;
+		}
+		this.material.type = this.activeMaterialCategory;
 		this.logger.info(`${this.constructor.name} - onChangeMaterialCategory:`, this.activeMaterialCategory);
 	}
 

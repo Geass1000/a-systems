@@ -18,9 +18,10 @@
 		</svg:defs>
 
 		<svg:g [attr.transform]="workspace.transform()">
+			<svg:rect class="grid" x="0" y="0" [attr.fill]="workspace.material.toString()"
+				[attr.width]="workspace.width" [attr.height]="workspace.height"/>
 			<svg:rect class="grid" x="0" y="0" [attr.fill]="'url(' + loc + '#p-grid)'"
 				[attr.width]="workspace.width" [attr.height]="workspace.height"/>
-			<svg:rect class="fil0 str0" x="100" y="100" width="50" height="50"/>
 
 			<svg:g as-editor-surface></svg:g>
 			<svg:g as-editor-thing></svg:g>

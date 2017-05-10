@@ -5,6 +5,8 @@ import { IElement, ITexture, ITextureCategory, IItem, IItemCategory } from '../s
 import { Surface } from '../shared/lib/surface.class';
 import { Thing } from '../shared/lib/thing.class';
 import { Material } from '../shared/lib/material.class';
+import { MaterialColor } from '../shared/lib/material-color.class';
+import { MaterialTexture } from '../shared/lib/material-texture.class';
 import { IWorkspace } from '../shared/lib/workspace.class';
 
 @Injectable()
@@ -22,6 +24,7 @@ export class EditorActions {
 	static readonly TRANSLATE_THING = EditorActions.CLASS_NAME + 'TRANSLATE_THING';
 	static readonly SET_ACTIVE_ELEMENTS = EditorActions.CLASS_NAME + 'SET_ACTIVE_ELEMENTS';
 	static readonly SET_MATERIAL = EditorActions.CLASS_NAME + 'SET_MATERIAL';
+	static readonly UPDATE_MATERIAL = EditorActions.CLASS_NAME + 'UPDATE_MATERIAL';
 	/* Texture Action */
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
 	static readonly ADD_TEXTURES = EditorActions.CLASS_NAME + 'ADD_TEXTURES';
@@ -130,6 +133,14 @@ export class EditorActions {
 	setMaterial (material : Material) : IAction {
     return {
       type : EditorActions.SET_MATERIAL,
+			payload : {
+				material : material
+			}
+    };
+  }
+	updateMaterial (material : MaterialColor | MaterialTexture) : IAction {
+    return {
+      type : EditorActions.UPDATE_MATERIAL,
 			payload : {
 				material : material
 			}

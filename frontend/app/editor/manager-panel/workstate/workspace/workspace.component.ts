@@ -30,7 +30,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
 	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
-	private workspace : Workspace = null;
+	private model : Workspace = null;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
@@ -41,7 +41,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	ngOnInit () {
 		this.buildForm();
 		this.subscription.push(this.workspace$.subscribe((data) => {
-			this.workspace = data;
+			this.model = data;
 			this.editorForm.setModel(this.setModel.bind(this));
 		}));
 		this.subscription.push(this.isActiveMetric$.subscribe((data) => {
@@ -79,13 +79,13 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @return {boolean}
 	 */
 	setModel () : boolean {
-		if (!this.workspace || !this.isActiveMetric) {
+		if (!this.model || !this.isActiveMetric) {
 			return false;
 		}
 		this.logger.info(`${this.constructor.name}:`, 'setModel');
 		this.form.setValue({
-			width : this.metricService.convertFromDefToCur(this.workspace.width).toString(),
-			height : this.metricService.convertFromDefToCur(this.workspace.height).toString()
+			width : this.metricService.convertFromDefToCur(this.model.width).toString(),
+			height : this.metricService.convertFromDefToCur(this.model.height).toString()
 		});
 		return true;
 	}
@@ -113,11 +113,11 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @return {void}
 	 */
 	onChangeValue () : void {
-		if (!this.workspace || !this.isActiveMetric) {
+		if (!this.model || !this.isActiveMetric) {
 			return;
 		}
 		this.logger.info(`${this.constructor.name}:`, 'onChangeValue');
-		let resultWorkspace : Workspace = new Workspace(this.workspace);
+		let resultWorkspace : Workspace = new Workspace(this.model);
 
 		let tmpWidth : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'width');
 		resultWorkspace.width = tmpWidth !== null ? tmpWidth : resultWorkspace.width;
@@ -146,7 +146,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @return {void}
 	 */
 	onClickOpenMaterial () : void {
-		this.ngRedux.dispatch(this.editorActions.setMaterial(this.workspace.material));
+		this.ngRedux.dispatch(this.editorActions.setMaterial(this.model.material));
 		this.ngRedux.dispatch(this.editorActions.openManagerPanel('material'));
 	}
 }

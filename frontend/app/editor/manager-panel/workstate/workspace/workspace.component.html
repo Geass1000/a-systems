@@ -15,12 +15,13 @@
 				<label for="workspaceHeight">Height</label>
 			</div>
 		</form>
-		
-		<div class="texture-collection" (click)="onClickOpenMaterial()">
-			<div class="item-texture">
-				<img src="https://img.clipartfest.com/44139d3ef26133c329f4bfbc7ae5f2cc_texture-593-by-sirius-sdz-texture_1600-1067.jpeg" />
+
+		<div class="list-textures" (click)="onClickOpenMaterial()">
+			<div class="item-texture"
+				[style.background]="this.model.material.toString()"
+				[style.background-size]="'cover'">
 				<div class="description">
-					Ground
+					Ground: {{this.model.material.type}}
 				</div>
 			</div>
 		</div>

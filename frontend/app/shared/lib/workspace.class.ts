@@ -1,12 +1,12 @@
 import { Config } from '../../config';
 
 import { Point } from './point.class';
-import { Material } from './material.class';
+import { IMaterial, Material } from './material.class';
 
 export interface IWorkspace {
 	height : number;
 	width : number;
-	material : Material;
+	material : IMaterial;
 	x ?: number;
 	y ?: number;
 }
@@ -22,7 +22,7 @@ export class Workspace implements IWorkspace {
 		if (obj) {
 			this.width = obj.width;
 			this.height = obj.height;
-			this.material = obj.material || new Material();
+			this.material = obj.material ? new Material(obj.material) : new Material();
 			this.x = obj.x || 0;
 			this.y = obj.y || 0;
 		} else {
