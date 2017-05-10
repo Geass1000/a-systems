@@ -5,16 +5,13 @@
 	height: 100%;
 }
 
-/* Variable */
-$placeholder-height: 27px;
-$padding-rl-input: 7px;
-$color-texture-hover: $color-text-2;
-
 .manager-material-color-rgba {
 	.manager-panel-block-content {
-		box-sizing: border-box;
-		width: 100%;
-		padding: 10px 20px;
-		padding-bottom: 25px;
+		.form-color {
+			padding: 10px 20px;
+		}
+		.color-preview {
+			
+		}
 	}
 }

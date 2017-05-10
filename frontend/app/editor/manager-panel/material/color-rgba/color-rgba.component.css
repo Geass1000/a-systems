@@ -23,9 +23,5 @@
   width: 100%;
   height: 100%; }
 
-/* Variable */
-.manager-material-color-rgba .manager-panel-block-content {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 10px 20px;
-  padding-bottom: 25px; }
+.manager-material-color-rgba .manager-panel-block-content .form-color {
+  padding: 10px 20px; }

@@ -134,14 +134,4 @@ export class ColorRgbaComponent implements OnInit, OnDestroy {
 		let field = this.form.get(fieldName);
 		return field ? field.value.toString() : '';
 	}
-
-	/**
-	 * onClickOpenMaterial - событие, отвечающее за вызов текстурного компонента.
-	 *
-	 * @kind {event}
-	 * @return {void}
-	 */
-	onClickOpenMaterial () : void {
-		this.ngRedux.dispatch(this.editorActions.openManagerPanel('material'));
-	}
 }
