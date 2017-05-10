@@ -6,7 +6,7 @@ import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../actions/editor.actions';
 
 import { LoggerService } from '../../../core/logger.service';
-//import { MaterialColor } from '../../../shared/lib/material-color.class';
+import { Material } from '../../../shared/lib/material.class';
 
 @Component({
 	moduleId: module.id,
@@ -21,15 +21,28 @@ export class MaterialComponent implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
+	@select(['editor', 'state', 'material']) material$ : Observable<Material>;
+	private material : Material;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
 						 	 private logger : LoggerService) {
 	}
 	ngOnInit () {
+		this.subscription.push(this.material$.subscribe((data) => {
+			this.material = data;
+			if (this.material) {
+				this.activeMaterialCategory = this.material.type;
+				this.activeColorCategory = 'rgba';
+			}
+			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - material -', this.material);
+		}));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
+	}
+
+	unpackActiveElements () {
 	}
 
 	/**
@@ -51,7 +64,7 @@ export class MaterialComponent implements OnInit, OnDestroy {
 	 * @return {type}
 	 */
 	onChangeColorCategory (event : Event) {
-		this.logger.info(`${this.constructor.name} - onChangeMaterialCategory:`, this.activeMaterialCategory);
+		this.logger.info(`${this.constructor.name} - activeColorCategory:`, this.activeColorCategory);
 	}
 
 	/**

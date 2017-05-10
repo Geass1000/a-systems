@@ -9,7 +9,7 @@ export class Config {
 	static readonly workspace : IWorkspace = {
 		width : 2000,
 		height : 2000,
-		texture : ''
+		material : null
 	};
 
 	/* Http */

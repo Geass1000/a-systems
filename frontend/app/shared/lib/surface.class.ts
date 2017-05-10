@@ -1,19 +1,20 @@
 import { Point, IPoint } from './point.class';
+import { Material } from './material.class';
 
 export interface ISurface {
 	id ?: number;
 	x ?: number;
 	y ?: number;
-	tStroke : string;
-	tFill : string;
+	stroke : Material;
+	fill : Material;
 	points : Array<IPoint>;
 }
 
 export class Surface implements ISurface {
 	private _id : number;
 	private _coord : Point;						// Координаты смещения относительно верхнего левого угла
-	private _tStroke : string;				// Текстура границы поверхности
-	private _tFill : string;					// Текстура поверхности
+	private _stroke : Material;				// Текстура границы поверхности
+	private _fill : Material;					// Текстура поверхности
 	private _points : Array<Point>;		// Массив точек, определяющие границы поверхности
 
 	constructor (obj ?: ISurface) {
@@ -21,15 +22,15 @@ export class Surface implements ISurface {
 		if (obj) {
 			this.x = obj.x || 0;
 			this.y = obj.y || 0;
-			this.tStroke = obj.tStroke;
-			this.tFill = obj.tFill;
+			this.stroke = obj.stroke || new Material();
+			this.fill = obj.fill || new Material();
 			this._points = obj.points.map((data : IPoint) => { return new Point(data); });
 			this.id = obj.id || null;
 		} else {
 			this.x = 0;
 			this.y = 0;
-			this.tStroke = null;
-			this.tFill = null;
+			this.stroke = new Material();
+			this.fill = new Material();
 			this.points = [];
 			this.id = null;
 		}
@@ -47,17 +48,17 @@ export class Surface implements ISurface {
 	get y () : number {
 		return this._coord.y;
 	}
-	set tStroke (data : string) {
-		this._tStroke = data && data.toString();
+	set stroke (data : Material) {
+		this._stroke = data;
 	}
-	get tStroke () : string {
-		return this._tStroke;
+	get stroke () : Material {
+		return this._stroke;
 	}
-	set tFill (data : string) {
-		this._tFill = data && data.toString();
+	set fill (data : Material) {
+		this._fill = data;
 	}
-	get tFill () : string {
-		return this._tFill;
+	get fill () : Material {
+		return this._fill;
 	}
 	set points (data : Array<Point>) {
 		this._points = data;
@@ -86,8 +87,8 @@ export class Surface implements ISurface {
 			id : this.id,
 			x : this.x,
 			y : this.y,
-			tStroke : this.tStroke,
-			tFill : this.tFill,
+			stroke : this.stroke,
+			fill : this.fill,
 			points : this.points
 		};
 	}

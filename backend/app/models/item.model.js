@@ -12,7 +12,7 @@ let connection = require('../config/mongodb.database');
  * payload - данные о элементе, зависит от типа;
  *
  * payload : { surface, object }
- * surface :  { points, tStroke, tFill }
+ * surface :  { points, stroke, fill }
  * object : { url, size }
  */
 let itemSchema = new Schema({

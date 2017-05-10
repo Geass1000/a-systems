@@ -12,10 +12,10 @@ export interface IEditorManager {
 
 export const INITIAL_STATE : IEditorManager = {
 	open : true,
-	active : 'material',
+	active : 'workstate',
 	workshop : false,
-	workstate : false,
-	material : true
+	workstate : true,
+	material : false
 };
 
 export const EditorManagerReducer : Reducer<IEditorManager> =

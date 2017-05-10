@@ -4,6 +4,7 @@ import { IAction } from '../../shared/interfaces/action.interface';
 
 import { IWorkstate, IElement } from '../../shared/interfaces/editor.interface';
 import { IModelWorkspace } from '../../shared/interfaces/model.interface';
+import { Material } from '../../shared/lib/material.class';
 
 export interface IEditorState {
 	// Init Editor
@@ -19,6 +20,7 @@ export interface IEditorState {
 	element : IElement;
 	activeElements : Array<IElement>;
 	workstateModel : IModelWorkspace;
+	material : Material;
 }
 
 export const INITIAL_STATE : IEditorState = {
@@ -34,7 +36,8 @@ export const INITIAL_STATE : IEditorState = {
 	isMove : false,
 	element : null,
 	activeElements : [],
-	workstateModel : null
+	workstateModel : null,
+	material : null
 };
 
 export const EditorStateReducer : Reducer<IEditorState> =
@@ -58,6 +61,9 @@ export const EditorStateReducer : Reducer<IEditorState> =
 		case EditorActions.SET_ACTIVE_ELEMENTS : {
 			let activeElements = [...action.payload.elements];
 			return Object.assign({}, state, { activeElements : activeElements });
+		}
+		case EditorActions.SET_MATERIAL : {
+			return Object.assign({}, state, { material : action.payload.material });
 		}
 	}
 	return state;

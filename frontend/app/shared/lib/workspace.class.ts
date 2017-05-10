@@ -1,11 +1,12 @@
 import { Config } from '../../config';
 
 import { Point } from './point.class';
+import { Material } from './material.class';
 
 export interface IWorkspace {
 	height : number;
 	width : number;
-	texture : string;
+	material : Material;
 	x ?: number;
 	y ?: number;
 }
@@ -14,20 +15,20 @@ export class Workspace implements IWorkspace {
 	private _coord : Point;
 	private _width : number;
 	private _height : number;
-	private _texture : string;
+	private _material : Material;
 
 	constructor (obj ?: IWorkspace) {
 		this._coord = new Point();
 		if (obj) {
 			this.width = obj.width;
 			this.height = obj.height;
-			this.texture = obj.texture;
+			this.material = obj.material || new Material();
 			this.x = obj.x || 0;
 			this.y = obj.y || 0;
 		} else {
 			this.width = Config.workspace.width;
 			this.height = Config.workspace.height;
-			this.texture = Config.workspace.texture;
+			this.material = new Material();
 			this.x = 0;
 			this.y = 0;
 		}
@@ -57,11 +58,11 @@ export class Workspace implements IWorkspace {
 	get height () : number {
 		return this._height;
 	}
-	set texture (data : string) {
-		this._texture = data;
+	set material (data : Material) {
+		this._material = data;
 	}
-	get texture () : string {
-		return this._texture;
+	get material () : Material {
+		return this._material;
 	}
 	prepareNumberData (data : number) : number {
 		return isFinite(data) ? data : 0;
@@ -79,7 +80,7 @@ export class Workspace implements IWorkspace {
 			y : this.y,
 			width : this.width,
 			height : this.height,
-			texture : this.texture
+			material : this.material
 		};
 	}
 

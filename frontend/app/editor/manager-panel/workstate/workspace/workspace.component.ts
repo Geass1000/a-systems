@@ -62,8 +62,8 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 */
 	buildForm () : void {
 		this.form = this.fb.group({
-			'width' : [ '', [ Validators.required,	isNumber ] ],
-			'height' : [ '', [ Validators.required, isNumber ] ]
+			'width' : [ '', [ Validators.required, isNumber(true) ] ],
+			'height' : [ '', [ Validators.required, isNumber(true) ] ]
 		});
 
 		this.editorForm = new EditorForm(this.form);
@@ -146,6 +146,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * @return {void}
 	 */
 	onClickOpenMaterial () : void {
+		this.ngRedux.dispatch(this.editorActions.setMaterial(this.workspace.material));
 		this.ngRedux.dispatch(this.editorActions.openManagerPanel('material'));
 	}
 }
