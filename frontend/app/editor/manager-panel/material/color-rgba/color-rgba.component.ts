@@ -14,6 +14,7 @@ import { isNumber } from '../../../../shared/validators/is-number.validator';
 
 import { Material } from '../../../../shared/lib/material.class';
 import { MaterialColor } from '../../../../shared/lib/material-color.class';
+import { Rgba, IRgba } from '../../../../shared/lib/color.class';
 
 @Component({
 	moduleId: module.id,
@@ -86,11 +87,12 @@ export class ColorRgbaComponent implements OnInit, OnDestroy {
 			return false;
 		}
 		this.logger.info(`${this.constructor.name} - setModel: Use`);
+		let color : IRgba = <IRgba>this.color.getColor('rgba');
 		this.form.setValue({
-			red : this.color.red.toString(),
-			green : this.color.green.toString(),
-			blue : this.color.blue.toString(),
-			alfa : this.color.alfa.toString()
+			red : color.red.toString(),
+			green : color.green.toString(),
+			blue : color.blue.toString(),
+			alfa : color.alfa.toString()
 		});
 		return true;
 	}
@@ -106,11 +108,15 @@ export class ColorRgbaComponent implements OnInit, OnDestroy {
 			return;
 		}
 		this.logger.info(`${this.constructor.name} - onChangeValue: Use`);
-		let result : MaterialColor = new MaterialColor({
+		let color : Rgba = new Rgba({
 			red : +this.getFormField('red'),
 			green : +this.getFormField('green'),
 			blue : +this.getFormField('blue'),
 			alfa : +this.getFormField('alfa')
+		});
+		let result : MaterialColor = new MaterialColor({
+			type : 'rgba',
+			data : color
 		});
 		this.color = result;
 		this.logger.info(`${this.constructor.name} - onChangeValue: result -`, result);

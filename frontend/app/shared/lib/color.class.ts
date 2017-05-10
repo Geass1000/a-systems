@@ -36,7 +36,7 @@ export interface IRgba {
 	alfa : number;
 }
 
-export class Rgba {
+export class Rgba implements IRgba {
 	private _red : number;
 	private _green : number;
 	private _blue : number;
@@ -125,7 +125,7 @@ export interface IHsla {
 	alfa : number;
 }
 
-export class Hsla {
+export class Hsla implements IHsla {
 	private _hue : number;
 	private _saturation : number;
 	private _lightness : number;
@@ -203,7 +203,7 @@ export class Hsla {
 	 * @return {string}
 	 */
 	toString () : string {
-		return `rgba(${this.hue},${this.saturation},${this.lightness},${this.alfa})`;
+		return `hsla(${this.hue},${this.saturation},${this.lightness},${this.alfa})`;
 	}
 }
 
@@ -212,7 +212,7 @@ export interface IHex {
 	alfa : number;
 }
 
-export class Hex {
+export class Hex implements IHex {
 	private _hex : string;
 	private _alfa : number;
 
