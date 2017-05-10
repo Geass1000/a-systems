@@ -18,15 +18,12 @@
 	    </select>
 		</form>
 
-		<form *ngIf="activeMaterialCategory === 'color'">
+		<div class="item-panel" *ngIf="activeMaterialCategory === 'color'">
 			<select name="materialCategory" class="list-categories"
 				[(ngModel)]="activeColorCategory" (change)="onChangeColorCategory($event)">
 	      <option value="" disabled>Choose a color model</option>
 				<option value="rgba">RGBA</option>
 	    </select>
-		</form>
-
-		<div class="item-panel" *ngIf="activeMaterialCategory === 'color'">
 			<div class="item-panel" *ngIf="activeColorCategory === 'rgba'">
 				<as-editor-manager-material-color-rgba></as-editor-manager-material-color-rgba>
 			</div>
