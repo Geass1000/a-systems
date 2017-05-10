@@ -1,18 +1,4 @@
-import { IRgba, IHsla, IHex } from './color.class';
-
-/**
- * RegexColor - хранилище (Map), содержащее регулярные выражения для проверки
- * строк на соответствие различным цветовым моделям.
- *
- * @kind {store}
- */
-let RegexColor : Map<string, RegExp> = new Map([
-	['hex', /^#([a-f\d]{6}|[a-f\d]{3})$/],
-	['rgb', /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/],
-	['rgba', /^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d+(?:\.\d+)?)\s*\)$/],
-	['hsl', /^hsl\(\s*(\d+)\s*,\s*(\d+(?:\.\d+)?)%\s*,\s*(\d+(?:\.\d+)?)%\s*\)$/],
-	['hsla', /^hsla\(\s*(\d+)\s*,\s*(\d+(?:\.\d+)?)%\s*,\s*(\d+(?:\.\d+)?)%\s*,\s*(\d+(?:\.\d+)?)\s*\)$/]
-]);
+import { RegexColor, IRgba, IHsla, IHex } from './color.class';
 
 export class ColorModel {
 	/**
@@ -101,9 +87,9 @@ export class ColorModel {
 		let Tb : number = Hk - 1 / 3;
 
 		return {
-			red : Math.round(ColorModel.hueRgb(Q, P, Tr) * 255),
-			green : Math.round(ColorModel.hueRgb(Q, P, Tg) * 255),
-			blue : Math.round(ColorModel.hueRgb(Q, P, Tb) * 255),
+			red : Math.round(hueRgb(Q, P, Tr) * 255),
+			green : Math.round(hueRgb(Q, P, Tg) * 255),
+			blue : Math.round(hueRgb(Q, P, Tb) * 255),
 			alfa : data.alfa
 		};
 	}
@@ -151,32 +137,32 @@ export class ColorModel {
 			alfa : data.alfa
 		};
 	}
+}
 
-	/**
-	 * hueRgb - функция, возвращаюя тон (цвет) в rgb цветовой модели, получаемый из
-	 * световых параметров hsl модели.
-	 *
-	 * @kind {function}
-	 * @param {number} q - световой параметр Q
-	 * @param {number} p - световой параметр P
-	 * @param {number} t - световой параметр T одного из цветов
-	 * @return {number} - тон (цвет)
-	 */
-	static hueRgb (q : number, p : number, t : number) : number {
-		if (t < 0) {
-			t += 1;
-		} else if (t > 1) {
-			t -= 1;
-		}
-		if (t < (1 / 6)) {
-			return p + (q - p) * 6 * t;
-		}
-		if (t >= (1 / 6) && t < (1 / 2)) {
-			return q;
-		}
-		if (t >= (1 / 2) && t < (2 / 3)) {
-			return p + (q - p) * (2 / 3 - t) * 6;
-		}
-		return p;
+/**
+ * hueRgb - функция, возвращаюя тон (цвет) в rgb цветовой модели, получаемый из
+ * световых параметров hsl модели.
+ *
+ * @kind {function}
+ * @param {number} q - световой параметр Q
+ * @param {number} p - световой параметр P
+ * @param {number} t - световой параметр T одного из цветов
+ * @return {number} - тон (цвет)
+ */
+function hueRgb (q : number, p : number, t : number) : number {
+	if (t < 0) {
+		t += 1;
+	} else if (t > 1) {
+		t -= 1;
 	}
+	if (t < (1 / 6)) {
+		return p + (q - p) * 6 * t;
+	}
+	if (t >= (1 / 6) && t < (1 / 2)) {
+		return q;
+	}
+	if (t >= (1 / 2) && t < (2 / 3)) {
+		return p + (q - p) * (2 / 3 - t) * 6;
+	}
+	return p;
 }
