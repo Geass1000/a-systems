@@ -23,7 +23,7 @@
   width: 100%;
   height: 100%; }
 
-.manager-material-texture .manager-panel-block-content .list-textures {
+.manager-material-texture .manager-panel-block-content .collection-textures {
   display: -ms-flexbox;
   display: flex;
   overflow-y: scroll;
@@ -38,15 +38,20 @@
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  padding: 1px; }
-  .manager-material-texture .manager-panel-block-content .list-textures .item {
+  padding: 2px; }
+  .manager-material-texture .manager-panel-block-content .collection-textures .item {
     display: block;
     box-sizing: border-box;
-    width: 126px;
-    height: 126px;
+    width: 50%;
+    padding-bottom: 50%;
     position: relative;
-    border: 1px solid white; }
-    .manager-material-texture .manager-panel-block-content .list-textures .item .active-item {
+    background-size: cover;
+    border: 2px solid #f6f6f6;
+    cursor: pointer;
+    transition: border-color 0.3s; }
+    .manager-material-texture .manager-panel-block-content .collection-textures .item:hover {
+      border-color: #55acee; }
+    .manager-material-texture .manager-panel-block-content .collection-textures .item .active-item {
       display: -ms-flexbox;
       display: flex;
       -ms-flex-pack: center;
@@ -59,9 +64,9 @@
       top: 0;
       left: 0;
       color: rgba(0, 0, 0, 0.6); }
-      .manager-material-texture .manager-panel-block-content .list-textures .item .active-item i {
+      .manager-material-texture .manager-panel-block-content .collection-textures .item .active-item i {
         font-size: 4em; }
-    .manager-material-texture .manager-panel-block-content .list-textures .item img {
+    .manager-material-texture .manager-panel-block-content .collection-textures .item img {
       box-sizing: border-box;
       width: 100%;
       height: 100%;

@@ -1,7 +1,7 @@
 <div class="manager-panel-block manager-material-texture">
 	<div class="manager-panel-block-content">
 		<form>
-			<select name="textureCategory" class="list-categories"
+			<select name="textureCategory" class="collection-textures-categories"
 				[(ngModel)]="activeTextureCategoryId" (change)="onChangeTextureCategory($event)">
 	      <option value="" disabled>Choose a category texture</option>
 	      <option *ngFor="let textureCategory of textureCategories" [ngValue]="textureCategory._id">
@@ -10,13 +10,14 @@
 	    </select>
 		</form>
 
-		<div class="list-textures" (click)="onClickSetTexture($event)">
-			<div class="item" *ngFor="let item of texturesDisplay" [attr.data-item-id]="item._id">
-				<img [attr.src]="getSrcTexture(item)" />
+		<div class="collection-textures" (click)="onClickSetTexture($event)">
+			<div class="item" *ngFor="let item of texturesDisplay" [attr.data-item-id]="item._id"
+				[style.background-image]="getSrcTexture(item)">
 				<div class="active-item" *ngIf="item._id === activeTextureId">
 					<i class="fa fa-check-circle-o" aria-hidden="true"></i>
 				</div>
 			</div>
 		</div>
+
 	</div>
 </div>

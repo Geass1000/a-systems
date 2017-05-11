@@ -60,7 +60,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 	 * @return {type}
 	 */
 	getSrcTexture (texture : ITexture) {
-		return `assets/textures/${texture.url}`;
+		return `url('assets/textures/${texture.url}')`;
 	}
 
 	/**
