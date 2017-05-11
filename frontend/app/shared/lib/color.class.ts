@@ -203,7 +203,7 @@ export class Hsla implements IHsla {
 	 * @return {string}
 	 */
 	toString () : string {
-		return `hsla(${this.hue},${this.saturation},${this.lightness},${this.alfa})`;
+		return `hsla(${this.hue},${this.saturation}%,${this.lightness}%,${this.alfa})`;
 	}
 }
 

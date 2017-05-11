@@ -1,4 +1,4 @@
-import { Rgba, IRgba, IHsla, IHex } from './color.class';
+import { Rgba, IRgba, Hsla, IHsla, Hex, IHex } from './color.class';
 import { ColorModel } from './color-model.class';
 
 type IColor = IRgba | IHsla | IHex;
@@ -62,11 +62,11 @@ export class MaterialColor implements IMaterialColor {
 	getColor (type : string) : IColor {
 		switch (type) {
 			case 'rgba' :
-				return <IRgba>this.data.valueOf();
+				return new Rgba(<IRgba>this.data.valueOf());
 			case 'hsla' :
-				return <IHsla>ColorModel.rgbaToHsla(this.data);
+				return new Hsla(<IHsla>ColorModel.rgbaToHsla(this.data));
 			case 'hex' :
-				return <IHex>ColorModel.rgbaToHex(this.data);
+				return new Hex(<IHex>ColorModel.rgbaToHex(this.data));
 		}
 		return null;
 	}
