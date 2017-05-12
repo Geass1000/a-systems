@@ -11,8 +11,8 @@
 		</form>
 
 		<div class="collection-textures" (click)="onClickSetTexture($event)">
-			<div class="item" *ngFor="let item of texturesDisplay" [attr.data-item-id]="item._id"
-				[style.background-image]="getSrcTexture(item)">
+			<div class="item" *ngFor="let item of texturesDisplay" [attr.data-item-id]="item._id">
+				<div class="image" [style.background-image]="getSrcTexture(item)"></div>
 				<div class="active-item" *ngIf="item._id === activeTextureId">
 					<i class="fa fa-check-circle-o" aria-hidden="true"></i>
 				</div>

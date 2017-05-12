@@ -21,22 +21,28 @@
 			padding: 2px;
 
 			.item {
-				display: block;
-
-				box-sizing: border-box;
 				width: 50%;
 				padding-bottom: 50%;
 
 				position: relative;
 
-				background-size: cover;
-				border: 2px solid #f6f6f6;
 				cursor: pointer;
 
-				transition: border-color 0.3s;
+				.image {
+					box-sizing: border-box;
+					width: 100%;
+					height: 100%;
 
-				&:hover {
-					border-color: $color-text-2;
+					position: absolute;
+
+					background-size: cover;
+					border: 2px solid #f6f6f6;
+
+					transition: border-color 0.3s;
+
+					&:hover {
+						border-color: $color-text-2;
+					}
 				}
 
 				.active-item {
@@ -56,14 +62,6 @@
 					i {
 						font-size: 4em;
 					}
-				}
-
-				img {
-					box-sizing: border-box;
-					width: 100%;
-					height: 100%;
-
-					border: 1px solid #e8e8e8;
 				}
 			}
 		}
