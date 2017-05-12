@@ -55,7 +55,7 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 			}
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - isActiveMetric -', this.isActiveMetric);
 		}));
-		this.onClickCreateProject();
+		//this.onClickCreateProject();
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());

@@ -28,8 +28,13 @@
 <!-- Modal -->
 <div class="overlay panel-overlay" [class.visible]="openPanelOverlay$ | async" (click)="closeAllModal()"></div>
 <div class="overlay modal-overlay" [class.visible]="openModalOverlay$ | async" (click)="closeAllModal()"></div>
-<div *ngIf="!loggedIn()">
+
+<div class="modal-section" *ngIf="modalLogin$ | async" [@toggleModal]="animationState">
 	<as-login></as-login>
+</div>
+<div class="modal-section" *ngIf="modalSignup$ | async" [@toggleModal]="animationState">
 	<as-signup></as-signup>
+</div>
+<div class="modal-section" *ngIf="modalReset$ | async" [@toggleModal]="animationState">
 	<as-reset></as-reset>
 </div>

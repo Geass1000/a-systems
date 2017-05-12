@@ -142,9 +142,15 @@ select {
 header, main, footer {
   width: 100%; }
 
+.modal-section {
+  position: absolute;
+  left: 50%;
+  z-index: 17; }
+
 .base-section {
   position: relative;
-  width: 100%; }
+  width: 100%;
+  z-index: 17; }
 
 .base-block {
   height: 100%; }

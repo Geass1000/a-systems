@@ -19,13 +19,14 @@
 /* No important context */
 /* Main context */
 /* Important context */
+:host {
+  display: block; }
+
 .modal-window {
   width: 350px;
   margin: 0 -175px;
-  position: absolute;
+  position: relative;
   z-index: 17;
-  top: 55px;
-  left: 50%;
   background: white;
   border-radius: 5px;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15); }

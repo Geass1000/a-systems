@@ -16,6 +16,8 @@ export class MaterialTexture implements IMaterialTexture {
 	private _angle : number;			// Угол поворота текстуры
 	private _url : string;				// url текстуры
 
+	private _id : string;
+
 	constructor (texture ?: IMaterialTexture) {
 		if (texture) {
 			this.url = texture.url;
@@ -30,6 +32,13 @@ export class MaterialTexture implements IMaterialTexture {
 			this.scale = 1;
 			this.angle = 0;
 		}
+	}
+
+	set id (data : string) {
+		this._id = data;
+	}
+	get id () : string {
+		return this._id;
 	}
 
 	set angle (data : number) {

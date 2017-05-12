@@ -28,6 +28,6 @@
 	</section>
 </header>
 
-<section class="base-section">
+<div class="modal-section" *ngIf="initProject$ | async" [@toggleModal]="animationState">
 	<as-editor-init-project></as-editor-init-project>
-</section>
+</div>

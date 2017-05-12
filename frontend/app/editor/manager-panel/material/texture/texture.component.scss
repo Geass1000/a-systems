@@ -7,6 +7,13 @@
 
 .manager-material-texture {
 	.manager-panel-block-content {
+
+		.form-texture {
+			padding: 10px 20px;
+			padding-bottom: 5px;
+			flex-shrink: 0;
+		}
+
 		.collection-textures {
 			display: flex;
 			overflow-y: scroll;

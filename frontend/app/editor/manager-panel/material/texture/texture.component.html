@@ -1,5 +1,19 @@
 <div class="manager-panel-block manager-material-texture">
 	<div class="manager-panel-block-content">
+
+		<form [formGroup]="form" class="form-1 form-texture">
+			<div class="form-group" [class.focused]="getFormField('angle')">
+				<input type='text' class="form-control"	required
+					name="textureAngle" id="textureAngle" formControlName="angle" />
+				<label for="textureAngle">Angle</label>
+			</div>
+			<div class="form-group" [class.focused]="getFormField('scale')">
+				<input type='text' class="form-control"	required
+					name="textureScale" id="textureScale" formControlName="scale" />
+				<label for="textureScale">Scale</label>
+			</div>
+		</form>
+
 		<form>
 			<select name="textureCategory" class="collection-textures-categories"
 				[(ngModel)]="activeTextureCategoryId" (change)="onChangeTextureCategory($event)">

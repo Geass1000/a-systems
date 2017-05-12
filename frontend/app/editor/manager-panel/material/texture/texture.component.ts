@@ -1,9 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../../actions/editor.actions';
+
+import { EditorForm } from '../../../../shared/lib/editor-form.class';
+import { isNumber } from '../../../../shared/validators/is-number.validator';
 
 import { LoggerService } from '../../../../core/logger.service';
 import { ITexture, ITextureCategory } from '../../../../shared/interfaces/editor.interface';
@@ -20,6 +25,9 @@ export class TextureComponent implements OnInit, OnDestroy {
 	private activeTextureId : string = null;
 	private activeTextureCategoryId : string = '';
 
+	private form : FormGroup;
+	private editorForm : EditorForm;
+
 	/* Redux */
 	private subscription : Array<Subscription> = [];
 	@select(['editor', 'texture', 'categories']) textureCategories$ : Observable<Map<string, ITextureCategory>>;
@@ -31,10 +39,12 @@ export class TextureComponent implements OnInit, OnDestroy {
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
-						 	 private logger : LoggerService) {
+						 	 private logger : LoggerService,
+						 	 private fb : FormBuilder) {
 		this.activeTextureId = null;
 	}
 	ngOnInit () {
+		this.buildForm();
 		this.subscription.push(this.textureCategories$.subscribe((data) => {
 			this.textureCategoriesData = data;
 			this.textureCategories = data ? Array.from(data.values()) : [];
@@ -50,6 +60,56 @@ export class TextureComponent implements OnInit, OnDestroy {
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
+	}
+
+	/**
+	 * buildForm - функция, выполняющая создание формы и/или регистрацию на событие
+	 * изменения данных.
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
+	buildForm () : void {
+		this.form = this.fb.group({
+			'angle' : [ '', [ Validators.required, isNumber(false) ] ],
+			'scale' : [ '', [ Validators.required, isNumber(true) ] ]
+		});
+
+		this.editorForm = new EditorForm(this.form);
+		let sub = this.editorForm.subscribeValueChanges(this.onChangeValue.bind(this));
+		this.subscription.push(sub);
+	}
+
+	/**
+	 * setModel - функция, синхронизирующая значения формы со значениями модели из
+	 * хранилища. Возвращает истину, если синхронизация произошла успешно.
+	 *
+	 * @kind {function}
+	 * @return {boolean}
+	 */
+	setModel () : boolean {
+		return true;
+	}
+
+	/**
+	 * onChangeValue - событе, отвечающее за обновление данных в Redux.
+	 *
+	 * @kind {event}
+	 * @return {void}
+	 */
+	onChangeValue () : void {
+	}
+
+	/**
+	 * getFormField - функция, возвращающая значение поля.
+	 *
+	 * @kind {function}
+	 * @param {string} fieldName - наименование поля
+	 * @return {string}
+	 */
+	getFormField (fieldName : string) : string {
+		let field = this.form.get(fieldName);
+		return field ? field.value.toString() : '';
 	}
 
 	/**
@@ -77,10 +137,10 @@ export class TextureComponent implements OnInit, OnDestroy {
 			return;
 		}
 		this.logger.info(`${this.constructor.name}:`, 'onClickSetTexture -', el);
-		if (!el.getAttribute('data-item-id')) {
+		let itemId : string = el.getAttribute('data-item-id');
+		if (!itemId) {
 			return;
 		}
-		let itemId : string = el.getAttribute('data-item-id').toString();
 		this.logger.info(`${this.constructor.name}:`, 'onClickSetTexture -', itemId);
 		this.activeTextureId = itemId;
 	}

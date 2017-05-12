@@ -6,16 +6,20 @@ import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 import { ModalActions } from '../../actions/modal.actions';
 
+import { animation } from '../../shared/animations/modal.animation';
+
 import { LoggerService } from '../../core/logger.service';
 
 @Component({
 	moduleId: module.id,
   selector: 'as-editor-control-panel',
 	templateUrl: 'control-panel.component.html',
-  styleUrls: [ 'control-panel.component.css' ]
+  styleUrls: [ 'control-panel.component.css' ],
+	animations: [ animation ]
 })
 export class ControlPanelComponent implements OnInit, OnDestroy {
 	title = 'Home';
+	private animationState : string = 'open';
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
@@ -29,6 +33,10 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 						 	 private logger : LoggerService) {
 	}
 	ngOnInit () {
+		this.subscription.push(this.initProject$.subscribe((data) => {
+			//this.initProject = data;
+			this.animationState = data ? 'open' : '';
+		}));
 		this.subscription.push(this.curMeasure$.subscribe((data) => this.curMeasure = data));
 	}
 	ngOnDestroy () {

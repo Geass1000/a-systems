@@ -3,6 +3,7 @@
 /* Variable */
 $placeholder-height: 27px;
 $padding-rl-input: 7px;
+$padding-top-input: 3px;
 
 .form-1 {
 	display: flex;
@@ -59,12 +60,11 @@ $padding-rl-input: 7px;
 		label {
 			display: block;
 
-			padding-right: $padding-rl-input;
-			padding-left: $padding-rl-input;
+			padding: 0 $padding-rl-input;
 
 			position: absolute;
 			z-index: $z-index-modal-c1;
-			top: $placeholder-height;
+			top: $placeholder-height + $paddintg-top-input;
 
 			cursor: text;
 			color: rgba(0, 0, 0, 0.4);
@@ -86,9 +86,8 @@ $padding-rl-input: 7px;
 			box-sizing: border-box;
 			width: 100%;
 			margin-bottom: 6px;
-			padding-right: $padding-rl-input;
+			padding: 0 $padding-rl-input;
 			padding-bottom: 5px;
-			padding-left: $padding-rl-input;
 
 			position: relative;
 			z-index: $z-index-modal-c2;

@@ -12,6 +12,7 @@ $padding-rl-input: 7px;
 
 	z-index: $z-index-modal-block;
 
+/*
 	visibility: hidden;
 	opacity: 0;
 	transform: scale(0.75);
@@ -23,6 +24,7 @@ $padding-rl-input: 7px;
 		transform: scale(1);
 		transition: transform 0.4s ease-out, visibility 0.2s, opacity 0.2s 0.0s;
 	}
+	*/
 
 	& > section {
 		display: flex;

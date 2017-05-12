@@ -1,13 +1,15 @@
 @import "../../../shared/scss/global.scss";
 
+:host {
+	display: block;
+}
+
 .modal-window {
 	width: 350px;
 	margin: 0 -175px;
 
-	position: absolute;
+	position: relative;
 	z-index: $z-index-modal-block;
-	top: 55px;
-	left: 50%;
 
 	background: rgba(255, 255, 255, 1);
 	border-radius: 5px;
