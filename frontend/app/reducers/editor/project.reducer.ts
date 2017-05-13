@@ -31,6 +31,13 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 			let name : string = action.payload.name;
 			return Object.assign({}, state, { name : name });
 		}
+		case EditorActions.UPDATE_SURFACE : {
+			let newState : IEditorProject = Object.assign({}, state);
+			let surface : Surface = new Surface(action.payload.surface);
+
+			newState.surfaces[action.payload.id] = surface;
+			return newState;
+		}
 		case EditorActions.ADD_SURFACE : {
 			let surface : Surface = new Surface(action.payload.surface);
 			let index : number = 0;

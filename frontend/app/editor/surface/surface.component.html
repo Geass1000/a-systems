@@ -2,7 +2,9 @@
 	class="draggable" data-type="surface" [attr.data-id]="i"
 	[class.activated]="isActiveSurface(i)" [attr.transform]="surface.transform()">
 	<svg:polygon class="floor" [attr.stroke-width]="20"
-		[attr.points]="surface.poliPoints()" />
+		[attr.points]="surface.poliPoints()"
+		[attr.fill]="surface.fill.toFill('surface', 'fill', i)"
+		[attr.stroke]="surface.stroke.toFill('surface', 'stroke', i)"  />
 	<svg:g class="points">
 		<svg:circle *ngFor="let pt of surface.points; let j = index"
 			class="draggable" data-type="point" [attr.data-id]="j" data-no-capture

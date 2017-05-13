@@ -22,7 +22,7 @@ export class Workspace implements IWorkspace {
 		if (obj) {
 			this.width = obj.width;
 			this.height = obj.height;
-			this.material = obj.material ? new Material(obj.material) : new Material();
+			this.material = new Material(obj.material);
 			this.x = obj.x || 0;
 			this.y = obj.y || 0;
 		} else {

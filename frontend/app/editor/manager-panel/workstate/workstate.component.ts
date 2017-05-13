@@ -57,6 +57,12 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 			case 'workspace' : {
 				return this.activeElements.length === 0;
 			}
+			case 'surface' : {
+				if (!this.activeElements.length) {
+					return false;
+				}
+				return this.activeElements[0].type === 'surface';
+			}
 		}
 	}
 }

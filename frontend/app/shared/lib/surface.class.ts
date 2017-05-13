@@ -22,8 +22,8 @@ export class Surface implements ISurface {
 		if (obj) {
 			this.x = obj.x || 0;
 			this.y = obj.y || 0;
-			this.stroke = obj.stroke || new Material();
-			this.fill = obj.fill || new Material();
+			this.stroke = new Material(obj.stroke);
+			this.fill = new Material(obj.stroke);
 			this._points = obj.points.map((data : IPoint) => { return new Point(data); });
 			this.id = obj.id || null;
 		} else {

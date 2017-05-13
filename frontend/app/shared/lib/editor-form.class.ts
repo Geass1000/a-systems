@@ -111,4 +111,16 @@ export class EditorForm {
 		this.changeModel = true;
 		this.callbackOnChangeValue(data);
 	}
+
+	/**
+	 * emitChange - функция, выполняющая генерацию события ChangeValue.
+	 *
+	 * @kind {event}
+	 * @param {any} data - объект с данными из формы
+	 * @param {function} callback - функция обратного вызова, для обработки обновленных данных
+	 * @return {void}
+	 */
+	emitChange () {
+		this.onChangeValue(null, this.callbackOnChangeValue);
+	}
 }

@@ -14,6 +14,7 @@ import { ControlPanelModule } from './control-panel/control-panel.module';
 import { EditorComponent } from './editor.component';
 import { SurfaceComponent } from './surface/surface.component';
 import { ThingComponent } from './thing/thing.component';
+import { TextureComponent } from './texture/texture.component';
 
 /* App Feature - Directive */
 import { DragAndDropDirective } from './drag-and-drop.directive';
@@ -34,6 +35,7 @@ import { MetricService } from './metric.service';
 		EditorComponent,
 		SurfaceComponent,
 		ThingComponent,
+		TextureComponent,
 		DragAndDropDirective
 	],
   exports: [ EditorComponent ],

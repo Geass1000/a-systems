@@ -6,6 +6,7 @@ import { SharedModule } from '../../../shared/shared.module';
 /* App Feature - Component */
 import { WorkstateComponent } from './workstate.component';
 import { WorkspaceComponent } from './workspace/workspace.component';
+import { SurfaceComponent } from './surface/surface.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { WorkspaceComponent } from './workspace/workspace.component';
 	],
   declarations: [
 		WorkstateComponent,
-		WorkspaceComponent
+		WorkspaceComponent,
+		SurfaceComponent
 	],
   exports:      [ WorkstateComponent ],
   providers:    [ ]

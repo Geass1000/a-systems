@@ -41,6 +41,7 @@ export class EditorActions {
 	static readonly UPDATE_PROJECT_NAME = EditorActions.CLASS_NAME + 'UPDATE_PROJECT_NAME';
 	static readonly ADD_SURFACE = EditorActions.CLASS_NAME + 'ADD_SURFACE';
 	static readonly ADD_THING = EditorActions.CLASS_NAME + 'ADD_THING';
+	static readonly UPDATE_SURFACE = EditorActions.CLASS_NAME + 'UPDATE_SURFACE';
 
 	setMeasure (measure : string) : IAction {
     return {
@@ -242,6 +243,15 @@ export class EditorActions {
       type : EditorActions.ADD_THING,
 			payload : {
 				thing : thing
+			}
+    };
+  }
+	updateSurface (id : number, surface : Surface) : IAction {
+    return {
+      type : EditorActions.UPDATE_SURFACE,
+			payload : {
+				surface : surface,
+				id : id
 			}
     };
   }

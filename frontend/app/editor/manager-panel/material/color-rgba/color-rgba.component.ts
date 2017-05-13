@@ -45,7 +45,7 @@ export class ColorRgbaComponent implements OnInit, OnDestroy {
 			if (!this.material) {
 				return;
 			}
-			this.color = <MaterialColor>this.material.payload;
+			this.color = <MaterialColor>this.material.data;
 			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - material -', this.material);
 			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - color -', this.color);
 			this.editorForm.setModel(this.setModel.bind(this));

@@ -7,12 +7,16 @@ import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../../actions/editor.actions';
 
-import { EditorForm } from '../../../../shared/lib/editor-form.class';
-import { isNumber } from '../../../../shared/validators/is-number.validator';
+import { Config } from '../../../../config';
 
 import { LoggerService } from '../../../../core/logger.service';
 import { ITexture, ITextureCategory } from '../../../../shared/interfaces/editor.interface';
-//import { MaterialColor } from '../../../shared/lib/material-color.class';
+
+import { EditorForm } from '../../../../shared/lib/editor-form.class';
+import { isNumber } from '../../../../shared/validators/is-number.validator';
+
+import { Material } from '../../../../shared/lib/material.class';
+import { MaterialTexture } from '../../../../shared/lib/material-texture.class';
 
 @Component({
 	moduleId: module.id,
@@ -34,8 +38,12 @@ export class TextureComponent implements OnInit, OnDestroy {
 	private textureCategoriesData : Map<string, ITextureCategory> = new Map();
 	private textureCategories : Array<ITextureCategory> = [];
 	@select(['editor', 'texture', 'textures']) textures$ : Observable<Map<string, ITexture>>;
+	private texturesData : Map<string, ITexture> = new Map();
 	private textures : Array<ITexture> = [];
 	private texturesDisplay : Array<ITexture> = [];
+	@select(['editor', 'state', 'material']) material$ : Observable<Material>;
+	private material : Material;
+	private texture : MaterialTexture;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
@@ -51,11 +59,27 @@ export class TextureComponent implements OnInit, OnDestroy {
 		}));
 
 		this.subscription.push(this.textures$.subscribe((data) => {
+			this.texturesData = data;
 			this.textures = Array.from(data.values());
-
 			if (data.size !== 0) {
 				this.texturesDisplay = this.textures.filter((d2) => d2._cid === this.activeTextureCategoryId);
 			}
+		}));
+		this.subscription.push(this.material$.subscribe((data) => {
+			this.material = data;
+			if (!this.material) {
+				return;
+			}
+			this.texture = <MaterialTexture>this.material.data;
+			this.activeTextureId = this.texture.id;
+			let texture : ITexture = this.texturesData.get(this.activeTextureId);
+			if (texture) {
+				this.activeTextureCategoryId = texture._cid;
+				this.changeCategory();
+			}
+			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - material -', this.material);
+			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - color -', this.texture);
+			this.editorForm.setModel(this.setModel.bind(this));
 		}));
 	}
 	ngOnDestroy () {
@@ -88,6 +112,14 @@ export class TextureComponent implements OnInit, OnDestroy {
 	 * @return {boolean}
 	 */
 	setModel () : boolean {
+		if (!this.texture) {
+			return false;
+		}
+		this.logger.info(`${this.constructor.name} - setModel: Use`);
+		this.form.setValue({
+			angle : this.texture.angle.toString(),
+			scale : this.texture.scale.toString()
+		});
 		return true;
 	}
 
@@ -98,6 +130,21 @@ export class TextureComponent implements OnInit, OnDestroy {
 	 * @return {void}
 	 */
 	onChangeValue () : void {
+		if (!this.material || !this.texture || !this.activeTextureId) {
+			return;
+		}
+		this.logger.info(`${this.constructor.name} - onChangeValue: Use`);
+		let result : MaterialTexture = new MaterialTexture({
+			id : this.activeTextureId,
+			url : this.texturesData.get(this.activeTextureId).url,
+			defWidth : this.texturesData.get(this.activeTextureId).width,
+			defHeight : this.texturesData.get(this.activeTextureId).height,
+			scale : +this.getFormField('scale'),
+			angle : +this.getFormField('angle')
+		});
+		this.texture = result;
+		this.logger.info(`${this.constructor.name} - onChangeValue: result -`, result);
+		this.ngRedux.dispatch(this.editorActions.updateMaterial(result));
 	}
 
 	/**
@@ -116,11 +163,11 @@ export class TextureComponent implements OnInit, OnDestroy {
 	 * getSrcTexture - функция, возвращающая путь к изображениям с текстурами.
 	 *
 	 * @kind {function}
-	 * @param  {ITexture} texture - объект с данными о текстуре
+	 * @param {ITexture} texture - объект с данными о текстуре
 	 * @return {type}
 	 */
 	getSrcTexture (texture : ITexture) {
-		return `url('assets/textures/${texture.url}')`;
+		return `url('${Config.textureFolderUrl}/${texture.url}')`;
 	}
 
 	/**
@@ -128,7 +175,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 	 * фиксацию полученых данных.
 	 *
 	 * @kind {event}
-	 * @param  {MouseEvent} event
+	 * @param {MouseEvent} event
 	 * @return {type}
 	 */
 	onClickSetTexture (event : MouseEvent) {
@@ -136,13 +183,14 @@ export class TextureComponent implements OnInit, OnDestroy {
 		if (!el) {
 			return;
 		}
-		this.logger.info(`${this.constructor.name}:`, 'onClickSetTexture -', el);
+		this.logger.info(`${this.constructor.name} - onClickSetTexture: el -`, el);
 		let itemId : string = el.getAttribute('data-item-id');
 		if (!itemId) {
 			return;
 		}
-		this.logger.info(`${this.constructor.name}:`, 'onClickSetTexture -', itemId);
+		this.logger.info(`${this.constructor.name} - onClickSetTexture: id -`, itemId);
 		this.activeTextureId = itemId;
+		this.editorForm.emitChange();
 	}
 
 	/**
@@ -150,13 +198,25 @@ export class TextureComponent implements OnInit, OnDestroy {
 	 * выполняющее фильтрацию списка отображаемых текстур.
 	 *
 	 * @kind {event}
-	 * @param  {Event} event
+	 * @param {Event} event
 	 * @return {type}
 	 */
 	onChangeTextureCategory (event : Event) {
-		this.logger.info(`${this.constructor.name}:`, 'onChangeTextureCategory -',
+		this.logger.info(`${this.constructor.name} - onChangeTextureCategory:`,
 			`${this.activeTextureCategoryId} = ${this.textureCategoriesData.get(this.activeTextureCategoryId).name}`);
 
-		this.texturesDisplay = this.textures.filter((data) => data._cid === this.activeTextureCategoryId);
+		this.changeCategory();
+	}
+
+	/**
+	 * changeCategory - функция, выполняющая смену категории видимых текстур.
+	 *
+	 * @kind {function}
+	 * @param {string} name
+	 * @return {type}
+	 */
+	changeCategory (name ?: string) {
+		name = name ? name : this.activeTextureCategoryId;
+		this.texturesDisplay = this.textures.filter((data) => data._cid === name);
 	}
 }

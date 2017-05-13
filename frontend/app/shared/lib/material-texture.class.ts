@@ -1,5 +1,6 @@
 
 export interface IMaterialTexture {
+	id : string;
 	url : string;
 	defWidth : number;
 	defHeight : number;
@@ -20,12 +21,14 @@ export class MaterialTexture implements IMaterialTexture {
 
 	constructor (texture ?: IMaterialTexture) {
 		if (texture) {
+			this.id = texture.id;
 			this.url = texture.url;
 			this.defWidth = texture.defWidth;
 			this.defHeight = texture.defHeight;
 			this.scale = texture.scale;
 			this.angle = texture.angle;
 		} else {
+			this.id = '';
 			this.url = '';
 			this.defWidth = 0;
 			this.defHeight = 0;
@@ -100,7 +103,21 @@ export class MaterialTexture implements IMaterialTexture {
 	 */
 	toString () : string {
 		if (this.url) {
-			return `assets/textures/${this.url}`;
+			return `url('/assets/textures/${this.url}')`;
+		} else {
+			return '#fff';
+		}
+	}
+
+	/**
+	 * getSrc - функция, возвращающая url адрес текстуры.
+	 *
+	 * @kind {function}
+	 * @return {string}
+	 */
+	getSrc () : string {
+		if (this.url) {
+			return `${location.protocol}//${location.host}/assets/textures/${this.url}`;
 		} else {
 			return 'none';
 		}

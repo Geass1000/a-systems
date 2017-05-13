@@ -1,0 +1,27 @@
+<svg:pattern id="patt-workspace" *ngIf="isTexture(workspace.material)"
+	patternUnits="userSpaceOnUse"
+	[attr.width]="getWidth(workspace.material)"
+	[attr.height]="getHeight(workspace.material)">
+	<svg:image [attr.xlink:href]="getSrc(workspace.material)" x="0" y="0"
+		[attr.width]="getWidth(workspace.material)"
+		[attr.height]="getHeight(workspace.material)" />
+</svg:pattern>
+
+<svg:g *ngFor="let surface of surfaces; let i = index">
+	<svg:pattern *ngIf="isTexture(surface.fill)"
+		[attr.id]="createId('surface', 'fill', i)" patternUnits="userSpaceOnUse"
+		[attr.width]="getWidth(surface.fill)"
+		[attr.height]="getHeight(surface.fill)">
+		<svg:image [attr.xlink:href]="getSrc(surface.fill)" x="0" y="0"
+			[attr.width]="getWidth(surface.fill)"
+			[attr.height]="getHeight(surface.fill)" />
+	</svg:pattern>
+	<svg:pattern *ngIf="isTexture(surface.stroke)"
+		[attr.id]="createId('surface', 'stroke', i)" patternUnits="userSpaceOnUse"
+		[attr.width]="getWidth(surface.stroke)"
+		[attr.height]="getHeight(surface.stroke)">
+		<svg:image [attr.xlink:href]="getSrc(surface.stroke)" x="0" y="0"
+			[attr.width]="getWidth(surface.stroke)"
+			[attr.height]="getHeight(surface.stroke)" />
+	</svg:pattern>
+</svg:g>

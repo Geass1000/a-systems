@@ -3,7 +3,7 @@ import { IMaterialTexture, MaterialTexture } from './material-texture.class';
 
 export interface IMaterial {
 	type : string;
-	payload : IMaterialColor | IMaterialTexture;
+	data : IMaterialColor | IMaterialTexture;
 }
 
 export class Material implements IMaterial {
@@ -17,9 +17,9 @@ export class Material implements IMaterial {
 		this.texture = new MaterialTexture();
 		if (obj) {
 			this.type = obj.type;
-			this.payload = obj.payload;
+			this.data = obj.data;
 		} else {
-			this.type = 'none';
+			this.type = 'color';
 		}
 	}
 
@@ -29,7 +29,7 @@ export class Material implements IMaterial {
 	get type () : string {
 		return this._type;
 	}
-	set payload (data : IMaterialColor | IMaterialTexture) {
+	set data (data : IMaterialColor | IMaterialTexture) {
 		switch (this.type) {
 			case 'color' :
 				this.color = data ? new MaterialColor(<IMaterialColor>data) : this.color;
@@ -41,7 +41,7 @@ export class Material implements IMaterial {
 				break;
 		}
 	}
-	get payload () : IMaterialColor | IMaterialTexture {
+	get data () : IMaterialColor | IMaterialTexture {
 		switch (this.type) {
 			case 'color' :
 				return this.color;
@@ -89,5 +89,34 @@ export class Material implements IMaterial {
 			case 'none' : return 'none';
 		}
 		return '';
+	}
+
+	/**
+	 * toFill - функция, возвращающая строковое представление класса.
+	 *
+	 * @kind {function}
+	 * @return {string}
+	 */
+	toFill (...restOfId : Array<string>) : string {
+		switch (this.type) {
+			case 'color' : return this.color.toString();
+			case 'texture' : {
+				if (!this.texture.id) {
+					return '#fff';
+				}
+				return restOfId.length ? `url(${location.href}#${restOfId.join('-')})` : 'none';
+			}
+			case 'none' : return 'none';
+		}
+	}
+
+	/**
+	 * toFill - функция, возвращающая строковое представление класса.
+	 *
+	 * @kind {function}
+	 * @return {string}
+	 */
+	getSrcTexture () : string {
+		return this.isType('texture') ? this.texture.getSrc() : '';
 	}
 }

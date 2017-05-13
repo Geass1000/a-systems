@@ -1,0 +1,78 @@
+/* Palette Color */
+/* Font-size variable */
+/* Z-index */
+/* Editor Panel */
+/* Overlay */
+/* Form block */
+/* No important context */
+/* Main context */
+/* Important context */
+/* Control Panel */
+/* Overlay */
+/* Form block */
+/* No important context */
+/* Main context */
+/* Important context */
+/* Modal */
+/* Overlay */
+/* Form block */
+/* No important context */
+/* Main context */
+/* Important context */
+/* Variable */
+:host {
+  width: 100%;
+  height: 100%; }
+
+.manager-workstate-surface .manager-panel-block-header:first-child {
+  border-top: none; }
+
+.manager-workstate-surface .manager-panel-block-content {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 20px;
+  padding-bottom: 25px; }
+  .manager-workstate-surface .manager-panel-block-content .list-textures {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    -ms-flex-pack: start;
+        justify-content: flex-start;
+    -ms-flex-align: center;
+        align-items: center;
+    width: 100%;
+    margin-top: 10px; }
+    .manager-workstate-surface .manager-panel-block-content .list-textures .item-texture {
+      width: 100%;
+      height: 150px;
+      margin-bottom: 15px;
+      position: relative;
+      border: 2px solid #e1e1e1;
+      cursor: pointer;
+      transition: border-color 0.3s; }
+      .manager-workstate-surface .manager-panel-block-content .list-textures .item-texture:last-child {
+        margin-bottom: 0; }
+      .manager-workstate-surface .manager-panel-block-content .list-textures .item-texture:hover {
+        border-color: #55acee; }
+        .manager-workstate-surface .manager-panel-block-content .list-textures .item-texture:hover .description {
+          border-color: #55acee; }
+      .manager-workstate-surface .manager-panel-block-content .list-textures .item-texture img {
+        width: 100%;
+        height: 100%; }
+      .manager-workstate-surface .manager-panel-block-content .list-textures .item-texture .description {
+        padding: 10px;
+        padding-left: 15px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        border: 2px solid #e1e1e1;
+        border-right: none;
+        border-bottom: none;
+        border-top-left-radius: 21px;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: underline;
+        transition: border-color 0.3s; }
