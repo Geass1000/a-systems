@@ -45,10 +45,10 @@ export class TextureComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * getSrcThing - функция, возвращающая путь к файлу с моделью вещи.
+	 * getSrc - функция, возвращающая путь к файлу-изображению с текстурой.
 	 *
 	 * @kind {function}
-	 * @param  {Thing} thing - элемент
+	 * @param  {Material} material - материал
 	 * @return {string}
 	 */
 	getSrc (material : Material) : string {
@@ -56,43 +56,44 @@ export class TextureComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * getSrcThing - функция, возвращающая путь к файлу с моделью вещи.
+	 * isTexture - функция, выполняющая проверку типа материала, к принадлежности
+	 * к текстурному типу.
 	 *
 	 * @kind {function}
-	 * @param  {Thing} thing - элемент
-	 * @return {string}
+	 * @param  {Material} material - материал
+	 * @return {boolean}
 	 */
 	isTexture (material : Material) : boolean {
 		return material ? material.isType('texture') : false;
 	}
 
 	/**
-	 * getSrcThing - функция, возвращающая путь к файлу с моделью вещи.
+	 * getWidth - функция, возвращающая ширину изображения-текстуры.
 	 *
 	 * @kind {function}
-	 * @param  {Thing} thing - элемент
-	 * @return {string}
+	 * @param  {Material} material - элемент
+	 * @return {number}
 	 */
 	getWidth (material : Material) : number {
 		return (<MaterialTexture>material.data).width;
 	}
 
 	/**
-	 * getSrcThing - функция, возвращающая путь к файлу с моделью вещи.
+	 * getHeight - функция, возвращающая высоту изображения-текстуры.
 	 *
 	 * @kind {function}
-	 * @param  {Thing} thing - элемент
-	 * @return {string}
+	 * @param  {Material} material - элемент
+	 * @return {number}
 	 */
 	getHeight (material : Material) : number {
 		return (<MaterialTexture>material.data).height;
 	}
 
 	/**
-	 * createFilterUrl - функция, возвращающая путь к фильтру на странице.
+	 * createId - функция, выполняющая создание идентификатора элемента.
 	 *
 	 * @kind {function}
-	 * @param  {string} str - название фильтра
+	 * @param  {Array<string>} restOfId - список подидентификаторов
 	 * @return {string}
 	 */
 	createId (...restOfId : Array<string>) : string {

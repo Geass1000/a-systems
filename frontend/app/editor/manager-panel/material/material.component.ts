@@ -8,6 +8,8 @@ import { EditorActions } from '../../../actions/editor.actions';
 import { LoggerService } from '../../../core/logger.service';
 import { Material } from '../../../shared/lib/material.class';
 
+import { IElement } from '../../../shared/interfaces/editor.interface';
+
 @Component({
 	moduleId: module.id,
   selector: 'as-editor-manager-material',
@@ -23,6 +25,8 @@ export class MaterialComponent implements OnInit, OnDestroy {
 	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'material']) material$ : Observable<Material>;
 	private material : Material;
+	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
+	private activeElements : Array<IElement>;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
@@ -39,12 +43,19 @@ export class MaterialComponent implements OnInit, OnDestroy {
 			}
 			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - material -', this.material);
 		}));
+		this.subscription.push(this.activeElements$.subscribe((data) => {
+			if (this.activeElements) {
+				this.onClickBack();
+			}
+			this.activeElements = data;
+			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - activeElements -', this.activeElements);
+		}));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
-	unpackActiveElements () {
+	compareElement () {
 	}
 
 	/**

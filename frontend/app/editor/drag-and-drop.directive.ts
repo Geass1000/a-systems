@@ -82,8 +82,24 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * @return {void}
 	 */
 	setActiveElements (els : Array<IElement>) : void {
+		if (this.compareActiveElements(this.activeElements, els)) {
+			return ;
+		}
 		this.activeElements = els;
 		this.ngRedux.dispatch(this.editorActions.setActiveElements(this.activeElements));
+	}
+
+	compareActiveElements (el1 : Array<IElement>, el2 : Array<IElement>) : boolean {
+		if (!el1 || !el2 || el1.length !== el2.length) {
+			return false;
+		}
+		if (!el1.length) {
+			return true;
+		}
+		let confirm : boolean = el1.every((data, index) => {
+			return data.id === el2[index].id && data.type === el2[index].type;
+		});
+		return confirm;
 	}
 
 
