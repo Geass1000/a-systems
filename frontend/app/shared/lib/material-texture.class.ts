@@ -119,7 +119,7 @@ export class MaterialTexture implements IMaterialTexture {
 		if (this.url) {
 			return `${location.protocol}//${location.host}/assets/textures/${this.url}`;
 		} else {
-			return 'none';
+			return '';
 		}
 	}
 }

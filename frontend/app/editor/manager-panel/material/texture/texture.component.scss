@@ -7,10 +7,12 @@
 
 .manager-material-texture {
 	.manager-panel-block-content {
-
 		.form-texture {
 			padding: 15px 20px;
 			padding-bottom: 5px;
+
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+
 			flex-shrink: 0;
 		}
 
