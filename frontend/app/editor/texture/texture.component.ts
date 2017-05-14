@@ -90,6 +90,17 @@ export class TextureComponent implements OnInit, OnDestroy {
 	}
 
 	/**
+	 * getHeight - функция, возвращающая высоту изображения-текстуры.
+	 *
+	 * @kind {function}
+	 * @param  {Material} material - элемент
+	 * @return {number}
+	 */
+	createTransform (material : Material) : string {
+		return `rotate(${(<MaterialTexture>material.data).angle})`;
+	}
+
+	/**
 	 * createId - функция, выполняющая создание идентификатора элемента.
 	 *
 	 * @kind {function}

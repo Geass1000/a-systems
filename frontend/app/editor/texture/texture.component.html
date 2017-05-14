@@ -11,7 +11,8 @@
 	<svg:pattern *ngIf="isTexture(surface.fill)"
 		[attr.id]="createId('surface', 'fill', i)" patternUnits="userSpaceOnUse"
 		[attr.width]="getWidth(surface.fill)"
-		[attr.height]="getHeight(surface.fill)">
+		[attr.height]="getHeight(surface.fill)"
+		[attr.patternTransform]="createTransform(surface.fill)">
 		<svg:image [attr.xlink:href]="getSrc(surface.fill)" x="0" y="0"
 			[attr.width]="getWidth(surface.fill)"
 			[attr.height]="getHeight(surface.fill)" />

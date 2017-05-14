@@ -339,8 +339,9 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 					return ;
 				}
 				this.logger.info(`${this.constructor.name} - onKeyDown:`, 'Delete');
-				this.ngRedux.dispatch(this.editorActions.deleteElement(this.activeElements));
+				let activeElements : Array<IElement> = this.activeElements;
 				this.setActiveElements([]);
+				this.ngRedux.dispatch(this.editorActions.deleteElement(activeElements));
 			}
 		}
 		this.logger.info(`${this.constructor.name} - onKeyDown:`, 'Complete');
