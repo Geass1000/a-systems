@@ -1,8 +1,7 @@
 import { Directive, ElementRef, HostListener, OnInit, OnDestroy } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { NgRedux, select } from '@angular-redux/store';
+import { NgRedux } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 
 import { LoggerService } from '../core/logger.service';
@@ -32,8 +31,6 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
-	@select(['editor', 'state', 'element']) element$ : Observable<IElement>;
-	private element : IElement;
 
 	constructor (private elementRef: ElementRef,
 							 private ngRedux : NgRedux<any>,
@@ -42,9 +39,6 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	}
 	ngOnInit () {
 		this.initData();
-		this.subscription.push(this.element$.subscribe((data) => {
-			this.element = data;
-		}));
 		this.targetElements = [];
 		this.activeElements = [];
 	}
@@ -335,6 +329,20 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	@HostListener('window:keydown', ['$event']) onKeyDown (event : KeyboardEvent) : boolean | void {
 		this.logger.info(`${this.constructor.name} - onKeyDown:`, 'Use');
 		this.logger.info(`${this.constructor.name} - onKeyDown:`, 'event -', event);
-		return true;
+		if ((<Element>event.target).tagName.toLowerCase() !== 'body') {
+			return ;
+		}
+		switch (event.key.toLowerCase()) {
+			case 'backspace' :
+			case 'delete' : {
+				if (!this.activeElements || !this.activeElements.length) {
+					return ;
+				}
+				this.logger.info(`${this.constructor.name} - onKeyDown:`, 'Delete');
+				this.ngRedux.dispatch(this.editorActions.deleteElement(this.activeElements));
+				this.setActiveElements([]);
+			}
+		}
+		this.logger.info(`${this.constructor.name} - onKeyDown:`, 'Complete');
 	}
 }

@@ -40,12 +40,12 @@ export class DataLoadService implements OnDestroy {
 	 * @return {Observable<any>}
 	 */
 	getTextures (category ?: string) : Observable<any> {
-		this.logger.info(`${this.constructor.name}:`, 'getTextures -', 'Textures loads...');
+		this.logger.info(`${this.constructor.name} - getTextures:`, 'Textures loads...');
 		let query : string = category ? `?category=${category}` : '';
 		return this.http.get(Config.serverUrl + this.texturUrl + query, { headers : this.headers })
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
-											this.logger.info(`${this.constructor.name}:`, 'getTextures -', `status = ${resp.status} -`, jResp);
+											this.logger.info(`${this.constructor.name} - getTextures:`, `status = ${resp.status} -`, jResp);
 											return jResp;
 										})
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))
@@ -60,11 +60,11 @@ export class DataLoadService implements OnDestroy {
 	 * @return {Observable<any>}
 	 */
 	getTextureCategories () : Observable<any> {
-		this.logger.info(`${this.constructor.name}:`, 'getTextureCategories -', 'Texture types loads...');
+		this.logger.info(`${this.constructor.name} - getTextureCategories:`, 'Texture types loads...');
 		return this.http.get(Config.serverUrl + this.texturTypeUrl, { headers : this.headers })
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
-											this.logger.info(`${this.constructor.name}:`, 'getTextureCategories -', `status = ${resp.status} -`, jResp);
+											this.logger.info(`${this.constructor.name} - getTextureCategories:`, `status = ${resp.status} -`, jResp);
 											return jResp;
 										})
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))
@@ -79,11 +79,11 @@ export class DataLoadService implements OnDestroy {
 	 * @return {Observable<any>}
 	 */
 	getItems () : Observable<any> {
-		this.logger.info(`${this.constructor.name}:`, 'getItems -', 'Items loads...');
+		this.logger.info(`${this.constructor.name} - getItems:`, 'Items loads...');
 		return this.http.get(Config.serverUrl + this.itemUrl, { headers : this.headers })
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
-											this.logger.info(`${this.constructor.name}:`, 'getItems -', `status = ${resp.status} -`, jResp);
+											this.logger.info(`${this.constructor.name} - getItems:`, `status = ${resp.status} -`, jResp);
 											return jResp;
 										})
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))
@@ -98,11 +98,11 @@ export class DataLoadService implements OnDestroy {
 	 * @return {Observable<any>}
 	 */
 	getItemCategories () : Observable<any> {
-		this.logger.info(`${this.constructor.name}:`, 'getItemCategories -', 'Item catygories loads...');
+		this.logger.info(`${this.constructor.name} - getItemCategories:`, 'Item catygories loads...');
 		return this.http.get(Config.serverUrl + this.itemCategoryUrl, { headers : this.headers })
 										.map((resp : Response) => {
 											let jResp = resp.json() || {};
-											this.logger.info(`${this.constructor.name}:`, 'getItemCategories -', `status = ${resp.status} -`, jResp);
+											this.logger.info(`${this.constructor.name} - getItemCategories:`, `status = ${resp.status} -`, jResp);
 											return jResp;
 										})
 										.retryWhen((errorObs) => this.httpService.retry(errorObs))

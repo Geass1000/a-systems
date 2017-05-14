@@ -31,6 +31,25 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 			let name : string = action.payload.name;
 			return Object.assign({}, state, { name : name });
 		}
+		case EditorActions.DELETE_ELEMENT : {
+			if (!action.payload.elems || !action.payload.elems.length) {
+				return state;
+			}
+			let newState : IEditorProject = Object.assign({}, state);
+			let el : any = newState;
+			let elName : string;
+
+			let len : number = action.payload.elems.length - 1;
+			for (let i = 0; i < len; i++) {
+				elName = action.payload.elems[i].type + 's';
+				el = el[elName][action.payload.elems[i].id];
+			}
+
+			elName = action.payload.elems[len].type + 's';
+			el[elName] = el[elName].slice();
+			el[elName].splice(action.payload.elems[len].id, 1);
+			return newState;
+		}
 		case EditorActions.UPDATE_SURFACE : {
 			let newState : IEditorProject = Object.assign({}, state);
 			let surface : Surface = new Surface(action.payload.surface);

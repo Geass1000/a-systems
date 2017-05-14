@@ -42,7 +42,7 @@ export class DataInitService implements OnDestroy {
 	 * @return {void}
 	 */
 	initData () : void {
-		this.logger.info(`${this.constructor.name}:`, 'initData -', 'Data initialization...');
+		this.logger.info(`${this.constructor.name} - initData:`, 'Data initialization...');
 		this.initLoadData();
 		this.initWorkspace();
 	}
@@ -57,7 +57,7 @@ export class DataInitService implements OnDestroy {
 	isInitAll () : void {
 		let values = Array.from(this.isInit.values());
 		let isInitAllValues = values.every((data) => { return data; });
-		this.logger.info(`${this.constructor.name}:`, 'Initialization - isInitAll -', isInitAllValues);
+		this.logger.info(`${this.constructor.name} - isInitAll:`, 'Initialization -', isInitAllValues);
 		if (isInitAllValues) {
 			this.ngRedux.dispatch(this.editorActions.initProject(true));
 		}
@@ -94,7 +94,7 @@ export class DataInitService implements OnDestroy {
 					this.ngRedux.dispatch(this.editorActions.addItems(res[3].items));
 				}
 
-				this.logger.info(`${this.constructor.name}:`, 'Initialization - initLoadData - Request -', res);
+				this.logger.info(`${this.constructor.name} - initLoadData:`, 'Initialization -', res);
 				this.isInit.set('request', true);
 				this.isInitAll();
 			}
@@ -119,7 +119,7 @@ export class DataInitService implements OnDestroy {
 		let workspaceY = halfWindowHeight - halfWorkspaceHeight;
 		this.ngRedux.dispatch(this.editorActions.translateWorkspace([workspaceX, workspaceY]));
 
-		this.logger.info(`${this.constructor.name}:`, `Initialization - initWorkspace - X - ${workspaceX} - Y - ${workspaceY}`);
+		this.logger.info(`${this.constructor.name} - initWorkspace:`, `Initialization - X - ${workspaceX} - Y - ${workspaceY}`);
 		this.isInit.set('workspace', true);
 		this.isInitAll();
 	}

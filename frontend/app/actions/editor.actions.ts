@@ -42,6 +42,7 @@ export class EditorActions {
 	static readonly ADD_SURFACE = EditorActions.CLASS_NAME + 'ADD_SURFACE';
 	static readonly ADD_THING = EditorActions.CLASS_NAME + 'ADD_THING';
 	static readonly UPDATE_SURFACE = EditorActions.CLASS_NAME + 'UPDATE_SURFACE';
+	static readonly DELETE_ELEMENT = EditorActions.CLASS_NAME + 'DELETE_ELEMENT';
 
 	setMeasure (measure : string) : IAction {
     return {
@@ -252,6 +253,14 @@ export class EditorActions {
 			payload : {
 				surface : surface,
 				id : id
+			}
+    };
+  }
+	deleteElement (elems : Array<IElement>) : IAction {
+    return {
+      type : EditorActions.DELETE_ELEMENT,
+			payload : {
+				elems : elems
 			}
     };
   }
