@@ -53,14 +53,14 @@ export class MaterialTexture implements IMaterialTexture {
 
 	set defWidth (data : number) {
 		this._defWidth = this.prepareNumberData(data);
-		this.width = this.scale ? this.defWidth * this.scale : this.width;
+		this._width = this.scale ? this.defWidth * this.scale : this.defWidth * 1;
 	}
 	get defWidth () : number {
 		return this._defWidth;
 	}
 	set defHeight (data : number) {
 		this._defHeight = this.prepareNumberData(data);
-		this.height = this.scale ? this.defHeight * this.scale : this.height;
+		this._height = this.scale ? this.defHeight * this.scale : this.defHeight * 1;
 	}
 	get defHeight () : number {
 		return this._defHeight;
@@ -77,8 +77,8 @@ export class MaterialTexture implements IMaterialTexture {
 
 	set scale (data : number) {
 		this._scale = this.prepareNumberData(data);
-		this._width = Math.round(this.defWidth * this.scale);
-		this._height = Math.round(this.defHeight * this.scale);
+		this._width = +(this.defWidth * this.scale).toFixed(10);
+		this._height = +(this.defHeight * this.scale).toFixed(10);
 	}
 	get scale () : number {
 		return this._scale;

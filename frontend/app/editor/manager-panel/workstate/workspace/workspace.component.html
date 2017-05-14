@@ -4,15 +4,17 @@
 	</div>
 	<div class="manager-panel-block-content">
 		<form [formGroup]="form" class="form-1">
-			<div class="form-group" [class.focused]="getFormField('width')">
-				<input type='text' class="form-control"	required
-					name="workspaceWidth" id="workspaceWidth" formControlName="width" />
-				<label for="workspaceWidth">Width</label>
-			</div>
-			<div class="form-group" [class.focused]="getFormField('height')">
-				<input type="text" class="form-control" required
-					name="workspaceHeight" id="workspaceHeight" formControlName="height" />
-				<label for="workspaceHeight">Height</label>
+			<div class="form-row">
+				<div class="form-group" [class.focused]="getFormField('width')">
+					<input type='text' class="form-control"	required
+						name="workspaceWidth" id="workspaceWidth" formControlName="width" />
+					<label for="workspaceWidth">Width</label>
+				</div>
+				<div class="form-group" [class.focused]="getFormField('height')">
+					<input type="text" class="form-control" required
+						name="workspaceHeight" id="workspaceHeight" formControlName="height" />
+					<label for="workspaceHeight">Height</label>
+				</div>
 			</div>
 		</form>
 

@@ -230,9 +230,9 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 *
 	 * @kind {event}
 	 * @param  {MouseEvent} event
-	 * @return {boolean}
+	 * @return {boolean|void}
 	 */
-	@HostListener('mousedown', ['$event']) onMouseDown (event : MouseEvent) : boolean {
+	@HostListener('mousedown', ['$event']) onMouseDown (event : MouseEvent) : boolean | void {
 		if (!this.detectLeftButton(event)) {
 			return false;
 		}
@@ -240,18 +240,18 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		this.initData();
 
 		this.targetElements = this.captureElement(<SVGElement>event.target);
-		this.logger.info(`${this.constructor.name}:`, 'onMouseDown - targetElements -', this.targetElements);
-		this.logger.info(`${this.constructor.name}:`, 'onMouseDown - activeElements -', this.activeElements);
+		this.logger.info(`${this.constructor.name} - onMouseDown:`, 'targetElements -', this.targetElements);
+		this.logger.info(`${this.constructor.name} - onMouseDown:`, 'activeElements -', this.activeElements);
 
 		let compare : Array<IElement> = this.createDraggableArray();
 		this.nameTranslateMethod = this.createNameTranslateMethod(compare);
 		if (!this.editorActions[this.nameTranslateMethod]) {
-			this.logger.warn(`${this.constructor.name}:`, 'onMouseDown - Method isn\'t exist -', this.nameTranslateMethod);
+			this.logger.warn(`${this.constructor.name} - onMouseDown:`, 'Method isn\'t exist -', this.nameTranslateMethod);
 			return false;
 		}
 		this.argsTranslateMethod = this.createArgsTranslateMethod(compare);
-		this.logger.info(`${this.constructor.name}:`, 'onMouseDown - nameTranslateMethod -', this.nameTranslateMethod);
-		this.logger.info(`${this.constructor.name}:`, 'onMouseDown - argsTranslateMethod -', this.argsTranslateMethod);
+		this.logger.info(`${this.constructor.name} - onMouseDown:`, 'nameTranslateMethod -', this.nameTranslateMethod);
+		this.logger.info(`${this.constructor.name} - onMouseDown:`, 'argsTranslateMethod -', this.argsTranslateMethod);
 
 		this.startX = event.clientX;
 		this.startY = event.clientY;
@@ -268,9 +268,9 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 *
 	 * @kind {event}
 	 * @param  {MouseEvent} event
-	 * @return {boolean}
+	 * @return {boolean|void}
 	 */
-	@HostListener('mousemove', ['$event']) onMouseMove (event : MouseEvent) : boolean {
+	@HostListener('mousemove', ['$event']) onMouseMove (event : MouseEvent) : boolean | void {
 		if (!this.isDown) {
 			return false;
 		}
@@ -298,16 +298,16 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 *
 	 * @kind {event}
 	 * @param  {MouseEvent} event
-	 * @return {boolean}
+	 * @return {boolean|void}
 	 */
-	@HostListener('mouseup', ['$event']) onMouseUp (event : MouseEvent) : boolean {
+	@HostListener('mouseup', ['$event']) onMouseUp (event : MouseEvent) : boolean | void {
 		if (!this.isDown) {
 			return false;
 		}
 		if (!this.isMove) {
 			this.setActiveElements(this.targetElements);
 		}
-		this.logger.info(`${this.constructor.name}:`, 'onMouseUp - isMove -', this.isMove);
+		this.logger.info(`${this.constructor.name} - onMouseUp:`, 'isMove -', this.isMove);
 		this.initData();
 		event.preventDefault();
 	}
@@ -317,11 +317,24 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 *
 	 * @kind {event}
 	 * @param  {MouseEvent} event
-	 * @return {boolean}
+	 * @return {boolean|void}
 	 */
-	@HostListener('mouseleave', ['$event']) onMouseLeave (event : MouseEvent) : boolean {
-		this.logger.info(`${this.constructor.name}:`, 'onMouseLeave');
+	@HostListener('mouseleave', ['$event']) onMouseLeave (event : MouseEvent) : boolean | void {
+		this.logger.info(`${this.constructor.name} - onMouseLeave:`, 'Use');
 		this.initData();
+		return true;
+	}
+
+	/**
+	 * onKeyDown - событие, отвечающее за определение нажатия кнопок на клавиатуре.
+	 *
+	 * @kind {event}
+	 * @param  {MouseEvent} event
+	 * @return {boolean|void}
+	 */
+	@HostListener('window:keydown', ['$event']) onKeyDown (event : KeyboardEvent) : boolean | void {
+		this.logger.info(`${this.constructor.name} - onKeyDown:`, 'Use');
+		this.logger.info(`${this.constructor.name} - onKeyDown:`, 'event -', event);
 		return true;
 	}
 }

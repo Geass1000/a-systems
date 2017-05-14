@@ -4,15 +4,17 @@
 	</div>
 	<div class="manager-panel-block-content">
 		<form [formGroup]="form" class="form-1">
-			<div class="form-group" [class.focused]="getFormField('coordX')">
-				<input type='text' class="form-control"	required
-					name="coordX" id="coordX" formControlName="coordX" />
-				<label for="coordX">Coordinate X</label>
-			</div>
-			<div class="form-group" [class.focused]="getFormField('coordY')">
-				<input type="text" class="form-control" required
-					name="coordY" id="coordY" formControlName="coordY" />
-				<label for="coordY">Coordinate Y</label>
+			<div class="form-row">
+				<div class="form-group" [class.focused]="getFormField('coordX')">
+					<input type='text' class="form-control"	required
+						name="coordX" id="coordX" formControlName="coordX" />
+					<label for="coordX">Coordinate X</label>
+				</div>
+				<div class="form-group" [class.focused]="getFormField('coordY')">
+					<input type="text" class="form-control" required
+						name="coordY" id="coordY" formControlName="coordY" />
+					<label for="coordY">Coordinate Y</label>
+				</div>
 			</div>
 		</form>
 
