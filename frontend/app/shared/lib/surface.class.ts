@@ -1,3 +1,5 @@
+import { HelperClass } from './helper.class';
+
 import { Point, IPoint } from './point.class';
 import { Material } from './material.class';
 
@@ -37,13 +39,13 @@ export class Surface implements ISurface {
 	}
 
 	set x (data : number) {
-		this._coord.x = data;
+		this._coord.x = HelperClass.prepareData(data);
 	}
 	get x () : number {
 		return this._coord.x;
 	}
 	set y (data : number) {
-		this._coord.y = data;
+		this._coord.y = HelperClass.prepareData(data);
 	}
 	get y () : number {
 		return this._coord.y;
@@ -67,13 +69,10 @@ export class Surface implements ISurface {
 		return this._points;
 	}
 	set id (data : number) {
-		this._id = this.prepareNumberData(data);
+		this._id = HelperClass.prepareData(data, 0);
 	}
 	get id () : number {
 		return this._id;
-	}
-	prepareNumberData (data : number) : number {
-		return isFinite(data) ? data : 0;
 	}
 
 	/**

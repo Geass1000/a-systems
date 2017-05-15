@@ -1,3 +1,5 @@
+import { HelperClass } from './helper.class';
+
 export interface IPoint {
 	x : number;
 	y : number;
@@ -18,19 +20,16 @@ export class Point implements IPoint {
 	}
 
 	set x (data : number) {
-		this._x = this.prepareNumberData(data);
+		this._x = HelperClass.prepareData(data);
 	}
 	get x () : number {
 		return this._x;
 	}
 	set y (data : number) {
-		this._y = this.prepareNumberData(data);
+		this._y = HelperClass.prepareData(data);
 	}
 	get y () : number {
 		return this._y;
-	}
-	prepareNumberData (data : number) : number {
-		return isFinite(data) ? data : 0;
 	}
 
 	/**

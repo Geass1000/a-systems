@@ -1,5 +1,7 @@
 import { Config } from '../../config';
 
+import { HelperClass } from './helper.class';
+
 import { Point } from './point.class';
 import { IMaterial, Material } from './material.class';
 
@@ -47,13 +49,13 @@ export class Workspace implements IWorkspace {
 		return this._coord.y;
 	}
 	set width (data : number) {
-		this._width = this.prepareNumberData(data);
+		this._width = HelperClass.prepareData(data, 0);
 	}
 	get width () : number {
 		return this._width;
 	}
 	set height (data : number) {
-		this._height = this.prepareNumberData(data);
+		this._height = HelperClass.prepareData(data, 0);
 	}
 	get height () : number {
 		return this._height;
@@ -63,9 +65,6 @@ export class Workspace implements IWorkspace {
 	}
 	get material () : Material {
 		return this._material;
-	}
-	prepareNumberData (data : number) : number {
-		return isFinite(data) ? data : 0;
 	}
 
 	/**

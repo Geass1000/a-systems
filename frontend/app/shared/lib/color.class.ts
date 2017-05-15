@@ -1,3 +1,4 @@
+import { HelperClass } from './helper.class';
 
 /**
  * RegexColor - хранилище (Map), содержащее регулярные выражения для проверки
@@ -12,22 +13,6 @@ export const RegexColor : Map<string, RegExp> = new Map([
 	['hsl', /^hsl\(\s*(\d+)\s*,\s*(\d+(?:\.\d+)?)%\s*,\s*(\d+(?:\.\d+)?)%\s*\)$/],
 	['hsla', /^hsla\(\s*(\d+)\s*,\s*(\d+(?:\.\d+)?)%\s*,\s*(\d+(?:\.\d+)?)%\s*,\s*(\d+(?:\.\d+)?)\s*\)$/]
 ]);
-
-/**
- * prepareColorData - функция, выполняющая подготовку цвета перед сохранением.
- *
- * @kind {function}
- * @param {number} data - значение цвета
- * @param {number} min - минимальное значение цвета
- * @param {number} max - максимальное значение цвета
- * @return {number}
- */
-function prepareColorData (data : number, min : number, max : number) : number {
-	data = isFinite(data) ? data : max;
-	data = data < min ? min : data;
-	data = data > max ? max : data;
-	return data;
-}
 
 export interface IRgba {
 	red : number;
@@ -51,25 +36,25 @@ export class Rgba implements IRgba {
 	}
 
 	set red (data : number) {
-		this._red = prepareColorData(data, 0, 255);
+		this._red = HelperClass.prepareData(data, 0, 255);
 	}
 	get red () : number {
 		return this._red;
 	}
 	set green (data : number) {
-		this._green = prepareColorData(data, 0, 255);
+		this._green = HelperClass.prepareData(data, 0, 255);
 	}
 	get green () : number {
 		return this._green;
 	}
 	set blue (data : number) {
-		this._blue = prepareColorData(data, 0, 255);
+		this._blue = HelperClass.prepareData(data, 0, 255);
 	}
 	get blue () : number {
 		return this._blue;
 	}
 	set alfa (data : number) {
-		this._alfa = prepareColorData(data, 0, 1);
+		this._alfa = HelperClass.prepareData(data, 0, 1);
 	}
 	get alfa () : number {
 		return this._alfa;
@@ -140,25 +125,25 @@ export class Hsla implements IHsla {
 	}
 
 	set hue (data : number) {
-		this._hue = prepareColorData(data, 0, 360);
+		this._hue = HelperClass.prepareData(data, 0, 360);
 	}
 	get hue () : number {
 		return this._hue;
 	}
 	set saturation (data : number) {
-		this._saturation = prepareColorData(data, 0, 100);
+		this._saturation = HelperClass.prepareData(data, 0, 100);
 	}
 	get saturation () : number {
 		return this._saturation;
 	}
 	set lightness (data : number) {
-		this._lightness = prepareColorData(data, 0, 100);
+		this._lightness = HelperClass.prepareData(data, 0, 100);
 	}
 	get lightness () : number {
 		return this._lightness;
 	}
 	set alfa (data : number) {
-		this._alfa = prepareColorData(data, 0, 1);
+		this._alfa = HelperClass.prepareData(data, 0, 1);
 	}
 	get alfa () : number {
 		return this._alfa;
@@ -237,7 +222,7 @@ export class Hex implements IHex {
 		return this._hex;
 	}
 	set alfa (data : number) {
-		this._alfa = prepareColorData(data, 0, 1);
+		this._alfa = HelperClass.prepareData(data, 0, 1);
 	}
 	get alfa () : number {
 		return this._alfa;
