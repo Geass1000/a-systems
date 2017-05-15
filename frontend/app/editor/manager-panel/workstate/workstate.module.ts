@@ -7,6 +7,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { WorkstateComponent } from './workstate.component';
 import { WorkspaceComponent } from './workspace/workspace.component';
 import { SurfaceComponent } from './surface/surface.component';
+import { ThingComponent } from './thing/thing.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { SurfaceComponent } from './surface/surface.component';
   declarations: [
 		WorkstateComponent,
 		WorkspaceComponent,
-		SurfaceComponent
+		SurfaceComponent,
+		ThingComponent
 	],
   exports:      [ WorkstateComponent ],
   providers:    [ ]

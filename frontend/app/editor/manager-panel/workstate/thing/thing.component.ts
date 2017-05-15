@@ -10,7 +10,7 @@ import { EditorActions } from '../../../../actions/editor.actions';
 import { LoggerService } from '../../../../core/logger.service';
 import { MetricService } from '../../../metric.service';
 
-import { Surface } from '../../../../shared/lib/surface.class';
+import { Thing } from '../../../../shared/lib/thing.class';
 import { EditorForm } from '../../../../shared/lib/editor-form.class';
 import { isNumber } from '../../../../shared/validators/is-number.validator';
 
@@ -18,11 +18,11 @@ import { IElement } from '../../../../shared/interfaces/editor.interface';
 
 @Component({
 	moduleId: module.id,
-  selector: 'as-editor-manager-workstate-surface',
-	templateUrl: 'surface.component.html',
-  styleUrls: [ 'surface.component.css' ]
+  selector: 'as-editor-manager-workstate-thing',
+	templateUrl: 'thing.component.html',
+  styleUrls: [ 'thing.component.css' ]
 })
-export class SurfaceComponent implements OnInit, OnDestroy {
+export class ThingComponent implements OnInit, OnDestroy {
 	/* Private Variable */
 	private form : FormGroup;
 	private editorForm : EditorForm;
@@ -31,9 +31,9 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
-	@select(['editor', 'project', 'surfaces']) surfaces$ : Observable<Array<Surface>>;
-	private surfaces : Array<Surface>;
-	private model : Surface = null;
+	@select(['editor', 'project', 'things']) things$ : Observable<Array<Thing>>;
+	private things : Array<Thing>;
+	private model : Thing = null;
 	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
 	private activeElements : Array<IElement>;
 
@@ -45,8 +45,8 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	}
 	ngOnInit () {
 		this.buildForm();
-		this.subscription.push(this.surfaces$.subscribe((data) => {
-			this.surfaces = data;
+		this.subscription.push(this.things$.subscribe((data) => {
+			this.things = data;
 			this.editorForm.setModel(this.setModel.bind(this));
 		}));
 		this.subscription.push(this.activeElements$.subscribe((data) => {
@@ -88,12 +88,12 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	 * @return {boolean}
 	 */
 	setModel () : boolean {
-		if (!this.surfaces || !this.activeElements ||
+		if (!this.things || !this.activeElements ||
 				!this.activeElements.length || !this.isActiveMetric ||
-				this.activeElements[0].type !== 'surface') {
+				this.activeElements[0].type !== 'thing') {
 			return false;
 		}
-		this.model = this.surfaces[this.activeElements[0].id];
+		this.model = this.things[this.activeElements[0].id];
 		this.logger.info(`${this.constructor.name}:`, 'setModel');
 		this.form.setValue({
 			coordX : this.metricService.convertFromDefToCur(this.model.x).toString(),
@@ -129,14 +129,14 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 			return;
 		}
 		this.logger.info(`${this.constructor.name}:`, 'onChangeValue');
-		let result : Surface = new Surface(this.model);
+		let result : Thing = new Thing(this.model);
 
 		let tmpX : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'width');
 		result.x = tmpX !== null ? tmpX : result.y;
 		let tmpY : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'height');
 		result.y = tmpY !== null ? tmpY : result.y;
 
-		this.ngRedux.dispatch(this.editorActions.updateSurface(this.activeElements[0].id, result));
+		this.ngRedux.dispatch(this.editorActions.updateThing(this.activeElements[0].id, result));
 	}
 
 	/**

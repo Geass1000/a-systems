@@ -1,6 +1,6 @@
 <div class="manager-panel-block manager-workstate-surface">
 	<div class="manager-panel-block-header">
-		<h4>Surface</h4>
+		<h4>Thing</h4>
 	</div>
 	<div class="manager-panel-block-content">
 		<form [formGroup]="form" class="form-1">
@@ -15,22 +15,5 @@
 				<label for="coordY">Coordinate Y</label>
 			</div>
 		</form>
-
-		<div class="list-textures" (click)="onClickOpenMaterial()" *ngIf="model">
-			<div class="item-texture" data-item-type="fill"
-				[style.background]="model.fill.toString()"
-				[style.background-size]="'cover'">
-				<div class="description">
-					Fill: {{model.fill.type}}
-				</div>
-			</div>
-			<div class="item-texture" data-item-type="stroke"
-				[style.background]="model.stroke.toString()"
-				[style.background-size]="'cover'">
-				<div class="description">
-					Stroke: {{model.stroke.type}}
-				</div>
-			</div>
-		</div>
 	</div>
 </div>
