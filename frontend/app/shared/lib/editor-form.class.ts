@@ -104,7 +104,6 @@ export class EditorForm {
 		if (!this.callbackOnChangeValue) {
 			this.callbackOnChangeValue = callback;
 		}
-
 		if (this.changeMeasure || !this.isInit || !this.form.valid) {
 			return;
 		}

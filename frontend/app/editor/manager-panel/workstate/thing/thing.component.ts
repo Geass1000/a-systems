@@ -71,8 +71,9 @@ export class ThingComponent implements OnInit, OnDestroy {
 	 */
 	buildForm () : void {
 		this.form = this.fb.group({
-			'coordX' : [ '', [ Validators.required, isNumber(false) ] ],
-			'coordY' : [ '', [ Validators.required, isNumber(false) ] ]
+			'coordX' : [ '', [ Validators.required, isNumber(true) ] ],
+			'coordY' : [ '', [ Validators.required, isNumber(true) ] ],
+			'angle' : [ '', [ Validators.required, isNumber(false) ] ]
 		});
 
 		this.editorForm = new EditorForm(this.form);
@@ -97,7 +98,8 @@ export class ThingComponent implements OnInit, OnDestroy {
 		this.logger.info(`${this.constructor.name}:`, 'setModel');
 		this.form.setValue({
 			coordX : this.metricService.convertFromDefToCur(this.model.x).toString(),
-			coordY : this.metricService.convertFromDefToCur(this.model.y).toString()
+			coordY : this.metricService.convertFromDefToCur(this.model.y).toString(),
+			angle : this.model.angle
 		});
 		return true;
 	}
@@ -131,10 +133,11 @@ export class ThingComponent implements OnInit, OnDestroy {
 		this.logger.info(`${this.constructor.name}:`, 'onChangeValue');
 		let result : Thing = new Thing(this.model);
 
-		let tmpX : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'width');
+		let tmpX : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'coordX');
 		result.x = tmpX !== null ? tmpX : result.y;
-		let tmpY : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'height');
+		let tmpY : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'coordY');
 		result.y = tmpY !== null ? tmpY : result.y;
+		result.angle = +this.getFormField('angle');
 
 		this.ngRedux.dispatch(this.editorActions.updateThing(this.activeElements[0].id, result));
 	}

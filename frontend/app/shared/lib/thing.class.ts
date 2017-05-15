@@ -102,6 +102,6 @@ export class Thing implements IThing {
 	 * @return {String}  description
 	 */
 	transform () {
-		return this._coord.transform();
+		return `${this._coord.transform()} rotate(${this.angle})`;
 	}
 }

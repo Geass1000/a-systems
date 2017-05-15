@@ -14,6 +14,11 @@
 					name="coordY" id="coordY" formControlName="coordY" />
 				<label for="coordY">Coordinate Y</label>
 			</div>
+			<div class="form-group" [class.focused]="getFormField('angle')">
+				<input type="text" class="form-control" required
+					name="angle" id="angle" formControlName="angle" />
+				<label for="angle">Angle</label>
+			</div>
 		</form>
 	</div>
 </div>

@@ -71,8 +71,8 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	 */
 	buildForm () : void {
 		this.form = this.fb.group({
-			'coordX' : [ '', [ Validators.required, isNumber(false) ] ],
-			'coordY' : [ '', [ Validators.required, isNumber(false) ] ]
+			'coordX' : [ '', [ Validators.required, isNumber(true) ] ],
+			'coordY' : [ '', [ Validators.required, isNumber(true) ] ]
 		});
 
 		this.editorForm = new EditorForm(this.form);
@@ -128,12 +128,12 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 		if (!this.model || !this.isActiveMetric) {
 			return;
 		}
-		this.logger.info(`${this.constructor.name}:`, 'onChangeValue');
+		this.logger.info(`${this.constructor.name} - onChangeValue:`, 'Use');
 		let result : Surface = new Surface(this.model);
 
-		let tmpX : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'width');
+		let tmpX : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'coordX');
 		result.x = tmpX !== null ? tmpX : result.y;
-		let tmpY : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'height');
+		let tmpY : number = this.metricService.getNumberFieldValueToDefMetric(this.form, 'coordY');
 		result.y = tmpY !== null ? tmpY : result.y;
 
 		this.ngRedux.dispatch(this.editorActions.updateSurface(this.activeElements[0].id, result));

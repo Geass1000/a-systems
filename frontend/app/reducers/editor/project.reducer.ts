@@ -51,11 +51,12 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 			return newState;
 		}
 		case EditorActions.UPDATE_SURFACE : {
-			let newState : IEditorProject = Object.assign({}, state);
 			let surface : Surface = new Surface(action.payload.surface);
-
-			newState.surfaces[action.payload.id] = surface;
-			return newState;
+			let surfaces : Array<Surface> = state.surfaces.slice();
+			surfaces[action.payload.id] = surface;
+			return Object.assign({}, state, {
+				surfaces : surfaces
+			});
 		}
 		case EditorActions.UPDATE_THING : {
 			let newState : IEditorProject = Object.assign({}, state);
@@ -92,10 +93,9 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 		}
 		case EditorActions.TRANSLATE_WORKSPACE : {
 			/*
-			let workspace : Point = new Point({
-				x : state.workspace.x + action.payload.dX,
-				y : state.workspace.y + action.payload.dY,
-			});
+			let workspace : Workspace = new Workspace(state.workspace);
+			workspace.x += action.payload.dX;
+			workspace.y += action.payload.dY;
 			return Object.assign({}, state, {
 				workspace : workspace
 			});
@@ -105,43 +105,43 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 			return state;
 		}
 		case EditorActions.TRANSLATE_SURFACE : {
-			/*
-			let surfaces = [...state.surfaces];
+			let surfaces = state.surfaces.slice();
 			surfaces[action.payload.id].x += action.payload.dX;
 			surfaces[action.payload.id].y += action.payload.dY;
 			return Object.assign({}, state, {
 				surfaces : surfaces
 			});
-			*/
+			/*
 			state.surfaces[action.payload.id].x += action.payload.dX;
 			state.surfaces[action.payload.id].y += action.payload.dY;
 			return state;
+			*/
 		}
 		case EditorActions.TRANSLATE_SURFACE_POINT : {
-			/*
-			let surfaces = [...state.surfaces];
-			surfaces[action.payload.id].x += action.payload.dX;
-			surfaces[action.payload.id].y += action.payload.dY;
+			let surfaces = state.surfaces.slice();
+			surfaces[action.payload.id].points[action.payload.pid].x += action.payload.dX;
+			surfaces[action.payload.id].points[action.payload.pid].y += action.payload.dY;
 			return Object.assign({}, state, {
 				surfaces : surfaces
 			});
-			*/
+			/*
 			state.surfaces[action.payload.id].points[action.payload.pid].x += action.payload.dX;
 			state.surfaces[action.payload.id].points[action.payload.pid].y += action.payload.dY;
 			return state;
+			*/
 		}
 		case EditorActions.TRANSLATE_THING : {
-			/*
-			let surfaces = [...state.surfaces];
-			surfaces[action.payload.id].x += action.payload.dX;
-			surfaces[action.payload.id].y += action.payload.dY;
+			let things = state.things.slice();
+			things[action.payload.id].x += action.payload.dX;
+			things[action.payload.id].y += action.payload.dY;
 			return Object.assign({}, state, {
-				surfaces : surfaces
+				things : things
 			});
-			*/
+			/*
 			state.things[action.payload.id].x += action.payload.dX;
 			state.things[action.payload.id].y += action.payload.dY;
 			return state;
+			*/
 		}
 	}
 	return state;
