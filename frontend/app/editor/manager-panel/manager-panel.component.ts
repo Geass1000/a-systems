@@ -23,6 +23,7 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	@select(['editor', 'manager', 'workshop']) workshop$ : Observable<boolean>;
 	@select(['editor', 'manager', 'workstate']) workstate$ : Observable<boolean>;
 	@select(['editor', 'manager', 'material']) material$ : Observable<boolean>;
+	@select(['editor', 'manager', 'dispatcher']) dispatcher$ : Observable<boolean>;
 
 	constructor (private ngRedux : NgRedux<any>,
 						 	 private editorActions : EditorActions,

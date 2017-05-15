@@ -12,6 +12,9 @@
 				<div class="item-panel" *ngIf="material$ | async">
 					<as-editor-manager-material></as-editor-manager-material>
 				</div>
+				<div class="item-panel" *ngIf="dispatcher$ | async">
+					<as-editor-manager-dispatcher></as-editor-manager-dispatcher>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -19,6 +22,9 @@
 	<div class="manager-component manager-navigation" (click)="onClickOpenPanel($event)">
 		<div class="item-navigation" [class.active]="workshop" data-panel-name="workshop">
 			<i class="fa fa-home" aria-hidden="true"></i>
+		</div>
+		<div class="item-navigation" [class.active]="dispatcher" data-panel-name="dispatcher">
+			<i class="fa fa-database" aria-hidden="true"></i>
 		</div>
 		<div class="item-navigation" [class.active]="workstate" data-panel-name="workstate">
 			<i class="fa fa-sliders" aria-hidden="true"></i>

@@ -59,6 +59,9 @@ export const EditorStateReducer : Reducer<IEditorState> =
 			return Object.assign({}, state, { isMove : action.payload.state });
 		}
 		case EditorActions.SET_ACTIVE_ELEMENTS : {
+			if (compareActiveElements(state.activeElements, action.payload.elements)) {
+				return state;
+			}
 			let activeElements = [...action.payload.elements];
 			return Object.assign({}, state, { activeElements : activeElements });
 		}
@@ -73,3 +76,25 @@ export const EditorStateReducer : Reducer<IEditorState> =
 	}
 	return state;
 };
+
+/**
+ * compareActiveElements - функция, выполняющая проверку на равенство двух массивов
+ * активных элементов.
+ *
+ * @kind {function}
+ * @param {Array<IElement>} el1
+ * @param {Array<IElement>} el2
+ * @return {boolean}
+ */
+function compareActiveElements (el1 : Array<IElement>, el2 : Array<IElement>) : boolean {
+	if (!el1 || !el2 || el1.length !== el2.length) {
+		return false;
+	}
+	if (!el1.length) {
+		return true;
+	}
+	let confirm : boolean = el1.every((data, index) => {
+		return data.id === el2[index].id && data.type === el2[index].type;
+	});
+	return confirm;
+}

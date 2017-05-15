@@ -10,6 +10,7 @@ import { MaterialModule } from './material/material.module';
 /* App Feature - Component */
 import { ManagerPanelComponent } from './manager-panel.component';
 import { WorkshopComponent } from './workshop/workshop.component';
+import { DispatcherComponent } from './dispatcher/dispatcher.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { WorkshopComponent } from './workshop/workshop.component';
 	],
   declarations: [
 		ManagerPanelComponent,
-		WorkshopComponent
+		WorkshopComponent,
+		DispatcherComponent
 	],
   exports:      [ ManagerPanelComponent ],
   providers:    [ ]

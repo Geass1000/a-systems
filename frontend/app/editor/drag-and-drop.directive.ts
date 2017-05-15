@@ -1,7 +1,8 @@
 import { Directive, ElementRef, HostListener, OnInit, OnDestroy } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { NgRedux } from '@angular-redux/store';
+import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 
 import { LoggerService } from '../core/logger.service';
@@ -31,6 +32,8 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
+	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
+	//private activeElements : Array<IElement>;
 
 	constructor (private elementRef: ElementRef,
 							 private ngRedux : NgRedux<any>,
@@ -41,6 +44,9 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		this.initData();
 		this.targetElements = [];
 		this.activeElements = [];
+		this.subscription.push(this.activeElements$.subscribe((data) => {
+			this.activeElements = data;
+		}));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
@@ -57,7 +63,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * detectLeftButton - функция, отвечающая за определение нажатия левой кнопки мыши.
 	 *
 	 * @kind {function}
-	 * @param  {MouseEvent} event
+	 * @param {MouseEvent} event
 	 * @return {boolean}
 	 */
 	detectLeftButton (event : MouseEvent) : boolean {
@@ -72,30 +78,12 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * setActiveElements - установка активно элемента в виде элемента els.
 	 *
 	 * @kind {function}
-	 * @param  {Array<IElement>} els
+	 * @param {Array<IElement>} els
 	 * @return {void}
 	 */
 	setActiveElements (els : Array<IElement>) : void {
-		if (this.compareActiveElements(this.activeElements, els)) {
-			return ;
-		}
-		this.activeElements = els;
-		this.ngRedux.dispatch(this.editorActions.setActiveElements(this.activeElements));
+		this.ngRedux.dispatch(this.editorActions.setActiveElements(els));
 	}
-
-	compareActiveElements (el1 : Array<IElement>, el2 : Array<IElement>) : boolean {
-		if (!el1 || !el2 || el1.length !== el2.length) {
-			return false;
-		}
-		if (!el1.length) {
-			return true;
-		}
-		let confirm : boolean = el1.every((data, index) => {
-			return data.id === el2[index].id && data.type === el2[index].type;
-		});
-		return confirm;
-	}
-
 
 	/**
 	 * captureElement - поиск элементов с классом 'draggable'. Найденые элементы
@@ -156,7 +144,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * у которых значение capture = false.
 	 *
 	 * @kind {function}
-	 * @param  {Array<IElement>} els
+	 * @param {Array<IElement>} els
 	 * @return {Array<IElement>}
 	 */
 	correctTarget (els : Array<IElement>) : Array<IElement> {
@@ -178,7 +166,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * createNameTranslateMethod - генерация названия метода перенесоа.
 	 *
 	 * @kind {function}
-	 * @param  {Array<IElement>} els : Array<IElement>
+	 * @param {Array<IElement>} els : Array<IElement>
 	 * @return {String}
 	 */
 	createNameTranslateMethod (els : Array<IElement>) : string {
@@ -195,7 +183,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * createArgsTranslateMethod - генерация массива аргументов для метода пенреноса.
 	 *
 	 * @kind {function}
-	 * @param  {Array<IElement>} els
+	 * @param {Array<IElement>} els
 	 * @return {Array<number>}
 	 */
 	createArgsTranslateMethod (els : Array<IElement>) : Array<number> {
@@ -212,7 +200,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * capitalizeFirstLetter - преобразование первой буквы в заглавную.
 	 *
 	 * @kind {function}
-	 * @param  {string} str : исходная строка
+	 * @param {string} str : исходная строка
 	 * @return {string}
 	 */
 	capitalizeFirstLetter (str : string) : string {
@@ -223,7 +211,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * onMouseDown - событие, отвечающее за обработка нажатия кнопки мыши.
 	 *
 	 * @kind {event}
-	 * @param  {MouseEvent} event
+	 * @param {MouseEvent} event
 	 * @return {boolean|void}
 	 */
 	@HostListener('mousedown', ['$event']) onMouseDown (event : MouseEvent) : boolean | void {
@@ -261,7 +249,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * onMouseMove - событие, отвечающее за обработка перемещения мыши в области переноса.
 	 *
 	 * @kind {event}
-	 * @param  {MouseEvent} event
+	 * @param {MouseEvent} event
 	 * @return {boolean|void}
 	 */
 	@HostListener('mousemove', ['$event']) onMouseMove (event : MouseEvent) : boolean | void {
@@ -291,7 +279,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * onMouseUp - событие, отвечающее за отжатие кнопки мыши.
 	 *
 	 * @kind {event}
-	 * @param  {MouseEvent} event
+	 * @param {MouseEvent} event
 	 * @return {boolean|void}
 	 */
 	@HostListener('mouseup', ['$event']) onMouseUp (event : MouseEvent) : boolean | void {
@@ -310,7 +298,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * onMouseUp - событие, отвечающее за выход курсора за пределы области переноса.
 	 *
 	 * @kind {event}
-	 * @param  {MouseEvent} event
+	 * @param {MouseEvent} event
 	 * @return {boolean|void}
 	 */
 	@HostListener('mouseleave', ['$event']) onMouseLeave (event : MouseEvent) : boolean | void {
