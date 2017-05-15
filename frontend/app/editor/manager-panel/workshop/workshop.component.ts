@@ -47,13 +47,13 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 			this.itemCategoriesData = data;
 			this.itemCategories = Array.from(data.values());
 			this.itemCategoriesDisplay = this.itemCategories.filter((d2) => d2._pid === this.activeCategory);
-			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - itemCategories -', this.itemCategories);
+			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux', 'itemCategories -', this.itemCategories);
 		}));
 		this.subscription.push(this.items$.subscribe((data) => {
 			this.itemsData = data;
 			this.items = Array.from(data.values());
 			this.itemsDisplay = this.items.filter((d2) => d2._cid === this.activeCategory);
-			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - items -', this.items);
+			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux', 'items -', this.items);
 		}));
 		this.subscription.push(this.workspace$.subscribe((data) => {
  			this.workspace = data;
@@ -67,7 +67,7 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	 * onClickAddItem - событие, отвечающее за создание элементов на рабочей области.
 	 *
 	 * @kind {event}
-	 * @param  {MouseEvent} event
+	 * @param {MouseEvent} event
 	 * @return {void}
 	 */
 	onClickAddItem (event : MouseEvent) : void {
@@ -75,13 +75,13 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 		if (!el) {
 			return;
 		}
-		if (!el.getAttribute('data-item-id')) {
+		let itemId : string = el.getAttribute('data-item-id');
+		if (!itemId) {
 			return;
 		}
-		let itemId : string = el.getAttribute('data-item-id').toString();
 		let item : IItem = this.itemsData.get(itemId);
-		this.logger.info(`${this.constructor.name}:`, 'addItem -', itemId);
-		this.logger.info(`${this.constructor.name}:`, 'addItem -', item);
+		this.logger.info(`${this.constructor.name} - onClickAddItem:`, 'itemId -', itemId);
+		this.logger.info(`${this.constructor.name} - onClickAddItem:`, 'item -', item);
 
 		if (item.type === 'surface') {
 			let itemSurface : ISurface = <ISurface>item.payload;
@@ -109,8 +109,8 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	 * верхнего левого угла рабочей области.
 	 *
 	 * @kind {function}
-	 * @param  {number} itemWidth - ширина элемента
-	 * @param  {number} itemHeight - ширина элемента
+	 * @param {number} itemWidth - ширина элемента
+	 * @param {number} itemHeight - ширина элемента
 	 * @return {IPoint}
 	 */
 	getCoordItem (itemWidth : number, itemHeight : number) : IPoint {
@@ -127,7 +127,7 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 		let elementX = halfWindowWidth  - halfItemWidth - this.workspace.x;
 		let elementY = halfWindowHeight - halfItemHeight - this.workspace.y;
 		let result = { x : elementX, y : elementY };
-		this.logger.info(`${this.constructor.name}:`, 'addItem -', result);
+		this.logger.info(`${this.constructor.name} - addItem:`, 'result -', result);
 		return result;
 	}
 
@@ -135,17 +135,17 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	 * onClickSelectCategory - событие, отвечающее за переключение категорий элементов.
 	 *
 	 * @kind {event}
-	 * @param  {MouseEvent} event
+	 * @param {MouseEvent} event
 	 * @return {void}
 	 */
 	onClickSelectCategory (event : MouseEvent) : void {
 		let el : any = (<HTMLElement>event.target).closest('.item');
 		if (!el) {
-			this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - Not navigation element');
+			this.logger.info(`${this.constructor.name} - onChangeCategory:`, 'Not navigation element');
 			return;
 		}
 		let categoryId : string = el.getAttribute('data-category-id').toString();
-		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - categoryId', categoryId);
+		this.logger.info(`${this.constructor.name} - onChangeCategory:`, 'categoryId', categoryId);
 		this.changeCategory(categoryId);
 	}
 
@@ -163,15 +163,15 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	 * changeCategory - функция, выполняющая смену категории.
 	 *
 	 * @kind {function}
-	 * @param  {string} id - id категории
+	 * @param {string} id - id категории
 	 * @return {string}
 	 */
 	changeCategory (id : string) {
 		this.activeCategory = id;
 		this.prevCategory = this.getParentCategoryName(this.activeCategory);
 		this.itemCategoriesDisplay = this.itemCategories.filter((data) => data._pid === this.activeCategory);
-		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - prevCategory -', this.prevCategory);
-		this.logger.info(`${this.constructor.name}:`, 'onChangeCategory - activeCategory -', this.activeCategory);
+		this.logger.info(`${this.constructor.name} - onChangeCategory:`, 'prevCategory -', this.prevCategory);
+		this.logger.info(`${this.constructor.name} - onChangeCategory:`, 'activeCategory -', this.activeCategory);
 		this.itemsDisplay = this.items.filter((d1) => d1._cid === this.activeCategory);
 	}
 

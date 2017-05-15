@@ -2,6 +2,22 @@
 	<div class="manager-panel-block-header">
 		<h4>Dispatcher</h4>
 	</div>
-	<div class="manager-panel-block-content">
+	<div class="manager-panel-block-content" (click)="onClickSetElement($event)">
+		<div class="list-elements" >
+			<div class="item" data-item-type="workspace" data-item-id="0"
+				[class.active]="isActive('workspace', 0)">
+				<span>Workspace</span>
+			</div>
+			<div class="item" *ngFor="let surface of surfaces; let i = index"
+				data-item-type="surface" [attr.data-item-id]="i"
+				[class.active]="isActive('surface', i)">
+				<span>Surface-{{i}}</span>
+			</div>
+			<div class="item" *ngFor="let thing of things; let i = index"
+				data-item-type="thing" [attr.data-item-id]="i"
+				[class.active]="isActive('thing', i)">
+				<span>Thing-{{i}}</span>
+			</div>
+		</div>
 	</div>
 </div>
