@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Config } from '../config';
 import { UserService } from '../core/user.service';
+import { LoggerService } from '../core/logger.service';
 
 import { UserLogin, UserReset, UserSignup } from './user';
 
@@ -20,15 +21,17 @@ export class AuthService {
 
 	constructor (private http : Http,
 							 private location : Location,
-						 	 private userService : UserService) { ;	}
+						 	 private userService : UserService,
+						 	 private logger : LoggerService) { ;	}
 
 	addUser (user : UserSignup) {
 		let body = JSON.stringify(user);
 
 		return this.http.post(Config.serverUrl + this.usersUrl, body, { headers : this.headers })
 										.map((resp) => {
-											localStorage.setItem('token', resp.json().token);
-											this.userService.setUserData();
+											let jResp = resp.json() || {};
+											this.logger.info(`${this.constructor.name} - addUser:`, `status = ${resp.status} -`, jResp);
+											return jResp;
 										})
 										.catch(this.handleError);
 	}
@@ -38,8 +41,9 @@ export class AuthService {
 
 		return this.http.post(Config.serverUrl + this.authUrl, body, { headers : this.headers })
 										.map((resp) => {
-											localStorage.setItem('token', resp.json().token);
-											this.userService.setUserData();
+											let jResp = resp.json() || {};
+											this.logger.info(`${this.constructor.name} - login:`, `status = ${resp.status} -`, jResp);
+											return jResp;
 										})
 										.catch(this.handleError);
 	}
@@ -49,8 +53,9 @@ export class AuthService {
 
 		return this.http.post(Config.serverUrl + this.authUrl, body, { headers : this.headers })
 										.map((resp) => {
-											localStorage.setItem('token', resp.json().token);
-											this.userService.setUserData();
+											let jResp = resp.json() || {};
+											this.logger.info(`${this.constructor.name} - addUser:`, `status = ${resp.status} -`, jResp);
+											return jResp;
 										})
 										.catch(this.handleError);
 	}

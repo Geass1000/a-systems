@@ -4,8 +4,9 @@ import { IAction } from '../shared/interfaces/action.interface';
 @Injectable()
 export class UserActions {
 	static readonly CLASS_NAME = 'USER_ACTIONS:';
-	static readonly SET_USER_ID = UserActions.CLASS_NAME + 'SET_USER_ID(ID)';
-	static readonly SET_USER_NAME = UserActions.CLASS_NAME + 'SET_USER_NAME(NAME)';
+	static readonly SET_USER_ID = UserActions.CLASS_NAME + 'SET_USER_ID';
+	static readonly SET_USER_NAME = UserActions.CLASS_NAME + 'SET_USER_NAME';
+	static readonly RESET_STORE_USER = UserActions.CLASS_NAME + 'RESET_STORE_USER';
 
 	setUserId (id : number) : IAction {
 		if (!id) {
@@ -27,6 +28,13 @@ export class UserActions {
 			payload : {
 				name : name
 			}
+    };
+  }
+
+	resetStoreUser () : IAction {
+    return {
+      type : UserActions.RESET_STORE_USER,
+			payload : {	}
     };
   }
 }

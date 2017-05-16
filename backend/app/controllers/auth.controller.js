@@ -16,14 +16,6 @@ class AuthController {
 	 * @constructor
 	 */
 	constructor () {
-		this.maxUserId = 0;
-		User.findMaxUserId()
-			.then((doc) => {
-				this.maxUserId = doc.user_id ? doc.user_id + 1 : 0;
-			})
-			.catch((err) => {
-				console.log(err);
-			});
 	}
 
 	/**
@@ -93,7 +85,6 @@ class AuthController {
 				}
 
 				let user = new User();
-				user.user_id = this.maxUserId++;
 				user.name = info.name;
 				user.email = info.email;
 				user.setPassword(info.password);

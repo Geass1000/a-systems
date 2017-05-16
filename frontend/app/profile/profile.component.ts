@@ -1,4 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute} from '@angular/router';
+
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { NgRedux, select } from '@angular-redux/store';
+import { UserActions } from '../actions/user.actions';
+
+import { LoggerService } from '../core/logger.service';
+import { UserService } from '../core/user.service';
 
 @Component({
 	moduleId: module.id,
@@ -6,5 +15,66 @@ import { Component } from '@angular/core';
 	templateUrl: 'profile.component.html',
   styleUrls: [ 'profile.component.css' ]
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit, OnDestroy {
+	private activeName : string;
+
+	/* Redux */
+	private subscription : Array<Subscription> = [];
+	@select(['user', 'id']) userId$ : Observable<string>;
+	private userId : string;
+	@select(['user', 'name']) userName$ : Observable<string>;
+	private userName : string;
+
+	private mapSubscription : Map<string, boolean> = new Map([
+		[ 'userId', false ],
+		[ 'userName', false ],
+		[ 'activeName', false ]
+	]);
+
+	constructor (private activateRoute: ActivatedRoute,
+							 private ngRedux : NgRedux<any>,
+						 	 private userActions : UserActions,
+						 	 private logger : LoggerService,
+						 	 private userService : UserService) {
+	}
+	ngOnInit () {
+		this.subscription.push(this.userId$.subscribe((data) => {
+			this.userId = data;
+			this.mapSubscription.set('userId', true);
+			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux -', 'userId -', this.userId);
+		}));
+		this.subscription.push(this.userName$.subscribe((data) => {
+			this.userName = data;
+			this.mapSubscription.set('userName', true);
+			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux -', 'userName -', this.userName);
+		}));
+		this.subscription.push(this.activateRoute.params.subscribe((params) => {
+			this.activeName = params['id'];
+			this.mapSubscription.set('activeName', true);
+			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'activeName -', this.activeName);
+		}));
+	}
+	ngOnDestroy () {
+		this.subscription.map((data) => data.unsubscribe());
+	}
+
+	/**
+	 * getUserId - функция, возвращающая id текущего пользователя.
+	 *
+	 * @kind {function}
+	 * @return {string}
+	 */
+	getUserId () : string {
+		return this.userId;
+	}
+
+	/**
+	 * getUserName - функция, возвращающая имя текущего пользователя.
+	 *
+	 * @kind {function}
+	 * @return {string}
+	 */
+	getUserName () : string {
+		return this.userName;
+	}
 }

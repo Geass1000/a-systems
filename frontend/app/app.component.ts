@@ -24,6 +24,7 @@ import { AppReducer, INITIAL_STATE, IAppState } from './reducers/app.store';
 export class AppComponent implements OnInit, OnDestroy {
 	private animationState : string = 'open';
 
+	/* Redux */
 	private subscription : Array<Subscription> = [];
 	@select(['modal', 'openPanelOverlay']) openPanelOverlay$ : Observable<boolean>;
 	@select(['modal', 'openModalOverlay']) openModalOverlay$ : Observable<boolean>;

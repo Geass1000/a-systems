@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile.component';
 // import { AuthGuard } from '../core/auth-guard.service';
 
 const routes: Routes = [
+	{ path: 'profile/:name', component: ProfileComponent },
 	{ path: 'profile', component: ProfileComponent }
 ];
 @NgModule({

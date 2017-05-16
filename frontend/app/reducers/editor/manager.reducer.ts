@@ -13,9 +13,9 @@ export interface IEditorManager {
 
 export const INITIAL_STATE : IEditorManager = {
 	open : true,
-	active : 'workstate',
-	workshop : false,
-	workstate : true,
+	active : 'workshop',
+	workshop : true,
+	workstate : false,
 	material : false,
 	dispatcher : false
 };

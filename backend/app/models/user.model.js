@@ -11,11 +11,6 @@ let connection = require('../config/mongodb.database');
 let UserValidator = require('../validators/user.validator');
 
 let userSchema = new Schema({
-	user_id : {
-		type : Number,
-		require : true,
-		unique : true
-	},
 	name : {
 		type : String,
 		require : true,
@@ -64,7 +59,7 @@ userSchema.methods.validPassword = function (password) {
 userSchema.methods.createToken = function () {
 	let expires = 604800; // 60s * 60m * 24h * 7d = 604800s (7 days)
 	return jwt.sign({
-		id : this.user_id,
+		id : this._id,
 		name : this.name
 	}, config.secret, { expiresIn : expires });
 };
@@ -80,13 +75,5 @@ userSchema.statics.findUserLogin = function (user) {
 userSchema.statics.findUserSignup = function (user) {
 	return this.findOne({ $or: [ { name : user.name }, { email : user.email } ] }).exec();
 };
-/**
- * Поиск максимального ID пользователя
- *
- */
-userSchema.statics.findMaxUserId = function () {
-	return this.findOne().sort({ user_id : -1 }).limit(1).exec();
-};
-
 
 module.exports = connection.model('User', userSchema);

@@ -19,6 +19,7 @@ import { Workspace } from '../shared/lib/workspace.class';
 export class EditorComponent implements OnInit, OnDestroy {
 	private loc : string = '';
 
+	/* Redux */
 	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'isInitProject']) isInitProject$ : Observable<boolean>;
 	private isInitProject : boolean;

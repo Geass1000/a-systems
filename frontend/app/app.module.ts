@@ -21,6 +21,7 @@ import { NotFoundComponent } from './not-found.component';
 /* App Root - Service*/
 import { ModalActions } from './actions/modal.actions';
 import { EditorActions } from './actions/editor.actions';
+import { UserActions } from './actions/user.actions';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { EditorActions } from './actions/editor.actions';
 	],
 	providers: [
 		ModalActions,
-		EditorActions
+		EditorActions,
+		UserActions
 	],
   bootstrap: [ AppComponent ]
 })
