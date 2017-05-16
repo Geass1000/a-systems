@@ -70,4 +70,16 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 		}
 		return this.activeElements[1].type === 'point' && this.activeElements[1].id === index;
 	}
+
+	/**
+	 * trackBySurfaces - функция, возвращающая индекс элемента для trackBy директивы ngFor.
+	 *
+	 * @kind {function}
+	 * @param {number} index - индекс элемента
+	 * @param {Surface} data - элемент
+	 * @return {number}
+	 */
+	trackBySurfaces (index : number, data : Surface) : number {
+		return data.id;
+	}
 }

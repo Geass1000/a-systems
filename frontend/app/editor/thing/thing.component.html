@@ -1,4 +1,4 @@
-<svg:g *ngFor="let thing of things; let i = index"
+<svg:g *ngFor="let thing of things; let i = index; trackBy : trackByThings"
 	class="draggable" data-type="thing" [attr.data-id]="i"
 	[class.activated]="isActiveThing(i)" [attr.transform]="thing.transform()">
 	<svg:rect x="0" y="0" [attr.filter]="createFilterUrl('shadow-thing')"

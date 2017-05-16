@@ -1,4 +1,4 @@
-<svg:g *ngFor="let surface of surfaces; let i = index"
+<svg:g *ngFor="let surface of surfaces; let i = index; trackBy : trackBySurfaces"
 	class="draggable" data-type="surface" [attr.data-id]="i"
 	[class.activated]="isActiveSurface(i)" [attr.transform]="surface.transform()">
 	<svg:polygon class="floor" [attr.stroke-width]="20"

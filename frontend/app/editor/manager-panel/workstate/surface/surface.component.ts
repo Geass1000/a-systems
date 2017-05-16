@@ -94,7 +94,6 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 			return false;
 		}
 		this.model = this.surfaces[this.activeElements[0].id];
-		this.logger.info(`${this.constructor.name}:`, 'setModel');
 		this.form.setValue({
 			coordX : this.metricService.convertFromDefToCur(this.model.x).toString(),
 			coordY : this.metricService.convertFromDefToCur(this.model.y).toString()
