@@ -6,8 +6,8 @@ import { NgRedux, select } from '@angular-redux/store';
 import { ModalActions } from './actions/modal.actions';
 import { EditorActions } from './actions/editor.actions';
 
-import { UserService } from './core/user.service';
 import { LoggerService } from './core/logger.service';
+import { UserService } from './core/user.service';
 
 import { animation } from './shared/animations/modal.animation';
 
@@ -33,11 +33,11 @@ export class AppComponent implements OnInit, OnDestroy {
 	@select(['modal', 'signup']) modalSignup$ : Observable<boolean>;
 	@select(['modal', 'reset']) modalReset$ : Observable<boolean>;
 
-	constructor (public userService : UserService,
-							 private ngRedux : NgRedux<IAppState>,
+	constructor (private ngRedux : NgRedux<IAppState>,
 						 	 private modalActions : ModalActions,
 							 private editorActions : EditorActions,
-						 	 private logger : LoggerService) {
+						 	 private logger : LoggerService,
+						 	 public userService : UserService) {
 		this.ngRedux.configureStore(AppReducer, INITIAL_STATE, null, []);
 		this.logger.info(`${this.constructor.name}:`, 'Start app Artificial System!');
 	}
@@ -46,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
 			this.openModalOverlay = data;
 			this.animationState = data ? 'open' : '';
 		}));
+		this.userService.login();
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());

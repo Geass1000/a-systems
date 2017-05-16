@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-
 import { Response } from '@angular/http';
 
 import { Config } from '../config';
+
 import { LoggerService } from './logger.service';
 
 import { Observable } from 'rxjs/Observable';
@@ -36,7 +36,7 @@ export class HttpService {
 		} else {
 			errMsg = error.message ? error.message : error.toString();
 		}
-		this.logger.error(errMsg);
+		this.logger.error(`${this.constructor.name} - handleError:`, 'errMsg -', errMsg);
 		return Observable.throw(errMsg);
 	}
 }

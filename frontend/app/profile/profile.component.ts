@@ -70,9 +70,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		if (!confirmSubscription) {
 			return ;
 		}
-		if (!this.userService.loggedIn() && !this.activeName) {
-			this.router.navigateByUrl('/404');
+		if (!this.activeName) {
+			if (this.userService.loggedIn()) {
+				this.router.navigate(['profile', this.userName.toLowerCase()]);
+				this.logger.info(`${this.constructor.name} - prepareUserData:`, 'Access is granted! Renavigate...');
+			} else {
+				this.router.navigateByUrl('/');
+				this.logger.warn(`${this.constructor.name} - prepareUserData:`, 'Access is denide! Renavigate...');
+			}
+			return ;
 		}
+		this.userService.getUserId(this.activeName).subscribe((data : any) => {
+			this.logger.info(`${this.constructor.name} - prepareUserData:`, 'data -', data);
+		});
 	}
 
 	/**

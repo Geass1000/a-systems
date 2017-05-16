@@ -17,6 +17,11 @@ let userSchema = new Schema({
 		unique : true,
 		validate : UserValidator.isLogin
 	},
+	alias : {
+		type : String,
+		require : true,
+		validate : UserValidator.isLogin
+	},
 	hash : { type : String },
 	salt : { type : String },
 	email : {
@@ -60,7 +65,7 @@ userSchema.methods.createToken = function () {
 	let expires = 604800; // 60s * 60m * 24h * 7d = 604800s (7 days)
 	return jwt.sign({
 		id : this._id,
-		name : this.name
+		name : this.alias
 	}, config.secret, { expiresIn : expires });
 };
 
@@ -74,6 +79,9 @@ userSchema.statics.findUserLogin = function (user) {
 };
 userSchema.statics.findUserSignup = function (user) {
 	return this.findOne({ $or: [ { name : user.name }, { email : user.email } ] }).exec();
+};
+userSchema.statics.findUserData = function (user) {
+	return this.findOne({ name : user.name }).exec();
 };
 
 module.exports = connection.model('User', userSchema);

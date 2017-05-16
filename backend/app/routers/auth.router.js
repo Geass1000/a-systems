@@ -18,7 +18,7 @@ router.route('/auth')
 
 router.route('/users')
 			.post(AuthController.addUser.bind(AuthController));
-router.route('/users/:id')
+router.route('/users/:name')
 			.get(jwtCheck, AuthController.getUser);
 
 //... other paths

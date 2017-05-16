@@ -35,6 +35,7 @@ class AuthController {
 			res.status(400).json({ "message" : "All fields required" });
 			return;
 		}
+		info.name = info.name.toLowerCase();
 		User.findUserLogin(info)
 			.then((doc) => {
 				if (!doc) {
@@ -87,7 +88,8 @@ class AuthController {
 				}
 
 				let user = new User();
-				user.name = info.name;
+				user.alias = info.name;
+				user.name = info.name.toLowerCase();
 				user.email = info.email;
 				user.setPassword(info.password);
 				user.save()
@@ -125,7 +127,7 @@ class AuthController {
  	 */
 	getUser (req, res) {
 		logger.info('AuthController: getUser', JSON.stringify(req.user));
-		res.send('GetUser!');
+		res.status(200).json({ "message" : "Try" });
 	}
 }
 

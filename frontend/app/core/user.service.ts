@@ -42,15 +42,20 @@ export class UserService implements OnDestroy {
 	 * @param {string} token - jwt-токен
 	 * @return {void}
 	 */
-	login (token : string) : void {
+	login (token ?: string) : void {
+		if (!token && !this.loggedIn()) {
+			this.logger.info(`${this.constructor.name} - login:`, 'User isn\'t logined!');
+			return ;
+		}
+		token = token ? token : localStorage.getItem('token');
 		localStorage.setItem('token', token);
 		try {
 			let decodeToken = this.jwtHelper.decodeToken(token);
-			this.logger.info(`${this.constructor.name} - setToken:`, 'decodeToken -', decodeToken);
+			this.logger.info(`${this.constructor.name} - login:`, 'decodeToken -', decodeToken);
 			this.ngRedux.dispatch(this.userActions.setUserId(decodeToken.id));
 			this.ngRedux.dispatch(this.userActions.setUserName(decodeToken.name));
 		} catch (error) {
-			this.logger.warn(`${this.constructor.name} - setToken:`, 'Token isn\'t exist');
+			this.logger.warn(`${this.constructor.name} - login:`, 'Token isn\'t exist');
 		}
 	}
 
@@ -73,17 +78,22 @@ export class UserService implements OnDestroy {
 	 * @return {boolean}
 	 */
 	loggedIn () : boolean {
-		return tokenNotExpired('token');
+		try {
+			let confirm : boolean = tokenNotExpired('token');
+			return confirm;
+		} catch (error) {
+			return false;
+		}
 	}
 
 	getUserId (userId : string) {
 		return this.authHttp.get(Config.serverUrl + Config.usersUrl + userId, { headers : this.headers })
 			.map((resp : Response) => {
 				let jResp = resp.json() || {};
-				this.logger.info(`${this.constructor.name} - addUser:`, `status = ${resp.status} -`, jResp);
+				this.logger.info(`${this.constructor.name} - getUserId:`, `status = ${resp.status} -`, jResp);
 				return jResp;
 			})
 			.retryWhen((errorObs) => this.httpService.retry(errorObs))
-			.catch(this.httpService.handleError);
+			.catch((error) => this.httpService.handleError(error));
 	}
 }
