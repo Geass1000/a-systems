@@ -1,5 +1,7 @@
 'use strict';
 
+let logger = require('../config/logger.config');
+
 let User = require('../models/user.model');
 let UserValidator = require('../validators/user.validator');
 
@@ -122,6 +124,7 @@ class AuthController {
  	 * @method getUser
  	 */
 	getUser (req, res) {
+		logger.info('AuthController: getUser', JSON.stringify(req.user));
 		res.send('GetUser!');
 	}
 }

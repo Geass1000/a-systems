@@ -1,23 +1,30 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { Headers, Response } from '@angular/http';
 
-import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
+import { AuthHttp, tokenNotExpired, JwtHelper } from 'angular2-jwt';
 
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux } from '@angular-redux/store';
 import { UserActions } from '../actions/user.actions';
 
+import { Config } from '../config';
+
 import { LoggerService } from './logger.service';
+import { HttpService } from '../core/http.service';
 
 @Injectable()
 export class UserService implements OnDestroy {
 	private jwtHelper: JwtHelper;
+	private headers = new Headers({ 'Content-Type': 'application/json' });
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
 
-	constructor (private ngRedux : NgRedux<any>,
+	constructor (private authHttp : AuthHttp,
+							 private ngRedux : NgRedux<any>,
 							 private userActions : UserActions,
-							 private logger : LoggerService) {
+							 private logger : LoggerService,
+						 	 private httpService : HttpService) {
 		this.init();
 	}
 	init () {
@@ -67,5 +74,16 @@ export class UserService implements OnDestroy {
 	 */
 	loggedIn () : boolean {
 		return tokenNotExpired('token');
+	}
+
+	getUserId (userId : string) {
+		return this.authHttp.get(Config.serverUrl + Config.usersUrl + userId, { headers : this.headers })
+			.map((resp : Response) => {
+				let jResp = resp.json() || {};
+				this.logger.info(`${this.constructor.name} - addUser:`, `status = ${resp.status} -`, jResp);
+				return jResp;
+			})
+			.retryWhen((errorObs) => this.httpService.retry(errorObs))
+			.catch(this.httpService.handleError);
 	}
 }
