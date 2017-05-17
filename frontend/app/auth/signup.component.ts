@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NgRedux, select } from '@angular-redux/store';
 
-import { AuthService } from './auth.service';
-
-import { UserSignup } from './user';
-
+import { Subscription } from 'rxjs/Subscription';
+import { NgRedux } from '@angular-redux/store';
 import { ModalActions } from '../actions/modal.actions';
+
+import { UserService } from '../core/user.service';
+import { LoggerService } from '../core/logger.service';
+
+import { ISignup, IRAuth } from '../shared/interfaces/auth.interface';
 
 @Component({
 	moduleId: module.id,
@@ -14,10 +16,8 @@ import { ModalActions } from '../actions/modal.actions';
 	templateUrl: 'signup.component.html',
   styleUrls: [ 'auth.component.css' ]
 })
-export class SignupComponent implements OnInit  {
-	@select(['modal', 'signup']) modalOpen : any;
-
-	signupForm : FormGroup;
+export class SignupComponent implements OnInit, OnDestroy  {
+	form : FormGroup;
 	formError = {
 		'name' : '',
 		'email'	: '',
@@ -48,17 +48,31 @@ export class SignupComponent implements OnInit  {
 		}
 	};
 
+	/* Redux */
+	private subscription : Array<Subscription> = [];
+
 	constructor (private fb : FormBuilder,
-							 private authService : AuthService,
 						 	 private ngRedux : NgRedux<any>,
-						 	 private modalActions : ModalActions) { }
-
+						 	 private modalActions : ModalActions,
+						 	 private logger : LoggerService,
+						 	 private userService : UserService) {
+	}
 	ngOnInit () : void {
-    this.buildForm();
-  }
+		this.buildForm();
+	}
+	ngOnDestroy () : void {
+		this.subscription.map((data) => data.unsubscribe());
+	}
 
+	/**
+	 * buildForm - функция-метод, выполняет создание формы и возможные регистрации
+	 * на события формы.
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
   buildForm () : void {
-    this.signupForm = this.fb.group({
+    this.form = this.fb.group({
       'name' : ['', [
 					Validators.required,
 					Validators.minLength(3),
@@ -77,7 +91,7 @@ export class SignupComponent implements OnInit  {
 			}, { validator: this.passwordMatchValidator })
     });
 
-		this.signupForm.valueChanges
+		this.form.valueChanges
       .subscribe(data => this.onValueChanged(data));
 
     this.onValueChanged();
@@ -92,8 +106,8 @@ export class SignupComponent implements OnInit  {
 	}
 
 	onValueChanged (data?: any) {
-    if (!this.signupForm) { return; }
-    const form = this.signupForm;
+    if (!this.form) { return; }
+    const form = this.form;
 
     for (const f1 in form.value) {
 			if (form.value.hasOwnProperty(f1)) {
@@ -125,35 +139,45 @@ export class SignupComponent implements OnInit  {
 		}
 	}
 
-	resetFormError () {
-		for (const key in this.formError) {
-			if (this.formError.hasOwnProperty(key)) {
-				this.formError[key] = ' ';
+	/**
+	 * onSubmit - функция-событие, выполняет регистрацию пользователя в систему и вход
+	 * пользователя в систему.
+	 *
+	 * @kind {event}
+	 * @return {void}
+	 */
+	onSubmit () : void {
+		let result : ISignup = <ISignup>Object.assign({}, this.form.value);
+		let sub : Subscription = this.userService.postUser(result).subscribe(
+			(data : IRAuth) => {
+				this.userService.login(data.token);
+				this.closeModal();
+			},
+			(error : string) => {
+				this.formError.serverError = error;
 			}
-		}
+		);
+		this.subscription.push(sub);
 	}
 
-	onSubmit () {
-		const form = this.signupForm.value;
-		let user : UserSignup = new UserSignup(form['name'], form['email'],
-																					 form['passwords']['password']);
-		this.authService.addUser(user)
-				.subscribe(
-					(data) => {
-						this.signupForm.reset();
-						this.resetFormError();
-						this.closeModal();
-					},
-					(error) => {
-						this.formError.serverError = error;
-				});
-	}
 
-	closeModal () {
+	/**
+	 * closeModal - функция-метод, выполняет закрытие модального окна.
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
+	closeModal () : void {
 		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 	}
-	login () {
-		this.closeModal();
+
+	/**
+	 * login - функция-метод, выполняет открытие модального окна "Login".
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
+	login () : void {
 		this.ngRedux.dispatch(this.modalActions.openModal('login'));
 	}
 }

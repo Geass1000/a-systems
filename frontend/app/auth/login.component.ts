@@ -33,18 +33,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 						 	 private userService : UserService) { ; }
 
 	ngOnInit () : void {
-		this.form = this.fb.group({
-      'login' : ['', Validators.required],
-			'password' : ['', Validators.required]
-    });
+		this.buildForm();
   }
-	ngOnDestroy () {
+	ngOnDestroy () : void {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
 	/**
-	 * buildForm - функция, выполняющая создание формы и/или регистрацию на событие
-	 * изменения данных.
+	 * buildForm - функция-метод, выполняет создание формы и возможные регистрации
+	 * на события формы.
 	 *
 	 * @kind {function}
 	 * @return {void}
@@ -57,7 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * closeModal - функция, выполняющеая закрытие модального окна.
+	 * closeModal - функция-метод, выполняет закрытие модального окна.
 	 *
 	 * @kind {function}
 	 * @return {void}
@@ -67,7 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * signup - функция, выполняющеая открытие модального окна "Signup".
+	 * signup - функция-метод, выполняет открытие модального окна "Signup".
 	 *
 	 * @kind {function}
 	 * @return {void}
@@ -77,7 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * resetPassword - функция, выполняющеая открытие модального окна "ResetPassword".
+	 * resetPassword - функция-метод, выполняет открытие модального окна "ResetPassword".
 	 *
 	 * @kind {function}
 	 * @return {void}
@@ -87,7 +84,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * onSubmit - событие, выполняющее вход пользователя в систему.
+	 * onSubmit - функция-событие, выполняет вход пользователя в систему.
 	 *
 	 * @kind {event}
 	 * @return {void}

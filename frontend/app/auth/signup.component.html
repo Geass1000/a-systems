@@ -1,16 +1,16 @@
-<div class="modal-window modal-login" [class.visible]="modalOpen | async">
+<div class="modal-window modal-login">
 	<i class="fa fa-times icon-close" aria-hidden="true" (click)="closeModal()"></i>
 	<section class="modal-header">
 		<h1>Sign up</h1>
 		<p>Sign up to create your account.</p>
 	</section>
 	<section class="modal-body">
-		<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="form-1">
+		<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-1">
 			<div class="form-group"
-				[class.focused]="signupForm.get('name').value">
+				[class.focused]="form.get('name').value">
 				<input type="text" name="name" class="form-control"
 					required formControlName="name" />
-				<label>Login</label>
+				<label for="name">Login</label>
 
 				<div *ngIf="formError.name" class="form-error">
 					{{formError.name}}
@@ -18,10 +18,10 @@
 			</div>
 
 			<div class="form-group"
-				[class.focused]="signupForm.get('email').value">
+				[class.focused]="form.get('email').value">
 				<input type="email" name="email" class="form-control"
 					required formControlName="email" />
-				<label>E-mail</label>
+				<label for="email">E-mail</label>
 
 				<div *ngIf="formError.email" class="form-error">
 					{{formError.email}}
@@ -30,10 +30,10 @@
 
 			<div class="form-column" formGroupName="passwords">
 				<div class="form-group"
-					[class.focused]="signupForm.get('passwords').get('password').value">
+					[class.focused]="form.get('passwords').get('password').value">
 					<input type="password" name="password" class="form-control"
 						required formControlName="password" />
-					<label>Password</label>
+					<label for="password">Password</label>
 
 					<div *ngIf="formError.password" class="form-error">
 						{{formError.password}}
@@ -41,10 +41,10 @@
 				</div>
 
 				<div class="form-group"
-					[class.focused]="signupForm.get('passwords').get('passwordConfirm').value">
+					[class.focused]="form.get('passwords').get('passwordConfirm').value">
 					<input type="password" name="passwordConfirm" class="form-control"
 						required formControlName="passwordConfirm" />
-					<label>Confirm password</label>
+					<label for="passwordConfirm">Confirm password</label>
 
 					<div *ngIf="formError.passwordConfirm" class="form-error">
 						{{formError.passwordConfirm}}
@@ -55,7 +55,7 @@
 				</div>
 			</div>
 
-			<button type="submit" [disabled]="!signupForm.valid">Sign up</button>
+			<button type="submit" [disabled]="!form.valid">Sign up</button>
 
 			<div *ngIf="formError.serverError" class="form-error">
 				{{formError.serverError}}

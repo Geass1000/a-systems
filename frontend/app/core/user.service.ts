@@ -42,7 +42,7 @@ export class UserService implements OnDestroy {
 	}
 
 	/**
-	 * login - функция, выполняющая вход пользователя в систему.
+	 * login - функция-метод, выполняет вход пользователя в систему.
 	 * Выполняет распаковку токена и установку пользовательских данных в хранилище.
 	 *
 	 * @kind {function}
@@ -67,7 +67,7 @@ export class UserService implements OnDestroy {
 	}
 
 	/**
-	 * logout - функция, выполняющая выход пользователя из системы.
+	 * logout - функция-метод, выполняет выход пользователя из системы.
 	 * Выполняет удаление пользовательских данных из хранилища.
 	 *
 	 * @kind {function}
@@ -79,7 +79,7 @@ export class UserService implements OnDestroy {
 	}
 
 	/**
-	 * loggedIn - функция, выполняющая проверку, находится ли пользователь в системе.
+	 * loggedIn - функция-метод, выполняет проверку: "Находится ли пользователь в системе?".
 	 *
 	 * @kind {function}
 	 * @return {boolean}
@@ -127,7 +127,7 @@ export class UserService implements OnDestroy {
 				this.logger.info(`${this.constructor.name} - postLogin:`, `status = ${resp.status} -`, jResp);
 				return jResp;
 			})
-			.catch<Response, string>((error) => this.httpService.handleError(error));
+			.catch<Response, string>((error : any) => this.httpService.handleError(error));
 	}
 
 	/**

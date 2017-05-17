@@ -31,20 +31,25 @@ class AuthController {
 	 */
 	login (req, res) {
 		let info = req.body;
+		let error = '';
 		if (!info.login || !info.password) {
-			res.status(400).json({ "error" : "All fields required" });
+			error = 'All fields required';
+			logger.warn('AuthController - login:', '400:Bad Request', error);
+			res.status(400).json({ 'error' : error });
 			return;
 		}
 		User.findUserLogin(info.login)
 			.then((doc) => {
 				if (!doc) {
-					logger.warn('AuthController - login:', '400:Bad Request');
-					res.status(400).json({ "error" : "A user with that username or email not exists" });
+					error = 'A user with that username or email not exists';
+					logger.warn('AuthController - login:', '400:Bad Request', error);
+					res.status(400).json({ 'error' : error });
 					return;
 				}
 				if (!doc.validPassword(info.password)) {
-					logger.warn('AuthController - login:', '400:Bad Request');
-					res.status(400).json({ "error" : "The username(email) or password don't match" });
+					error = 'The username(email) or password don\'t match';
+					logger.warn('AuthController - login:', '400:Bad Request', error);
+					res.status(400).json({ 'error' : error });
 					return;
 				}
 
@@ -55,8 +60,9 @@ class AuthController {
 			})
 			.catch((err) => {
 				if (err) {
-					logger.error('AuthController - login:', '500:Error');
-					res.status(500).json({ "error" : "Try sign up later" });
+					error = 'Try sign in later';
+					logger.error('AuthController - login:', '500:Error', error);
+					res.status(500).json({ 'error' : error });
 					return;
 				}
 			});
@@ -73,20 +79,87 @@ class AuthController {
  	 */
 	addUser (req, res) {
 		let info = req.body;
-		if (!(info.name && info.email && info.password)) {
-			res.status(400).json({ "message" : "All fields required" });
+		let error = '';
+		if (!info.name || !info.email ||
+				!(info.passwords && info.passwords.password)) {
+			error = 'All fields required';
+			logger.warn('AuthController - login:', '400:', error);
+			res.status(400).json({ 'error' : error });
 			return;
 		}
 		if (!UserValidator.isLogin(info.name) ||
 				!UserValidator.isEmail(info.email) ||
-				!UserValidator.isPassword(info.password)) {
-			res.status(400).json({ "message" : "All fields must be correct"	});
+				!UserValidator.isPassword(info.passwords.password)) {
+			error = 'All fields must be correct';
+			logger.warn('AuthController - login:', '400:', error);
+			res.status(400).json({ 'error' : error });
 			return;
 		}
 		User.findUserSignup(info)
 			.then((doc) => {
 				if (doc) {
-					res.status(400).json({ "message" : "A user with that username or email already exists" });
+					error = 'A user with that username or email already exist';
+					logger.warn('AuthController - login:', '400:', error);
+					res.status(400).json({ 'error' : error });
+					return;
+				}
+
+				let user = new User();
+				user.alias = info.name;
+				user.name = info.name.toLowerCase();
+				user.email = info.email;
+				user.setPassword(info.password);
+
+				user.save()
+					.then((doc) => {
+						res.status(201).json({
+							"token" : user.createToken()
+						});
+					})
+					.catch((err) => {
+						if (err) {
+							error = 'Try sign up later';
+							logger.warn('AuthController - login:', '500:', error);
+							res.status(500).json({ 'error' : error });
+							return;
+						}
+					});
+			})
+			.catch((err) => {
+				if (err) {
+					error = 'Try sign up later';
+					logger.warn('AuthController - login:', '500:', error);
+					res.status(500).json({ 'error' : error });
+					return;
+				}
+			});
+	}
+
+	/**
+ 	 * Add user in the database 'users'.
+ 	 *
+ 	 * @param {express.Request} req
+ 	 * @param {express.Response} res
+ 	 *
+ 	 * @class AuthController
+ 	 * @method addUser
+ 	 */
+	addUser2 (req, res) {
+		let info = req.body;
+		if (!(info.name && info.email && info.password)) {
+			res.status(400).json({ "error" : "All fields required" });
+			return;
+		}
+		if (!UserValidator.isLogin(info.name) ||
+				!UserValidator.isEmail(info.email) ||
+				!UserValidator.isPassword(info.password)) {
+			res.status(400).json({ "error" : "All fields must be correct"	});
+			return;
+		}
+		User.findUserSignup(info)
+			.then((doc) => {
+				if (doc) {
+					res.status(400).json({ "error" : "A user with that username or email already exists" });
 					return;
 				}
 
@@ -104,7 +177,7 @@ class AuthController {
 					.catch((err) => {
 						if (err) {
 							console.log(err);
-							res.status(500).json({ "message" : "Try sign up later" });
+							res.status(500).json({ "error" : "Try sign up later" });
 							return;
 						}
 					});
@@ -112,7 +185,7 @@ class AuthController {
 			.catch((err) => {
 				if (err) {
 					console.log(err);
-					res.status(500).json({ "message" : "Try sign up later" });
+					res.status(500).json({ "error" : "Try sign up later" });
 					return;
 				}
 			});
