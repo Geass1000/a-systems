@@ -108,7 +108,7 @@ class AuthController {
 				user.alias = info.name;
 				user.name = info.name.toLowerCase();
 				user.email = info.email;
-				user.setPassword(info.password);
+				user.setPassword(info.passwords.password);
 
 				user.save()
 					.then((doc) => {
