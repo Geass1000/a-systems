@@ -30,13 +30,12 @@ export class HttpService {
 	handleError (error : Response | any) {
 		let errMsg: string;
 		if (error instanceof Response) {
-			const body = error.json() || '';
-			const err = body.error || JSON.stringify(body);
-			errMsg = `${error.status} -${error.statusText || ''} ${err}`;
+			let body : any = error.json() || '';
+			errMsg = body.error || JSON.stringify(body);
+			this.logger.error(`${this.constructor.name} - handleError:`, `${error.status} - ${error.statusText || ''} ${errMsg}`);
 		} else {
 			errMsg = error.message ? error.message : error.toString();
 		}
-		this.logger.error(`${this.constructor.name} - handleError:`, 'errMsg -', errMsg);
 		return Observable.throw(errMsg);
 	}
 }

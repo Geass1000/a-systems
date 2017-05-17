@@ -1,27 +1,27 @@
-<div class="modal-window modal-login" [class.visible]="modalOpen | async">
+<div class="modal-window modal-login">
 	<i class="fa fa-times icon-close" aria-hidden="true" (click)="closeModal()"></i>
 	<section class="modal-header">
 		<h1>Login</h1>
 		<p>Login into your account here.</p>
 	</section>
 	<section class="modal-body">
-		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-1">
+		<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-1">
 			<div class="form-group"
-				[class.focused]="loginForm.get('name').value">
+				[class.focused]="form.get('login').value">
 				<input type="text" class="form-control" required
-					formControlName="name" name="name" id="name" />
-				<label for="name">Login or e-mail</label>
+					formControlName="login" name="login" id="login" />
+				<label for="login">Name or e-mail</label>
 			</div>
 
 			<div class="form-group"
-				[class.focused]="loginForm.get('password').value">
+				[class.focused]="form.get('password').value">
 				<a class="form-forgotton" (click)="resetPassword()">Forgotton?</a>
 				<input type="password" class="form-control" required
 					formControlName="password" name="password" id="password" />
 				<label for="password">Password</label>
 			</div>
 
-			<button type="submit" [disabled]="!loginForm.valid">Login</button>
+			<button type="submit" [disabled]="!form.valid">Login</button>
 
 			<div *ngIf="formError.serverError" class="form-error">
 				{{formError.serverError}}

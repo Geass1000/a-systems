@@ -74,14 +74,16 @@ userSchema.methods.createToken = function () {
  *
  * @param  {Object} user user info
  */
-userSchema.statics.findUserLogin = function (user) {
-	return this.findOne({ $or: [ { name : user.name }, { email : user.email }, { email : user.name } ] }).exec();
-};
 userSchema.statics.findUserSignup = function (user) {
 	return this.findOne({ $or: [ { name : user.name }, { email : user.email } ] }).exec();
 };
 userSchema.statics.findUserData = function (user) {
 	return this.findOne({ name : user.name }).exec();
+};
+
+userSchema.statics.findUserLogin = function (login) {
+	login = login.toLowerCase();
+	return this.findOne({ $or: [ { name : login }, { email : login } ] }).exec();
 };
 
 module.exports = connection.model('User', userSchema);

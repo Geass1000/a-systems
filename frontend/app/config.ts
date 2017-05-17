@@ -3,6 +3,7 @@ import { IWorkspace } from './shared/lib/workspace.class';
 export class Config {
 	static readonly serverUrl : string = 'http://localhost:3005/';
 	static readonly usersUrl : string = 'api/users/';
+	static readonly authUrl : string = 'api/auth/';
 	static readonly textureFolderUrl : string = 'assets/textures/';
 
 	static readonly scale : number = 100; // Пикслей в метре

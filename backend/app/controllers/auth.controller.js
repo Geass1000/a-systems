@@ -31,29 +31,32 @@ class AuthController {
 	 */
 	login (req, res) {
 		let info = req.body;
-		if (!((info.name || info.email) && info.password)) {
-			res.status(400).json({ "message" : "All fields required" });
+		if (!info.login || !info.password) {
+			res.status(400).json({ "error" : "All fields required" });
 			return;
 		}
-		info.name = info.name.toLowerCase();
-		User.findUserLogin(info)
+		User.findUserLogin(info.login)
 			.then((doc) => {
 				if (!doc) {
-					res.status(400).json({ "message" : "A user with that username or email not exists" });
+					logger.warn('AuthController - login:', '400:Bad Request');
+					res.status(400).json({ "error" : "A user with that username or email not exists" });
 					return;
 				}
 				if (!doc.validPassword(info.password)) {
-					res.status(400).json({ "message" : "The username(email) or password don't match" });
+					logger.warn('AuthController - login:', '400:Bad Request');
+					res.status(400).json({ "error" : "The username(email) or password don't match" });
 					return;
 				}
 
+				logger.info('AuthController - login:', '200:Success');
 				res.status(200).json({
 					"token" : doc.createToken()
 				});
 			})
 			.catch((err) => {
 				if (err) {
-					res.status(500).json({ "message" : "Try sign up later" });
+					logger.error('AuthController - login:', '500:Error');
+					res.status(500).json({ "error" : "Try sign up later" });
 					return;
 				}
 			});

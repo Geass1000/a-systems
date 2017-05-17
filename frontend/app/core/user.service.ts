@@ -1,16 +1,22 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Headers, Response } from '@angular/http';
+import { Headers, Http, Response } from '@angular/http';
 
 import { AuthHttp, tokenNotExpired, JwtHelper } from 'angular2-jwt';
 
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux } from '@angular-redux/store';
 import { UserActions } from '../actions/user.actions';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 import { Config } from '../config';
 
 import { LoggerService } from './logger.service';
 import { HttpService } from '../core/http.service';
+
+import { ILogin, ISignup, IRAuth } from '../shared/interfaces/auth.interface';
 
 @Injectable()
 export class UserService implements OnDestroy {
@@ -20,7 +26,8 @@ export class UserService implements OnDestroy {
 	/* Redux */
 	private subscription : Array<Subscription> = [];
 
-	constructor (private authHttp : AuthHttp,
+	constructor (private http : Http,
+							 private authHttp : AuthHttp,
 							 private ngRedux : NgRedux<any>,
 							 private userActions : UserActions,
 							 private logger : LoggerService,
@@ -86,14 +93,59 @@ export class UserService implements OnDestroy {
 		}
 	}
 
-	getUserId (userId : string) {
-		return this.authHttp.get(Config.serverUrl + Config.usersUrl + userId, { headers : this.headers })
-			.map((resp : Response) => {
+	/**
+	 * getUser - функция-запрос, выполняет получение данных пользователя от сервера.
+	 *
+	 * @kind {function}
+	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
+	 * @return {void}
+	 */
+	getUser (userName : string) : Observable<any> {
+		return this.authHttp.get(Config.serverUrl + Config.usersUrl + userName, { headers : this.headers })
+			.map<Response, any>((resp : Response) => {
 				let jResp = resp.json() || {};
 				this.logger.info(`${this.constructor.name} - getUserId:`, `status = ${resp.status} -`, jResp);
 				return jResp;
 			})
 			.retryWhen((errorObs) => this.httpService.retry(errorObs))
-			.catch((error) => this.httpService.handleError(error));
+			.catch<Response, string>((error) => this.httpService.handleError(error));
+	}
+
+	/**
+	 * postUser - функция-запрос, выполняет добавление пользователя в систему.
+	 *
+	 * @kind {function}
+	 * @param {ISignup} formValue - значение формы
+	 * @return {boolean}
+	 */
+	postUser (formValue : ISignup) : Observable<any> {
+		let body : string = JSON.stringify(formValue);
+
+		return this.http.post(Config.serverUrl + Config.usersUrl, body, { headers : this.headers })
+			.map<Response, IRAuth>((resp : Response) => {
+				let jResp : IRAuth = <IRAuth>resp.json() || {};
+				this.logger.info(`${this.constructor.name} - postLogin:`, `status = ${resp.status} -`, jResp);
+				return jResp;
+			})
+			.catch<Response, string>((error) => this.httpService.handleError(error));
+	}
+
+	/**
+	 * postLogin - функция-запрос, выполняет загрузку jwt-токена от сервера.
+	 *
+	 * @kind {function}
+	 * @param {ILogin} formValue - значение формы
+	 * @return {boolean}
+	 */
+	postLogin (formValue : ILogin) : Observable<any> {
+		let body : string = JSON.stringify(formValue);
+
+		return this.http.post(Config.serverUrl + Config.authUrl, body, { headers : this.headers })
+			.map<Response, IRAuth>((resp : Response) => {
+				let jResp : IRAuth = <IRAuth>resp.json() || {};
+				this.logger.info(`${this.constructor.name} - postLogin:`, `status = ${resp.status} -`, jResp);
+				return jResp;
+			})
+			.catch<Response, string>((error) => this.httpService.handleError(error));
 	}
 }

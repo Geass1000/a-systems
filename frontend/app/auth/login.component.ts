@@ -2,15 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs/Subscription';
-import { NgRedux, select } from '@angular-redux/store';
+import { NgRedux } from '@angular-redux/store';
+import { ModalActions } from '../actions/modal.actions';
 
-import { AuthService } from './auth.service';
 import { UserService } from '../core/user.service';
 import { LoggerService } from '../core/logger.service';
 
-import { UserLogin } from './user';
-
-import { ModalActions } from '../actions/modal.actions';
+import { ILogin, IRAuth } from '../shared/interfaces/auth.interface';
 
 @Component({
 	moduleId: module.id,
@@ -19,9 +17,7 @@ import { ModalActions } from '../actions/modal.actions';
   styleUrls: [ 'auth.component.css' ]
 })
 export class LoginComponent implements OnInit, OnDestroy {
-	@select(['modal', 'login']) modalOpen : any;
-
-	loginForm : FormGroup;
+	form : FormGroup;
 
 	formError = {
 		'serverError' : ''
@@ -31,15 +27,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 	private subscription : Array<Subscription> = [];
 
 	constructor (private fb : FormBuilder,
-							 private authService : AuthService,
 						 	 private ngRedux : NgRedux<any>,
 						 	 private modalActions : ModalActions,
-						 	 private userService : UserService,
-						 	 private logger : LoggerService) { ; }
+						 	 private logger : LoggerService,
+						 	 private userService : UserService) { ; }
 
 	ngOnInit () : void {
-		this.loginForm = this.fb.group({
-      'name' : ['', Validators.required],
+		this.form = this.fb.group({
+      'login' : ['', Validators.required],
 			'password' : ['', Validators.required]
     });
   }
@@ -47,37 +42,67 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
-	resetFormError () {
-		for (const key in this.formError) {
-			if (this.formError.hasOwnProperty(key)) {
-				this.formError[key] = ' ';
-			}
-		}
+	/**
+	 * buildForm - функция, выполняющая создание формы и/или регистрацию на событие
+	 * изменения данных.
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
+	buildForm () : void {
+		this.form = this.fb.group({
+      'login' : [ '', [ Validators.required ] ],
+			'password' : [ '', [ Validators.required ] ]
+    });
 	}
 
-	onSubmit () {
-		const form = this.loginForm.value;
-		let user : UserLogin = new UserLogin(form['name'], form['password']);
-		this.subscription.push(
-			this.authService.login(user).subscribe(
-				(data) => {
-					this.userService.login(data.token);
-					this.closeModal();
-				},
-				(error) => {
-					this.formError.serverError = error;
-				}
-			)
-		);
-	}
-
-	closeModal () {
+	/**
+	 * closeModal - функция, выполняющеая закрытие модального окна.
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
+	closeModal () : void {
 		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 	}
-	signup () {
+
+	/**
+	 * signup - функция, выполняющеая открытие модального окна "Signup".
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
+	signup () : void {
 		this.ngRedux.dispatch(this.modalActions.openModal('signup'));
 	}
-	resetPassword () {
+
+	/**
+	 * resetPassword - функция, выполняющеая открытие модального окна "ResetPassword".
+	 *
+	 * @kind {function}
+	 * @return {void}
+	 */
+	resetPassword () : void {
 		this.ngRedux.dispatch(this.modalActions.openModal('reset'));
+	}
+
+	/**
+	 * onSubmit - событие, выполняющее вход пользователя в систему.
+	 *
+	 * @kind {event}
+	 * @return {void}
+	 */
+	onSubmit () : void {
+		let result : ILogin = <ILogin>Object.assign({}, this.form.value);
+		let sub : Subscription = this.userService.postLogin(result).subscribe(
+			(data : IRAuth) => {
+				this.userService.login(data.token);
+				this.closeModal();
+			},
+			(error : string) => {
+				this.formError.serverError = error;
+			}
+		);
+		this.subscription.push(sub);
 	}
 }

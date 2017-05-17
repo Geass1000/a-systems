@@ -80,7 +80,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 			}
 			return ;
 		}
-		this.userService.getUserId(this.activeName).subscribe((data : any) => {
+		this.userService.getUser(this.activeName).subscribe((data : any) => {
 			this.logger.info(`${this.constructor.name} - prepareUserData:`, 'data -', data);
 		});
 	}
