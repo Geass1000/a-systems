@@ -58,43 +58,6 @@ class EditorController {
 	}
 
 	/**
- 	 * Получение текстуры из БД 'textures'.
- 	 *
- 	 * @param {express.Request} req
- 	 * @param {express.Response} res
- 	 *
- 	 * @class EditorController
- 	 * @method addTexture
- 	 */
-	addTexture (req, res) {
-		let info = req.body;
-		if(!(info.type && info.size && info.names && info.url)) {
-			res.status(400).json({ "message" : "All fields required" });
-			return;
-		}
-
-		let texture = new Texture ({
-			type : info.type,
-			url : info.url,
-			size : info.size,
-			names : info.names
-		});
-		texture.save()
-			.then((doc) => {
-				res.status(201).json({
-					"texture" : JSON.stringify(doc)
-				});
-			})
-			.catch((err) => {
-				if (err) {
-					logger.error(err);
-					res.status(500).json({ "message" : "Try later" });
-					return;
-				}
-			});
-	}
-
-	/**
  	 * Получение всех текстур из БД 'textures'.
  	 *
  	 * @param {express.Request} req

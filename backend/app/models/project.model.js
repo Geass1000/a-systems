@@ -7,11 +7,13 @@ let connection = require('../config/mongodb.database');
 
 let surfaceSchema = require('./editor/surface.model').schema;
 let thingSchema = require('./editor/thing.model').schema;
+let workspaceSchema = require('./editor/workspace.model').schema;
 
 let projectSchema = new Schema({
 	_uid : 			{ type : String, require : true },
-	surfaces : 	{ type : [surfaceSchema], require : true },
-	things : 		{ type : [thingSchema], require : true }
+	workspace :	{ type : workspaceSchema, require : true },
+	surfaces : 	{ type : [surfaceSchema] },
+	things : 		{ type : [thingSchema] }
 });
 
 /**
