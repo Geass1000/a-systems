@@ -14,7 +14,7 @@ let jwtCheck = jwt({
 });
 
 router.route('/auth')
-			.post(AuthController.login);
+			.post(AuthController.login.bind(AuthController));
 
 router.route('/users')
 			.post(AuthController.addUser.bind(AuthController));

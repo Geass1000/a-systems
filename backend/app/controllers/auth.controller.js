@@ -31,26 +31,17 @@ class AuthController {
 	 */
 	login (req, res) {
 		let info = req.body;
-		let error = '';
+		let methodName = 'login';
 		if (!info.login || !info.password) {
-			error = 'All fields required';
-			logger.warn('AuthController - login:', '400:Bad Request', error);
-			res.status(400).json({ 'error' : error });
-			return;
+			return this.sendErrorResponse(res, 400, methodName, 'All fields required');
 		}
 		User.findUserLogin(info.login)
 			.then((doc) => {
 				if (!doc) {
-					error = 'A user with that username or email not exists';
-					logger.warn('AuthController - login:', '400:Bad Request', error);
-					res.status(400).json({ 'error' : error });
-					return;
+					return this.sendErrorResponse(res, 400, methodName, 'A user with that username or email not exist');
 				}
 				if (!doc.validPassword(info.password)) {
-					error = 'The username(email) or password don\'t match';
-					logger.warn('AuthController - login:', '400:Bad Request', error);
-					res.status(400).json({ 'error' : error });
-					return;
+					return this.sendErrorResponse(res, 400, methodName, 'The username(email) or password don\'t match');
 				}
 
 				logger.info('AuthController - login:', '200:Success');
@@ -60,10 +51,7 @@ class AuthController {
 			})
 			.catch((err) => {
 				if (err) {
-					error = 'Try sign in later';
-					logger.error('AuthController - login:', '500:Error', error);
-					res.status(500).json({ 'error' : error });
-					return;
+					return this.sendErrorResponse(res, 500, methodName, 'Try sign in later');
 				}
 			});
 	}
@@ -79,58 +67,39 @@ class AuthController {
  	 */
 	addUser (req, res) {
 		let info = req.body;
-		let error = '';
+		let methodName = 'addUser';
 		if (!info.name || !info.email ||
 				!(info.passwords && info.passwords.password)) {
-			error = 'All fields required';
-			logger.warn('AuthController - login:', '400:', error);
-			res.status(400).json({ 'error' : error });
-			return;
+			return this.sendErrorResponse(res, 400, methodName, 'All fields required');
 		}
 		if (!UserValidator.isLogin(info.name) ||
 				!UserValidator.isEmail(info.email) ||
 				!UserValidator.isPassword(info.passwords.password)) {
-			error = 'All fields must be correct';
-			logger.warn('AuthController - login:', '400:', error);
-			res.status(400).json({ 'error' : error });
-			return;
+			return this.sendErrorResponse(res, 400, methodName, 'All fields must be correct');
 		}
 		User.findUserSignup(info)
 			.then((doc) => {
 				if (doc) {
-					error = 'A user with that username or email already exist';
-					logger.warn('AuthController - login:', '400:', error);
-					res.status(400).json({ 'error' : error });
-					return;
+					return this.sendErrorResponse(res, 400, methodName, 'A user with that username or email already exist');
 				}
 
 				let user = new User();
 				user.alias = info.name;
-				user.name = info.name.toLowerCase();
+				user.name = info.name;
 				user.email = info.email;
 				user.setPassword(info.passwords.password);
 
-				user.save()
-					.then((doc) => {
-						res.status(201).json({
-							"token" : user.createToken()
-						});
-					})
-					.catch((err) => {
-						if (err) {
-							error = 'Try sign up later';
-							logger.warn('AuthController - login:', '500:', error);
-							res.status(500).json({ 'error' : error });
-							return;
-						}
-					});
+				return user.save();
+			})
+			.then((user) => {
+				res.status(201).json({
+					"token" : user.createToken()
+				});
 			})
 			.catch((err) => {
 				if (err) {
-					error = 'Try sign up later';
-					logger.warn('AuthController - login:', '500:', error);
-					res.status(500).json({ 'error' : error });
-					return;
+					logger.warn(err);
+					return this.sendErrorResponse(res, 500, methodName, 'Try sign up later');
 				}
 			});
 	}
@@ -204,6 +173,11 @@ class AuthController {
 	getUser (req, res) {
 		logger.info('AuthController: getUser', JSON.stringify(req.user));
 		res.status(200).json({ "message" : "Try" });
+	}
+
+	sendErrorResponse (resp, code, method, message) {
+		logger.warn(`AuthController - ${method}:`, `Status - ${code} -`, message);
+		return resp.status(code).json({ 'error' : message });
 	}
 }
 

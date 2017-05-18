@@ -4,6 +4,7 @@ let express = require('express');
 let router = express.Router();
 
 let EditorController = require('../controllers/editor.controller');
+let ProjectController = require('../controllers/project.controller');
 //... other controllers
 
 let config = require('../config/app.config');
@@ -23,6 +24,9 @@ router.route('/item')
 			.get(EditorController.getAllItems);
 router.route('/item/category')
 			.get(EditorController.getAllItemCategories);
+
+router.route('/project/:id')
+			.get(ProjectController.getProject);
 //... other paths
 
 router.use('/editor', router);

@@ -71,7 +71,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 				return;
 			}
 			this.texture = <MaterialTexture>this.material.data;
-			this.activeTextureId = this.texture.id;
+			this.activeTextureId = this.texture.iid;
 			let texture : ITexture = this.texturesData.get(this.activeTextureId);
 			if (texture) {
 				this.activeTextureCategoryId = texture._cid;
@@ -135,10 +135,10 @@ export class TextureComponent implements OnInit, OnDestroy {
 		}
 		this.logger.info(`${this.constructor.name} - onChangeValue: Use`);
 		let result : MaterialTexture = new MaterialTexture({
-			id : this.activeTextureId,
+			iid : this.activeTextureId,
 			url : this.texturesData.get(this.activeTextureId).url,
-			defWidth : this.texturesData.get(this.activeTextureId).width,
-			defHeight : this.texturesData.get(this.activeTextureId).height,
+			width : this.texturesData.get(this.activeTextureId).width,
+			height : this.texturesData.get(this.activeTextureId).height,
 			scale : +this.getFormField('scale'),
 			angle : +this.getFormField('angle')
 		});

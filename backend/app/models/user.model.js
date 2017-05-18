@@ -15,11 +15,14 @@ let userSchema = new Schema({
 		type : String,
 		require : true,
 		unique : true,
+		lowercase : true,
+		trim : true,
 		validate : UserValidator.isLogin
 	},
 	alias : {
 		type : String,
 		require : true,
+		trim : true,
 		validate : UserValidator.isLogin
 	},
 	hash : { type : String },
@@ -75,7 +78,8 @@ userSchema.methods.createToken = function () {
  * @param  {Object} user user info
  */
 userSchema.statics.findUserSignup = function (user) {
-	return this.findOne({ $or: [ { name : user.name }, { email : user.email } ] }).exec();
+	let name = user.name.toLowerCase();
+	return this.findOne({ $or: [ { name : name }, { email : user.email } ] }).exec();
 };
 userSchema.statics.findUserData = function (user) {
 	return this.findOne({ name : user.name }).exec();

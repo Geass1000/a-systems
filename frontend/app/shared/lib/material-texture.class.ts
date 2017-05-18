@@ -1,9 +1,9 @@
 
 export interface IMaterialTexture {
-	id : string;
+	iid : string;
 	url : string;
-	defWidth : number;
-	defHeight : number;
+	width : number;
+	height : number;
 	scale : number;
 	angle : number;
 }
@@ -21,14 +21,14 @@ export class MaterialTexture implements IMaterialTexture {
 
 	constructor (texture ?: IMaterialTexture) {
 		if (texture) {
-			this.id = texture.id;
+			this.iid = texture.iid;
 			this.url = texture.url;
-			this.defWidth = texture.defWidth;
-			this.defHeight = texture.defHeight;
+			this.defWidth = texture.width;
+			this.defHeight = texture.height;
 			this.scale = texture.scale;
 			this.angle = texture.angle;
 		} else {
-			this.id = '';
+			this.iid = '';
 			this.url = '';
 			this.defWidth = 0;
 			this.defHeight = 0;
@@ -37,10 +37,10 @@ export class MaterialTexture implements IMaterialTexture {
 		}
 	}
 
-	set id (data : string) {
+	set iid (data : string) {
 		this._id = data;
 	}
-	get id () : string {
+	get iid () : string {
 		return this._id;
 	}
 

@@ -101,7 +101,7 @@ export class Material implements IMaterial {
 		switch (this.type) {
 			case 'color' : return this.color.toString();
 			case 'texture' : {
-				if (!this.texture.id) {
+				if (!this.texture.iid) {
 					return '#fff';
 				}
 				return restOfId.length ? `url(${location.href}#${restOfId.join('-')})` : 'none';
