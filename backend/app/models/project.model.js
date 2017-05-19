@@ -19,7 +19,7 @@ let projectSchema = new Schema({
 });
 
 /**
- * getAllProjects - функция-статическая, возвращает список всех существующих проектов
+ * getProjects - функция-статическая, возвращает список всех существующих проектов
  * или список проектов пользователя (если указан uid).
  *
  * @kind {function}
@@ -28,9 +28,9 @@ let projectSchema = new Schema({
  * @param {number} uid - идентификатор пользователя
  * @return {Promise}
  */
-projectSchema.statics.getAllProjects = function (uid) {
+projectSchema.statics.getProjects = function (uid) {
 	let sel = '_id';
-	return id ? this.find({ _uid : { $in : uid } }).select(sel).exec() :
+	return uid ? this.find({ _uid : { $in : uid } }).select(sel).exec() :
 							this.find().select(sel).exec();
 };
 
@@ -45,8 +45,7 @@ projectSchema.statics.getAllProjects = function (uid) {
  * @return {Promise}
  */
 projectSchema.statics.getProject = function (id) {
-	return id ? this.find({ _uid : { $in : uid } }).exec() :
-							new Promise((resolve, reject) => resolve(null));
+	return id ? this.findById(id).exec() : new Promise((resolve, reject) => resolve(null));
 };
 
 module.exports = connection.model('Project', projectSchema);
