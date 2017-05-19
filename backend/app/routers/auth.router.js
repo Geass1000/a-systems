@@ -19,7 +19,7 @@ router.route('/auth')
 router.route('/users')
 			.post(AuthController.addUser.bind(AuthController));
 router.route('/users/:name')
-			.get(jwtCheck, AuthController.getUser);
+			.get(jwtCheck, AuthController.getUser.bind(AuthController));
 
 //... other paths
 

@@ -67,7 +67,7 @@ userSchema.methods.validPassword = function (password) {
 userSchema.methods.createToken = function () {
 	let expires = 604800; // 60s * 60m * 24h * 7d = 604800s (7 days)
 	return jwt.sign({
-		id : this._id,
+		_id : this._id,
 		name : this.alias
 	}, config.secret, { expiresIn : expires });
 };
@@ -88,6 +88,17 @@ userSchema.statics.findUserData = function (user) {
 userSchema.statics.findUserLogin = function (login) {
 	login = login.toLowerCase();
 	return this.findOne({ $or: [ { name : login }, { email : login } ] }).exec();
+};
+
+/**
+ * Получить все текстуры из БД "textures"
+ *
+ * @param  {Object} user user info
+ */
+userSchema.statics.getUser = function (name) {
+	let sel = '_id alias email created_at';
+	return name ? this.findOne({ name : name }).select(sel).exec() :
+								new Promise((resolve, reject) => resolve());
 };
 
 module.exports = connection.model('User', userSchema);

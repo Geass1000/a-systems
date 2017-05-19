@@ -64,20 +64,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
 	prepareUserData () : void {
 		let arrSubscription : Array<boolean> = Array.from(this.mapSubscription.values());
-		let confirmSubscription : boolean = arrSubscription.every((data : boolean) => {
-			return data;
-		});
-		if (!confirmSubscription) {
+		if (!arrSubscription.every( (data : boolean) => data )) {
+			return ;
+		}
+		if (!this.userService.loggedIn()) {
+			this.logger.warn(`${this.constructor.name} - prepareUserData:`, 'Access is denide! Renavigate...');
+			this.router.navigateByUrl('/');
 			return ;
 		}
 		if (!this.activeName) {
-			if (this.userService.loggedIn()) {
-				this.router.navigate(['profile', this.userName.toLowerCase()]);
-				this.logger.info(`${this.constructor.name} - prepareUserData:`, 'Access is granted! Renavigate...');
-			} else {
-				this.router.navigateByUrl('/');
-				this.logger.warn(`${this.constructor.name} - prepareUserData:`, 'Access is denide! Renavigate...');
-			}
+			this.logger.info(`${this.constructor.name} - prepareUserData:`, 'Access is granted! Renavigate...');
+			this.router.navigate(['profile', this.userName.toLowerCase()]);
 			return ;
 		}
 		this.userService.getUser(this.activeName).subscribe((data : any) => {

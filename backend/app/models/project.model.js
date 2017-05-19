@@ -29,8 +29,8 @@ let projectSchema = new Schema({
  * @return {Promise}
  */
 projectSchema.statics.getProjects = function (uid) {
-	let sel = '_id';
-	return uid ? this.find({ _uid : { $in : uid } }).select(sel).exec() :
+	let sel = '_id name';
+	return uid ? this.find({ _uid : uid }).select(sel).exec() :
 							this.find().select(sel).exec();
 };
 

@@ -59,7 +59,7 @@ export class UserService implements OnDestroy {
 		try {
 			let decodeToken = this.jwtHelper.decodeToken(token);
 			this.logger.info(`${this.constructor.name} - login:`, 'decodeToken -', decodeToken);
-			this.ngRedux.dispatch(this.userActions.setUserId(decodeToken.id));
+			this.ngRedux.dispatch(this.userActions.setUserId(decodeToken._id));
 			this.ngRedux.dispatch(this.userActions.setUserName(decodeToken.name));
 		} catch (error) {
 			this.logger.warn(`${this.constructor.name} - login:`, 'Token isn\'t exist');
@@ -118,8 +118,8 @@ export class UserService implements OnDestroy {
 	 * @param {ISignup} formValue - значение формы
 	 * @return {boolean}
 	 */
-	postUser (formValue : ISignup) : Observable<any> {
-		let body : string = JSON.stringify(formValue);
+	postUser (value : ISignup) : Observable<any> {
+		let body : string = JSON.stringify(value);
 
 		return this.http.post(Config.serverUrl + Config.usersUrl, body, { headers : this.headers })
 			.map<Response, IRAuth>((resp : Response) => {

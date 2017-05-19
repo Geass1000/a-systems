@@ -101,18 +101,19 @@ class ProjectController {
 		let methodName = 'postProject';
 
 		let body = req.body;
-		logger.info(`AuthController - ${method}:`, 'body -', body.toString());
 		let user = req.user;
-		logger.info(`AuthController - ${method}:`, 'user -', user.toString());
 
 		if (body._id) {
 			if (body._uid === user._id) {
+				logger.info('AuthController - ${methodName}:', 'No create');
 				this.sendErrorResponse(res, 400, methodName, 'The project is already exist');
 			} else {
+				logger.info('AuthController - ${methodName}:', 'Recreate');
 				delete body._id;
 				body._uid = user._id;
 			}
 		} else {
+			logger.info('AuthController - ${methodName}:', 'Create');
 			body._uid = user._id;
 		}
 
@@ -127,14 +128,13 @@ class ProjectController {
 			})
 			.catch((err) => {
 				if (err) {
-					logger.warn(err.message);
 					this.sendErrorResponse(res, 400, methodName, err.message);
 				}
 			});
 	}
 
 	sendErrorResponse (resp, code, method, message) {
-		logger.warn(`AuthController - ${method}:`, `Status - ${code} -`, message);
+		logger.error(`AuthController - ${method}:`, `Status - ${code} -`, message);
 		return resp.status(code).json({ 'error' : message });
 	}
 }

@@ -5,6 +5,8 @@ let logger = require('../config/logger.config');
 let User = require('../models/user.model');
 let UserValidator = require('../validators/user.validator');
 
+let Project = require('../models/project.model');
+
 /**
  * The sign up controller.
  *
@@ -105,62 +107,6 @@ class AuthController {
 	}
 
 	/**
- 	 * Add user in the database 'users'.
- 	 *
- 	 * @param {express.Request} req
- 	 * @param {express.Response} res
- 	 *
- 	 * @class AuthController
- 	 * @method addUser
- 	 */
-	addUser2 (req, res) {
-		let info = req.body;
-		if (!(info.name && info.email && info.password)) {
-			res.status(400).json({ "error" : "All fields required" });
-			return;
-		}
-		if (!UserValidator.isLogin(info.name) ||
-				!UserValidator.isEmail(info.email) ||
-				!UserValidator.isPassword(info.password)) {
-			res.status(400).json({ "error" : "All fields must be correct"	});
-			return;
-		}
-		User.findUserSignup(info)
-			.then((doc) => {
-				if (doc) {
-					res.status(400).json({ "error" : "A user with that username or email already exists" });
-					return;
-				}
-
-				let user = new User();
-				user.alias = info.name;
-				user.name = info.name.toLowerCase();
-				user.email = info.email;
-				user.setPassword(info.password);
-				user.save()
-					.then((doc) => {
-						res.status(201).json({
-							"token" : user.createToken()
-						});
-					})
-					.catch((err) => {
-						if (err) {
-							console.log(err);
-							res.status(500).json({ "error" : "Try sign up later" });
-							return;
-						}
-					});
-			})
-			.catch((err) => {
-				if (err) {
-					console.log(err);
-					res.status(500).json({ "error" : "Try sign up later" });
-					return;
-				}
-			});
-	}
-
-	/**
  	 * Get user from the collection 'users'.
 	 * Get param :id
  	 *
@@ -171,8 +117,35 @@ class AuthController {
  	 * @method getUser
  	 */
 	getUser (req, res) {
-		logger.info('AuthController: getUser', JSON.stringify(req.user));
-		res.status(200).json({ "message" : "Try" });
+		let methodName = 'getUser';
+
+		let name = req.params.name.toString().trim().toLowerCase();
+		let result = {};
+
+		logger.info(`AuthController - ${methodName}:`, `name -`, name);
+
+		User.getUser(name)
+			.then((data) => {
+				if (data) {
+					logger.info(`AuthController - ${methodName}:`, `info -`, data.toString());
+				} else {
+					throw new Error('The user isn\'t exist!');
+				}
+				result.info = data;
+				return Project.getProjects(result.info._id);
+			})
+			.then((data) => {
+				if (data) {
+					logger.info(`AuthController - ${methodName}:`, `projects -`, data.toString());
+				}
+				result.projects = data;
+				res.status(200).json({ user : result });
+			})
+			.catch((err) => {
+				if (err && err.message) {
+					this.sendErrorResponse(res, 400, methodName, err.message);
+				}
+			});
 	}
 
 	sendErrorResponse (resp, code, method, message) {
