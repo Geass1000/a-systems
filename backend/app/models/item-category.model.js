@@ -13,12 +13,12 @@ let connection = require('../config/mongodb.database');
 let itemCategorySchema = new Schema({
 	_pid : {
 		type : String,
-		require : true
+		required : true
 	},
 	name : {
 		type : String,
 		unique : true,
-		require : true
+		required : true
 	}
 });
 

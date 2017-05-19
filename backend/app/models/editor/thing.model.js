@@ -6,13 +6,13 @@ let Schema = mongoose.Schema;
 let connection = require('../../config/mongodb.database');
 
 let thingSchema = new Schema({
-	id : 			{ type : Number, require : true },
-	x : 			{ type : Number, require : true },
-	y : 			{ type : Number, require : true },
-	width : 	{ type : Number, require : true },
-	height : 	{ type : Number, require : true },
-	angle : 	{ type : Number, require : true },
-	url : 		{ type : String, require : true }
+	id : 			{ type : Number, required : true },
+	x : 			{ type : Number, required : true },
+	y : 			{ type : Number, required : true },
+	width : 	{ type : Number, required : true },
+	height : 	{ type : Number, required : true },
+	angle : 	{ type : Number, required : true },
+	url : 		{ type : String, required : true }
 }, { _id : false });
 
 module.exports = {

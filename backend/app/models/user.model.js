@@ -13,7 +13,7 @@ let UserValidator = require('../validators/user.validator');
 let userSchema = new Schema({
 	name : {
 		type : String,
-		require : true,
+		required : true,
 		unique : true,
 		lowercase : true,
 		trim : true,
@@ -21,7 +21,7 @@ let userSchema = new Schema({
 	},
 	alias : {
 		type : String,
-		require : true,
+		required : true,
 		trim : true,
 		validate : UserValidator.isLogin
 	},
@@ -29,7 +29,7 @@ let userSchema = new Schema({
 	salt : { type : String },
 	email : {
 		type : String,
-		require : true,
+		required : true,
 		unique : true,
 		validate : UserValidator.isEmail
 	},

@@ -15,19 +15,19 @@ let connection = require('../config/mongodb.database');
 let textureSchema = new Schema({
 	_cid : {
 		type : String,
-		require : true
+		required : true
 	},
 	url : {
 		type : String,
-		require : true
+		required : true
 	},
 	width : {
 		type : Number,
-		require : true,
+		required : true,
 	},
 	height : {
 		type : Number,
-		require : true,
+		required : true,
 	}
 });
 

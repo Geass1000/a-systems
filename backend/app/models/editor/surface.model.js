@@ -9,12 +9,12 @@ let materialSchema = require('./material.model').schema;
 let pointSchema = require('./point.model').schema;
 
 let surfaceSchema = new Schema({
-	id : 			{ type : Number, require : true },
-	x : 			{ type : Number, require : true },
-	y : 			{ type : Number, require : true },
-	stroke : 	{ type : materialSchema, require : true },
-	fill : 		{ type : materialSchema, require : true },
-	points : 	{ type : [pointSchema], require : true }
+	id : 			{ type : Number, required : true },
+	x : 			{ type : Number, required : true },
+	y : 			{ type : Number, required : true },
+	stroke : 	{ type : materialSchema, required : true },
+	fill : 		{ type : materialSchema, required : true },
+	points : 	{ type : [pointSchema], required : true }
 }, { _id : false });
 
 module.exports = {

@@ -6,8 +6,8 @@ let Schema = mongoose.Schema;
 let connection = require('../../config/mongodb.database');
 
 let pointSchema = new Schema({
-	x : { type : Number, require : true },
-	y : { type : Number, require : true }
+	x : { type : Number, required : true },
+	y : { type : Number, required : true }
 }, { _id : false });
 
 module.exports = {

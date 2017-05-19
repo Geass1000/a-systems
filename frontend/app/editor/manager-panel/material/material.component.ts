@@ -7,6 +7,7 @@ import { EditorActions } from '../../../actions/editor.actions';
 
 import { LoggerService } from '../../../core/logger.service';
 import { Material } from '../../../shared/lib/material.class';
+import { MaterialColor } from '../../../shared/lib/material-color.class';
 
 import { IElement } from '../../../shared/interfaces/editor.interface';
 
@@ -34,12 +35,13 @@ export class MaterialComponent implements OnInit, OnDestroy {
 	}
 	ngOnInit () {
 		this.subscription.push(this.material$.subscribe((data) => {
-			this.material = data;
-			if (this.material) {
-				this.activeMaterialCategory = this.material.type;
-				if (this.material.type === 'color') {
-					this.activeColorCategory = 'rgba';
-				}
+			if (!data) {
+				return ;
+			}
+			this.material = new Material(data);
+			this.activeMaterialCategory = this.material.type;
+			if (this.material.type === 'color') {
+				this.activeColorCategory = (<MaterialColor>this.material.data).type;
 			}
 			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - material -', this.material);
 		}));
@@ -70,6 +72,7 @@ export class MaterialComponent implements OnInit, OnDestroy {
 			return;
 		}
 		this.material.type = this.activeMaterialCategory;
+		this.ngRedux.dispatch(this.editorActions.updateMaterial(this.material));
 		this.logger.info(`${this.constructor.name} - onChangeMaterialCategory:`, this.activeMaterialCategory);
 	}
 

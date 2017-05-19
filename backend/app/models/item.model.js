@@ -18,19 +18,19 @@ let connection = require('../config/mongodb.database');
 let itemSchema = new Schema({
 	_cid : {
 		type : String,
-		require : true
+		required : true
 	},
 	type : {
 		type : String,
-		require : true
+		required : true
 	},
 	preview : {
 		type : String,
-		require : true
+		required : true
 	},
 	payload : {
 		type : Schema.Types.Mixed,
-		require : true
+		required : true
 	}
 });
 

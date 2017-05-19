@@ -5,8 +5,6 @@ import { IElement, ITexture, ITextureCategory, IItem, IItemCategory } from '../s
 import { Surface } from '../shared/lib/surface.class';
 import { Thing } from '../shared/lib/thing.class';
 import { Material } from '../shared/lib/material.class';
-import { MaterialColor } from '../shared/lib/material-color.class';
-import { MaterialTexture } from '../shared/lib/material-texture.class';
 import { IWorkspace } from '../shared/lib/workspace.class';
 
 @Injectable()
@@ -141,7 +139,7 @@ export class EditorActions {
 			}
     };
   }
-	updateMaterial (material : MaterialColor | MaterialTexture) : IAction {
+	updateMaterial (material : Material) : IAction {
     return {
       type : EditorActions.UPDATE_MATERIAL,
 			payload : {
@@ -149,6 +147,7 @@ export class EditorActions {
 			}
     };
   }
+
 	/* Texture Action*/
 	addTexture (texture : ITexture) : IAction {
 		return {

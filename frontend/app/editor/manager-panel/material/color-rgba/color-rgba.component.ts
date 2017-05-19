@@ -41,11 +41,11 @@ export class ColorRgbaComponent implements OnInit, OnDestroy {
 	ngOnInit () {
 		this.buildForm();
 		this.subscription.push(this.material$.subscribe((data) => {
-			this.material = data;
-			if (!this.material) {
+			if (!data) {
 				return;
 			}
-			this.color = <MaterialColor>this.material.data;
+			this.material = data;
+			this.color = new MaterialColor(<MaterialColor>this.material.data);
 			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - material -', this.material);
 			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux - color -', this.color);
 			this.editorForm.setModel(this.setModel.bind(this));
@@ -118,9 +118,13 @@ export class ColorRgbaComponent implements OnInit, OnDestroy {
 			type : 'rgba',
 			data : color
 		});
+		let material : Material = new Material({
+			type : 'color',
+			data : result
+		});
 		this.color = result;
 		this.logger.info(`${this.constructor.name} - onChangeValue: result -`, result);
-		this.ngRedux.dispatch(this.editorActions.updateMaterial(result));
+		this.ngRedux.dispatch(this.editorActions.updateMaterial(material));
 	}
 
 	/**

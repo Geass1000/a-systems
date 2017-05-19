@@ -66,10 +66,10 @@ export class TextureComponent implements OnInit, OnDestroy {
 			}
 		}));
 		this.subscription.push(this.material$.subscribe((data) => {
-			this.material = data;
-			if (!this.material) {
+			if (!data) {
 				return;
 			}
+			this.material = data;
 			this.texture = <MaterialTexture>this.material.data;
 			this.activeTextureId = this.texture.iid;
 			let texture : ITexture = this.texturesData.get(this.activeTextureId);
@@ -142,9 +142,13 @@ export class TextureComponent implements OnInit, OnDestroy {
 			scale : +this.getFormField('scale'),
 			angle : +this.getFormField('angle')
 		});
+		let material : Material = new Material({
+			type : 'texture',
+			data : result
+		});
 		this.texture = result;
 		this.logger.info(`${this.constructor.name} - onChangeValue: result -`, result);
-		this.ngRedux.dispatch(this.editorActions.updateMaterial(result));
+		this.ngRedux.dispatch(this.editorActions.updateMaterial(material));
 	}
 
 	/**

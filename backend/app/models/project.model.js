@@ -8,21 +8,45 @@ let connection = require('../config/mongodb.database');
 let surfaceSchema = require('./editor/surface.model').schema;
 let thingSchema = require('./editor/thing.model').schema;
 let workspaceSchema = require('./editor/workspace.model').schema;
+let Workspace = require('./editor/workspace.model').model;
 
 let projectSchema = new Schema({
-	_uid : 			{ type : String, require : true },
-	workspace :	{ type : workspaceSchema, require : true },
+	_uid : 			{ type : String, required : true },
+	name : 			{ type : String, required : true },
+	workspace :	{ type : workspaceSchema, required : true },
 	surfaces : 	{ type : [surfaceSchema] },
 	things : 		{ type : [thingSchema] }
 });
 
 /**
- * Получить все элементы из БД "Items"
+ * getAllProjects - функция-статическая, возвращает список всех существующих проектов
+ * или список проектов пользователя (если указан uid).
  *
- * @param  {none}
+ * @kind {function}
+ * @static
+ *
+ * @param {number} uid - идентификатор пользователя
+ * @return {Promise}
  */
-projectSchema.statics.getAllItems = function () {
-	return this.find().exec();
+projectSchema.statics.getAllProjects = function (uid) {
+	let sel = '_id';
+	return id ? this.find({ _uid : { $in : uid } }).select(sel).exec() :
+							this.find().select(sel).exec();
+};
+
+/**
+ * getProject - функция-статическая, возвращает данные проекта с идентификатором "id".
+ * Если "id" не указан, возвращается Promise с результатом null.
+ *
+ * @kind {function}
+ * @static
+ *
+ * @param {number} id - идентификатор проекта
+ * @return {Promise}
+ */
+projectSchema.statics.getProject = function (id) {
+	return id ? this.find({ _uid : { $in : uid } }).exec() :
+							new Promise((resolve, reject) => resolve(null));
 };
 
 module.exports = connection.model('Project', projectSchema);
