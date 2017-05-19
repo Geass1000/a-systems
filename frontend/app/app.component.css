@@ -79,6 +79,8 @@ header::before {
       font-size: 15px;
       font-weight: bold;
       text-decoration: none; }
+      .navigation-section nav a:last-child {
+        margin-right: 0; }
       .navigation-section nav a:hover, .navigation-section nav a:focus, .navigation-section nav a.active {
         color: #1e83ec; }
       .navigation-section nav a span {

@@ -74,6 +74,10 @@ header::before {
 			font-weight: bold;
 			text-decoration: none;
 
+			&:last-child {
+				margin-right: 0;
+			}
+
 			&:hover, &:focus, &.active {
 				color: $color-text-1;
 			}
