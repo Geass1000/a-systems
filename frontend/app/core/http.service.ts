@@ -27,7 +27,7 @@ export class HttpService {
 			return errorCount + 1;
 		}, 0);
 	}
-	handleError (error : Response | any) {
+	handleError (error : Response | any) : Observable<string> {
 		let errMsg: string;
 		if (error instanceof Response) {
 			let body : any = error.json() || '';

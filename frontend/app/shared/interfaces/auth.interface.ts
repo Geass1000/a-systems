@@ -20,3 +20,14 @@ export interface IReset {
 export interface IRAuth {
 	token ?: string;
 }
+
+/* User Service */
+export interface IUser {
+	_id : string;
+	nickname : string;
+	email : string;
+	created_at : string;
+}
+export interface IRUser {
+	user : IUser;
+}

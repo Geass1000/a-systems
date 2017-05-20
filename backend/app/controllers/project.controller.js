@@ -81,7 +81,7 @@ class ProjectController {
 
 				logger.info(`ProjectController - ${methodName}:`, '200:Success');
 				res.status(200).json({
-				 	project : doc
+				 	projects : doc
 				});
 			})
 			.catch((err) => {

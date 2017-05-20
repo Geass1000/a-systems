@@ -16,7 +16,7 @@ import { Config } from '../config';
 import { LoggerService } from './logger.service';
 import { HttpService } from './http.service';
 
-import { ILogin, ISignup, IRAuth } from '../shared/interfaces/auth.interface';
+import { ILogin, ISignup, IRAuth, IRUser } from '../shared/interfaces/auth.interface';
 
 @Injectable()
 export class UserService implements OnDestroy {
@@ -100,15 +100,14 @@ export class UserService implements OnDestroy {
 	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
 	 * @return {void}
 	 */
-	getUser (userName : string) : Observable<any> {
+	getUser (userName : string) : Observable<IRUser | string> {
 		return this.authHttp.get(Config.serverUrl + Config.usersUrl + userName, { headers : this.headers })
-			.map<Response, any>((resp : Response) => {
-				let jResp = resp.json() || {};
+			.map<Response, IRUser>((resp : Response) => {
+				let jResp : IRUser = <IRUser>resp.json() || null;
 				this.logger.info(`${this.constructor.name} - getUserId:`, `status = ${resp.status} -`, jResp);
 				return jResp;
 			})
-			.retryWhen((errorObs) => this.httpService.retry(errorObs))
-			.catch<Response, string>((error) => this.httpService.handleError(error));
+			.catch<any, string>((error : any) => this.httpService.handleError(error));
 	}
 
 	/**
@@ -123,11 +122,11 @@ export class UserService implements OnDestroy {
 
 		return this.http.post(Config.serverUrl + Config.usersUrl, body, { headers : this.headers })
 			.map<Response, IRAuth>((resp : Response) => {
-				let jResp : IRAuth = <IRAuth>resp.json() || {};
+				let jResp : IRAuth = <IRAuth>resp.json() || null;
 				this.logger.info(`${this.constructor.name} - postLogin:`, `status = ${resp.status} -`, jResp);
 				return jResp;
 			})
-			.catch<Response, string>((error : any) => this.httpService.handleError(error));
+			.catch<any, string>((error : any) => this.httpService.handleError(error));
 	}
 
 	/**
@@ -142,10 +141,10 @@ export class UserService implements OnDestroy {
 
 		return this.http.post(Config.serverUrl + Config.authUrl, body, { headers : this.headers })
 			.map<Response, IRAuth>((resp : Response) => {
-				let jResp : IRAuth = <IRAuth>resp.json() || {};
+				let jResp : IRAuth = <IRAuth>resp.json() || null;
 				this.logger.info(`${this.constructor.name} - postLogin:`, `status = ${resp.status} -`, jResp);
 				return jResp;
 			})
-			.catch<Response, string>((error) => this.httpService.handleError(error));
+			.catch<any, string>((error) => this.httpService.handleError(error));
 	}
 }

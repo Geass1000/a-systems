@@ -11,17 +11,7 @@ import { UserService } from '../core/user.service';
 import { ProjectService } from '../core/project.service';
 import { ProfileService } from './profile.service';
 
-interface IProfileUser {
-  _id : string;
-  nickname : string;
-  email : string;
-  created_at : string;
-}
-
-interface IProfileProject {
-  _id : string;
-  name : string;
-}
+import { IRProfile } from '../shared/interfaces/app.interface';
 
 @Component({
 	moduleId: module.id,
@@ -31,8 +21,7 @@ interface IProfileProject {
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 	private activeName : string;
-  private profileUser : IProfileUser;
-  private profileProject : Array<IProfileProject>;
+  private profile : IRProfile;
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
@@ -86,18 +75,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 			this.router.navigate(['profile', this.userName.toLowerCase()]);
 			return ;
 		}
-    /*
-		this.userService.getUser(this.activeName).subscribe((data : any) => {
-      this.profileUser = <IProfileUser>data;
-      if (data) {
-        this.projectService.getProjects(this.profileUser._id).subscribe((d2 : any) => {
-          this.profileProject = <Array<IProfileProject>>d2;
-    			this.logger.info(`${this.constructor.name} - prepareUserData:`, 'd2 -', d2);
-    		});
-      }
-			this.logger.info(`${this.constructor.name} - prepareUserData:`, 'data -', data);
-		});*/
-    this.profileService.getProfile(this.activeName).subscribe((data : any) => {
+    this.profileService.getProfile(this.activeName).subscribe((data : IRProfile) => {
+			if (data) {
+				this.profile = data;
+			}
 			this.logger.info(`${this.constructor.name} - prepareUserData:`, 'data -', data);
 		});
 	}

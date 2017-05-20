@@ -5,6 +5,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { NgRedux } from '@angular-redux/store';
 import { UserActions } from '../actions/user.actions';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/observable/of';
+
+import { IRProfile } from '../shared/interfaces/app.interface';
+import { IRUser } from '../shared/interfaces/auth.interface';
+import { IRProjects } from '../shared/interfaces/project.interface';
 
 import { LoggerService } from '../core/logger.service';
 import { UserService } from '../core/user.service';
@@ -36,10 +41,19 @@ export class ProfileService implements OnDestroy {
 	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
 	 * @return {void}
 	 */
-	getProfile (userName : string) : Observable<any> {
+	getProfile (userName : string) : Observable<IRProfile | string> {
+		let profile : IRProfile = {
+			user : null,
+			projects : null
+		};
 		return this.userService.getUser(userName)
-      .mergeMap((user) => {
-        return this.projectService.getProjects(user._id);
-      });
+      .mergeMap<IRUser, IRProjects>((data : IRUser) => {
+				profile.user = data.user;
+        return this.projectService.getProjects(data.user._id);
+      })
+			.mergeMap<IRProjects, IRProfile>((data : IRProjects) => {
+				profile.projects = data.projects;
+				return Observable.of(profile);
+			});
 	}
 }
