@@ -1,1 +1,140 @@
+@import "../shared/scss/global.scss";
 
+.page-block {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+
+	margin-top: 35px;
+
+	.block-user {
+		position: relative;
+
+		background-color: rgba(255,255,255,0.95);
+		border: 1px solid rgba(0,0,0,0.12);
+	}
+
+	.block-user-info {
+		width: 330px;
+		margin-right: 35px;
+
+		flex-shrink: 0;
+
+		.avatar {
+			width: 330px;
+			height: 330px;
+
+			position: relative;
+
+			border-bottom: 1px solid rgba(0,0,0,0.12);
+
+			.avatar-img {
+				width: 100%;
+				height: 100%;
+			}
+
+			.avatar-description {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+
+				width: 100%;
+				padding: 12px 0;
+
+				position: absolute;
+				bottom: 20px;
+				left: 0;
+
+        background-color: rgba(255,255,255,0.95);
+        color : #2b2b2b;
+
+				.nickname {
+					text-decoration: underline;
+				}
+				.nickname + .full-name {
+					margin-top: 8px;
+
+          font-weight: normal;
+				}
+			}
+		}
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      margin: 20px 30px;
+
+      .info-item {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+
+        width: 100%;
+        margin-bottom: 10px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        i {
+          margin-right: 8px;
+
+          font-size: 16px;
+        }
+        p {
+          line-height: initial;
+          font-size: 16px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+	}
+	.block-user-projects {
+    box-sizing: border-box;
+		width: 100%;
+    padding: 30px 0;
+
+    .block-header {
+      padding-bottom: 10px;
+      margin: 0 30px;
+      margin-bottom: 5px;
+
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+
+      font-weight: normal;
+    }
+    .projects {
+      .project-item {
+        padding: 0 30px;
+        .project-name {
+          font-size: 16px;
+          font-weight: bold;
+          padding-top: 15px;
+          padding-bottom: 4px;
+        }
+        .project-id {
+          font-size: 13px;
+          color: rgba(0,0,0,0.8);
+        }
+        .project-separator {
+          width: 70%;
+          margin: 0 auto;
+          padding-top: 15px;
+          border-bottom: 1px solid rgba(0,0,0,0.12);
+        }
+        &:hover {
+          background: #bae1e8;
+          cursor: pointer;
+        }
+      }
+    }
+	}
+}
