@@ -19,7 +19,7 @@ let userSchema = new Schema({
 		trim : true,
 		validate : UserValidator.isLogin
 	},
-	alias : {
+	nickname : {
 		type : String,
 		required : true,
 		trim : true,
@@ -68,7 +68,7 @@ userSchema.methods.createToken = function () {
 	let expires = 604800; // 60s * 60m * 24h * 7d = 604800s (7 days)
 	return jwt.sign({
 		_id : this._id,
-		name : this.alias
+		name : this.nickname
 	}, config.secret, { expiresIn : expires });
 };
 
@@ -96,7 +96,7 @@ userSchema.statics.findUserLogin = function (login) {
  * @param  {Object} user user info
  */
 userSchema.statics.getUser = function (name) {
-	let sel = '_id alias email created_at';
+	let sel = '_id nickname email created_at';
 	return name ? this.findOne({ name : name }).select(sel).exec() :
 								new Promise((resolve, reject) => resolve());
 };

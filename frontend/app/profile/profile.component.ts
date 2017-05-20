@@ -8,6 +8,20 @@ import { UserActions } from '../actions/user.actions';
 
 import { LoggerService } from '../core/logger.service';
 import { UserService } from '../core/user.service';
+import { ProjectService } from '../core/project.service';
+import { ProfileService } from './profile.service';
+
+interface IProfileUser {
+  _id : string;
+  nickname : string;
+  email : string;
+  created_at : string;
+}
+
+interface IProfileProject {
+  _id : string;
+  name : string;
+}
 
 @Component({
 	moduleId: module.id,
@@ -17,16 +31,15 @@ import { UserService } from '../core/user.service';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 	private activeName : string;
+  private profileUser : IProfileUser;
+  private profileProject : Array<IProfileProject>;
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
-	@select(['user', 'id']) userId$ : Observable<string>;
-	private userId : string;
 	@select(['user', 'name']) userName$ : Observable<string>;
 	private userName : string;
 
 	private mapSubscription : Map<string, boolean> = new Map([
-		[ 'userId', false ],
 		[ 'userName', false ],
 		[ 'activeName', false ]
 	]);
@@ -36,15 +49,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 							 private ngRedux : NgRedux<any>,
 						 	 private userActions : UserActions,
 						 	 private logger : LoggerService,
-						 	 private userService : UserService) {
+						 	 private userService : UserService,
+               private projectService : ProjectService,
+               private profileService : ProfileService) {
 	}
 	ngOnInit () {
-		this.subscription.push(this.userId$.subscribe((data) => {
-			this.userId = data;
-			this.mapSubscription.set('userId', true);
-			this.logger.info(`${this.constructor.name} - ngOnInit:`, 'Redux -', 'userId -', this.userId);
-			this.prepareUserData();
-		}));
 		this.subscription.push(this.userName$.subscribe((data) => {
 			this.userName = data;
 			this.mapSubscription.set('userName', true);
@@ -77,19 +86,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
 			this.router.navigate(['profile', this.userName.toLowerCase()]);
 			return ;
 		}
+    /*
 		this.userService.getUser(this.activeName).subscribe((data : any) => {
+      this.profileUser = <IProfileUser>data;
+      if (data) {
+        this.projectService.getProjects(this.profileUser._id).subscribe((d2 : any) => {
+          this.profileProject = <Array<IProfileProject>>d2;
+    			this.logger.info(`${this.constructor.name} - prepareUserData:`, 'd2 -', d2);
+    		});
+      }
+			this.logger.info(`${this.constructor.name} - prepareUserData:`, 'data -', data);
+		});*/
+    this.profileService.getProfile(this.activeName).subscribe((data : any) => {
 			this.logger.info(`${this.constructor.name} - prepareUserData:`, 'data -', data);
 		});
-	}
-
-	/**
-	 * getUserId - функция, возвращающая id текущего пользователя.
-	 *
-	 * @kind {function}
-	 * @return {string}
-	 */
-	getUserId () : string {
-		return this.userId;
 	}
 
 	/**

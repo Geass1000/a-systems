@@ -8,12 +8,13 @@ import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 
 /* App Feature - Service */
+import { ProfileService } from './profile.service';
 /* ----- */
 
 @NgModule({
   imports:      [ CommonModule, ProfileRoutingModule ],
   declarations: [ ProfileComponent ],
   exports:      [  ],
-  providers:    [  ]
+  providers:    [ ProfileService ]
 })
 export class ProfileModule { }

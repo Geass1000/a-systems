@@ -111,19 +111,31 @@
       font-weight: normal; }
     .page-block .block-user-projects .projects .project-item {
       padding: 0 30px; }
-      .page-block .block-user-projects .projects .project-item .project-name {
-        font-size: 16px;
-        font-weight: bold;
-        padding-top: 15px;
-        padding-bottom: 4px; }
-      .page-block .block-user-projects .projects .project-item .project-id {
-        font-size: 13px;
-        color: rgba(0, 0, 0, 0.8); }
+      .page-block .block-user-projects .projects .project-item .project-info {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: row;
+            flex-direction: row;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+        -ms-flex-align: center;
+            align-items: center;
+        padding: 15px 0; }
+        .page-block .block-user-projects .projects .project-item .project-info .project-name {
+          font-size: 16px;
+          font-weight: bold;
+          padding-bottom: 4px; }
+        .page-block .block-user-projects .projects .project-item .project-info .project-id {
+          font-size: 13px;
+          color: rgba(0, 0, 0, 0.8); }
+        .page-block .block-user-projects .projects .project-item .project-info .project-load {
+          font-size: 16px;
+          font-weight: bold;
+          padding-right: 5px; }
       .page-block .block-user-projects .projects .project-item .project-separator {
         width: 70%;
         margin: 0 auto;
-        padding-top: 15px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
       .page-block .block-user-projects .projects .project-item:hover {
-        background: #bae1e8;
+        background: #c6efff;
         cursor: pointer; }

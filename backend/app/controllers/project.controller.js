@@ -35,20 +35,25 @@ class ProjectController {
 	 */
 	getProject (req, res) {
 		let methodName = 'getProject';
-		Project.getProject(req.params.id)
-			.then((doc) => {
-				if (!doc) {
-					return this.sendErrorResponse(res, 400, methodName, 'The project with that id not exist');
+
+		let id = req.params.id.toString().trim().toLowerCase();
+
+		logger.info(`AuthController - ${methodName}:`, `id -`, id);
+
+		Project.getProject(id)
+			.then((data) => {
+				if (data) {
+					logger.info(`ProjectController - ${methodName}:`, `data -`, data.toString());
+				} else {
+					throw new Error('The project with that id not exist!');
 				}
 
 				logger.info(`ProjectController - ${methodName}:`, '200:Success');
-				res.status(200).json({
-				 	project : doc
-				});
+				res.status(200).json({ project : data });
 			})
 			.catch((err) => {
-				if (err) {
-					return this.sendErrorResponse(res, 500, methodName, 'Try doing request later');
+				if (err && err.message) {
+					this.sendErrorResponse(res, 500, methodName, err.message);
 				}
 			});
 	}

@@ -14,7 +14,7 @@ import 'rxjs/add/observable/throw';
 import { Config } from '../config';
 
 import { LoggerService } from './logger.service';
-import { HttpService } from '../core/http.service';
+import { HttpService } from './http.service';
 
 import { ILogin, ISignup, IRAuth } from '../shared/interfaces/auth.interface';
 

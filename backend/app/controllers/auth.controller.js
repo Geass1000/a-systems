@@ -86,7 +86,7 @@ class AuthController {
 				}
 
 				let user = new User();
-				user.alias = info.name;
+				user.nickname = info.name;
 				user.name = info.name;
 				user.email = info.email;
 				user.setPassword(info.passwords.password);
@@ -120,26 +120,19 @@ class AuthController {
 		let methodName = 'getUser';
 
 		let name = req.params.name.toString().trim().toLowerCase();
-		let result = {};
 
 		logger.info(`AuthController - ${methodName}:`, `name -`, name);
 
 		User.getUser(name)
 			.then((data) => {
 				if (data) {
-					logger.info(`AuthController - ${methodName}:`, `info -`, data.toString());
+					logger.info(`AuthController - ${methodName}:`, `data -`, data.toString());
 				} else {
 					throw new Error('The user isn\'t exist!');
 				}
-				result.info = data;
-				return Project.getProjects(result.info._id);
-			})
-			.then((data) => {
-				if (data) {
-					logger.info(`AuthController - ${methodName}:`, `projects -`, data.toString());
-				}
-				result.projects = data;
-				res.status(200).json({ user : result });
+
+				logger.info(`AuthController - ${methodName}:`, '200:Success');
+				res.status(200).json({ user : data });
 			})
 			.catch((err) => {
 				if (err && err.message) {
