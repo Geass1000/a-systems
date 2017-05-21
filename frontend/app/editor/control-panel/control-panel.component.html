@@ -6,7 +6,7 @@
 					<i class="fa fa-file-text" aria-hidden="true"></i>
 					<span class="description">New</span>
 				</a>
-				<a>
+				<a class="item-navigation" data-modal-name="saveProject">
 					<i class="fa fa-cloud" aria-hidden="true"></i>
 					<span class="description">Save</span>
 				</a>
@@ -29,5 +29,8 @@
 </header>
 
 <div class="modal-section" *ngIf="initProject$ | async" [@toggleModal]="animationState">
-	<as-editor-init-project></as-editor-init-project>
+	<as-editor-control-init-project></as-editor-control-init-project>
+</div>
+<div class="modal-section" *ngIf="saveProject$ | async" [@toggleModal]="animationState">
+	<as-editor-control-save-project></as-editor-control-save-project>
 </div>

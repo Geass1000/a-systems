@@ -4,12 +4,12 @@ import { Point } from './point.class';
 
 export interface IThing {
 	id ?: number;
-	height : number;
-	width : number;
 	x ?: number;
 	y ?: number;
-	url : string;
+	height : number;
+	width : number;
 	angle : number;
+	url : string;
 }
 
 export class Thing implements IThing {
@@ -79,19 +79,22 @@ export class Thing implements IThing {
 	}
 
 	/**
-	 * valueOf - функция, возвращающая объектное представление класса.
+	 * valueOf - возвращает объектное представление класса.
 	 *
 	 * @kind {function}
+	 * @method
+	 *
 	 * @return {IThing}
 	 */
 	valueOf () : IThing {
 		return {
-			width : this.width,
-			height : this.height,
-			url : this.url,
+			id : this.id,
 			x : this.x,
 			y : this.y,
-			angle : this.angle
+			width : this.width,
+			height : this.height,
+			angle : this.angle,
+			url : this.url
 		};
 	}
 
@@ -99,6 +102,8 @@ export class Thing implements IThing {
 	 * transform - возвращает строку для атрибута transform
 	 *
 	 * @class Thing
+	 * @method
+	 *
 	 * @return {String}  description
 	 */
 	transform () {

@@ -96,6 +96,25 @@ export class MaterialTexture implements IMaterialTexture {
 	}
 
 	/**
+	 * valueOf - возвращает объектное представление класса.
+	 *
+	 * @kind {function}
+	 * @method
+	 *
+	 * @return {IMaterialTexture}
+	 */
+	valueOf () : IMaterialTexture {
+		return {
+			iid : this.iid,
+			url : this.url,
+			width : this.defWidth,
+			height : this.defHeight,
+			scale : this.scale,
+			angle : this.angle
+		};
+	}
+
+	/**
 	 * toString - функция, возвращающая строковое представление класса.
 	 *
 	 * @kind {function}

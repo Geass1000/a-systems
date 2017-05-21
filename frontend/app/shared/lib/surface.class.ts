@@ -1,14 +1,14 @@
 import { HelperClass } from './helper.class';
 
 import { Point, IPoint } from './point.class';
-import { Material } from './material.class';
+import { IMaterial, Material } from './material.class';
 
 export interface ISurface {
 	id ?: number;
 	x ?: number;
 	y ?: number;
-	stroke : Material;
-	fill : Material;
+	stroke : IMaterial;
+	fill : IMaterial;
 	points : Array<IPoint>;
 }
 
@@ -76,9 +76,11 @@ export class Surface implements ISurface {
 	}
 
 	/**
-	 * valueOf - функция, возвращающая объектное представление класса.
+	 * valueOf - возвращает объектное представление класса.
 	 *
 	 * @kind {function}
+	 * @method
+	 *
 	 * @return {ISurface}
 	 */
 	valueOf () : ISurface {
@@ -86,9 +88,9 @@ export class Surface implements ISurface {
 			id : this.id,
 			x : this.x,
 			y : this.y,
-			stroke : this.stroke,
-			fill : this.fill,
-			points : this.points
+			stroke : this.stroke.valueOf(),
+			fill : this.fill.valueOf(),
+			points : this.points.map((data) => data.valueOf())
 		};
 	}
 
@@ -97,6 +99,8 @@ export class Surface implements ISurface {
 	 * полученных из массива точек surface.points.
 	 *
 	 * @class Surface
+	 * @method
+	 *
 	 * @return {String}  description
 	 */
 	poliPoints () {
@@ -107,6 +111,8 @@ export class Surface implements ISurface {
 	 * transform - возвращает строку для атрибута transform
 	 *
 	 * @class Surface
+	 * @method
+	 *
 	 * @return {String}  description
 	 */
 	transform () {

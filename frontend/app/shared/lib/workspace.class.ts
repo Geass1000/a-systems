@@ -6,11 +6,11 @@ import { Point } from './point.class';
 import { IMaterial, Material } from './material.class';
 
 export interface IWorkspace {
+	x ?: number;
+	y ?: number;
 	height : number;
 	width : number;
 	material : IMaterial;
-	x ?: number;
-	y ?: number;
 }
 
 export class Workspace implements IWorkspace {
@@ -68,9 +68,11 @@ export class Workspace implements IWorkspace {
 	}
 
 	/**
-	 * valueOf - функция, возвращающая объектное представление класса.
+	 * valueOf - возвращает объектное представление класса.
 	 *
 	 * @kind {function}
+	 * @method
+	 *
 	 * @return {IWorkspace}
 	 */
 	valueOf () : IWorkspace {
@@ -79,7 +81,7 @@ export class Workspace implements IWorkspace {
 			y : this.y,
 			width : this.width,
 			height : this.height,
-			material : this.material
+			material : this.material.valueOf()
 		};
 	}
 
@@ -87,6 +89,8 @@ export class Workspace implements IWorkspace {
 	 * transform - возвращает строку для атрибута transform
 	 *
 	 * @class Workspace
+	 * @method
+	 *
 	 * @return {String}  description
 	 */
 	transform () {

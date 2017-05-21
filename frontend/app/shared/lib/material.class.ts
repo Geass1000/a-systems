@@ -77,7 +77,22 @@ export class Material implements IMaterial {
 	}
 
 	/**
-	 * toString - функция, возвращающая строковое представление класса.
+	 * valueOf - возвращает объектное представление класса.
+	 *
+	 * @kind {function}
+	 * @method
+	 *
+	 * @return {IWorkspace}
+	 */
+	valueOf () : IMaterial {
+		return {
+			type : this.type,
+			data : <IMaterialColor|IMaterialTexture>this.data.valueOf()
+		};
+	}
+
+	/**
+	 * toString - возвращает строковое представление класса.
 	 *
 	 * @kind {function}
 	 * @return {string}

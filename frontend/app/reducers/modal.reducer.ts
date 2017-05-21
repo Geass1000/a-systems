@@ -13,6 +13,7 @@ export interface IModal {
 	reset : boolean;
 	/* Editor Modals */
 	initProject : boolean;
+	saveProject : boolean;
 }
 
 export const INITIAL_STATE : IModal = {
@@ -25,7 +26,8 @@ export const INITIAL_STATE : IModal = {
 	signup : false,
 	reset : false,
 	/* Editor Modals */
-	initProject : false
+	initProject : false,
+	saveProject : false
 };
 
 export const ModalReducer : Reducer<IModal> = (state = INITIAL_STATE, action : IAction) : IModal => {

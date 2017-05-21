@@ -17,7 +17,7 @@ import { IModelInitProject } from '../../../shared/interfaces/model.interface';
 
 @Component({
 	moduleId: module.id,
-  selector: 'as-editor-init-project',
+  selector: 'as-editor-control-init-project',
 	templateUrl: 'init-project.component.html',
   styleUrls: [ 'init-project.component.css' ]
 })

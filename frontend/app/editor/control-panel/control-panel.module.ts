@@ -8,6 +8,7 @@ import { SharedModule } from '../../shared/shared.module';
 /* App Feature - Component */
 import { ControlPanelComponent } from './control-panel.component';
 import { InitProjectComponent } from './init-project/init-project.component';
+import { SaveProjectComponent } from './save-project/save-project.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { InitProjectComponent } from './init-project/init-project.component';
 	],
   declarations: [
 		ControlPanelComponent,
-		InitProjectComponent
+		InitProjectComponent,
+		SaveProjectComponent
 	],
   exports:      [ ControlPanelComponent ],
   providers:    [ ]
