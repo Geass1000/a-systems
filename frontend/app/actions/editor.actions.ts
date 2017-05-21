@@ -6,7 +6,7 @@ import { Surface } from '../shared/lib/surface.class';
 import { Thing } from '../shared/lib/thing.class';
 import { Material } from '../shared/lib/material.class';
 import { IWorkspace } from '../shared/lib/workspace.class';
-import { IProject } from '../shared/interfaces/project.interface';
+import { IProject, IProjectsSave } from '../shared/interfaces/project.interface';
 
 @Injectable()
 export class EditorActions {
@@ -44,6 +44,8 @@ export class EditorActions {
 	static readonly UPDATE_THING = EditorActions.CLASS_NAME + 'UPDATE_THING';
 	static readonly DELETE_ELEMENT = EditorActions.CLASS_NAME + 'DELETE_ELEMENT';
 	static readonly SET_PROJECT = EditorActions.CLASS_NAME + 'SET_PROJECT';
+	static readonly SAVE_PROJECT = EditorActions.CLASS_NAME + 'SAVE_PROJECT';
+	static readonly RESET_PROJECT = EditorActions.CLASS_NAME + 'RESET_PROJECT';
 
 	setMeasure (measure : string) : IAction {
     return {
@@ -281,6 +283,19 @@ export class EditorActions {
 			payload : {
 				project : project
 			}
+    };
+  }
+	saveProject (project : IProjectsSave) : IAction {
+    return {
+      type : EditorActions.SAVE_PROJECT,
+			payload : {
+				project : project
+			}
+    };
+  }
+	resetProject () : IAction {
+    return {
+      type : EditorActions.RESET_PROJECT
     };
   }
 }

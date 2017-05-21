@@ -2,6 +2,8 @@ import { Reducer } from 'redux';
 import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
+import * as _ from 'lodash';
+
 import { Workspace } from '../../shared/lib/workspace.class';
 import { ISurface, Surface } from '../../shared/lib/surface.class';
 import { IThing, Thing } from '../../shared/lib/thing.class';
@@ -25,7 +27,7 @@ export const INITIAL_STATE : IEditorProject = {
 };
 
 export const EditorProjectReducer : Reducer<IEditorProject> =
-	(state : IEditorProject = INITIAL_STATE, action : IAction) : IEditorProject => {
+	(state : IEditorProject = _.cloneDeep(INITIAL_STATE), action : IAction) : IEditorProject => {
 	switch (action.type) {
 		case EditorActions.SET_WORKSPACE : {
 			let workspace : Workspace = new Workspace(action.payload.workspace);
@@ -137,12 +139,12 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 		}
 		case EditorActions.SET_PROJECT : {
 			let project = action.payload.project;
-			let newState = Object.assign({}, INITIAL_STATE, {
-				_id : project._id,
-				_uid : project._uid,
-				name : project.name,
-				workspace : new Workspace(project.workspace)
-			});
+			let newState = _.cloneDeep(INITIAL_STATE);
+			newState._id = project._id;
+			newState._uid = project._uid;
+			newState.name = project.name;
+			newState.workspace = new Workspace(project.workspace);
+
 			project.surfaces.map((data : ISurface) => {
 				newState.surfaces.push(new Surface(data));
 			});
@@ -150,6 +152,15 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 				newState.things.push(new Thing(data));
 			});
 			return newState;
+		}
+		case EditorActions.SAVE_PROJECT : {
+			return Object.assign({}, state, {
+				_id : action.payload.project._id,
+				_uid : action.payload.project._uid
+			});
+		}
+		case EditorActions.RESET_PROJECT : {
+			return _.cloneDeep(INITIAL_STATE);
 		}
 	}
 	return state;

@@ -110,17 +110,17 @@ class ProjectController {
 
 		if (body._id) {
 			if (body._uid === user._id) {
-				logger.info('AuthController - ${methodName}:', 'No create');
+				logger.info(`ProjectController - ${methodName}:`, 'No create');
 				this.sendErrorResponse(res, 400, methodName, 'The project is already exist');
 			} else {
-				logger.info('AuthController - ${methodName}:', 'Recreate');
-				delete body._id;
+				logger.info(`ProjectController - ${methodName}:`, 'Recreate');
 				body._uid = user._id;
 			}
 		} else {
-			logger.info('AuthController - ${methodName}:', 'Create');
+			logger.info(`ProjectController - ${methodName}:`, 'Create');
 			body._uid = user._id;
 		}
+		delete body._id;
 
 		let project = new Project(body);
 		logger.info(project.toString());
@@ -154,7 +154,7 @@ class ProjectController {
 	 * @return {void}
 	 */
 	putProject (req, res) {
-		let methodName = 'postProject';
+		let methodName = 'putProject';
 
 		let id = req.params.id.toString().trim().toLowerCase();
 
@@ -171,8 +171,12 @@ class ProjectController {
 		Project.update({ _id : id }, body, opt).exec()
 			.then((data) => {
 				logger.info(`ProjectController - ${methodName}:`, '200:OK');
+				let result = {
+					_id : body._id.toString(),
+					_uid : body._uid.toString()
+				};
 				res.status(200).json({
-					project : data
+					project : result
 				});
 			})
 			.catch((err) => {
@@ -187,70 +191,5 @@ class ProjectController {
 		return resp.status(code).json({ 'error' : message });
 	}
 }
-
-/*
-let projectData = {
-	_id : '591e4a005f024f3e08422a35',
-	_uid : '591b13902f92cf326cdecc60',
-	name : 'Project',
-	workspace : {
-		x : 0,
-		y : 0,
-		width : 2000,
-		height : 2000,
-		material : {
-			type : 'color',
-			data : {
-				red : 255,
-				green : 255,
-				blue : 255,
-				alfa : 1
-			}
-		}
-	},
-	surfaces : [
-		{
-			id : 0,
-			x : 10,
-			y : 10,
-			stroke : {
-				type : 'color',
-				data : {
-					red : 255,
-					green : 255,
-					blue : 255,
-					alfa : 1
-				}
-			},
-			fill : {
-				type : 'none',
-				data : null
-			},
-			points : [
-				{	x : 0, y : 0 },
-				{	x : 500, y : 0 },
-				{	x : 500, y : 500 },
-				{	x : 0, y : 500 }
-			]
-		}
-	]
-};
-
-//delete projectData._id;
-
-let project = new Project (projectData);
-//logger.info(project.toString());
-
-project.save().then((data) => {
-	logger.info(data.toString());
-	logger.info(data._id.toString());
-})
-.catch((err) => {
-	if (err) {
-		logger.warn(err.message);
-		//logger.warn(err);
-	}
-});
-*/
 
 module.exports = new ProjectController();

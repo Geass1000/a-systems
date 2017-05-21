@@ -9,7 +9,7 @@ import { ModalActions } from '../../../actions/modal.actions';
 import { LoggerService } from '../../../core/logger.service';
 import { ProjectService } from '../../../core/project.service';
 
-import { IProject } from '../../../shared/interfaces/project.interface';
+import { IProject, IRProjectsSave } from '../../../shared/interfaces/project.interface';
 import { IWorkspace } from '../../../shared/lib/workspace.class';
 import { ISurface } from '../../../shared/lib/surface.class';
 import { IThing } from '../../../shared/lib/thing.class';
@@ -22,6 +22,7 @@ import { IThing } from '../../../shared/lib/thing.class';
 })
 export class SaveProjectComponent implements OnInit, OnDestroy {
 	/* Private Variable */
+	private isSave : boolean;
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
@@ -34,8 +35,12 @@ export class SaveProjectComponent implements OnInit, OnDestroy {
 						 	 private projectService : ProjectService) {
 	}
 	ngOnInit () {
+		this.isSave = false;
 		this.subscription.push(this.project$.subscribe((data) => {
-			this.saveProject(data);
+			if (!this.isSave) {
+				this.isSave = true;
+				this.saveProject(data);
+			}
 		}));
 	}
 	ngOnDestroy () {
@@ -60,17 +65,19 @@ export class SaveProjectComponent implements OnInit, OnDestroy {
 			surfaces : <Array<ISurface>>project.surfaces.map((data) => data.valueOf()),
 			things : <Array<IThing>>project.things.map((data) => data.valueOf())
 		};
+		this.logger.info(`${this.constructor.name} - saveProject:`, 'result - ', result);
 		if (project._id) {
-			this.projectService.putProject(project._id, result).subscribe((data) => {
+			this.projectService.putProject(project._id, result).subscribe((data : IRProjectsSave) => {
 				this.logger.info(`${this.constructor.name} - saveProject:`, 'Update', 'data - ', data);
+				this.ngRedux.dispatch(this.editorActions.saveProject(data.project));
 				this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 			});
 		} else {
-			this.projectService.postProject(result).subscribe((data) => {
+			this.projectService.postProject(result).subscribe((data : IRProjectsSave) => {
 				this.logger.info(`${this.constructor.name} - saveProject:`, 'Add', 'data - ', data);
+				this.ngRedux.dispatch(this.editorActions.saveProject(data.project));
 				this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 			});
 		}
-		this.logger.info(`${this.constructor.name} - saveProject:`, 'result - ', result);
 	}
 }

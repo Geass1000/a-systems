@@ -27,7 +27,7 @@ export class Thing implements IThing {
 			this.height = obj.height;
 			this.x = obj.x || 0;
 			this.y = obj.y || 0;
-			this.id = obj.id || null;
+			this.id = obj.id;
 			this.url = obj.url;
 			this.angle = obj.angle;
 		} else {
