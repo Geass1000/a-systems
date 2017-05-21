@@ -27,6 +27,9 @@ export interface IUser {
 	nickname : string;
 	email : string;
 	created_at : string;
+	avatar : string;
+	firstname ?: string;
+	lastname ?: string;
 }
 export interface IRUser {
 	user : IUser;

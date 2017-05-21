@@ -1,34 +1,35 @@
 <main>
 
 <section class="base-section profile-section">
-	<div class="base-block page-block">
+	<div class="base-block page-block" *ngIf="profile">
 		<section class="block-user block-user-info">
 			<div class="avatar">
-				<img class="avatar-img" src="assets/imgs/avatars/default.png" />
+				<img class="avatar-img" [attr.src]="profile.user.avatar" />
 				<div class="avatar-description">
-					<h1 class="nickname">Geass</h1>
-					<h4 class="full-name">Andrey Shuleyko</h4>
+					<h1 class="nickname">{{profile.user.nickname}}</h1>
+					<h4 class="full-name">{{profile.user.firstname}} {{profile.user.lastname}}</h4>
 				</div>
 			</div>
 			<div class="info">
         <div class="info-item">
           <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-          <p>Sign up: Web May 19 2017</p>
+          <p>Sign up: {{getDate(profile.user.created_at)}}</p>
         </div>
         <div class="info-item">
           <i class="fa fa-envelope-o" aria-hidden="true"></i>
-          <p>geass1000@gmail.com</p>
+          <a [attr.href]="createHrefUserEmail(profile.user.email)">{{profile.user.email}}</a>
         </div>
       </div>
 		</section>
 		<section class="block-user block-user-projects">
       <h4 class="block-header">User Projects</h4>
       <div class="projects">
-        <div class="project-item">
+        <div class="project-item" *ngFor="let item of profile.projects"
+					[attr.data-item-id]="item._id">
           <div class="project-info">
             <div class="major">
-              <p class="project-name">Project 1</p>
-              <p class="project-id">1eh4hf5b42hfer5423ropne</p>
+              <p class="project-name">{{item.name}}</p>
+              <p class="project-id">{{item._id}}</p>
             </div>
             <div class="minor">
               <p class="project-load">Click to load...</p>

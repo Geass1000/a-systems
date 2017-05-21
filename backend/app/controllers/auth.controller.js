@@ -1,6 +1,7 @@
 'use strict';
 
 let logger = require('../config/logger.config');
+let config = require('../config/app.config');
 
 let User = require('../models/user.model');
 let UserValidator = require('../validators/user.validator');
@@ -131,6 +132,7 @@ class AuthController {
 					throw new Error('The user isn\'t exist!');
 				}
 
+				data.avatar = config.user.avatarPath + data.avatar;
 				logger.info(`AuthController - ${methodName}:`, '200:Success');
 				res.status(200).json({ user : data });
 			})

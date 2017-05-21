@@ -36,6 +36,16 @@ let userSchema = new Schema({
 	created_at : {
 		type : Date,
 		default : Date.now
+	},
+	avatar : {
+		type : String,
+		default : 'default.png'
+	},
+	firstname : {
+		type : String
+	},
+	lastname : {
+		type : String
 	}
 });
 
@@ -96,7 +106,7 @@ userSchema.statics.findUserLogin = function (login) {
  * @param  {Object} user user info
  */
 userSchema.statics.getUser = function (name) {
-	let sel = '_id nickname email created_at';
+	let sel = '_id nickname email created_at avatar firstname lastname';
 	return name ? this.findOne({ name : name }).select(sel).exec() :
 								new Promise((resolve, reject) => resolve());
 };

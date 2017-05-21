@@ -16,6 +16,8 @@ import { Config } from '../config';
 import { LoggerService } from './logger.service';
 import { HttpService } from './http.service';
 
+import { IProject, IRProject, IRProjects } from '../shared/interfaces/project.interface';
+
 @Injectable()
 export class ProjectService implements OnDestroy {
 	private headers = new Headers({ 'Content-Type': 'application/json' });
@@ -37,39 +39,57 @@ export class ProjectService implements OnDestroy {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
-
 	/**
-	 * getUser - функция-запрос, выполняет получение данных пользователя от сервера.
+	 * setProject - выполняет подготовку и установку проекта в хранилище.
 	 *
 	 * @kind {function}
+	 * @method
+	 *
+	 * @param {string} project - объект проекта
+	 * @return {void}
+	 */
+	setProject (project : IProject) : void {
+		;
+	}
+
+
+	/**
+	 * getUser - выполняет получение данных о проекте с идентификатором id.
+	 *
+	 * @kind {function}
+	 * @method
+	 *
 	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
 	 * @return {void}
 	 */
-	getProject (projectId : string) : Observable<any> {
+	getProject (projectId : string) : Observable<IRProject | string> {
 		return this.authHttp.get(Config.serverUrl + Config.projectUrl + projectId, { headers : this.headers })
-			.map<Response, any>((resp : Response) => {
-				let jResp = resp.json() || {};
+			.map<Response, IRProject>((resp : Response) => {
+				let jResp : IRProject = <IRProject>resp.json() || null;
 				this.logger.info(`${this.constructor.name} - getProject:`, `status = ${resp.status} -`, jResp);
 				return jResp;
 			})
-			.catch<Response, string>((error) => this.httpService.handleError(error));
+			.catch<any, string>((error) => this.httpService.handleError(error));
 	}
 
   /**
-	 * getUser - функция-запрос, выполняет получение данных пользователя от сервера.
+	 * getUser - выполняет получение спсика всех проектов пользователя или всех созданных
+	 * проектов.
 	 *
 	 * @kind {function}
-	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
+	 * @method
+	 *
+	 * @param {string} userId - id пользователя (уникальный)
 	 * @return {void}
 	 */
-	getProjects (userId : string) : Observable<any> {
+	getProjects (userId ?: string) : Observable<IRProjects | string> {
     let query : string = userId ? `?uid=${userId}` : '';
 		return this.authHttp.get(Config.serverUrl + Config.projectUrl + query, { headers : this.headers })
-			.map<Response, any>((resp : Response) => {
-				let jResp = resp.json() || {};
+			.map<Response, IRProjects>((resp : Response) => {
+				let jResp : IRProjects = <IRProjects>resp.json() || null;
 				this.logger.info(`${this.constructor.name} - getProject:`, `status = ${resp.status} -`, jResp);
 				return jResp;
 			})
-			.catch<Response, string>((error) => this.httpService.handleError(error));
+			.catch<any, string>((error) => this.httpService.handleError(error));
 	}
 }

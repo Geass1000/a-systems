@@ -75,21 +75,47 @@ export class ProfileComponent implements OnInit, OnDestroy {
 			this.router.navigate(['profile', this.userName.toLowerCase()]);
 			return ;
 		}
-    this.profileService.getProfile(this.activeName).subscribe((data : IRProfile) => {
-			if (data) {
-				this.profile = data;
+    this.profileService.getProfile(this.activeName).subscribe(
+			(data : IRProfile) => {
+				if (data) {
+					this.profile = data;
+				}
+				this.logger.info(`${this.constructor.name} - prepareUserData:`, 'profile -', this.profile);
+				this.logger.info(`${this.constructor.name} - prepareUserData:`, 'data -', data);
+			},
+			(error : string) => {
+				this.logger.warn(`${this.constructor.name} - prepareUserData:`, error, 'Renavigate...');
+				this.router.navigateByUrl('/');
 			}
-			this.logger.info(`${this.constructor.name} - prepareUserData:`, 'data -', data);
-		});
+		);
 	}
 
 	/**
-	 * getUserName - функция, возвращающая имя текущего пользователя.
+	 * getDate - выполняет создание пользовательского представления даты регистрации
+	 * пользователя.
 	 *
 	 * @kind {function}
+	 * @method
+	 *
+	 * @param {string} date - дата регистрации
 	 * @return {string}
 	 */
-	getUserName () : string {
-		return this.userName;
+	getDate (date : string) : string {
+		return new Date(date).toDateString();
+	}
+
+
+	/**
+	 * createHrefUserEmail - выполняет создание ссылки для отправки сообщения
+	 * пользователю на почтовый ящек.
+	 *
+	 * @kind {function}
+	 * @method
+	 *
+	 * @param {string} email - email адрес
+	 * @return {string}
+	 */
+	createHrefUserEmail (email : string) : string {
+		return `mailto:${email}`;
 	}
 }
