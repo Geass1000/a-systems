@@ -22,12 +22,12 @@ export class Surface implements ISurface {
 	constructor (obj ?: ISurface) {
 		this._coord = new Point();
 		if (obj) {
-			this.x = obj.x || 0;
-			this.y = obj.y || 0;
+			this.x = obj.x;
+			this.y = obj.y;
 			this.stroke = new Material(obj.stroke);
 			this.fill = new Material(obj.fill);
 			this._points = obj.points.map((data : IPoint) => { return new Point(data); });
-			this.id = obj.id || null;
+			this.id = obj.id;
 		} else {
 			this.x = 0;
 			this.y = 0;

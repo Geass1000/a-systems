@@ -80,7 +80,7 @@ export class MaterialColor implements IMaterialColor {
 	valueOf () : IMaterialColor {
 		return {
 			type : 'rgba',
-			data : this.data
+			data : <IRgba>this.data.valueOf()
 		};
 	}
 

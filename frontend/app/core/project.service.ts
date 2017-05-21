@@ -16,7 +16,7 @@ import { Config } from '../config';
 import { LoggerService } from './logger.service';
 import { HttpService } from './http.service';
 
-import { IProject, IRProject, IRProjects } from '../shared/interfaces/project.interface';
+import { IProject, IRProject, IRProjects, IRProjectsSave } from '../shared/interfaces/project.interface';
 
 @Injectable()
 export class ProjectService implements OnDestroy {
@@ -96,5 +96,43 @@ export class ProjectService implements OnDestroy {
 				return jResp;
 			})
 			.catch<any, string>((error) => this.httpService.handleError(error));
+	}
+
+	/**
+	 * postProject - функция-запрос, выполняет добавление проекта в БД.
+	 *
+	 * @kind {function}
+	 * @param {ISignup} formValue - значение формы
+	 * @return {boolean}
+	 */
+	postProject (value : IProject) : Observable<IRProjectsSave | string> {
+		let body : string = JSON.stringify(value);
+
+		return this.authHttp.post(Config.serverUrl + Config.projectUrl, body, { headers : this.headers })
+			.map<Response, IRProjectsSave>((resp : Response) => {
+				let jResp : IRProjectsSave = <IRProjectsSave>resp.json() || null;
+				this.logger.info(`${this.constructor.name} - postLogin:`, `status = ${resp.status} -`, jResp);
+				return jResp;
+			})
+			.catch<any, string>((error : any) => this.httpService.handleError(error));
+	}
+
+	/**
+	 * postProject - функция-запрос, выполняет добавление проекта в БД.
+	 *
+	 * @kind {function}
+	 * @param {ISignup} formValue - значение формы
+	 * @return {boolean}
+	 */
+	putProject (projectId : string, value : IProject) : Observable<IRProjectsSave | string> {
+		let body : string = JSON.stringify(value);
+
+		return this.authHttp.put(Config.serverUrl + Config.projectUrl + projectId, body, { headers : this.headers })
+			.map<Response, IRProjectsSave>((resp : Response) => {
+				let jResp : IRProjectsSave = <IRProjectsSave>resp.json() || null;
+				this.logger.info(`${this.constructor.name} - postLogin:`, `status = ${resp.status} -`, jResp);
+				return jResp;
+			})
+			.catch<any, string>((error : any) => this.httpService.handleError(error));
 	}
 }

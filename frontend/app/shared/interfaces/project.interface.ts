@@ -21,3 +21,11 @@ export interface IProjects {
 export interface IRProjects {
 	projects : Array<IProjects>;
 }
+
+export interface IProjectsSave {
+	_id : string;
+	_uid : string;
+}
+export interface IRProjectsSave {
+	project : IProjectsSave;
+}

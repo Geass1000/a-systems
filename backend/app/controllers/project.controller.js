@@ -127,8 +127,52 @@ class ProjectController {
 		project.save()
 			.then((data) => {
 				logger.info(`ProjectController - ${methodName}:`, '201:Create');
+				let result = {
+					_id : data._id.toString(),
+					_uid : data._uid.toString()
+				};
 				res.status(201).json({
-					_id : data._id.toString()
+					project : result
+				});
+			})
+			.catch((err) => {
+				if (err) {
+					this.sendErrorResponse(res, 400, methodName, err.message);
+				}
+			});
+	}
+
+	/**
+	 * postProject - функция-контроллер, выполняет обработку запроса о добавлении нового
+	 * проекта в БД.
+	 *
+	 * @kind {function}
+	 * @method
+	 *
+	 * @param {Request} req - объект запроса
+	 * @param {Response} res - объект ответа
+	 * @return {void}
+	 */
+	putProject (req, res) {
+		let methodName = 'postProject';
+
+		let id = req.params.id.toString().trim().toLowerCase();
+
+		let body = req.body;
+		let user = req.user;
+		let opt = { upsert : true };
+
+		if (body._uid !== user._id) {
+			this.postProject(req, res);
+			return ;
+		}
+
+		logger.info(body.toString());
+		Project.update({ _id : id }, body, opt).exec()
+			.then((data) => {
+				logger.info(`ProjectController - ${methodName}:`, '200:OK');
+				res.status(200).json({
+					project : data
 				});
 			})
 			.catch((err) => {

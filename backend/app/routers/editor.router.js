@@ -28,9 +28,11 @@ router.route('/item/category')
 
 //... Project
 router.route('/project')
-			.get(ProjectController.getProjects);
+			.get(jwtCheck, ProjectController.getProjects.bind(ProjectController))
+			.post(jwtCheck, ProjectController.postProject.bind(ProjectController));
 router.route('/project/:id')
-			.get(ProjectController.getProject);
+			.get(jwtCheck, ProjectController.getProject.bind(ProjectController))
+			.put(jwtCheck, ProjectController.putProject.bind(ProjectController));
 
 //... other paths
 
