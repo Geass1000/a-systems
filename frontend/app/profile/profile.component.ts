@@ -4,11 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
-import { UserActions } from '../actions/user.actions';
 
 import { LoggerService } from '../core/logger.service';
 import { UserService } from '../core/user.service';
-import { ProjectService } from '../core/project.service';
 import { ProfileService } from './profile.service';
 
 import { IRProfile } from '../shared/interfaces/app.interface';
@@ -36,10 +34,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	constructor (private router : Router,
 							 private activateRoute: ActivatedRoute,
 							 private ngRedux : NgRedux<any>,
-						 	 private userActions : UserActions,
 						 	 private logger : LoggerService,
 						 	 private userService : UserService,
-               private projectService : ProjectService,
                private profileService : ProfileService) {
 	}
 	ngOnInit () {
@@ -117,5 +113,25 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	 */
 	createHrefUserEmail (email : string) : string {
 		return `mailto:${email}`;
+	}
+
+	/**
+	 * onClickOpenProject - выполняет обработкку нажатия на элемент из списка "Проекты".
+	 *
+	 * @kind {event}
+	 * @method
+	 *
+	 * @param {MouseEvent} event - объект события
+	 * @return {void}
+	 */
+	onClickOpenProject (event : MouseEvent) : void {
+		let el : any = (<HTMLElement>event.target).closest('.project-item');
+		if (el !== null) {
+			let projectId : string = el.getAttribute('data-item-id').toString();
+			this.logger.info(`${this.constructor.name} - onClickOpenProject:`, 'projectId -', projectId);
+			this.profileService.setProject(projectId);
+		}	else {
+			this.logger.info(`${this.constructor.name} - onClickOpenProject:`, 'Not project');
+		}
 	}
 }

@@ -9,7 +9,7 @@ import 'rxjs/add/observable/of';
 
 import { IRProfile } from '../shared/interfaces/app.interface';
 import { IRUser } from '../shared/interfaces/auth.interface';
-import { IRProjects } from '../shared/interfaces/project.interface';
+import { IRProject, IRProjects } from '../shared/interfaces/project.interface';
 
 import { LoggerService } from '../core/logger.service';
 import { UserService } from '../core/user.service';
@@ -38,8 +38,10 @@ export class ProfileService implements OnDestroy {
 	 * getUser - функция-запрос, выполняет получение данных пользователя от сервера.
 	 *
 	 * @kind {function}
+	 * @method
+	 *
 	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
-	 * @return {void}
+	 * @return {Observable<IRProfile>}
 	 */
 	getProfile (userName : string) : Observable<IRProfile | string> {
 		let profile : IRProfile = {
@@ -55,5 +57,22 @@ export class ProfileService implements OnDestroy {
 				profile.projects = data.projects;
 				return Observable.of(profile);
 			});
+	}
+
+	/**
+	 * setProject - выполняет получение данных пользователя от сервера.
+	 *
+	 * @kind {function}
+	 * @method
+	 *
+	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
+	 * @return {void}
+	 */
+	setProject (projectId : string) : any {
+		this.logger.info(`${this.constructor.name} - setProject:`, 'projectId -', projectId);
+		this.projectService.getProject(projectId).subscribe((data : IRProject) => {
+			this.projectService.setProject(data.project);
+		});
+		return;
 	}
 }

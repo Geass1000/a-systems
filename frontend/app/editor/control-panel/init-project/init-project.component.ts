@@ -55,14 +55,13 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 			}
 			this.logger.info(`${this.constructor.name}:`, 'ngOnInit - Redux - isActiveMetric -', this.isActiveMetric);
 		}));
-		this.onClickCreateProject();
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());
 	}
 
 	/**
-	 * onClickInitProject - событие, выполняющее создание проекта.
+	 * onClickInitProject - функция-событие, выполняет создание проекта.
 	 *
 	 * @kind {event}
 	 * @return {void}
@@ -74,12 +73,12 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 
 		this.ngRedux.dispatch(this.editorActions.updateProjectName(this.model.height));
 		this.ngRedux.dispatch(this.editorActions.setWorkspace(resultWorkspace));
-		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 		this.dataInitService.initData();
+		this.ngRedux.dispatch(this.modalActions.closeActiveModal());
 	}
 
 	/**
-	 * onClickOpenWorkspace - событие, выполняющее открытие проекта из файла.
+	 * onClickOpenWorkspace - функция-событие, выполняет открытие проекта из файла.
 	 *
 	 * @kind {event}
 	 * @return {void}
@@ -89,7 +88,7 @@ export class InitProjectComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * onClickCloseModal - событие, выполняющее закрытие модального окна.
+	 * onClickCloseModal - функция-событие, выполняет закрытие модального окна.
 	 *
 	 * @kind {event}
 	 * @return {void}

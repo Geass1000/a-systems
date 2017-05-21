@@ -23,7 +23,7 @@
 		</section>
 		<section class="block-user block-user-projects">
       <h4 class="block-header">User Projects</h4>
-      <div class="projects">
+      <div class="projects" (click)="onClickOpenProject($event)">
         <div class="project-item" *ngFor="let item of profile.projects"
 					[attr.data-item-id]="item._id">
           <div class="project-info">

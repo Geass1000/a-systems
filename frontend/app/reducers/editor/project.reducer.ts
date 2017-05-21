@@ -3,10 +3,12 @@ import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
 import { Workspace } from '../../shared/lib/workspace.class';
-import { Surface } from '../../shared/lib/surface.class';
-import { Thing } from '../../shared/lib/thing.class';
+import { ISurface, Surface } from '../../shared/lib/surface.class';
+import { IThing, Thing } from '../../shared/lib/thing.class';
 
 export interface IEditorProject {
+	_id : string;
+	_uid : string;
 	name : string;
 	workspace : Workspace;
 	surfaces : Array<Surface>;
@@ -14,6 +16,8 @@ export interface IEditorProject {
 }
 
 export const INITIAL_STATE : IEditorProject = {
+	_id : null,
+	_uid : null,
 	name : '',
 	workspace : null,
 	surfaces : [],
@@ -130,6 +134,22 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 			state.things[action.payload.id].y += action.payload.dY;
 			return state;
 			*/
+		}
+		case EditorActions.SET_PROJECT : {
+			let project = action.payload.project;
+			let newState = Object.assign({}, INITIAL_STATE, {
+				_id : project._id,
+				_uid : project._uid,
+				name : project.name,
+				workspace : new Workspace(project.workspace)
+			});
+			project.surfaces.map((data : ISurface) => {
+				newState.surfaces.push(new Surface(data));
+			});
+			project.things.map((data : IThing) => {
+				newState.things.push(new Thing(data));
+			});
+			return newState;
 		}
 	}
 	return state;

@@ -6,7 +6,7 @@ import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux } from '@angular-redux/store';
-import { UserActions } from '../actions/user.actions';
+import { EditorActions } from '../actions/editor.actions';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -28,7 +28,7 @@ export class ProjectService implements OnDestroy {
 	constructor (private http : Http,
 							 private authHttp : AuthHttp,
 							 private ngRedux : NgRedux<any>,
-							 private userActions : UserActions,
+							 private editorActions : EditorActions,
 							 private logger : LoggerService,
 						 	 private httpService : HttpService) {
 		this.init();
@@ -49,12 +49,17 @@ export class ProjectService implements OnDestroy {
 	 * @return {void}
 	 */
 	setProject (project : IProject) : void {
-		;
+		if (!project) {
+			this.logger.error(`${this.constructor.name} - setProject:`, 'Project isn\'t exist!');
+			return;
+		}
+		this.logger.info(`${this.constructor.name} - setProject:`, 'project -', project);
+		this.ngRedux.dispatch(this.editorActions.setProject(project));
 	}
 
 
 	/**
-	 * getUser - выполняет получение данных о проекте с идентификатором id.
+	 * getUser - функция-запрос, выполняет получение данных о проекте с идентификатором id.
 	 *
 	 * @kind {function}
 	 * @method
@@ -73,7 +78,7 @@ export class ProjectService implements OnDestroy {
 	}
 
   /**
-	 * getUser - выполняет получение спсика всех проектов пользователя или всех созданных
+	 * getUser - функция-запрос, выполняет получение спсика всех проектов пользователя или всех созданных
 	 * проектов.
 	 *
 	 * @kind {function}
