@@ -45,7 +45,7 @@ projectSchema.statics.getProjects = function (uid) {
  * @return {Promise}
  */
 projectSchema.statics.getProject = function (id) {
-	return id ? this.findById(id).exec() : new Promise((resolve, reject) => resolve(null));
+	return id ? this.findById(id).exec() : Promise.resolve(null);
 };
 
 module.exports = connection.model('Project', projectSchema);

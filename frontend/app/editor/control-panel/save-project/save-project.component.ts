@@ -66,18 +66,28 @@ export class SaveProjectComponent implements OnInit, OnDestroy {
 			things : <Array<IThing>>project.things.map((data) => data.valueOf())
 		};
 		this.logger.info(`${this.constructor.name} - saveProject:`, 'result - ', result);
-		if (project._id) {
-			this.projectService.putProject(project._id, result).subscribe((data : IRProjectsSave) => {
-				this.logger.info(`${this.constructor.name} - saveProject:`, 'Update', 'data - ', data);
-				this.ngRedux.dispatch(this.editorActions.saveProject(data.project));
-				this.ngRedux.dispatch(this.modalActions.closeActiveModal());
-			});
-		} else {
-			this.projectService.postProject(result).subscribe((data : IRProjectsSave) => {
-				this.logger.info(`${this.constructor.name} - saveProject:`, 'Add', 'data - ', data);
-				this.ngRedux.dispatch(this.editorActions.saveProject(data.project));
-				this.ngRedux.dispatch(this.modalActions.closeActiveModal());
-			});
+		try {
+			let sub : Subscription;
+			if (project._id) {
+				sub = this.projectService.putProject(project._id, result).subscribe((data : IRProjectsSave) => {
+					this.logger.info(`${this.constructor.name} - saveProject:`, 'Update', 'data - ', data);
+					this.ngRedux.dispatch(this.editorActions.saveProject(data.project));
+					this.closeModal();
+				});
+			} else {
+				sub = this.projectService.postProject(result).subscribe((data : IRProjectsSave) => {
+					this.logger.info(`${this.constructor.name} - saveProject:`, 'Add', 'data - ', data);
+					this.ngRedux.dispatch(this.editorActions.saveProject(data.project));
+					this.closeModal();
+				});
+			}
+			this.subscription.push(sub);
+		} catch (err) {
+			this.closeModal();
 		}
+	}
+
+	closeModal () {
+		Promise.resolve().then(() => this.ngRedux.dispatch(this.modalActions.closeActiveModal()));
 	}
 }

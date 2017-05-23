@@ -50,9 +50,13 @@ let userSchema = new Schema({
 });
 
 /**
- * Set in instance model "Users" password (hash, salt)
+ * setPassword - выполняет установку пароля для текущего пользователя.
  *
- * @param  {String} password user password
+ * @kind {function}
+ * @method
+ *
+ * @param {string} password - пароль
+ * @return {Object}
  */
 userSchema.methods.setPassword = function (password) {
 	if (typeof password !== 'string') {
@@ -63,9 +67,13 @@ userSchema.methods.setPassword = function (password) {
 };
 
 /**
- * Valid password in instance model "Users"
+ * validPassword - выполняет проверку пароля для текущего пользователя.
  *
- * @param  {String} password user password
+ * @kind {function}
+ * @method
+ *
+ * @param {string} password - пароль
+ * @return {Object}
  */
 userSchema.methods.validPassword = function (password) {
 	let hash = crypto.pbkdf2Sync(password, this.salt + config.salt, 1000, 512, 'sha512').toString('hex');
@@ -73,9 +81,12 @@ userSchema.methods.validPassword = function (password) {
 };
 
 /**
- * Create JWT token from data instance model "Users"
+ * createToken - выполняет создание jwt-токена для текущего пользователя
  *
- * @param  {String} password user password
+ * @kind {function}
+ * @method
+ *
+ * @return {Object}
  */
 userSchema.methods.createToken = function () {
 	let expires = 604800; // 60s * 60m * 24h * 7d = 604800s (7 days)
@@ -86,32 +97,27 @@ userSchema.methods.createToken = function () {
 };
 
 /**
- * Поис пользователя в базе данных "users"
+ * findUserLogin - проверка на существование и поиск пользователя в БД "Пользователи"
  *
- * @param  {Object} user user info
+ * @kind {function}
+ *
+ * @param  {Object} user - объект с данными о пользователе
+ * @return {Promise}
  */
-userSchema.statics.findUserSignup = function (user) {
-	let name = user.name.toLowerCase();
-	return this.findOne({ $or: [ { name : name }, { email : user.email } ] }).exec();
-};
-userSchema.statics.findUserData = function (user) {
-	return this.findOne({ name : user.name }).exec();
-};
-
 userSchema.statics.findUserLogin = function (user) {
 	let name = user.nickname.toString().toLowerCase();
 	return this.findOne({ $or: [ { name : name }, { email : name } ] }).exec();
 };
 
 /**
- * Получить все текстуры из БД "textures"
+ * getUser - получение данных пользователя по его прозвищу (логину).
  *
- * @param  {Object} user user info
+ * @param  {string} name - имя пользователя
+ * @return {Promise}
  */
 userSchema.statics.getUser = function (name) {
 	let sel = '_id nickname email created_at avatar firstname lastname';
-	return name ? this.findOne({ name : name }).select(sel).exec() :
-								new Promise((resolve, reject) => resolve());
+	return name ? this.findOne({ name : name }).select(sel).exec() : Promise.resolve(null);
 };
 
 module.exports = connection.model('User', userSchema);
