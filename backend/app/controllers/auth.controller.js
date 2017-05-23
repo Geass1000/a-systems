@@ -1,19 +1,22 @@
 'use strict';
 
-let logger = require('../config/logger.config');
-let config = require('../config/app.config');
+const path = require('path');
 
-let User = require('../models/user.model');
-let UserValidator = require('../validators/user.validator');
+const logger = require('../config/logger.config');
+const config = require('../config/app.config');
 
-let Project = require('../models/project.model');
+const BaseController = require('../lib/base-controller.class');
+
+const User = require('../models/user.model');
+
+let scriptName = path.basename(__filename, path.extname(__filename));
 
 /**
  * The sign up controller.
  *
  * @class AuthController
  */
-class AuthController {
+class AuthController extends BaseController {
 	/**
 	 * Constructor.
 	 *
@@ -21,6 +24,7 @@ class AuthController {
 	 * @constructor
 	 */
 	constructor () {
+		super(scriptName);
 	}
 
 	/**
@@ -32,7 +36,7 @@ class AuthController {
 	 * @class AuthController
 	 * @method login
 	 */
-	login (req, res) {
+	postLogin (req, res) {
 		let info = req.body;
 		let methodName = 'login';
 		if (!info.login || !info.password) {
@@ -60,92 +64,77 @@ class AuthController {
 	}
 
 	/**
- 	 * Add user in the database 'users'.
- 	 *
- 	 * @param {express.Request} req
- 	 * @param {express.Response} res
- 	 *
- 	 * @class AuthController
- 	 * @method addUser
- 	 */
-	addUser (req, res) {
-		let info = req.body;
-		let methodName = 'addUser';
-		if (!info.name || !info.email ||
-				!(info.passwords && info.passwords.password)) {
-			return this.sendErrorResponse(res, 400, methodName, 'All fields required');
-		}
-		if (!UserValidator.isLogin(info.name) ||
-				!UserValidator.isEmail(info.email) ||
-				!UserValidator.isPassword(info.passwords.password)) {
-			return this.sendErrorResponse(res, 400, methodName, 'All fields must be correct');
-		}
-		User.findUserSignup(info)
-			.then((doc) => {
-				if (doc) {
-					return this.sendErrorResponse(res, 400, methodName, 'A user with that username or email already exist');
-				}
+	 * postUser - функция-контроллер, выполняет обработку запроса о добавлении нового
+	 * пользователя в БД.
+	 *
+	 * @kind {function}
+	 * @method
+	 *
+	 * @param {Request} req - объект запроса
+	 * @param {Response} res - объект ответа
+	 * @return {void}
+	 */
+	postUser (req, res) {
+		let methodName = 'postUser';
 
-				let user = new User();
-				user.nickname = info.name;
-				user.name = info.name;
-				user.email = info.email;
-				user.setPassword(info.passwords.password);
+		let body = req.body;
 
-				return user.save();
-			})
-			.then((user) => {
+		let user = new User(body);
+		user.nickname = body.name;
+		if (body.passwords) {
+			user.setPassword(body.passwords.password);
+		}
+
+		user.save()
+			.then((data) => {
+				logger.info(`${this.constructor.name} - ${methodName}:`, '201', 'Create user.');
 				res.status(201).json({
-					"token" : user.createToken()
+					"token" : data.createToken()
 				});
 			})
 			.catch((err) => {
 				if (err) {
-					logger.warn(err);
-					return this.sendErrorResponse(res, 500, methodName, 'Try sign up later');
+					let message = this.mongoError.getErrorMessage(err, methodName);
+					this.sendErrorResponse(res, 500, methodName, message);
 				}
 			});
 	}
 
 	/**
- 	 * Get user from the collection 'users'.
-	 * Get param :id
- 	 *
- 	 * @param {express.Request} req
- 	 * @param {express.Response} res
- 	 *
- 	 * @class AuthController
- 	 * @method getUser
- 	 */
+	 * getUser - функция-контроллер, выполняет обработку запроса о извлечении информации
+	 * о пользователе из БД.
+	 *
+	 * @kind {function}
+	 * @method
+	 *
+	 * @param {Request} req - объект запроса
+	 * @param {Response} res - объект ответа
+	 * @return {void}
+	 */
 	getUser (req, res) {
 		let methodName = 'getUser';
 
 		let name = req.params.name.toString().trim().toLowerCase();
-
 		logger.info(`AuthController - ${methodName}:`, `name -`, name);
 
 		User.getUser(name)
 			.then((data) => {
 				if (data) {
-					logger.info(`AuthController - ${methodName}:`, `data -`, data.toString());
+					logger.info(`${this.constructor.name} - ${methodName}:`, `data -`, data.toString());
 				} else {
 					throw new Error('The user isn\'t exist!');
 				}
 
 				data.avatar = config.user.avatarPath + data.avatar;
-				logger.info(`AuthController - ${methodName}:`, '200:Success');
+				logger.info(`${this.constructor.name} - ${methodName}:`, '200:Return user info');
 				res.status(200).json({ user : data });
 			})
 			.catch((err) => {
-				if (err && err.message) {
-					this.sendErrorResponse(res, 400, methodName, err.message);
+				if (err) {
+					let message = this.mongoError.getErrorMessage(err, methodName);
+					this.sendErrorResponse(res, 500, methodName, message);
 				}
 			});
-	}
-
-	sendErrorResponse (resp, code, method, message) {
-		logger.warn(`AuthController - ${method}:`, `Status - ${code} -`, message);
-		return resp.status(code).json({ 'error' : message });
 	}
 }
 

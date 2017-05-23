@@ -55,6 +55,9 @@ let userSchema = new Schema({
  * @param  {String} password user password
  */
 userSchema.methods.setPassword = function (password) {
+	if (typeof password !== 'string') {
+		return;
+	}
 	this.salt = crypto.randomBytes(16).toString('hex');
 	this.hash = crypto.pbkdf2Sync(password, this.salt + config.salt, 1000, 512, 'sha512').toString('hex');
 };

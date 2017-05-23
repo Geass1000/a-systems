@@ -85,8 +85,8 @@ class ProjectController {
 				});
 			})
 			.catch((err) => {
-				if (err) {
-					return this.sendErrorResponse(res, 500, methodName, 'Try doing request later');
+				if (err && err.message) {
+					this.sendErrorResponse(res, 500, methodName, err.message);
 				}
 			});
 	}
@@ -136,8 +136,8 @@ class ProjectController {
 				});
 			})
 			.catch((err) => {
-				if (err) {
-					this.sendErrorResponse(res, 400, methodName, err.message);
+				if (err && err.message) {
+					this.sendErrorResponse(res, 500, methodName, err.message);
 				}
 			});
 	}
@@ -180,8 +180,8 @@ class ProjectController {
 				});
 			})
 			.catch((err) => {
-				if (err) {
-					this.sendErrorResponse(res, 400, methodName, err.message);
+				if (err && err.message) {
+					this.sendErrorResponse(res, 500, methodName, err.message);
 				}
 			});
 	}

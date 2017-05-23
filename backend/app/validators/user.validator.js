@@ -35,7 +35,7 @@ class UserValidator {
 	 */
 	static isLogin (val) {
 		if (typeof val !== 'string') return false;
-    let regexp = /^.{3,30}$/;
+    let regexp = /^.{4,30}$/;
     return regexp.test(val);
   }
 

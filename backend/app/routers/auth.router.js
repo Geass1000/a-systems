@@ -14,10 +14,10 @@ let jwtCheck = jwt({
 });
 
 router.route('/auth')
-			.post(AuthController.login.bind(AuthController));
+			.post(AuthController.postLogin.bind(AuthController));
 
 router.route('/users')
-			.post(AuthController.addUser.bind(AuthController));
+			.post(AuthController.postUser.bind(AuthController));
 router.route('/users/:name')
 			.get(jwtCheck, AuthController.getUser.bind(AuthController));
 
