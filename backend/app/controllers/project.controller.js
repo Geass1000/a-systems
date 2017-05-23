@@ -1,17 +1,21 @@
 'use strict';
 
-let logger = require('../config/logger.config');
+const path = require('path');
+let scriptName = path.basename(__filename, path.extname(__filename));
 
-let Project = require('../models/project.model');
+const logger = require('../config/logger.config');
 
-let className = 'ProjectController';
+const BaseController = require('../lib/base-controller.class');
+const AppError = require('../lib/app-error.class');
+
+const Project = require('../models/project.model');
 
 /**
  * Контроллер редактора.
  *
  * @class ProjectController
  */
-class ProjectController {
+class ProjectController extends BaseController {
 	/**
 	 * Конструктор. Получение из БД максимального ID.
 	 *
@@ -19,6 +23,7 @@ class ProjectController {
 	 * @constructor
 	 */
 	constructor () {
+		super(scriptName);
 	}
 
 
@@ -37,23 +42,21 @@ class ProjectController {
 		let methodName = 'getProject';
 
 		let id = req.params.id.toString().trim().toLowerCase();
-
-		logger.info(`AuthController - ${methodName}:`, `id -`, id);
+		logger.info(`${this.constructor.name} - ${methodName}:`, `id -`, id);
 
 		Project.getProject(id)
 			.then((data) => {
-				if (data) {
-					logger.info(`ProjectController - ${methodName}:`, `data -`, data.toString());
-				} else {
-					throw new Error('The project with that id not exist!');
+				if (!data) {
+					throw new AppError('myNotExist');
 				}
 
-				logger.info(`ProjectController - ${methodName}:`, '200:Success');
+				logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Return project info');
 				res.status(200).json({ project : data });
 			})
 			.catch((err) => {
-				if (err && err.message) {
-					this.sendErrorResponse(res, 500, methodName, err.message);
+				if (err) {
+					let message = this.mongoError.getErrorMessage(err, methodName);
+					this.sendErrorResponse(res, 500, methodName, message);
 				}
 			});
 	}
@@ -71,22 +74,26 @@ class ProjectController {
 	 * @return {void}
 	 */
 	getProjects (req, res) {
-		let uid = req.query.uid ? req.query.uid : null;
 		let methodName = 'getProject';
+
+		let uid = req.query.uid ? req.query.uid : null;
+		logger.info(`${this.constructor.name} - ${methodName}:`, `uid -`, uid);
+
 		Project.getProjects(uid)
-			.then((doc) => {
-				if (!doc) {
-					return this.sendErrorResponse(res, 204, methodName, 'The projects with that uid not exist');
+			.then((data) => {
+				if (!data) {
+					throw new AppError('myNotExist');
 				}
 
-				logger.info(`ProjectController - ${methodName}:`, '200:Success');
+				logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Return list project');
 				res.status(200).json({
-				 	projects : doc
+				 	projects : data
 				});
 			})
 			.catch((err) => {
-				if (err && err.message) {
-					this.sendErrorResponse(res, 500, methodName, err.message);
+				if (err) {
+					let message = this.mongoError.getErrorMessage(err, methodName);
+					this.sendErrorResponse(res, 500, methodName, message);
 				}
 			});
 	}
@@ -110,14 +117,14 @@ class ProjectController {
 
 		if (body._id) {
 			if (body._uid === user._id) {
-				logger.info(`ProjectController - ${methodName}:`, 'No create');
+				logger.info(`${this.constructor.name} - ${methodName}:`, 'No create');
 				this.sendErrorResponse(res, 400, methodName, 'The project is already exist');
 			} else {
-				logger.info(`ProjectController - ${methodName}:`, 'Recreate');
+				logger.info(`${this.constructor.name} - ${methodName}:`, 'Recreate');
 				body._uid = user._id;
 			}
 		} else {
-			logger.info(`ProjectController - ${methodName}:`, 'Create');
+			logger.info(`${this.constructor.name} - ${methodName}:`, 'Create');
 			body._uid = user._id;
 		}
 		delete body._id;
@@ -126,7 +133,8 @@ class ProjectController {
 		logger.info(project.toString());
 		project.save()
 			.then((data) => {
-				logger.info(`ProjectController - ${methodName}:`, '201:Create');
+				logger.info(`${this.constructor.name} - ${methodName}:`, '201 -', 'Create project.');
+
 				let result = {
 					_id : data._id.toString(),
 					_uid : data._uid.toString()
@@ -136,8 +144,9 @@ class ProjectController {
 				});
 			})
 			.catch((err) => {
-				if (err && err.message) {
-					this.sendErrorResponse(res, 500, methodName, err.message);
+				if (err) {
+					let message = this.mongoError.getErrorMessage(err, methodName);
+					this.sendErrorResponse(res, 500, methodName, message);
 				}
 			});
 	}
@@ -160,35 +169,31 @@ class ProjectController {
 
 		let body = req.body;
 		let user = req.user;
-		let opt = { upsert : true };
 
 		if (body._uid !== user._id) {
 			this.postProject(req, res);
 			return ;
 		}
 
-		logger.info(body.toString());
+		let opt = { upsert : true };
 		Project.update({ _id : id }, body, opt).exec()
 			.then((data) => {
-				logger.info(`ProjectController - ${methodName}:`, '200:OK');
 				let result = {
 					_id : body._id.toString(),
 					_uid : body._uid.toString()
 				};
+
+				logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Update project.');
 				res.status(200).json({
 					project : result
 				});
 			})
 			.catch((err) => {
-				if (err && err.message) {
-					this.sendErrorResponse(res, 500, methodName, err.message);
+				if (err) {
+					let message = this.mongoError.getErrorMessage(err, methodName);
+					this.sendErrorResponse(res, 500, methodName, message);
 				}
 			});
-	}
-
-	sendErrorResponse (resp, code, method, message) {
-		logger.error(`AuthController - ${method}:`, `Status - ${code} -`, message);
-		return resp.status(code).json({ 'error' : message });
 	}
 }
 

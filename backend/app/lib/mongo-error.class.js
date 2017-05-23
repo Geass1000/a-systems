@@ -21,7 +21,7 @@ class MongoError {
 
 		if (!methodErrors) {
 			logger.error(`${this.constructor.name} - getErrorMessage:`, 'Messages of errors not exist!');
-			return error.message || serverError;
+			return serverError;
 		}
 
 		logger.info(`${this.constructor.name} - getErrorMessage:`, 'Error name', error.name);
@@ -33,7 +33,7 @@ class MongoError {
 			return methodErrors[error.code.toString()];
 		}
 
-		return error.message || serverError;
+		return serverError;
 	}
 }
 

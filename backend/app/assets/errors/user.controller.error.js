@@ -1,6 +1,6 @@
 module.exports = {
 	'postUser' : {
-		'validator' : 'Validation error.',
+		'validator' : 'Invalid data format.',
 		'11000' : 'A user with that username or email already exist.'
 	},
 	'getUser' : {
