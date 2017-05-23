@@ -1,18 +1,24 @@
 'use strict';
 
-let logger = require('../config/logger.config');
+const path = require('path');
+let scriptName = path.basename(__filename, path.extname(__filename));
 
-let TextureCategory = require('../models/texture-category.model');
-let Texture = require('../models/texture.model');
-let ItemCategory = require('../models/item-category.model');
-let Item = require('../models/item.model');
+const logger = require('../config/logger.config');
+
+const BaseController = require('../lib/base-controller.class');
+const AppError = require('../lib/app-error.class');
+
+const TextureCategory = require('../models/texture-category.model');
+const Texture = require('../models/texture.model');
+const ItemCategory = require('../models/item-category.model');
+const Item = require('../models/item.model');
 
 /**
  * Контроллер редактора.
  *
  * @class EditorController
  */
-class EditorController {
+class EditorController extends BaseController {
 	/**
 	 * Конструктор. Получение из БД максимального ID.
 	 *
@@ -20,139 +26,106 @@ class EditorController {
 	 * @constructor
 	 */
 	constructor () {
+		super(scriptName);
 	}
 
 	/**
- 	 * Получение всех текстур из БД 'textures'.
- 	 *
- 	 * @param {express.Request} req
- 	 * @param {express.Response} res
- 	 *
- 	 * @class EditorController
- 	 * @method getAllTextures
- 	 */
-	getAllTextures (req, res) {
+	 * postLogin - функция-контроллер, выполняет обработку запроса о извлечении информации
+	 * о категориях текстур из БД.
+	 *
+	 * @method
+	 * @param {Request} req - объект запроса
+	 * @param {Response} res - объект ответа
+	 * @return {void}
+	 */
+	getTextureCategories (req, res) {
+		let message, methodName = 'getTextureCategories';
+
+		TextureCategory.getAllTextureCategories()
+			.then((data) => {
+				if (!data || !data.length) {
+					throw new AppError('myNotExist', 204);
+				}
+				
+				message = 'Return texture categories';
+				return this.sendSuccessResponse(res, 200, { "categories" : data }, methodName, message);
+			})
+			.catch((err) => this.sendErrorResponse(res, err, methodName));
+	}
+
+	/**
+	 * getTextures - функция-контроллер, выполняет обработку запроса о извлечении информации
+	 * о текстурах из БД.
+	 *
+	 * @method
+	 * @param {Request} req - объект запроса
+	 * @param {Response} res - объект ответа
+	 * @return {void}
+	 */
+	getTextures (req, res) {
+		let message, methodName = 'getTextures';
+
 		let category = req.query.category ? req.query.category.split(" ") : null;
+		logger.info(`${this.constructor.name} - ${methodName}:`, `category -`, category);
 
 		Texture.getAllTextures(category)
-			.then((doc) => {
-				logger.info('EditorController: getAllTextures', JSON.stringify(doc));
-				if (doc.length === 0) {
-					logger.info('EditorController: getAllTextures', '204:No Content');
-					res.status(204).send();
+			.then((data) => {
+				if (!data || !data.length) {
+					throw new AppError('myNotExist', 204);
 				}
-				else {
-					logger.info('EditorController: getAllTextures', '200:Success');
-					res.status(200).json({
-						"textures" : doc
-					});
-				}
+
+				message = 'Return user info';
+				return this.sendSuccessResponse(res, 200, { "textures" : data }, methodName, message);
 			})
-			.catch((err) => {
-				if (err) {
-					logger.info('EditorController: getAllTextures', '500:Error!');
-					res.status(500).json({ "message" : "Try later" });
-					return;
-				}
-			});
+			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
 
 	/**
- 	 * Получение всех текстур из БД 'textures'.
- 	 *
- 	 * @param {express.Request} req
- 	 * @param {express.Response} res
- 	 *
- 	 * @class EditorController
- 	 * @method getAllTextureCategories
- 	 */
-	getAllTextureCategories (req, res) {
-		TextureCategory.getAllTextureCategories()
-			.then((doc) => {
-				logger.info('EditorController: getAllTextureCategories', JSON.stringify(doc));
-				if (doc.length === 0) {
-					logger.info('EditorController: getAllTextureCategories', '204:No Content');
-					res.status(204).send();
-				}
-				else {
-					logger.info('EditorController: getAllTextureCategories', '200:Success');
-					res.status(200).json({
-						"categories" : doc
-					});
-				}
-			})
-			.catch((err) => {
-				if (err) {
-					logger.info('EditorController: getAllTextureCategories', '500:Error!');
-					res.status(500).json({ "message" : "Try later" });
-					return;
-				}
-			});
-	}
+	 * postLogin - функция-контроллер, выполняет обработку запроса о извлечении информации
+	 * о категориях элементов из БД.
+	 *
+	 * @method
+	 * @param {Request} req - объект запроса
+	 * @param {Response} res - объект ответа
+	 * @return {void}
+	 */
+	getItemCategories (req, res) {
+		let message, methodName = 'getItemCategories';
 
-	/**
- 	 * Получение всех категорий предметов из БД 'ItemCategory'.
- 	 *
- 	 * @param {express.Request} req
- 	 * @param {express.Response} res
- 	 *
- 	 * @class EditorController
- 	 * @method getAllItemCategories
- 	 */
-	getAllItemCategories (req, res) {
 		ItemCategory.getAllItemCategories()
-			.then((doc) => {
-				logger.info('EditorController: getAllItemCategories', JSON.stringify(doc));
-				if (doc.length === 0) {
-					logger.info('EditorController: getAllItemCategories', '204:No Content');
-					res.status(204).send();
+			.then((data) => {
+				if (!data || !data.length) {
+					throw new AppError('myNotExist', 204);
 				}
-				else {
-					logger.info('EditorController: getAllItemCategories', '200:Success');
-					res.status(200).json({
-						"categories" : doc
-					});
-				}
+
+				message = 'Return texture categories';
+				return this.sendSuccessResponse(res, 200, { "categories" : data }, methodName, message);
 			})
-			.catch((err) => {
-				if (err) {
-					logger.info('EditorController: getAllItemCategories', '500:Error!');
-					res.status(500).json({ "message" : "Try later" });
-					return;
-				}
-			});
+			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
+
 	/**
- 	 * Получение всех предметов из БД 'Item'.
- 	 *
- 	 * @param {express.Request} req
- 	 * @param {express.Response} res
- 	 *
- 	 * @class EditorController
- 	 * @method getAllItems
- 	 */
-	getAllItems (req, res) {
+	 * postLogin - функция-контроллер, выполняет обработку запроса о извлечении информации
+	 * о элементах из БД.
+	 *
+	 * @method
+	 * @param {Request} req - объект запроса
+	 * @param {Response} res - объект ответа
+	 * @return {void}
+	 */
+	getItems (req, res) {
+		let message, methodName = 'getItems';
+
 		Item.getAllItems()
-			.then((doc) => {
-				logger.info('EditorController: getAllItems', JSON.stringify(doc));
-				if (doc.length === 0) {
-					logger.info('EditorController: getAllItems', '204:No Content');
-					res.status(204).send();
+			.then((data) => {
+				if (!data || !data.length) {
+					throw new AppError('myNotExist', 204);
 				}
-				else {
-					logger.info('EditorController: getAllItems', '200:Success');
-					res.status(200).json({
-						"items" : doc
-					});
-				}
+
+				message = 'Return texture categories';
+				return this.sendSuccessResponse(res, 200, { "items" : data }, methodName, message);
 			})
-			.catch((err) => {
-				if (err) {
-					logger.info('EditorController: getAllItems', '500:Error!');
-					res.status(500).json({ "message" : "Try later" });
-					return;
-				}
-			});
+			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
 }
 

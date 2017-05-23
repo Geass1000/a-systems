@@ -31,9 +31,7 @@ class ProjectController extends BaseController {
 	 * getProject - функция-контроллер, выполняет обработку запроса о получении данных
 	 * проекта с идентификатором id.
 	 *
-	 * @kind {function}
 	 * @method
-	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -53,12 +51,7 @@ class ProjectController extends BaseController {
 				logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Return project info');
 				res.status(200).json({ project : data });
 			})
-			.catch((err) => {
-				if (err) {
-					let message = this.mongoError.getErrorMessage(err, methodName);
-					this.sendErrorResponse(res, 500, methodName, message);
-				}
-			});
+			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
 
 	/**
@@ -66,9 +59,7 @@ class ProjectController extends BaseController {
 	 * проектов. Если указывается query параметр "uid", то осуществляется поиск всех
 	 * пороектов определённого пользователя.
 	 *
-	 * @kind {function}
 	 * @method
-	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -90,21 +81,14 @@ class ProjectController extends BaseController {
 				 	projects : data
 				});
 			})
-			.catch((err) => {
-				if (err) {
-					let message = this.mongoError.getErrorMessage(err, methodName);
-					this.sendErrorResponse(res, 500, methodName, message);
-				}
-			});
+			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
 
 	/**
 	 * postProject - функция-контроллер, выполняет обработку запроса о добавлении нового
 	 * проекта в БД.
 	 *
-	 * @kind {function}
 	 * @method
-	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -143,21 +127,14 @@ class ProjectController extends BaseController {
 					project : result
 				});
 			})
-			.catch((err) => {
-				if (err) {
-					let message = this.mongoError.getErrorMessage(err, methodName);
-					this.sendErrorResponse(res, 500, methodName, message);
-				}
-			});
+			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
 
 	/**
 	 * postProject - функция-контроллер, выполняет обработку запроса о добавлении нового
 	 * проекта в БД.
 	 *
-	 * @kind {function}
 	 * @method
-	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -188,12 +165,7 @@ class ProjectController extends BaseController {
 					project : result
 				});
 			})
-			.catch((err) => {
-				if (err) {
-					let message = this.mongoError.getErrorMessage(err, methodName);
-					this.sendErrorResponse(res, 500, methodName, message);
-				}
-			});
+			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
 }
 

@@ -16,15 +16,15 @@ let jwtCheck = jwt({
 
 //... Texture
 router.route('/texture')
-			.get(EditorController.getAllTextures);
+			.get(EditorController.getTextures.bind(EditorController));
 router.route('/texture/type')
-			.get(EditorController.getAllTextureCategories);
+			.get(EditorController.getTextureCategories.bind(EditorController));
 
 //... Item
 router.route('/item')
-			.get(EditorController.getAllItems);
+			.get(EditorController.getItems.bind(EditorController));
 router.route('/item/category')
-			.get(EditorController.getAllItemCategories);
+			.get(EditorController.getItemCategories.bind(EditorController));
 
 //... Project
 router.route('/project')

@@ -3,7 +3,6 @@
 const path = require('path');
 let scriptName = path.basename(__filename, path.extname(__filename));
 
-const logger = require('../config/logger.config');
 const config = require('../config/app.config');
 
 const BaseController = require('../lib/base-controller.class');
@@ -31,9 +30,7 @@ class UserController extends BaseController {
 	 * postLogin - функция-контроллер, выполняет обработку запроса о входе пользователя
 	 * в систему.
 	 *
-	 * @kind {function}
 	 * @method
-	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -55,26 +52,19 @@ class UserController extends BaseController {
 					throw new AppError('myNotMatch');
 				}
 
-				logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Logging in');
+				this.logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Logging in');
 				res.status(200).json({
 					"token" : data.createToken()
 				});
 			})
-			.catch((err) => {
-				if (err) {
-					let message = this.mongoError.getErrorMessage(err, methodName);
-					this.sendErrorResponse(res, 500, methodName, message);
-				}
-			});
+			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
 
 	/**
 	 * postUser - функция-контроллер, выполняет обработку запроса о добавлении нового
 	 * пользователя в БД.
 	 *
-	 * @kind {function}
 	 * @method
-	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -92,26 +82,19 @@ class UserController extends BaseController {
 
 		user.save()
 			.then((data) => {
-				logger.info(`${this.constructor.name} - ${methodName}:`, '201 -', 'Create user.');
+				this.logger.info(`${this.constructor.name} - ${methodName}:`, '201 -', 'Create user.');
 				res.status(201).json({
 					"token" : data.createToken()
 				});
 			})
-			.catch((err) => {
-				if (err) {
-					let message = this.mongoError.getErrorMessage(err, methodName);
-					this.sendErrorResponse(res, 500, methodName, message);
-				}
-			});
+			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
 
 	/**
 	 * getUser - функция-контроллер, выполняет обработку запроса о извлечении информации
 	 * о пользователе из БД.
 	 *
-	 * @kind {function}
 	 * @method
-	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -120,7 +103,7 @@ class UserController extends BaseController {
 		let methodName = 'getUser';
 
 		let name = req.params.name.toString().trim().toLowerCase();
-		logger.info(`${this.constructor.name} - ${methodName}:`, `name -`, name);
+		this.logger.info(`${this.constructor.name} - ${methodName}:`, `name -`, name);
 
 		User.getUser(name)
 			.then((data) => {
@@ -129,15 +112,10 @@ class UserController extends BaseController {
 				}
 
 				data.avatar = config.user.avatarPath + data.avatar;
-				logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Return user info');
+				this.logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Return user info');
 				res.status(200).json({ user : data });
 			})
-			.catch((err) => {
-				if (err) {
-					let message = this.mongoError.getErrorMessage(err, methodName);
-					this.sendErrorResponse(res, 500, methodName, message);
-				}
-			});
+			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
 }
 

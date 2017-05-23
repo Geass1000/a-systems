@@ -28,9 +28,9 @@ class MongoError {
 		if (error.name === 'ValidationError') {
 			return methodErrors['validator'];
 		} else if (error.name === 'MongoError') {
-			return methodErrors[error.code.toString()];
+			return error.code ? methodErrors[error.code.toString()] : serverError;
 		} else if (error.name === 'AppError') {
-			return methodErrors[error.code.toString()];
+			return error.code ? methodErrors[error.code.toString()] : serverError;
 		}
 
 		return serverError;
