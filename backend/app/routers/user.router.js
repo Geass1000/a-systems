@@ -3,7 +3,7 @@
 let express = require('express');
 let router = express.Router();
 
-let AuthController = require('../controllers/auth.controller');
+let UserController = require('../controllers/user.controller');
 //... other controllers
 
 let config = require('../config/app.config');
@@ -14,12 +14,12 @@ let jwtCheck = jwt({
 });
 
 router.route('/auth')
-			.post(AuthController.postLogin.bind(AuthController));
+			.post(UserController.postLogin.bind(UserController));
 
 router.route('/users')
-			.post(AuthController.postUser.bind(AuthController));
+			.post(UserController.postUser.bind(UserController));
 router.route('/users/:name')
-			.get(jwtCheck, AuthController.getUser.bind(AuthController));
+			.get(jwtCheck, UserController.getUser.bind(UserController));
 
 //... other paths
 

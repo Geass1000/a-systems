@@ -9,7 +9,7 @@ export interface ISignup {
 }
 
 export interface ILogin {
-	login : string;
+	nickname : string;
 	password : string;
 }
 

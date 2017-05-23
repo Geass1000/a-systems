@@ -7,10 +7,10 @@
 	<section class="modal-body">
 		<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-1">
 			<div class="form-group"
-				[class.focused]="form.get('login').value">
+				[class.focused]="form.get('nickname').value">
 				<input type="text" class="form-control" required
-					formControlName="login" name="login" id="login" />
-				<label for="login">Name or e-mail</label>
+					formControlName="nickname" name="nickname" id="nickname" />
+				<label for="nickname">Name or e-mail</label>
 			</div>
 
 			<div class="form-group"

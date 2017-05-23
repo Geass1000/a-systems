@@ -98,9 +98,9 @@ userSchema.statics.findUserData = function (user) {
 	return this.findOne({ name : user.name }).exec();
 };
 
-userSchema.statics.findUserLogin = function (login) {
-	login = login.toLowerCase();
-	return this.findOne({ $or: [ { name : login }, { email : login } ] }).exec();
+userSchema.statics.findUserLogin = function (user) {
+	let name = user.nickname.toString().toLowerCase();
+	return this.findOne({ $or: [ { name : name }, { email : name } ] }).exec();
 };
 
 /**

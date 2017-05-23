@@ -3,7 +3,7 @@
 let express = require('express');
 let router = express.Router();
 
-let authRouter = require('./auth.router');
+let authRouter = require('./user.router');
 let editorRouter = require('./editor.router');
 //... other routers
 

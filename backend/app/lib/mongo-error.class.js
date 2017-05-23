@@ -15,7 +15,7 @@ class MongoError {
 		if (!error || !methodName || !(typeof methodName === 'string')) {
 			return serverError;
 		}
-		logger.error(`${this.constructor.name} - getErrorMessage:`, error.message);
+		logger.info(`${this.constructor.name} - getErrorMessage:`, error.message);
 
 		let methodErrors = this.errors && this.errors[methodName];
 
@@ -24,9 +24,12 @@ class MongoError {
 			return error.message || serverError;
 		}
 
+		logger.info(`${this.constructor.name} - getErrorMessage:`, 'Error name', error.name);
 		if (error.name === 'ValidationError') {
 			return methodErrors['validator'];
 		} else if (error.name === 'MongoError') {
+			return methodErrors[error.code.toString()];
+		} else if (error.name === 'AppError') {
 			return methodErrors[error.code.toString()];
 		}
 

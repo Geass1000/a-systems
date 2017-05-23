@@ -32,7 +32,7 @@ export class HttpService {
 		if (error instanceof Response) {
 			let body : any = error.json() || '';
 			errMsg = body.error || JSON.stringify(body);
-			this.logger.error(`${this.constructor.name} - handleError:`, `${error.status} - ${error.statusText || ''} ${errMsg}`);
+			this.logger.error(`${this.constructor.name} - handleError:`, `${error.status} - ${error.statusText || ''} - ${errMsg}`);
 		} else {
 			errMsg = error.message ? error.message : error.toString();
 		}

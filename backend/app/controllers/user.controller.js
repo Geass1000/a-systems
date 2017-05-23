@@ -6,6 +6,7 @@ const logger = require('../config/logger.config');
 const config = require('../config/app.config');
 
 const BaseController = require('../lib/base-controller.class');
+const AppError = require('../lib/app-error.class');
 
 const User = require('../models/user.model');
 
@@ -14,13 +15,13 @@ let scriptName = path.basename(__filename, path.extname(__filename));
 /**
  * The sign up controller.
  *
- * @class AuthController
+ * @class UserController
  */
-class AuthController extends BaseController {
+class UserController extends BaseController {
 	/**
 	 * Constructor.
 	 *
-	 * @class AuthController
+	 * @class UserController
 	 * @constructor
 	 */
 	constructor () {
@@ -33,32 +34,36 @@ class AuthController extends BaseController {
 	 * @param {express.Request} req
 	 * @param {express.Response} res
 	 *
-	 * @class AuthController
+	 * @class UserController
 	 * @method login
 	 */
 	postLogin (req, res) {
-		let info = req.body;
-		let methodName = 'login';
-		if (!info.login || !info.password) {
+		let methodName = 'postLogin';
+
+		let body = req.body;
+
+		if (!body || !body.nickname || !body.password) {
 			return this.sendErrorResponse(res, 400, methodName, 'All fields required');
 		}
-		User.findUserLogin(info.login)
+
+		User.findUserLogin(body)
 			.then((doc) => {
 				if (!doc) {
-					return this.sendErrorResponse(res, 400, methodName, 'A user with that username or email not exist');
+					throw new AppError('myNotExist');
 				}
-				if (!doc.validPassword(info.password)) {
-					return this.sendErrorResponse(res, 400, methodName, 'The username(email) or password don\'t match');
+				if (!doc.validPassword(body.password)) {
+					throw new AppError('myNotMatch');
 				}
 
-				logger.info('AuthController - login:', '200:Success');
+				logger.info('UserController - login:', '200', 'Logging in');
 				res.status(200).json({
 					"token" : doc.createToken()
 				});
 			})
 			.catch((err) => {
 				if (err) {
-					return this.sendErrorResponse(res, 500, methodName, 'Try sign in later');
+					let message = this.mongoError.getErrorMessage(err, methodName);
+					this.sendErrorResponse(res, 500, methodName, message);
 				}
 			});
 	}
@@ -115,14 +120,14 @@ class AuthController extends BaseController {
 		let methodName = 'getUser';
 
 		let name = req.params.name.toString().trim().toLowerCase();
-		logger.info(`AuthController - ${methodName}:`, `name -`, name);
+		logger.info(`UserController - ${methodName}:`, `name -`, name);
 
 		User.getUser(name)
 			.then((data) => {
 				if (data) {
 					logger.info(`${this.constructor.name} - ${methodName}:`, `data -`, data.toString());
 				} else {
-					throw new Error('The user isn\'t exist!');
+					throw new AppError('myNotExist');
 				}
 
 				data.avatar = config.user.avatarPath + data.avatar;
@@ -138,4 +143,4 @@ class AuthController extends BaseController {
 	}
 }
 
-module.exports = new AuthController();
+module.exports = new UserController();
