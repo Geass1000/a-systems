@@ -1,17 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 
-import { tokenNotExpired } from 'angular2-jwt';
+/* App Services */
+import { LoggerService } from './logger.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-	constructor (private router: Router) { ; }
+	constructor (private router: Router,
+							 private logger : LoggerService,
+						 	 private userService : UserService) { ; }
 
+	/**
+	 * canActivate - выполняет проверку перехода.
+	 *
+	 * @method
+	 *
+	 * @return {boolean}
+	 */
   canActivate() {
-		if (tokenNotExpired()) {
+		if (this.userService.loggedIn()) {
+			this.logger.info(`${this.constructor.name} - canActivate:`, true);
 			return true;
 		} else {
-			this.router.navigate(['login']);
+			this.logger.info(`${this.constructor.name} - canActivate:`, false);
+			this.router.navigate(['/']);
 			return false;
 		}
   }

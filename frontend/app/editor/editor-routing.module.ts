@@ -4,12 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 /* App Routing - Component */
 import { EditorComponent } from './editor.component';
 
-/* App Routing - Service */
-// import { AuthGuard } from '../core/auth-guard.service';
+/* App Service */
+import { AuthGuard } from '../core/auth-guard.service';
 // { path: 'home', component: HomeComponent, canActivate: [ AuthGuard ] }
 
 const routes: Routes = [
-	{ path: 'editor', component: EditorComponent }
+	{ path: 'editor', component: EditorComponent, canActivate: [ AuthGuard ] }
 ];
 @NgModule({
   imports: [ RouterModule.forChild(routes) ],

@@ -6,13 +6,11 @@ import { IItem, IItemCategory } from '../../shared/interfaces/editor.interface';
 
 export interface IEditorItem {
 	categories : Map<string, IItemCategory>;
-	activeCategory : string;
 	items : Map<string, IItem>;
 }
 
 export const INITIAL_STATE : IEditorItem = {
 	categories : new Map(),
-	activeCategory : null,
 	items : new Map()
 };
 

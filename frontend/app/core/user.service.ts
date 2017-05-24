@@ -1,4 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Headers, Http, Response } from '@angular/http';
 import { AuthHttp, tokenNotExpired, JwtHelper } from 'angular2-jwt';
 
@@ -28,7 +29,8 @@ export class UserService implements OnDestroy {
 	/* Redux */
 	private subscription : Array<Subscription> = [];
 
-	constructor (private http : Http,
+	constructor (private router: Router,
+							 private http : Http,
 							 private authHttp : AuthHttp,
 							 private ngRedux : NgRedux<any>,
 							 private userActions : UserActions,
@@ -47,7 +49,8 @@ export class UserService implements OnDestroy {
 	 * login - функция-метод, выполняет вход пользователя в систему.
 	 * Выполняет распаковку токена и установку пользовательских данных в хранилище.
 	 *
-	 * @function
+	 * @method
+	 *
 	 * @param {string} token - jwt-токен
 	 * @return {void}
 	 */
@@ -72,18 +75,21 @@ export class UserService implements OnDestroy {
 	 * logout - функция-метод, выполняет выход пользователя из системы.
 	 * Выполняет удаление пользовательских данных из хранилища.
 	 *
-	 * @function
+	 * @method
+	 *
 	 * @return {void}
 	 */
 	logout () : void {
 		localStorage.removeItem('token');
 		this.ngRedux.dispatch(this.userActions.resetStoreUser());
+		this.router.navigate(['/']);
 	}
 
 	/**
 	 * loggedIn - функция-метод, выполняет проверку: "Находится ли пользователь в системе?".
 	 *
-	 * @function
+	 * @method
+	 *
 	 * @return {boolean}
 	 */
 	loggedIn () : boolean {
@@ -98,7 +104,8 @@ export class UserService implements OnDestroy {
 	/**
 	 * getUser - функция-запрос, выполняет получение данных пользователя от сервера.
 	 *
-	 * @function
+	 * @method
+	 *
 	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
 	 * @return {void}
 	 */
@@ -115,7 +122,8 @@ export class UserService implements OnDestroy {
 	/**
 	 * postUser - функция-запрос, выполняет добавление пользователя в систему.
 	 *
-	 * @function
+	 * @method
+	 *
 	 * @param {ISignup} formValue - значение формы
 	 * @return {boolean}
 	 */
@@ -134,7 +142,8 @@ export class UserService implements OnDestroy {
 	/**
 	 * postLogin - функция-запрос, выполняет загрузку jwt-токена от сервера.
 	 *
-	 * @function
+	 * @method
+	 * 
 	 * @param {ILogin} formValue - значение формы
 	 * @return {boolean}
 	 */

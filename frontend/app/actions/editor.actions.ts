@@ -29,7 +29,6 @@ export class EditorActions {
 	static readonly ADD_TEXTURE = EditorActions.CLASS_NAME + 'ADD_TEXTURE';
 	static readonly ADD_TEXTURES = EditorActions.CLASS_NAME + 'ADD_TEXTURES';
 	static readonly ADD_TEXTURE_CATEGORIES = EditorActions.CLASS_NAME + 'ADD_TEXTURE_CATEGORIES';
-	static readonly UPDATE_TEXTURE_LOAD = EditorActions.CLASS_NAME + 'UPDATE_TEXTURE_LOAD';
 	/* Manager Action */
 	static readonly OPEN_MANAGER_PANEL = EditorActions.CLASS_NAME + 'OPEN_MANAGER_PANEL';
 	static readonly CLOSE_ACTIVE_MANAGER_PANEL = EditorActions.CLASS_NAME + 'CLOSE_ACTIVE_MANAGER_PANEL';
@@ -175,15 +174,6 @@ export class EditorActions {
 			type : EditorActions.ADD_TEXTURE_CATEGORIES,
 			payload : {
 				categories : categories
-			}
-		};
-	}
-	updateTextureLoad (_id : string, state : boolean) : IAction {
-		return {
-			type : EditorActions.UPDATE_TEXTURE_LOAD,
-			payload : {
-				_id : _id,
-				state : state
 			}
 		};
 	}
