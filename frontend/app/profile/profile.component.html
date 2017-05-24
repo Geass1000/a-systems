@@ -23,7 +23,7 @@
 		</section>
 		<section class="block-user block-user-projects">
       <h4 class="block-header">User Projects</h4>
-      <div class="projects" (click)="onClickOpenProject($event)">
+      <div class="projects" (click)="onClickProject($event)">
         <div class="project-item" *ngFor="let item of profile.projects"
 					[attr.data-item-id]="item._id">
           <div class="project-info">
@@ -32,11 +32,11 @@
               <p class="project-id">{{item._id}}</p>
             </div>
             <div class="minor">
-							<div class="project-control-button">
+							<div class="project-control-button" data-event-type="edit">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 								<p class="description">Click to edit...</p>
 							</div>
-							<div class="project-control-button">
+							<div class="project-control-button" data-event-type="delete">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 								<p class="description">Click to delete...</p>
 							</div>

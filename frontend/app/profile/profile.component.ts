@@ -8,11 +8,13 @@ import { NgRedux, select } from '@angular-redux/store';
 
 /* App Services */
 import { LoggerService } from '../core/logger.service';
-import { UserService } from '../core/user.service';
 import { ProfileService } from './profile.service';
+import { UserService } from '../core/user.service';
+import { ProjectService } from '../core/project.service';
 
 /* App Interfaces and Classes */
 import { IRProfile } from '../shared/interfaces/app.interface';
+import { IProjects, IRProject } from '../shared/interfaces/project.interface';
 
 @Component({
 	moduleId: module.id,
@@ -38,8 +40,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 							 private activateRoute: ActivatedRoute,
 							 private ngRedux : NgRedux<any>,
 						 	 private logger : LoggerService,
+							 private profileService : ProfileService,
 						 	 private userService : UserService,
-               private profileService : ProfileService) {
+               private projectService : ProjectService) {
 	}
 	ngOnInit () {
 		this.subscription.push(this.userName$.subscribe((data) => {
@@ -127,14 +130,36 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	 * @param {MouseEvent} event - объект события
 	 * @return {void}
 	 */
-	onClickOpenProject (event : MouseEvent) : void {
-		let el : any = (<HTMLElement>event.target).closest('.project-item');
-		if (el !== null) {
-			let projectId : string = el.getAttribute('data-item-id').toString();
-			this.logger.info(`${this.constructor.name} - onClickOpenProject:`, 'projectId -', projectId);
-			this.profileService.setProject(projectId);
-		}	else {
+	onClickProject (event : MouseEvent) : void {
+		let elButton : Element = (<HTMLElement>event.target).closest('.project-control-button');
+		let elProject : Element = (<HTMLElement>event.target).closest('.project-item');
+		if (!elButton || !elProject) {
 			this.logger.info(`${this.constructor.name} - onClickOpenProject:`, 'Not project');
+			return;
 		}
+		let eventType : string = elButton.getAttribute('data-event-type');
+		let projectId : string = elProject.getAttribute('data-item-id').toString();
+
+		this.logger.info(`${this.constructor.name} - onClickOpenProject:`, 'eventType', eventType);
+		this.logger.info(`${this.constructor.name} - onClickOpenProject:`, 'projectId', projectId);
+
+		switch (eventType) {
+			case 'edit' : {
+				this.projectService.getProject(projectId).subscribe((data : IRProject) => {
+					this.projectService.setProject(data.project);
+					this.router.navigateByUrl('/editor');
+				});
+				break;
+			}
+			case 'delete' : {
+				this.projectService.deleteProject(projectId).subscribe((data : IRProject) => {
+					this.profile.projects = this.profile.projects.filter((project : IProjects) => {
+						return project._id !== projectId;
+					});
+				});
+				break;
+			}
+		}
+
 	}
 }

@@ -16,7 +16,7 @@ import { ProjectService } from '../core/project.service';
 /* App Interfaces and Classes */
 import { IRProfile } from '../shared/interfaces/app.interface';
 import { IRUser } from '../shared/interfaces/auth.interface';
-import { IRProject, IRProjects } from '../shared/interfaces/project.interface';
+import { IRProjects } from '../shared/interfaces/project.interface';
 
 @Injectable()
 export class ProfileService implements OnDestroy {
@@ -59,22 +59,5 @@ export class ProfileService implements OnDestroy {
 				profile.projects = data.projects;
 				return Observable.of(profile);
 			});
-	}
-
-	/**
-	 * setProject - выполняет получение данных пользователя от сервера.
-	 *
-	 * @function
-	 * @method
-	 *
-	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
-	 * @return {void}
-	 */
-	setProject (projectId : string) : any {
-		this.logger.info(`${this.constructor.name} - setProject:`, 'projectId -', projectId);
-		this.projectService.getProject(projectId).subscribe((data : IRProject) => {
-			this.projectService.setProject(data.project);
-		});
-		return;
 	}
 }

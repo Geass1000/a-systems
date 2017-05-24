@@ -29,3 +29,6 @@ export interface IProjectsSave {
 export interface IRProjectsSave {
 	project : IProjectsSave;
 }
+
+export interface IRProjectsDelete {
+}
