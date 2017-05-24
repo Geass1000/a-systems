@@ -32,7 +32,8 @@ router.route('/project')
 			.post(jwtCheck, ProjectController.postProject.bind(ProjectController));
 router.route('/project/:id')
 			.get(jwtCheck, ProjectController.getProject.bind(ProjectController))
-			.put(jwtCheck, ProjectController.putProject.bind(ProjectController));
+			.put(jwtCheck, ProjectController.putProject.bind(ProjectController))
+			.delete(jwtCheck, ProjectController.deleteProject.bind(ProjectController));
 
 //... other paths
 

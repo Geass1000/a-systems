@@ -132,11 +132,17 @@
             font-size: 13px;
             color: rgba(0,0,0,0.8);
           }
+
           .project-load {
             font-size: 16px;
             font-weight: bold;
             padding-right: 5px;
           }
+
+					.minor {
+						display: flex;
+						flex-direction: row;
+					}
         }
 
         .project-separator {

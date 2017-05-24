@@ -26,7 +26,6 @@ class ProjectController extends BaseController {
 		super(scriptName);
 	}
 
-
 	/**
 	 * getProject - функция-контроллер, выполняет обработку запроса о получении данных
 	 * проекта с идентификатором id.
@@ -135,7 +134,7 @@ class ProjectController extends BaseController {
 	 * проекта в БД.
 	 *
 	 * @method
-	 * 
+	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -144,7 +143,6 @@ class ProjectController extends BaseController {
 		let message, methodName = 'putProject';
 
 		let id = req.params.id.toString().trim().toLowerCase();
-
 		let body = req.body;
 		let user = req.user;
 
@@ -163,6 +161,39 @@ class ProjectController extends BaseController {
 
 				message = 'Update project.';
 				this.sendSuccessResponse(res, 200, { project : result }, methodName, message);
+			})
+			.catch((err) => this.sendErrorResponse(res, err, methodName));
+	}
+
+	/**
+	 * deleteProject - функция-контроллер, выполняет обработку запроса о удалении
+	 * проекта из БД.
+	 *
+	 * @method
+	 *
+	 * @param {Request} req - объект запроса
+	 * @param {Response} res - объект ответа
+	 * @return {void}
+	 */
+	deleteProject (req, res) {
+		let message, methodName = 'deleteProject';
+
+		let id = req.params.id.toString().trim().toLowerCase();
+		let user = req.user;
+
+		Project.getProject(id)
+			.then((data) => {
+				if (!data) {
+					throw new AppError('myNotExist', 404);
+				}
+				if (data._uid !== user._id) {
+					throw new AppError('myNotAuth', 401);
+				}
+				return Project.remove({ _id : id });
+			})
+			.then((data) => {
+				message = 'Project delete.';
+				this.sendSuccessResponse(res, 200, {}, methodName, message);
 			})
 			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
