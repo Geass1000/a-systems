@@ -1,7 +1,8 @@
 module.exports = {
 	'postProject' : {
 		'validator' : 'Invalid data format.',
-		'11000' : 'The project already exist.'
+		'11000' : 'The project already exist.',
+		'myExist' : 'The project already exist'
 	},
 	'putProject' : {
 		'validator' : 'Invalid data format.'

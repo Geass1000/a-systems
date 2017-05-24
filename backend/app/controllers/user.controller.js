@@ -36,26 +36,24 @@ class UserController extends BaseController {
 	 * @return {void}
 	 */
 	postLogin (req, res) {
-		let methodName = 'postLogin';
+		let message, methodName = 'postLogin';
 
 		let body = req.body;
 		if (!body || !body.nickname || !body.password) {
-			return this.sendErrorResponse(res, 400, methodName, 'All fields required');
+			this.sendErrorResponse(res, 400, methodName, 'All fields required');
 		}
 
 		User.findUserLogin(body)
 			.then((data) => {
 				if (!data) {
-					throw new AppError('myNotExist');
+					throw new AppError('myNotExist', 404);
 				}
 				if (!data.validPassword(body.password)) {
-					throw new AppError('myNotMatch');
+					throw new AppError('myNotMatch', 400);
 				}
 
-				this.logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Logging in');
-				res.status(200).json({
-					"token" : data.createToken()
-				});
+				message = 'Logging in.';
+				this.sendSuccessResponse(res, 200, { token : data.createToken() }, methodName, message);
 			})
 			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
@@ -70,7 +68,7 @@ class UserController extends BaseController {
 	 * @return {void}
 	 */
 	postUser (req, res) {
-		let methodName = 'postUser';
+		let message, methodName = 'postUser';
 
 		let body = req.body;
 
@@ -82,10 +80,8 @@ class UserController extends BaseController {
 
 		user.save()
 			.then((data) => {
-				this.logger.info(`${this.constructor.name} - ${methodName}:`, '201 -', 'Create user.');
-				res.status(201).json({
-					"token" : data.createToken()
-				});
+				message = 'Create user.';
+				this.sendSuccessResponse(res, 201, { token : data.createToken() }, methodName, message);
 			})
 			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
@@ -100,7 +96,7 @@ class UserController extends BaseController {
 	 * @return {void}
 	 */
 	getUser (req, res) {
-		let methodName = 'getUser';
+		let message, methodName = 'getUser';
 
 		let name = req.params.name.toString().trim().toLowerCase();
 		this.logger.info(`${this.constructor.name} - ${methodName}:`, `name -`, name);
@@ -108,12 +104,12 @@ class UserController extends BaseController {
 		User.getUser(name)
 			.then((data) => {
 				if (!data) {
-					throw new AppError('myNotExist');
+					throw new AppError('myNotExist', 404);
 				}
 
 				data.avatar = config.user.avatarPath + data.avatar;
-				this.logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Return user info');
-				res.status(200).json({ user : data });
+				message = 'Return user info.';
+				this.sendSuccessResponse(res, 200, { user : data }, methodName, message);
 			})
 			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}

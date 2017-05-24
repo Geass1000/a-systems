@@ -39,8 +39,8 @@ let itemSchema = new Schema({
  *
  * @param  {none}
  */
-itemSchema.statics.getAllItems = function () {
-	return this.find().exec();
+itemSchema.statics.getItems = function (category) {
+	return category ? this.find({ _cid : { $in : category } }).exec() : this.find().exec();
 };
 
 module.exports = connection.model('Item', itemSchema);

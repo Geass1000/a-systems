@@ -36,10 +36,8 @@ let textureSchema = new Schema({
  *
  * @param  {Object} user user info
  */
-textureSchema.statics.getAllTextures = function (category) {
-	let sel = '_id _cid url width height';
-	return category ? this.find({ _cid : { $in : category } }).select(sel).exec() :
-										this.find().select(sel).exec();
+textureSchema.statics.getTextures = function (category) {
+	return category ? this.find({ _cid : { $in : category } }).exec() : this.find().exec();
 };
 
 module.exports = connection.model('Texture', textureSchema);

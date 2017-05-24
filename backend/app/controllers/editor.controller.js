@@ -41,14 +41,14 @@ class EditorController extends BaseController {
 	getTextureCategories (req, res) {
 		let message, methodName = 'getTextureCategories';
 
-		TextureCategory.getAllTextureCategories()
+		TextureCategory.getTextureCategories()
 			.then((data) => {
 				if (!data || !data.length) {
-					throw new AppError('myNotExist', 204);
+					throw new AppError('myNotExist', 404);
 				}
-				
-				message = 'Return texture categories';
-				return this.sendSuccessResponse(res, 200, { "categories" : data }, methodName, message);
+
+				message = 'Return texture categories.';
+				this.sendSuccessResponse(res, 200, { categories : data }, methodName, message);
 			})
 			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
@@ -66,16 +66,15 @@ class EditorController extends BaseController {
 		let message, methodName = 'getTextures';
 
 		let category = req.query.category ? req.query.category.split(" ") : null;
-		logger.info(`${this.constructor.name} - ${methodName}:`, `category -`, category);
 
-		Texture.getAllTextures(category)
+		Texture.getTextures(category)
 			.then((data) => {
 				if (!data || !data.length) {
-					throw new AppError('myNotExist', 204);
+					throw new AppError('myNotExist', 404);
 				}
 
-				message = 'Return user info';
-				return this.sendSuccessResponse(res, 200, { "textures" : data }, methodName, message);
+				message = 'Return textures.';
+				this.sendSuccessResponse(res, 200, { textures : data }, methodName, message);
 			})
 			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
@@ -92,14 +91,14 @@ class EditorController extends BaseController {
 	getItemCategories (req, res) {
 		let message, methodName = 'getItemCategories';
 
-		ItemCategory.getAllItemCategories()
+		ItemCategory.getItemCategories()
 			.then((data) => {
 				if (!data || !data.length) {
-					throw new AppError('myNotExist', 204);
+					throw new AppError('myNotExist', 404);
 				}
 
-				message = 'Return texture categories';
-				return this.sendSuccessResponse(res, 200, { "categories" : data }, methodName, message);
+				message = 'Return item categories.';
+				this.sendSuccessResponse(res, 200, { categories : data }, methodName, message);
 			})
 			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
@@ -116,14 +115,16 @@ class EditorController extends BaseController {
 	getItems (req, res) {
 		let message, methodName = 'getItems';
 
-		Item.getAllItems()
+		let category = req.query.category ? req.query.category.split(" ") : null;
+
+		Item.getItems(category)
 			.then((data) => {
 				if (!data || !data.length) {
-					throw new AppError('myNotExist', 204);
+					throw new AppError('myNotExist', 404);
 				}
 
-				message = 'Return texture categories';
-				return this.sendSuccessResponse(res, 200, { "items" : data }, methodName, message);
+				message = 'Return items.';
+				this.sendSuccessResponse(res, 200, { items : data }, methodName, message);
 			})
 			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}

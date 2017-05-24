@@ -37,7 +37,7 @@ class ProjectController extends BaseController {
 	 * @return {void}
 	 */
 	getProject (req, res) {
-		let methodName = 'getProject';
+		let message, methodName = 'getProject';
 
 		let id = req.params.id.toString().trim().toLowerCase();
 		logger.info(`${this.constructor.name} - ${methodName}:`, `id -`, id);
@@ -45,11 +45,11 @@ class ProjectController extends BaseController {
 		Project.getProject(id)
 			.then((data) => {
 				if (!data) {
-					throw new AppError('myNotExist');
+					throw new AppError('myNotExist', 404);
 				}
 
-				logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Return project info');
-				res.status(200).json({ project : data });
+				message = 'Return project info.';
+				this.sendSuccessResponse(res, 200, { project : data }, methodName, message);
 			})
 			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
@@ -65,7 +65,7 @@ class ProjectController extends BaseController {
 	 * @return {void}
 	 */
 	getProjects (req, res) {
-		let methodName = 'getProject';
+		let message, methodName = 'getProject';
 
 		let uid = req.query.uid ? req.query.uid : null;
 		logger.info(`${this.constructor.name} - ${methodName}:`, `uid -`, uid);
@@ -73,13 +73,11 @@ class ProjectController extends BaseController {
 		Project.getProjects(uid)
 			.then((data) => {
 				if (!data) {
-					throw new AppError('myNotExist');
+					throw new AppError('myNotExist', 404);
 				}
 
-				logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Return list project');
-				res.status(200).json({
-				 	projects : data
-				});
+				message = 'Return list project.';
+				this.sendSuccessResponse(res, 200, { projects : data }, methodName, message);
 			})
 			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
@@ -94,7 +92,7 @@ class ProjectController extends BaseController {
 	 * @return {void}
 	 */
 	postProject (req, res) {
-		let methodName = 'postProject';
+		let message, methodName = 'postProject';
 
 		let body = req.body;
 		let user = req.user;
@@ -102,7 +100,7 @@ class ProjectController extends BaseController {
 		if (body._id) {
 			if (body._uid === user._id) {
 				logger.info(`${this.constructor.name} - ${methodName}:`, 'No create');
-				this.sendErrorResponse(res, 400, methodName, 'The project is already exist');
+				return this.sendErrorResponse(res, new AppError('myExist', 400), methodName);
 			} else {
 				logger.info(`${this.constructor.name} - ${methodName}:`, 'Recreate');
 				body._uid = user._id;
@@ -123,9 +121,8 @@ class ProjectController extends BaseController {
 					_id : data._id.toString(),
 					_uid : data._uid.toString()
 				};
-				res.status(201).json({
-					project : result
-				});
+				message = 'Create project.';
+				this.sendSuccessResponse(res, 201, { project : result }, methodName, message);
 			})
 			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}
@@ -140,7 +137,7 @@ class ProjectController extends BaseController {
 	 * @return {void}
 	 */
 	putProject (req, res) {
-		let methodName = 'putProject';
+		let message, methodName = 'putProject';
 
 		let id = req.params.id.toString().trim().toLowerCase();
 
@@ -160,10 +157,8 @@ class ProjectController extends BaseController {
 					_uid : body._uid.toString()
 				};
 
-				logger.info(`${this.constructor.name} - ${methodName}:`, '200 -', 'Update project.');
-				res.status(200).json({
-					project : result
-				});
+				message = 'Update project.';
+				this.sendSuccessResponse(res, 200, { project : result }, methodName, message);
 			})
 			.catch((err) => this.sendErrorResponse(res, err, methodName));
 	}

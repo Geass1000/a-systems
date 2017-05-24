@@ -17,11 +17,6 @@ class BaseController {
 		this.logger.error(`${this.constructor.name} - ${methodName}:`, `${statusCode} -`, message);
 		return resp.status(statusCode).json({ 'error' : message });
 	}
-
-	sendErrorResponse2 (resp, code, method, message) {
-		this.logger.error(`${this.constructor.name} - ${method}:`, `${code} -`, message);
-		return resp.status(code).json({ 'error' : message });
-	}
 }
 
 module.exports = BaseController;

@@ -27,7 +27,7 @@ let itemCategorySchema = new Schema({
  *
  * @param  {Object} user user info
  */
-itemCategorySchema.statics.getAllItemCategories = function () {
+itemCategorySchema.statics.getItemCategories = function () {
 	return this.find().exec();
 };
 

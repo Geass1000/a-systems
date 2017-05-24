@@ -22,7 +22,7 @@ let textureCategorySchema = new Schema({
  *
  * @param  {Object} user user info
  */
-textureCategorySchema.statics.getAllTextureCategories = function () {
+textureCategorySchema.statics.getTextureCategories = function () {
 	return this.find().exec();
 };
 
