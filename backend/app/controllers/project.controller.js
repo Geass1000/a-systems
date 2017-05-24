@@ -114,7 +114,6 @@ class ProjectController extends BaseController {
 		delete body._id;
 
 		let project = new Project(body);
-		logger.info(project.toString());
 		project.save()
 			.then((data) => {
 				logger.info(`${this.constructor.name} - ${methodName}:`, '201 -', 'Create project.');
