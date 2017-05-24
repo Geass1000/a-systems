@@ -143,7 +143,7 @@ export class UserService implements OnDestroy {
 	 * postLogin - функция-запрос, выполняет загрузку jwt-токена от сервера.
 	 *
 	 * @method
-	 * 
+	 *
 	 * @param {ILogin} formValue - значение формы
 	 * @return {boolean}
 	 */

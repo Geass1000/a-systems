@@ -12,6 +12,12 @@ import { LoggerService } from '../core/logger.service';
 /* App Interfaces and Classes */
 import { IElement } from '../shared/interfaces/editor.interface';
 
+interface IEElement {
+	target ?: EventTarget;
+	clientX ?: number;
+	clientY ?: number;
+}
+
 @Directive({
 	selector : '[drag-and-drop]'
 })
@@ -211,9 +217,10 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * onMouseDown - событие, отвечающее за обработка нажатия кнопки мыши.
+	 * onMouseDown - отвечает за обработку события начала переноса для мышки.
 	 *
-	 * @kind {event}
+	 * @method
+	 *
 	 * @param {MouseEvent} event
 	 * @return {boolean|void}
 	 */
@@ -222,40 +229,129 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 			return false;
 		}
 
+		let eventElement : IEElement = {
+			target : event.target,
+			clientX : event.clientX,
+			clientY : event.clientY
+		};
+
+		this.onElementDown(eventElement);
+		event.preventDefault();
+		return false;
+	}
+
+	/**
+	 * onTouchStart - отвечает за обработку события начала переноса для тачпада.
+	 *
+	 * @method
+	 *
+	 * @param {TouchEvent} event
+	 * @return {boolean|void}
+	 */
+	@HostListener('touchstart', ['$event']) onTouchStart (event : TouchEvent) : boolean | void {
+		if (!event.touches.length) {
+			event.preventDefault();
+			return false;
+		}
+
+		let eventElement : IEElement = {
+			target : event.touches[0].target,
+			clientX : event.touches[0].clientX,
+			clientY : event.touches[0].clientY
+		};
+
+		this.onElementDown(eventElement);
+		event.preventDefault();
+		return false;
+	}
+
+	/**
+	 * onElementDown - отвечает за начало переноса элемента.
+	 *
+	 * @method
+	 *
+	 * @param {IEElement} event
+	 * @return {boolean}
+	 */
+	onElementDown (event : IEElement) : boolean {
+		let methodName : string = 'onElementDown';
 		this.initData();
 
 		this.targetElements = this.captureElement(<SVGElement>event.target);
-		this.logger.info(`${this.constructor.name} - onMouseDown:`, 'targetElements -', this.targetElements);
-		this.logger.info(`${this.constructor.name} - onMouseDown:`, 'activeElements -', this.activeElements);
+		this.logger.info(`${this.constructor.name} - ${methodName}:`, 'targetElements -', this.targetElements);
+		this.logger.info(`${this.constructor.name} - ${methodName}:`, 'activeElements -', this.activeElements);
 
 		let compare : Array<IElement> = this.createDraggableArray();
 		this.nameTranslateMethod = this.createNameTranslateMethod(compare);
 		if (!this.editorActions[this.nameTranslateMethod]) {
-			this.logger.warn(`${this.constructor.name} - onMouseDown:`, 'Method isn\'t exist -', this.nameTranslateMethod);
+			this.logger.warn(`${this.constructor.name} - ${methodName}:`, 'Method isn\'t exist -', this.nameTranslateMethod);
 			return false;
 		}
 		this.argsTranslateMethod = this.createArgsTranslateMethod(compare);
-		this.logger.info(`${this.constructor.name} - onMouseDown:`, 'nameTranslateMethod -', this.nameTranslateMethod);
-		this.logger.info(`${this.constructor.name} - onMouseDown:`, 'argsTranslateMethod -', this.argsTranslateMethod);
+		this.logger.info(`${this.constructor.name} - ${methodName}:`, 'nameTranslateMethod -', this.nameTranslateMethod);
+		this.logger.info(`${this.constructor.name} - ${methodName}:`, 'argsTranslateMethod -', this.argsTranslateMethod);
 
 		this.startX = event.clientX;
 		this.startY = event.clientY;
 		this.shiftX = this.startX;
 		this.shiftY = this.startY;
 		this.isDown = true;
-
-		event.preventDefault();
-		return false;
+		return true;
 	}
 
 	/**
-	 * onMouseMove - событие, отвечающее за обработка перемещения мыши в области переноса.
+	 * onMouseMove - отвечает за обработку события переноса для мышки.
 	 *
 	 * @kind {event}
 	 * @param {MouseEvent} event
 	 * @return {boolean|void}
 	 */
 	@HostListener('mousemove', ['$event']) onMouseMove (event : MouseEvent) : boolean | void {
+		let eventElement : IEElement = {
+			target : event.target,
+			clientX : event.clientX,
+			clientY : event.clientY
+		};
+
+		this.onElementMove(eventElement);
+		event.preventDefault();
+		return false;
+	}
+
+	/**
+	 * onTouchMove - отвечает за обработку события переноса для тачпада.
+	 *
+	 * @method
+	 *
+	 * @param {TouchEvent} event
+	 * @return {boolean|void}
+	 */
+	@HostListener('touchmove', ['$event']) onTouchMove (event : TouchEvent) : boolean | void {
+		if (!event.touches.length) {
+			event.preventDefault();
+			return false;
+		}
+
+		let eventElement : IEElement = {
+			target : event.touches[0].target,
+			clientX : event.touches[0].clientX,
+			clientY : event.touches[0].clientY
+		};
+
+		this.onElementMove(eventElement);
+		event.preventDefault();
+		return false;
+	}
+
+	/**
+	 * onElementMove - отвечает за перенос элемента.
+	 *
+	 * @method
+	 *
+	 * @param {IEElement} event
+	 * @return {boolean}
+	 */
+	onElementMove (event : IEElement) {
 		if (!this.isDown) {
 			return false;
 		}
@@ -275,26 +371,90 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 
 		let action = this.editorActions[this.nameTranslateMethod]([dX, dY, ...this.argsTranslateMethod]);
 		this.ngRedux.dispatch(action);
-		event.preventDefault();
+		return true;
 	}
 
 	/**
-	 * onMouseUp - событие, отвечающее за отжатие кнопки мыши.
+	 * onMouseUp - отвечает за обработку события остановки переноса для мышки.
 	 *
-	 * @kind {event}
+	 * @method
+	 *
 	 * @param {MouseEvent} event
 	 * @return {boolean|void}
 	 */
 	@HostListener('mouseup', ['$event']) onMouseUp (event : MouseEvent) : boolean | void {
+		let eventElement : IEElement = {
+			target : event.target,
+			clientX : event.clientX,
+			clientY : event.clientY
+		};
+
+		this.onElementUp(eventElement);
+		event.preventDefault();
+		return false;
+	}
+
+	/**
+	 * onTouchEnd - отвечает за обработку события остановки переноса для тачпада.
+	 *
+	 * @method
+	 *
+	 * @param {TouchEvent} event
+	 * @return {boolean|void}
+	 */
+	@HostListener('touchend', ['$event']) onTouchEnd (event : TouchEvent) : boolean | void {
+		if (!event.changedTouches.length) {
+			event.preventDefault();
+			return false;
+		}
+
+		let eventElement : IEElement = {
+			target : event.changedTouches[0].target,
+			clientX : event.changedTouches[0].clientX,
+			clientY : event.changedTouches[0].clientY
+		};
+
+		this.onElementUp(eventElement);
+		event.preventDefault();
+		return false;
+	}
+
+	@HostListener('touchcancel', ['$event']) onTouchCancel (event : TouchEvent) : boolean | void {
+		if (!event.changedTouches.length) {
+			event.preventDefault();
+			return false;
+		}
+
+		let eventElement : IEElement = {
+			target : event.changedTouches[0].target,
+			clientX : event.changedTouches[0].clientX,
+			clientY : event.changedTouches[0].clientY
+		};
+
+		this.onElementUp(eventElement);
+		event.preventDefault();
+		return false;
+	}
+
+	/**
+	 * onElementUp - отвечает за остановку переноса элемента.
+	 *
+	 * @method
+	 *
+	 * @param {IEElement} event
+	 * @return {boolean}
+	 */
+	onElementUp (event : IEElement) {
+		let methodName : string = 'onElementUp';
+
 		if (!this.isDown) {
 			return false;
 		}
 		if (!this.isMove) {
 			this.setActiveElements(this.targetElements);
 		}
-		this.logger.info(`${this.constructor.name} - onMouseUp:`, 'isMove -', this.isMove);
+		this.logger.info(`${this.constructor.name} - ${methodName}:`, 'isMove -', this.isMove);
 		this.initData();
-		event.preventDefault();
 	}
 
 	/**
