@@ -1,14 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../actions/editor.actions';
 
+/* App Services */
 import { LoggerService } from '../../../core/logger.service';
+
+/* App Interfaces and Classes */
 import { Material } from '../../../shared/lib/material.class';
 import { MaterialColor } from '../../../shared/lib/material-color.class';
-
 import { IElement } from '../../../shared/interfaces/editor.interface';
 
 @Component({

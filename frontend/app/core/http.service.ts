@@ -3,12 +3,14 @@ import { Response } from '@angular/http';
 
 import { Config } from '../config';
 
-import { LoggerService } from './logger.service';
-
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/scan';
+
+/* App Services */
+import { LoggerService } from './logger.service';
 
 @Injectable()
 export class HttpService {

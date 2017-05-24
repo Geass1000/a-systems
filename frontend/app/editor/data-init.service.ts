@@ -1,14 +1,17 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 import 'rxjs/add/observable/forkJoin';
 
-import { DataLoadService } from './data-load.service';
+/* App Services */
 import { LoggerService } from '../core/logger.service';
+import { DataLoadService } from './data-load.service';
 
+/* App Interfaces and Classes */
 import { Workspace } from '../shared/lib/workspace.class';
 
 @Injectable()
@@ -24,8 +27,8 @@ export class DataInitService implements OnDestroy {
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
-						 	 private dataLoadService : DataLoadService,
-						 	 private logger : LoggerService) {
+						 	 private logger : LoggerService,
+							 private dataLoadService : DataLoadService) {
 		this.subscription.push(this.workspace$.subscribe((data) => {
  			this.workspace = data;
  		}));

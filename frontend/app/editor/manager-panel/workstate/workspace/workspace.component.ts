@@ -1,17 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../../actions/editor.actions';
 
+/* App Services */
 import { LoggerService } from '../../../../core/logger.service';
 import { MetricService } from '../../../metric.service';
 
+/* App Interfaces and Classes */
 import { Workspace } from '../../../../shared/lib/workspace.class';
 import { EditorForm } from '../../../../shared/lib/editor-form.class';
+
+/* App Validators */
 import { isNumber } from '../../../../shared/validators/is-number.validator';
 
 @Component({
@@ -32,11 +36,11 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
 	private model : Workspace = null;
 
-	constructor (private ngRedux : NgRedux<any>,
+	constructor (private fb : FormBuilder,
+							 private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
 						 	 private logger : LoggerService,
-						 	 private metricService : MetricService,
-						 	 private fb : FormBuilder) {
+						 	 private metricService : MetricService) {
 	}
 	ngOnInit () {
 		this.buildForm();

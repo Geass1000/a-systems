@@ -1,12 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 
+/* App Services */
 import { LoggerService } from '../../core/logger.service';
 
+/* App Interfaces and Classes */
 import { Surface } from '../../shared/lib/surface.class';
 import { Workspace } from '../../shared/lib/workspace.class';
 import { Material } from '../../shared/lib/material.class';

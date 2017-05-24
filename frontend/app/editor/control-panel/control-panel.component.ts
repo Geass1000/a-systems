@@ -1,14 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 import { ModalActions } from '../../actions/modal.actions';
 
-import { animation } from '../../shared/animations/modal.animation';
-
+/* App Services */
 import { LoggerService } from '../../core/logger.service';
+
+/* App Animations */
+import { animation } from '../../shared/animations/modal.animation';
 
 @Component({
 	moduleId: module.id,

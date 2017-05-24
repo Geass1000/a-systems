@@ -1,13 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+/* App Redux and Request */
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux } from '@angular-redux/store';
 import { ModalActions } from '../actions/modal.actions';
 
-import { UserService } from '../core/user.service';
+/* App Services */
 import { LoggerService } from '../core/logger.service';
+import { UserService } from '../core/user.service';
 
+/* App Interfaces and Classes */
 import { ILogin, IRAuth } from '../shared/interfaces/auth.interface';
 
 @Component({

@@ -1,14 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 import { ModalActions } from '../actions/modal.actions';
 
+/* App Services */
 import { LoggerService } from '../core/logger.service';
 import { DataInitService } from './data-init.service';
 
+/* App Interfaces and Classes */
 import { Workspace } from '../shared/lib/workspace.class';
 
 @Component({

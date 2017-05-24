@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IAction } from '../shared/interfaces/action.interface';
 
+/* App Interfaces and Classes */
 import { IElement, ITexture, ITextureCategory, IItem, IItemCategory } from '../shared/interfaces/editor.interface';
 import { Surface } from '../shared/lib/surface.class';
 import { Thing } from '../shared/lib/thing.class';

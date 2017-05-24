@@ -1,14 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 
+/* App Services */
 import { LoggerService } from '../core/logger.service';
 import { UserService } from '../core/user.service';
 import { ProfileService } from './profile.service';
 
+/* App Interfaces and Classes */
 import { IRProfile } from '../shared/interfaces/app.interface';
 
 @Component({

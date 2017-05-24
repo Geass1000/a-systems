@@ -3,6 +3,7 @@ import { Headers, Http, Response } from '@angular/http';
 
 import { Config } from '../config';
 
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -10,11 +11,11 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/scan';
-
 import 'rxjs/add/observable/forkJoin';
 
-import { HttpService } from '../core/http.service';
+/* App Services */
 import { LoggerService } from '../core/logger.service';
+import { HttpService } from '../core/http.service';
 
 @Injectable()
 export class DataLoadService implements OnDestroy {
@@ -25,8 +26,8 @@ export class DataLoadService implements OnDestroy {
 	private itemCategoryUrl = 'api/item/category';
 
 	constructor (private http : Http,
-						 	 private httpService : HttpService,
-						 	 private logger : LoggerService) {
+							 private logger : LoggerService,
+						 	 private httpService : HttpService) {
 	}
 	ngOnDestroy () {
 	}

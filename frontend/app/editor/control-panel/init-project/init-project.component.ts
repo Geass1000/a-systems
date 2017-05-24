@@ -1,17 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
+import { Config } from '../../../config';
+
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../actions/editor.actions';
 import { ModalActions } from '../../../actions/modal.actions';
 
-import { Config } from '../../../config';
-
+/* App Services */
 import { LoggerService } from '../../../core/logger.service';
 import { MetricService } from '../../metric.service';
 import { DataInitService } from '../../data-init.service';
 
+/* App Interfaces and Classes */
 import { Workspace } from '../../../shared/lib/workspace.class';
 import { IModelInitProject } from '../../../shared/interfaces/model.interface';
 

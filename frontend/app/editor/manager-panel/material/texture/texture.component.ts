@@ -1,22 +1,25 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { Config } from '../../../../config';
+
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../../actions/editor.actions';
 
-import { Config } from '../../../../config';
-
+/* App Services */
 import { LoggerService } from '../../../../core/logger.service';
 import { ITexture, ITextureCategory } from '../../../../shared/interfaces/editor.interface';
 
-import { EditorForm } from '../../../../shared/lib/editor-form.class';
-import { isNumber } from '../../../../shared/validators/is-number.validator';
-
+/* App Interfaces and Classes */
 import { Material } from '../../../../shared/lib/material.class';
 import { MaterialTexture } from '../../../../shared/lib/material-texture.class';
+import { EditorForm } from '../../../../shared/lib/editor-form.class';
+
+/* App Validators */
+import { isNumber } from '../../../../shared/validators/is-number.validator';
 
 @Component({
 	moduleId: module.id,
@@ -45,10 +48,10 @@ export class TextureComponent implements OnInit, OnDestroy {
 	private material : Material;
 	private texture : MaterialTexture;
 
-	constructor (private ngRedux : NgRedux<any>,
+	constructor (private fb : FormBuilder,
+							 private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
-						 	 private logger : LoggerService,
-						 	 private fb : FormBuilder) {
+						 	 private logger : LoggerService) {
 		this.activeTextureId = null;
 	}
 	ngOnInit () {

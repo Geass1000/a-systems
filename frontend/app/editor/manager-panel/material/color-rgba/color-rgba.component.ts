@@ -1,20 +1,23 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../../../actions/editor.actions';
 
+/* App Services */
 import { LoggerService } from '../../../../core/logger.service';
 
+/* App Interfaces and Classes */
 import { EditorForm } from '../../../../shared/lib/editor-form.class';
-import { isNumber } from '../../../../shared/validators/is-number.validator';
-
 import { Material } from '../../../../shared/lib/material.class';
 import { MaterialColor } from '../../../../shared/lib/material-color.class';
 import { Rgba, IRgba } from '../../../../shared/lib/color.class';
+
+/* App Validators */
+import { isNumber } from '../../../../shared/validators/is-number.validator';
 
 @Component({
 	moduleId: module.id,
@@ -33,10 +36,10 @@ export class ColorRgbaComponent implements OnInit, OnDestroy {
 	private material : Material;
 	private color : MaterialColor;
 
-	constructor (private ngRedux : NgRedux<any>,
+	constructor (private fb : FormBuilder,
+							 private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
-						 	 private logger : LoggerService,
-						 	 private fb : FormBuilder) {
+						 	 private logger : LoggerService) {
 	}
 	ngOnInit () {
 		this.buildForm();

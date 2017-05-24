@@ -1,15 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../../actions/editor.actions';
 
+/* App Services */
 import { LoggerService } from '../../core/logger.service';
 
+/* App Interfaces and Classes */
 import { Thing } from '../../shared/lib/thing.class';
 import { IElement } from '../../shared/interfaces/editor.interface';
-//import { Point } from '../../shared/lib/point.class';
 
 @Component({
 	moduleId: module.id,

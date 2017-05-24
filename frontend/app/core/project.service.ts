@@ -1,8 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
-
 import { AuthHttp } from 'angular2-jwt';
 
+import { Config } from '../config';
+
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux } from '@angular-redux/store';
@@ -11,11 +13,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-import { Config } from '../config';
-
+/* App Services */
 import { LoggerService } from './logger.service';
 import { HttpService } from './http.service';
 
+/* App Interfaces and Classes */
 import { IProject, IRProject, IRProjects, IRProjectsSave } from '../shared/interfaces/project.interface';
 
 @Injectable()

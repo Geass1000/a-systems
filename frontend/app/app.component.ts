@@ -1,18 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
+/* App Redux and Request */
+import { AppReducer, INITIAL_STATE, IAppState } from './reducers/app.store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { ModalActions } from './actions/modal.actions';
 import { EditorActions } from './actions/editor.actions';
 
+/* App Services */
 import { LoggerService } from './core/logger.service';
 import { UserService } from './core/user.service';
 
+/* App Animations */
 import { animation } from './shared/animations/modal.animation';
-
-/* Redux - Reducer */
-import { AppReducer, INITIAL_STATE, IAppState } from './reducers/app.store';
 
 @Component({
 	moduleId: module.id,
@@ -37,7 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
 						 	 private modalActions : ModalActions,
 							 private editorActions : EditorActions,
 						 	 private logger : LoggerService,
-						 	 public userService : UserService) {
+						 	 private userService : UserService) {
 		this.ngRedux.configureStore(AppReducer, INITIAL_STATE, null, []);
 		this.logger.info(`${this.constructor.name}:`, 'Start app Artificial System!');
 	}

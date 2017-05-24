@@ -1,14 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+/* App Redux and Request */
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux } from '@angular-redux/store';
 import { ModalActions } from '../actions/modal.actions';
 
-import { UserService } from '../core/user.service';
+/* App Services */
 import { LoggerService } from '../core/logger.service';
+import { UserService } from '../core/user.service';
 
+/* App Interfaces and Classes */
 import { ISignup, IRAuth } from '../shared/interfaces/auth.interface';
+
+/* App Validators */
+import { passwordMatch } from '../shared/validators/password-match.validator';
 
 @Component({
 	moduleId: module.id,
@@ -88,7 +94,7 @@ export class SignupComponent implements OnInit, OnDestroy  {
 					]
 				],
 				'passwordConfirm' : ['', Validators.required]
-			}, { validator: this.passwordMatchValidator })
+			}, { validator: passwordMatch })
     });
 
 		this.form.valueChanges
@@ -96,14 +102,6 @@ export class SignupComponent implements OnInit, OnDestroy  {
 
     this.onValueChanged();
   }
-
-	passwordMatchValidator (g: FormGroup) {
-		let password = g.get('password');
-		let passwordConfirm = g.get('passwordConfirm');
-	  return password.value === passwordConfirm.value ||
-			!password.dirty || !passwordConfirm.dirty
-			? null : {'mismatch': true};
-	}
 
 	onValueChanged (data?: any) {
     if (!this.form) { return; }

@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux } from '@angular-redux/store';
@@ -7,13 +8,15 @@ import { UserActions } from '../actions/user.actions';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/of';
 
-import { IRProfile } from '../shared/interfaces/app.interface';
-import { IRUser } from '../shared/interfaces/auth.interface';
-import { IRProject, IRProjects } from '../shared/interfaces/project.interface';
-
+/* App Services */
 import { LoggerService } from '../core/logger.service';
 import { UserService } from '../core/user.service';
 import { ProjectService } from '../core/project.service';
+
+/* App Interfaces and Classes */
+import { IRProfile } from '../shared/interfaces/app.interface';
+import { IRUser } from '../shared/interfaces/auth.interface';
+import { IRProject, IRProjects } from '../shared/interfaces/project.interface';
 
 @Injectable()
 export class ProfileService implements OnDestroy {
@@ -37,7 +40,6 @@ export class ProfileService implements OnDestroy {
 	/**
 	 * getUser - функция-запрос, выполняет получение данных пользователя от сервера.
 	 *
-	 * @function
 	 * @method
 	 *
 	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)

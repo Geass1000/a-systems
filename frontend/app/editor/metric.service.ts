@@ -1,14 +1,15 @@
 import { Injectable, OnDestroy } from '@angular/core';
-
 import { FormGroup, AbstractControl } from '@angular/forms';
 
+import { Config } from '../config';
+
+/* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
 import { EditorActions } from '../actions/editor.actions';
 
-import { Config } from '../config';
-
+/* App Services */
 import { LoggerService } from '../core/logger.service';
 
 let Measure : Map<string, number> = new Map<string, number>([
