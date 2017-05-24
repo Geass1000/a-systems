@@ -23,9 +23,12 @@ let itemCategorySchema = new Schema({
 });
 
 /**
- * Получить все типы текстур из БД "TextureTypes"
+ * getTextureCategories - извлечение категорий элементов из БД "ItemCategories"
  *
- * @param  {Object} user user info
+ * @function
+ * @static
+ *
+ * @return {Array<Object>}
  */
 itemCategorySchema.statics.getItemCategories = function () {
 	return this.find().exec();

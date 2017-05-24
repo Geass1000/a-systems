@@ -47,7 +47,7 @@ export class MetricService implements OnDestroy {
 	/**
 	 * active - функция, сигнализирующая о окончании смены единицы измерения.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	active () : void {
@@ -60,7 +60,7 @@ export class MetricService implements OnDestroy {
 	/**
 	 * deactive - функция, сигнализирующая о начале смены единицы измерения.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	deactive () : void {
@@ -74,7 +74,7 @@ export class MetricService implements OnDestroy {
 	 * convertFromDefToCur - функция, выполняющая конвертацию числа 'num' из единицы
 	 * измерения по умолчанию в текущую единицу измерения.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {number|string} num - число
 	 * @return {string}
 	 */
@@ -86,7 +86,7 @@ export class MetricService implements OnDestroy {
 	 * convertFromCurToDef - функция, выполняющая конвертацию числа 'num' из текущей
 	 * единицы измерения в единицу измерения по умолчанию.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {number|string} num - число
 	 * @return {string}
 	 */
@@ -98,7 +98,7 @@ export class MetricService implements OnDestroy {
 	 * convertFromPrevToCur - функция, выполняющая конвертацию числа 'num' из предыдущей
 	 * единицы измерения в текущую единицу измерения.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {number|string} num - число
 	 * @return {string}
 	 */
@@ -111,7 +111,7 @@ export class MetricService implements OnDestroy {
 	 * в другую (из 'dir.from' к 'dir.to'). Если 'num' не является числом, возвращается
 	 * исходный параметр 'num' в виде строки.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {Object} dir - объект конвертации
 	 * @param {number|string} num - число
 	 * @return {string}
@@ -135,7 +135,7 @@ export class MetricService implements OnDestroy {
 	/**
 	 * isFieldValid - функция, возвращающая истину, если палое 'fieldName' прошло валидацию.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {FormGroup} form - экземпляр формы
 	 * @param {string} fieldName - наименование поля
 	 * @return {boolean}
@@ -151,7 +151,7 @@ export class MetricService implements OnDestroy {
 	/**
 	 * getFieldValue - функция, возвращающая значение поля формы.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {FormGroup} form - экземпляр формы
 	 * @param {string} fieldName - наименование поля
 	 * @return {string}
@@ -168,7 +168,7 @@ export class MetricService implements OnDestroy {
 	 * getNumberFieldValueToDefMetric - функция, возвращающая значение поля в единицах
 	 * измерения по умолчанию.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {FormGroup} form - экземпляр формы
 	 * @param {string} fieldName - наименование поля
 	 * @return {number}
@@ -188,7 +188,7 @@ export class MetricService implements OnDestroy {
 	 * updateFormValueToCurMetric - функция, выполняющая преобразование значения поля
 	 * 'fieldName' к новой единице измерения.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {FormGroup} form - экземпляр формы
 	 * @param {string} fieldName - наименование поля
 	 * @return {boolean}

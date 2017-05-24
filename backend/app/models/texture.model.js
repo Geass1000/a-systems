@@ -31,10 +31,15 @@ let textureSchema = new Schema({
 	}
 });
 
+
 /**
- * Получить все текстуры из БД "textures"
+ * getTextures - извлечение текстур из БД "Textures"
  *
- * @param  {Object} user user info
+ * @function
+ * @static
+ *
+ * @param {Array<string>} category - массив с категориями
+ * @return {Array<Object>}
  */
 textureSchema.statics.getTextures = function (category) {
 	return category ? this.find({ _cid : { $in : category } }).exec() : this.find().exec();

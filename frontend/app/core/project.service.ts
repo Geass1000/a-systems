@@ -42,7 +42,7 @@ export class ProjectService implements OnDestroy {
 	/**
 	 * setProject - выполняет подготовку и установку проекта в хранилище.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @method
 	 *
 	 * @param {string} project - объект проекта
@@ -61,7 +61,7 @@ export class ProjectService implements OnDestroy {
 	/**
 	 * getUser - функция-запрос, выполняет получение данных о проекте с идентификатором id.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @method
 	 *
 	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
@@ -81,7 +81,7 @@ export class ProjectService implements OnDestroy {
 	 * getUser - функция-запрос, выполняет получение спсика всех проектов пользователя или всех созданных
 	 * проектов.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @method
 	 *
 	 * @param {string} userId - id пользователя (уникальный)
@@ -101,7 +101,7 @@ export class ProjectService implements OnDestroy {
 	/**
 	 * postProject - функция-запрос, выполняет добавление проекта в БД.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {ISignup} formValue - значение формы
 	 * @return {boolean}
 	 */
@@ -120,7 +120,7 @@ export class ProjectService implements OnDestroy {
 	/**
 	 * postProject - функция-запрос, выполняет добавление проекта в БД.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {ISignup} formValue - значение формы
 	 * @return {boolean}
 	 */

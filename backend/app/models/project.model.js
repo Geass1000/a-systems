@@ -22,7 +22,7 @@ let projectSchema = new Schema({
  * getProjects - функция-статическая, возвращает список всех существующих проектов
  * или список проектов пользователя (если указан uid).
  *
- * @kind {function}
+ * @function
  * @static
  *
  * @param {number} uid - идентификатор пользователя
@@ -38,7 +38,7 @@ projectSchema.statics.getProjects = function (uid) {
  * getProject - функция-статическая, возвращает данные проекта с идентификатором "id".
  * Если "id" не указан, возвращается Promise с результатом null.
  *
- * @kind {function}
+ * @function
  * @static
  *
  * @param {number} id - идентификатор проекта

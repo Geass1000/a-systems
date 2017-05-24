@@ -25,7 +25,7 @@ export class EditorForm {
 	 * function callback () { ... }
 	 * this.editorForm.subscribeValueChanges(callback);
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {function} callback - функция обратного вызова, функция-событие
 	 * @return {void}
 	 */
@@ -44,7 +44,7 @@ export class EditorForm {
 	 * function callback () { ... }
 	 * this.editorForm.setModel(callback);
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {function} callback - функция обратного вызова, изменяющая данные
 	 * @return {void}
 	 */
@@ -73,7 +73,7 @@ export class EditorForm {
 	 * function callback () { ... }
 	 * this.editorForm.updateModel(callback);
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {function} callback - функция обратного вызова, обновляющая данные визуально
 	 * @return {void}
 	 */

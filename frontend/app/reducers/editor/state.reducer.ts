@@ -83,7 +83,7 @@ export const EditorStateReducer : Reducer<IEditorState> =
  * compareActiveElements - функция, выполняющая проверку на равенство двух массивов
  * активных элементов.
  *
- * @kind {function}
+ * @function
  * @param {Array<IElement>} el1
  * @param {Array<IElement>} el2
  * @return {boolean}

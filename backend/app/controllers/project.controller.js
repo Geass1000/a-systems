@@ -32,6 +32,7 @@ class ProjectController extends BaseController {
 	 * проекта с идентификатором id.
 	 *
 	 * @method
+	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -60,6 +61,7 @@ class ProjectController extends BaseController {
 	 * пороектов определённого пользователя.
 	 *
 	 * @method
+	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -87,6 +89,7 @@ class ProjectController extends BaseController {
 	 * проекта в БД.
 	 *
 	 * @method
+	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -132,6 +135,7 @@ class ProjectController extends BaseController {
 	 * проекта в БД.
 	 *
 	 * @method
+	 * 
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}

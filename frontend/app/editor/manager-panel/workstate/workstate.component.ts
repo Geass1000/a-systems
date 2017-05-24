@@ -43,7 +43,7 @@ export class WorkstateComponent implements OnInit, OnDestroy {
 	 * ifActiveElements - функция, определяющая является ли активный элемент элементом
 	 * с типом 'type'.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {string} type
 	 * @return {boolean}
 	 */

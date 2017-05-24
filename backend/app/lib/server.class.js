@@ -51,10 +51,11 @@ class Server {
 
 
 	/**
-	 * Configure server.
+	 * setConfig - выполняет конфигурацию сервера.
 	 *
-	 * @class Server
-	 * @method setConfig
+	 * @method
+	 *
+	 * @return {void}
 	 */
 	setConfig () {
 		logger.info('Configuring server...');
@@ -76,10 +77,11 @@ class Server {
 	}
 
 	/**
-	 * Setting routes.
+	 * setRoutes - выполняет установку маршрутов роутеров.
 	 *
-	 * @class Server
-	 * @method setRoutes
+	 * @method
+	 *
+	 * @return {void}
 	 */
 	setRoutes () {
 		logger.info('Setting routes...');
@@ -88,10 +90,11 @@ class Server {
 	}
 
 	/**
-	 * Start server.
+	 * startServer - выполняет запуск сервера.
 	 *
-	 * @class Server
-	 * @method startServer
+	 * @method
+	 *
+	 * @return {void}
 	 */
 	startServer () {
 		this.app.use(function(err, req, res, next) {

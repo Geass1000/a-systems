@@ -35,7 +35,7 @@ export class Point implements IPoint {
 	/**
 	 * valueOf - функция, возвращающая объектное представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {IPoint}
 	 */
 	valueOf () : IPoint {
@@ -48,7 +48,7 @@ export class Point implements IPoint {
 	/**
 	 * toString - функция, возвращающая строковое представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {string}
 	 */
 	toString () : string {

@@ -5,7 +5,7 @@ export class ColorModel {
 	 * typeDefinition - функция, выполняющая определение типа цветовой модели переданного
 	 * значения. Если строка не соответствует ни одной цветовой модели, возвращается null.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {string} str - строка с цветом
 	 * @return {string} - цветовая модель
 	 */
@@ -24,7 +24,7 @@ export class ColorModel {
 	 * hexToRgba - функция, выполняющая преобразование из одной цветовой модели (из hex)
 	 * в другую (в rgba).
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {IHex} data - 16-е значение цвета
 	 * @return {IRgba}
 	 */
@@ -47,7 +47,7 @@ export class ColorModel {
 	 * rgbToHex - функция, выполняющая преобразование из одной цветовой модели (из rgb)
 	 * в другую (в hex).
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {IRgba} data - rgba цвет
 	 * @param {number} r - красный цвет
 	 * @param {number} g - зелёный цвет
@@ -71,7 +71,7 @@ export class ColorModel {
 	 * hslaToRgba - функция, выполняющая преобразование из одной цветовой модели (из hsla)
 	 * в другую (в rgba).
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {IHsla} data - hslt цвет
 	 * @return {IRgba}
 	 */
@@ -98,7 +98,7 @@ export class ColorModel {
 	 * rgbaToHsla - функция, выполняющая преобразование из одной цветовой модели (из rgba)
 	 * в другую (в hsla).
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {number} r - красный цвет
 	 * @param {number} g - зелёный цвет
 	 * @param {number} b - синий цвет
@@ -143,7 +143,7 @@ export class ColorModel {
  * hueRgb - функция, возвращаюя тон (цвет) в rgb цветовой модели, получаемый из
  * световых параметров hsl модели.
  *
- * @kind {function}
+ * @function
  * @param {number} q - световой параметр Q
  * @param {number} p - световой параметр P
  * @param {number} t - световой параметр T одного из цветов

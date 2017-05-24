@@ -57,7 +57,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * buildForm - функция, выполняющая создание формы и/или регистрацию на событие
 	 * изменения данных.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	buildForm () : void {
@@ -75,7 +75,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * setModel - функция, синхронизирующая значения формы со значениями модели из
 	 * хранилища. Возвращает истину, если синхронизация произошла успешно.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {boolean}
 	 */
 	setModel () : boolean {
@@ -94,7 +94,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	 * updateModel - функция, обновляющая значения полей в случае изменения
 	 * величины измерения.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	updateModel () : void {
@@ -130,7 +130,7 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	/**
 	 * getFormField - функция, возвращающая значение поля.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {string} fieldName - наименование поля
 	 * @return {string}
 	 */

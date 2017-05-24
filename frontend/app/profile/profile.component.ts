@@ -90,7 +90,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	 * getDate - выполняет создание пользовательского представления даты регистрации
 	 * пользователя.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @method
 	 *
 	 * @param {string} date - дата регистрации
@@ -105,7 +105,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	 * createHrefUserEmail - выполняет создание ссылки для отправки сообщения
 	 * пользователю на почтовый ящек.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @method
 	 *
 	 * @param {string} email - email адрес

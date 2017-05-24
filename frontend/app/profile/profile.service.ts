@@ -37,7 +37,7 @@ export class ProfileService implements OnDestroy {
 	/**
 	 * getUser - функция-запрос, выполняет получение данных пользователя от сервера.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @method
 	 *
 	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
@@ -62,7 +62,7 @@ export class ProfileService implements OnDestroy {
 	/**
 	 * setProject - выполняет получение данных пользователя от сервера.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @method
 	 *
 	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)

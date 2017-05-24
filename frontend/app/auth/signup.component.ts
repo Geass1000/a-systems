@@ -68,7 +68,7 @@ export class SignupComponent implements OnInit, OnDestroy  {
 	 * buildForm - функция-метод, выполняет создание формы и возможные регистрации
 	 * на события формы.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
   buildForm () : void {
@@ -164,7 +164,7 @@ export class SignupComponent implements OnInit, OnDestroy  {
 	/**
 	 * closeModal - функция-метод, выполняет закрытие модального окна.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	closeModal () : void {
@@ -174,7 +174,7 @@ export class SignupComponent implements OnInit, OnDestroy  {
 	/**
 	 * login - функция-метод, выполняет открытие модального окна "Login".
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	login () : void {

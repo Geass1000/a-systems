@@ -5,7 +5,7 @@ export class HelperClass {
 	 * prepareData - функция, выполняющая: проверку данных на соответствие нормальному
 	 * числу, на вхождение числа в диапазон.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {number} data - значение цвета
 	 * @param {number} min - минимальное значение цвета
 	 * @param {number} max - максимальное значение цвета

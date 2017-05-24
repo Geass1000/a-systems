@@ -98,7 +98,7 @@ export class MaterialTexture implements IMaterialTexture {
 	/**
 	 * valueOf - возвращает объектное представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @method
 	 *
 	 * @return {IMaterialTexture}
@@ -117,7 +117,7 @@ export class MaterialTexture implements IMaterialTexture {
 	/**
 	 * toString - функция, возвращающая строковое представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {string}
 	 */
 	toString () : string {
@@ -131,7 +131,7 @@ export class MaterialTexture implements IMaterialTexture {
 	/**
 	 * getSrc - функция, возвращающая url адрес текстуры.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {string}
 	 */
 	getSrc () : string {

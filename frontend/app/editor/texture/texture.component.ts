@@ -47,7 +47,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 	/**
 	 * getSrc - функция, возвращающая путь к файлу-изображению с текстурой.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {Material} material - материал
 	 * @return {string}
 	 */
@@ -59,7 +59,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 	 * isTexture - функция, выполняющая проверку типа материала, к принадлежности
 	 * к текстурному типу.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {Material} material - материал
 	 * @return {boolean}
 	 */
@@ -70,7 +70,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 	/**
 	 * getWidth - функция, возвращающая ширину изображения-текстуры.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {Material} material - элемент
 	 * @return {number}
 	 */
@@ -81,7 +81,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 	/**
 	 * getHeight - функция, возвращающая высоту изображения-текстуры.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {Material} material - элемент
 	 * @return {number}
 	 */
@@ -92,7 +92,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 	/**
 	 * getHeight - функция, возвращающая высоту изображения-текстуры.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {Material} material - элемент
 	 * @return {number}
 	 */
@@ -103,7 +103,7 @@ export class TextureComponent implements OnInit, OnDestroy {
 	/**
 	 * createId - функция, выполняющая создание идентификатора элемента.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {Array<string>} restOfId - список подидентификаторов
 	 * @return {string}
 	 */

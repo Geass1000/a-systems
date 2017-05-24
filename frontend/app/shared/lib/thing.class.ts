@@ -81,7 +81,7 @@ export class Thing implements IThing {
 	/**
 	 * valueOf - возвращает объектное представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @method
 	 *
 	 * @return {IThing}

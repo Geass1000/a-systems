@@ -55,7 +55,7 @@ export class Material implements IMaterial {
 	/**
 	 * setType - функция, выполняющая установку типа материала.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {string} type - тип материала
 	 * @return {Material}
 	 */
@@ -68,7 +68,7 @@ export class Material implements IMaterial {
 	 * isType - функция, возвращающая истину если посланный тип материала совпадает
 	 * с типом материала класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {string} type - тип материала
 	 * @return {boolean}
 	 */
@@ -79,7 +79,7 @@ export class Material implements IMaterial {
 	/**
 	 * valueOf - возвращает объектное представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @method
 	 *
 	 * @return {IWorkspace}
@@ -94,7 +94,7 @@ export class Material implements IMaterial {
 	/**
 	 * toString - возвращает строковое представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {string}
 	 */
 	toString () : string {
@@ -109,7 +109,7 @@ export class Material implements IMaterial {
 	/**
 	 * toFill - функция, возвращающая строковое представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {string}
 	 */
 	toFill (...restOfId : Array<string>) : string {
@@ -128,7 +128,7 @@ export class Material implements IMaterial {
 	/**
 	 * toFill - функция, возвращающая строковое представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {string}
 	 */
 	getSrcTexture () : string {

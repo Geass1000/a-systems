@@ -70,7 +70,7 @@ export class Workspace implements IWorkspace {
 	/**
 	 * valueOf - возвращает объектное представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @method
 	 *
 	 * @return {IWorkspace}

@@ -47,7 +47,7 @@ export class ThingComponent implements OnInit, OnDestroy {
 	/**
 	 * getSrcThing - функция, возвращающая путь к файлу с моделью вещи.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {Thing} thing - элемент
 	 * @return {string}
 	 */
@@ -58,7 +58,7 @@ export class ThingComponent implements OnInit, OnDestroy {
 	/**
 	 * createFilterUrl - функция, возвращающая путь к фильтру на странице.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {string} str - название фильтра
 	 * @return {string}
 	 */
@@ -69,7 +69,7 @@ export class ThingComponent implements OnInit, OnDestroy {
 	/**
 	 * isActiveThing - функция, возвращающая истину, если элемент 'Thing' активен.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {number} index - номер элемента
 	 * @return {boolean}
 	 */
@@ -83,7 +83,7 @@ export class ThingComponent implements OnInit, OnDestroy {
 	/**
 	 * trackByThings - функция, возвращающая индекс элемента для trackBy директивы ngFor.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {number} index - индекс элемента
 	 * @param {Thing} data - элемент
 	 * @return {number}

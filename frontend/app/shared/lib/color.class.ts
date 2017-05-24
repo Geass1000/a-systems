@@ -63,7 +63,7 @@ export class Rgba implements IRgba {
 	/**
 	 * setColor - функция, устанавливающая цветовые свойства класса (red, green, blue, alfa).
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {number} r - красный цвет
 	 * @param {number} g - зелёный цвет
 	 * @param {number} b - синий цвет
@@ -80,7 +80,7 @@ export class Rgba implements IRgba {
 	/**
 	 * valueOf - функция, возвращающая объектное представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {IRgba}
 	 */
 	valueOf () : IRgba {
@@ -95,7 +95,7 @@ export class Rgba implements IRgba {
 	/**
 	 * toString - функция, возвращающая строковое представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {string}
 	 */
 	toString () : string {
@@ -152,7 +152,7 @@ export class Hsla implements IHsla {
 	/**
 	 * setColor - функция, устанавливающая цветовые свойства класса (hue, saturation, lightness, alfa).
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {number} h - тон цвета
 	 * @param {number} s - насыщенность цвета
 	 * @param {number} l - светлота цвета
@@ -169,7 +169,7 @@ export class Hsla implements IHsla {
 	/**
 	 * valueOf - функция, возвращающая объектное представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {IHsla}
 	 */
 	valueOf () : IHsla {
@@ -184,7 +184,7 @@ export class Hsla implements IHsla {
 	/**
 	 * toString - функция, возвращающая строковое представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {string}
 	 */
 	toString () : string {
@@ -231,7 +231,7 @@ export class Hex implements IHex {
 	/**
 	 * setColor - функция, устанавливающая цветовые свойства класса (hex, alfa).
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {string} h - 16-й цвет
 	 * @param {number} a - альфа-канал
 	 * @return {void}
@@ -244,7 +244,7 @@ export class Hex implements IHex {
 	/**
 	 * valueOf - функция, возвращающая объектное представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {IHsla}
 	 */
 	valueOf () : IHex {
@@ -257,7 +257,7 @@ export class Hex implements IHex {
 	/**
 	 * toString - функция, возвращающая строковое представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {string}
 	 */
 	toString () : string {

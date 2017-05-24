@@ -108,7 +108,7 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	 * getCoordItem - функция, отвечающее за нахождение смещения элемента, относительно
 	 * верхнего левого угла рабочей области.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {number} itemWidth - ширина элемента
 	 * @param {number} itemHeight - ширина элемента
 	 * @return {IPoint}
@@ -162,7 +162,7 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	/**
 	 * changeCategory - функция, выполняющая смену категории.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {string} id - id категории
 	 * @return {string}
 	 */
@@ -178,7 +178,7 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	/**
 	 * getParentCategoryId - функция, возвращающая id категории родителя.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {string} id - id текущей категории
 	 * @return {string}
 	 */
@@ -189,7 +189,7 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	/**
 	 * getParentCategoryName - функция, возвращающая название категории родителя.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {string} id - id категории
 	 * @return {string}
 	 */
@@ -201,7 +201,7 @@ export class WorkshopComponent implements OnInit, OnDestroy {
 	/**
 	 * getSrcItemPreview - функция, возвращающая путь к превью-изображению элемента.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {IItem} item - элемент
 	 * @return {string}
 	 */

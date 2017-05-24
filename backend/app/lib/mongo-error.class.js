@@ -9,6 +9,15 @@ class MongoError {
 		this.errors = require(`../assets/errors/${this.className}.error.js`);
 	}
 
+	/**
+	 * getErrorMessage - выполняет обработку ошибки и генерирует сообщения с ошибкой.
+	 *
+	 * @method
+	 *
+	 * @param {Object} error - объект ошибки
+	 * @param {string} methodName - имя метода
+	 * @return {string}
+	 */
 	getErrorMessage (error, methodName) {
 		let serverError = 'Server error. Try connected later.';
 

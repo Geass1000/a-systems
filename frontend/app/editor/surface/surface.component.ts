@@ -46,7 +46,7 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	/**
 	 * isActiveSurface - функция, возвращающая истину, если элемент 'Surface' активен.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {number} index - номер элемента
 	 * @return {boolean}
 	 */
@@ -60,7 +60,7 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	/**
 	 * isActivePoint - функция, возвращающая истину, если элемент 'Point' активен.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {number} index - номер элемента
 	 * @return {boolean}
 	 */
@@ -74,7 +74,7 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	/**
 	 * trackBySurfaces - функция, возвращающая индекс элемента для trackBy директивы ngFor.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {number} index - индекс элемента
 	 * @param {Surface} data - элемент
 	 * @return {number}

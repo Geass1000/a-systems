@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	 * buildForm - функция-метод, выполняет создание формы и возможные регистрации
 	 * на события формы.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	buildForm () : void {
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	/**
 	 * closeModal - функция-метод, выполняет закрытие модального окна.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	closeModal () : void {
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	/**
 	 * signup - функция-метод, выполняет открытие модального окна "Signup".
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	signup () : void {
@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	/**
 	 * resetPassword - функция-метод, выполняет открытие модального окна "ResetPassword".
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	resetPassword () : void {

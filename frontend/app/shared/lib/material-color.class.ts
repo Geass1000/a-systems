@@ -74,7 +74,7 @@ export class MaterialColor implements IMaterialColor {
 	/**
 	 * valueOf - функция, возвращающая объектное представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {IMaterialColor}
 	 */
 	valueOf () : IMaterialColor {
@@ -87,7 +87,7 @@ export class MaterialColor implements IMaterialColor {
 	/**
 	 * toString - функция, возвращающая строковое представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {string}
 	 */
 	toString () : string {

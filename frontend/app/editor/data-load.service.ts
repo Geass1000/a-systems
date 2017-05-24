@@ -35,7 +35,7 @@ export class DataLoadService implements OnDestroy {
 	 * getTextures - функция, выполняющая GET запрос на получение списка с информацией
 	 * о текстурах.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {string} category - категоря текстур
 	 * @return {Observable<any>}
 	 */
@@ -56,7 +56,7 @@ export class DataLoadService implements OnDestroy {
 	 * getTextureCategories - функция, выполняющая GET запрос на получение списка с информацией
 	 * о категориях текстурах.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {Observable<any>}
 	 */
 	getTextureCategories () : Observable<any> {
@@ -75,7 +75,7 @@ export class DataLoadService implements OnDestroy {
 	 * getItems - функция, выполняющая GET запрос на получение списка с информацией
 	 * о элементах.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {Observable<any>}
 	 */
 	getItems () : Observable<any> {
@@ -94,7 +94,7 @@ export class DataLoadService implements OnDestroy {
 	 * getItemCategories - функция, выполняющая GET запрос на получение списка с информацией
 	 * о категориях элементов.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {Observable<any>}
 	 */
 	getItemCategories () : Observable<any> {

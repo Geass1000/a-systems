@@ -35,9 +35,13 @@ let itemSchema = new Schema({
 });
 
 /**
- * Получить все элементы из БД "Items"
+ * getItems - извлечение элементов из БД "Items"
  *
- * @param  {none}
+ * @function
+ * @static
+ *
+ * @param  {Array<string>} category - массив с категориями
+ * @return {Array<Object>}
  */
 itemSchema.statics.getItems = function (category) {
 	return category ? this.find({ _cid : { $in : category } }).exec() : this.find().exec();

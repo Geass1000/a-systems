@@ -18,9 +18,12 @@ let textureCategorySchema = new Schema({
 });
 
 /**
- * Получить все типы текстур из БД "TextureCategorys"
+ * getTextureCategories - извлечение категорий текстур из БД "TextureCategories"
  *
- * @param  {Object} user user info
+ * @function
+ * @static
+ *
+ * @return {Array<Object>}
  */
 textureCategorySchema.statics.getTextureCategories = function () {
 	return this.find().exec();

@@ -78,7 +78,7 @@ export class Surface implements ISurface {
 	/**
 	 * valueOf - возвращает объектное представление класса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @method
 	 *
 	 * @return {ISurface}

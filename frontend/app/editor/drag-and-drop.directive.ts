@@ -62,7 +62,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	/**
 	 * detectLeftButton - функция, отвечающая за определение нажатия левой кнопки мыши.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {MouseEvent} event
 	 * @return {boolean}
 	 */
@@ -77,7 +77,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	/**
 	 * setActiveElements - установка активно элемента в виде элемента els.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {Array<IElement>} els
 	 * @return {void}
 	 */
@@ -89,7 +89,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * captureElement - поиск элементов с классом 'draggable'. Найденые элементы
 	 * заносятся в массив в виде структур IElement.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param  {SVGElement} element : SVGElement
 	 * @return {Array<IElement>}
 	 */
@@ -111,7 +111,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * createDraggableArray - создание массива с переносимыми элементами и установка
 	 * активного элемента если переносимый объект не требует выделения.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {Array<IElement>}
 	 */
 	createDraggableArray () : Array<IElement> {
@@ -143,7 +143,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	 * correctTarget - функция дополняет массив els значениями из массива targetElements
 	 * у которых значение capture = false.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {Array<IElement>} els
 	 * @return {Array<IElement>}
 	 */
@@ -165,7 +165,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	/**
 	 * createNameTranslateMethod - генерация названия метода перенесоа.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {Array<IElement>} els : Array<IElement>
 	 * @return {String}
 	 */
@@ -182,7 +182,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	/**
 	 * createArgsTranslateMethod - генерация массива аргументов для метода пенреноса.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {Array<IElement>} els
 	 * @return {Array<number>}
 	 */
@@ -199,7 +199,7 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	/**
 	 * capitalizeFirstLetter - преобразование первой буквы в заглавную.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {string} str : исходная строка
 	 * @return {string}
 	 */

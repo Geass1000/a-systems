@@ -31,6 +31,7 @@ class UserController extends BaseController {
 	 * в систему.
 	 *
 	 * @method
+	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -63,6 +64,7 @@ class UserController extends BaseController {
 	 * пользователя в БД.
 	 *
 	 * @method
+	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -91,6 +93,7 @@ class UserController extends BaseController {
 	 * о пользователе из БД.
 	 *
 	 * @method
+	 * 
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}

@@ -52,11 +52,10 @@ let userSchema = new Schema({
 /**
  * setPassword - выполняет установку пароля для текущего пользователя.
  *
- * @kind {function}
  * @method
  *
  * @param {string} password - пароль
- * @return {Object}
+ * @return {void}
  */
 userSchema.methods.setPassword = function (password) {
 	if (typeof password !== 'string') {
@@ -69,11 +68,10 @@ userSchema.methods.setPassword = function (password) {
 /**
  * validPassword - выполняет проверку пароля для текущего пользователя.
  *
- * @kind {function}
  * @method
  *
  * @param {string} password - пароль
- * @return {Object}
+ * @return {boolean}
  */
 userSchema.methods.validPassword = function (password) {
 	let hash = crypto.pbkdf2Sync(password, this.salt + config.salt, 1000, 512, 'sha512').toString('hex');
@@ -83,10 +81,9 @@ userSchema.methods.validPassword = function (password) {
 /**
  * createToken - выполняет создание jwt-токена для текущего пользователя
  *
- * @kind {function}
  * @method
  *
- * @return {Object}
+ * @return {string}
  */
 userSchema.methods.createToken = function () {
 	let expires = 604800; // 60s * 60m * 24h * 7d = 604800s (7 days)
@@ -99,7 +96,8 @@ userSchema.methods.createToken = function () {
 /**
  * findUserLogin - проверка на существование и поиск пользователя в БД "Пользователи"
  *
- * @kind {function}
+ * @function
+ * @static
  *
  * @param  {Object} user - объект с данными о пользователе
  * @return {Promise}
@@ -111,6 +109,9 @@ userSchema.statics.findUserLogin = function (user) {
 
 /**
  * getUser - получение данных пользователя по его прозвищу (логину).
+ *
+ * @function
+ * @static
  *
  * @param  {string} name - имя пользователя
  * @return {Promise}

@@ -59,7 +59,7 @@ export class DispatcherComponent implements OnInit, OnDestroy {
 	/**
 	 * isActive - функция, отвечающее за установку активного элемента.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {string} type - тип элемента
 	 * @param {number} id - id элемента
 	 * @return {boolean}

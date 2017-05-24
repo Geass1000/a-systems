@@ -45,7 +45,7 @@ export class UserService implements OnDestroy {
 	 * login - функция-метод, выполняет вход пользователя в систему.
 	 * Выполняет распаковку токена и установку пользовательских данных в хранилище.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {string} token - jwt-токен
 	 * @return {void}
 	 */
@@ -70,7 +70,7 @@ export class UserService implements OnDestroy {
 	 * logout - функция-метод, выполняет выход пользователя из системы.
 	 * Выполняет удаление пользовательских данных из хранилища.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	logout () : void {
@@ -81,7 +81,7 @@ export class UserService implements OnDestroy {
 	/**
 	 * loggedIn - функция-метод, выполняет проверку: "Находится ли пользователь в системе?".
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {boolean}
 	 */
 	loggedIn () : boolean {
@@ -96,7 +96,7 @@ export class UserService implements OnDestroy {
 	/**
 	 * getUser - функция-запрос, выполняет получение данных пользователя от сервера.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
 	 * @return {void}
 	 */
@@ -113,7 +113,7 @@ export class UserService implements OnDestroy {
 	/**
 	 * postUser - функция-запрос, выполняет добавление пользователя в систему.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {ISignup} formValue - значение формы
 	 * @return {boolean}
 	 */
@@ -132,7 +132,7 @@ export class UserService implements OnDestroy {
 	/**
 	 * postLogin - функция-запрос, выполняет загрузку jwt-токена от сервера.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @param {ILogin} formValue - значение формы
 	 * @return {boolean}
 	 */

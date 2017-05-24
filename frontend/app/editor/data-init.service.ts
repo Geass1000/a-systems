@@ -38,7 +38,7 @@ export class DataInitService implements OnDestroy {
 	 * initData - функция, обеспечивающая вызыв всех функций, необходимых для
 	 * инициализации данных.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	initData () : void {
@@ -51,7 +51,7 @@ export class DataInitService implements OnDestroy {
 	 * isInitAll - функция, обеспечивающая проверку состояния всех инициализирующих
 	 * функций. Состояния бывают 2х видов: выполнено и не выполнено.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	isInitAll () : void {
@@ -67,7 +67,7 @@ export class DataInitService implements OnDestroy {
 	 * initLoadData - функция, обеспечивающая вызов всех методов загрузки структур
 	 * данных из сервера.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	initLoadData () : void {
@@ -105,7 +105,7 @@ export class DataInitService implements OnDestroy {
 	 * initWorkspace - функция, рассчитывающая смещение камеры в центральную
 	 * позицию рабочего пространства.
 	 *
-	 * @kind {function}
+	 * @function
 	 * @return {void}
 	 */
 	initWorkspace () : void {

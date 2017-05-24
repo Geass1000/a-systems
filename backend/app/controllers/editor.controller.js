@@ -34,6 +34,7 @@ class EditorController extends BaseController {
 	 * о категориях текстур из БД.
 	 *
 	 * @method
+	 * 
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -58,6 +59,7 @@ class EditorController extends BaseController {
 	 * о текстурах из БД.
 	 *
 	 * @method
+	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -84,6 +86,7 @@ class EditorController extends BaseController {
 	 * о категориях элементов из БД.
 	 *
 	 * @method
+	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
@@ -108,6 +111,7 @@ class EditorController extends BaseController {
 	 * о элементах из БД.
 	 *
 	 * @method
+	 *
 	 * @param {Request} req - объект запроса
 	 * @param {Response} res - объект ответа
 	 * @return {void}
