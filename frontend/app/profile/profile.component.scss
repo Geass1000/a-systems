@@ -133,15 +133,38 @@
             color: rgba(0,0,0,0.8);
           }
 
-          .project-load {
-            font-size: 16px;
-            font-weight: bold;
-            padding-right: 5px;
-          }
+					.project-control-button {
+						box-sizing: border-box;
+						height: 50px;
+						padding: 0 10px;
+
+						display: flex;
+						justify-content: center;
+						align-items: center;
+
+						border: 1px solid transparent;
+						border-radius: 5px;
+						cursor: pointer;
+
+						&:hover {
+		          background: rgba(255,255,255,0.93);
+							border-color: rgba(0,0,0,0.12);
+		        }
+
+						.description {
+							font-size: 16px;
+	            font-weight: bold;
+	            padding-left: 8px;
+						}
+						i {
+							font-size: 25px;
+						}
+					}
 
 					.minor {
 						display: flex;
 						flex-direction: row;
+						align-items: center;
 					}
         }
 
@@ -152,7 +175,6 @@
         }
         &:hover {
           background: #c6efff;
-          cursor: pointer;
         }
       }
     }
