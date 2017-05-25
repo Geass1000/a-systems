@@ -17,6 +17,31 @@ export class HttpService {
 	constructor (private logger : LoggerService) {
 	}
 
+	/**
+	 * mapData<T> - промежуточный обработчик, выполняет разбор присланных json данных и
+	 * возвращающий разобранный объект или null.
+	 *
+	 * @method
+	 *
+	 * @param {Response} resp - json ответ
+	 * @param {string} constructorName - имя класса, вызвавшего обработчик
+	 * @param {string} methodName - имя метода, вызвавшего обработчик
+	 * @return {T} - разобранный json ответ
+	 */
+	mapData<T> (resp : Response, constructorName : string, methodName : string) : T {
+		let jResp : T = <T>resp.json() || null;
+		this.logger.info(`${constructorName} - ${methodName}:`, `${resp.status} -`, jResp);
+		return jResp;
+	}
+
+	/**
+	 * retry - выполняет повторный вызов источника Observable в случае, если возникла ошибка.
+	 *
+	 * @method
+	 *
+	 * @param {Observable<any>} errorObs - объект вызвавший ошибку
+	 * @return {Observable<string>} - объект с аккумулятором
+	 */
 	retry (errorObs : Observable<any>) {
 		return errorObs.delay(Config.retryDelay).scan((errorCount : number, error : any) => {
 			if (errorCount >= Config.minRetryCount) {
@@ -29,7 +54,16 @@ export class HttpService {
 			return errorCount + 1;
 		}, 0);
 	}
-	handleError (error : Response | any) : Observable<string> {
+
+	/**
+	 * handleError<T> - обработчик ошибок, выполняет разбор и обработку ошибки.
+	 *
+	 * @method
+	 *
+	 * @param {any} error - объект ошибки
+	 * @return {Observable<string>} - разобранная ошибка
+	 */
+	handleError (error : any) : Observable<string> {
 		let errMsg: string;
 		if (error instanceof Response) {
 			let body : any = error.json() || '';

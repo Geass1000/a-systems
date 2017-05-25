@@ -1,4 +1,4 @@
-
+/* User Service - Auth */
 export interface ISignup {
 	name : string;
 	email : string;
@@ -21,7 +21,7 @@ export interface IRAuth {
 	token ?: string;
 }
 
-/* User Service */
+/* User Service - User */
 export interface IUser {
 	_id : string;
 	nickname : string;
@@ -31,6 +31,7 @@ export interface IUser {
 	firstname ?: string;
 	lastname ?: string;
 }
+
 export interface IRUser {
 	user : IUser;
 }

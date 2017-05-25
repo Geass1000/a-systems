@@ -12,6 +12,7 @@ export interface IElement {
 	capture : boolean;
 }
 
+/* Editor Service */
 export interface ITexture {
 	_id : string;
 	_cid : string;
@@ -19,9 +20,16 @@ export interface ITexture {
 	width : number;
 	height : number;
 }
+export interface IRTexture {
+	textures : ITexture;
+}
+
 export interface ITextureCategory {
 	_id : string;
 	name : string;
+}
+export interface IRTextureCategory {
+	categories : ITextureCategory;
 }
 
 export interface IItem {
@@ -31,8 +39,15 @@ export interface IItem {
 	preview : string;
 	payload : ISurface | IThing;
 }
+export interface IRItem {
+	items : IItem;
+}
+
 export interface IItemCategory {
 	_id : string;
 	_pid : string;
 	name : string;
+}
+export interface IRItemCategory {
+	categories : IItemCategory;
 }

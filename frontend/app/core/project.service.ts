@@ -68,11 +68,11 @@ export class ProjectService implements OnDestroy {
 	 * @return {Observable<IRProject>}
 	 */
 	getProject (projectId : string) : Observable<IRProject | string> {
+		let methodName : string = 'getProject';
+
 		return this.authHttp.get(Config.serverUrl + Config.projectUrl + projectId, { headers : this.headers })
 			.map<Response, IRProject>((resp : Response) => {
-				let jResp : IRProject = <IRProject>resp.json() || null;
-				this.logger.info(`${this.constructor.name} - getProject:`, `status = ${resp.status} -`, jResp);
-				return jResp;
+				return this.httpService.mapData<IRProject>(resp, this.constructor.name, methodName);
 			})
 			.catch<any, string>((error) => this.httpService.handleError(error));
 	}
@@ -87,12 +87,13 @@ export class ProjectService implements OnDestroy {
 	 * @return {Observable<IRProjects>}
 	 */
 	getProjects (userId ?: string) : Observable<IRProjects | string> {
+		let methodName : string = 'getProjects';
+
     let query : string = userId ? `?uid=${userId}` : '';
+
 		return this.authHttp.get(Config.serverUrl + Config.projectUrl + query, { headers : this.headers })
 			.map<Response, IRProjects>((resp : Response) => {
-				let jResp : IRProjects = <IRProjects>resp.json() || null;
-				this.logger.info(`${this.constructor.name} - getProjects:`, `status = ${resp.status} -`, jResp);
-				return jResp;
+				return this.httpService.mapData<IRProjects>(resp, this.constructor.name, methodName);
 			})
 			.catch<any, string>((error) => this.httpService.handleError(error));
 	}
@@ -106,13 +107,13 @@ export class ProjectService implements OnDestroy {
 	 * @return {Observable<IRProjectsSave>}
 	 */
 	postProject (value : IProject) : Observable<IRProjectsSave | string> {
+		let methodName : string = 'postProject';
+
 		let body : string = JSON.stringify(value);
 
 		return this.authHttp.post(Config.serverUrl + Config.projectUrl, body, { headers : this.headers })
 			.map<Response, IRProjectsSave>((resp : Response) => {
-				let jResp : IRProjectsSave = <IRProjectsSave>resp.json() || null;
-				this.logger.info(`${this.constructor.name} - postLogin:`, `status = ${resp.status} -`, jResp);
-				return jResp;
+				return this.httpService.mapData<IRProjectsSave>(resp, this.constructor.name, methodName);
 			})
 			.catch<any, string>((error : any) => this.httpService.handleError(error));
 	}
@@ -127,13 +128,13 @@ export class ProjectService implements OnDestroy {
 	 * @return {Observable<IRProjectsSave>}
 	 */
 	putProject (projectId : string, value : IProject) : Observable<IRProjectsSave | string> {
+		let methodName : string = 'putProject';
+
 		let body : string = JSON.stringify(value);
 
 		return this.authHttp.put(Config.serverUrl + Config.projectUrl + projectId, body, { headers : this.headers })
 			.map<Response, IRProjectsSave>((resp : Response) => {
-				let jResp : IRProjectsSave = <IRProjectsSave>resp.json() || null;
-				this.logger.info(`${this.constructor.name} - putProject:`, `status = ${resp.status} -`, jResp);
-				return jResp;
+				return this.httpService.mapData<IRProjectsSave>(resp, this.constructor.name, methodName);
 			})
 			.catch<any, string>((error : any) => this.httpService.handleError(error));
 	}
@@ -147,11 +148,11 @@ export class ProjectService implements OnDestroy {
 	 * @return {Observable<IRProjectsDelete>}
 	 */
 	deleteProject (projectId : string) : Observable<IRProjectsDelete | string> {
+		let methodName : string = 'deleteProject';
+
 		return this.authHttp.delete(Config.serverUrl + Config.projectUrl + projectId, { headers : this.headers })
 			.map<Response, IRProjectsDelete>((resp : Response) => {
-				let jResp : IRProjectsDelete = <IRProjectsDelete>resp.json() || null;
-				this.logger.info(`${this.constructor.name} - deleteProject:`, `status = ${resp.status} -`, jResp);
-				return jResp;
+				return this.httpService.mapData<IRProjectsDelete>(resp, this.constructor.name, methodName);
 			})
 			.catch<any, string>((error : any) => this.httpService.handleError(error));
 	}

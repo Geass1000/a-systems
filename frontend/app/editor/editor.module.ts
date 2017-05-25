@@ -20,7 +20,7 @@ import { TextureComponent } from './texture/texture.component';
 import { DragAndDropDirective } from './drag-and-drop.directive';
 
 /* App Feature - Service */
-import { DataLoadService } from './data-load.service';
+import { EditorService } from './editor.service';
 import { DataInitService } from './data-init.service';
 import { MetricService } from './metric.service';
 
@@ -41,7 +41,7 @@ import { MetricService } from './metric.service';
   exports: [ EditorComponent ],
   providers: [
 		MetricService,
-		DataLoadService,
+		EditorService,
 		DataInitService
 	]
 })

@@ -9,7 +9,7 @@ import 'rxjs/add/observable/forkJoin';
 
 /* App Services */
 import { LoggerService } from '../core/logger.service';
-import { DataLoadService } from './data-load.service';
+import { EditorService } from './editor.service';
 
 /* App Interfaces and Classes */
 import { Workspace } from '../shared/lib/workspace.class';
@@ -28,7 +28,7 @@ export class DataInitService implements OnDestroy {
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
 						 	 private logger : LoggerService,
-							 private dataLoadService : DataLoadService) {
+							 private editorService : EditorService) {
 		this.subscription.push(this.workspace$.subscribe((data) => {
  			this.workspace = data;
  		}));
@@ -78,10 +78,10 @@ export class DataInitService implements OnDestroy {
 			return ;
 		}
 		Observable.forkJoin([
-			this.dataLoadService.getItemCategories(),
-			this.dataLoadService.getTextureCategories(),
-			this.dataLoadService.getTextures(),
-			this.dataLoadService.getItems()
+			this.editorService.getItemCategories(),
+			this.editorService.getTextureCategories(),
+			this.editorService.getTextures(),
+			this.editorService.getItems()
 		]).subscribe(
 			(res) => {
 				if (res[0].categories && res[0].categories.length !== 0) {

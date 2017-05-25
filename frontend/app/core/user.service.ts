@@ -107,14 +107,14 @@ export class UserService implements OnDestroy {
 	 * @method
 	 *
 	 * @param {string} userName - имя пользователя (уникальное, регистронезависимое)
-	 * @return {void}
+	 * @return {Observable<IRUser>}
 	 */
 	getUser (userName : string) : Observable<IRUser | string> {
+		let methodName : string = 'getUser';
+
 		return this.authHttp.get(Config.serverUrl + Config.usersUrl + userName, { headers : this.headers })
 			.map<Response, IRUser>((resp : Response) => {
-				let jResp : IRUser = <IRUser>resp.json() || null;
-				this.logger.info(`${this.constructor.name} - getUserId:`, `status = ${resp.status} -`, jResp);
-				return jResp;
+				return this.httpService.mapData<IRUser>(resp, this.constructor.name, methodName);
 			})
 			.catch<any, string>((error : any) => this.httpService.handleError(error));
 	}
@@ -124,17 +124,17 @@ export class UserService implements OnDestroy {
 	 *
 	 * @method
 	 *
-	 * @param {ISignup} formValue - значение формы
-	 * @return {boolean}
+	 * @param {ISignup} value - объект регистрации
+	 * @return {Observable<IRAuth>}
 	 */
-	postUser (value : ISignup) : Observable<any> {
+	postUser (value : ISignup) : Observable<IRAuth | string> {
+		let methodName : string = 'postUser';
+
 		let body : string = JSON.stringify(value);
 
 		return this.http.post(Config.serverUrl + Config.usersUrl, body, { headers : this.headers })
 			.map<Response, IRAuth>((resp : Response) => {
-				let jResp : IRAuth = <IRAuth>resp.json() || null;
-				this.logger.info(`${this.constructor.name} - postLogin:`, `status = ${resp.status} -`, jResp);
-				return jResp;
+				return this.httpService.mapData<IRAuth>(resp, this.constructor.name, methodName);
 			})
 			.catch<any, string>((error : any) => this.httpService.handleError(error));
 	}
@@ -144,17 +144,17 @@ export class UserService implements OnDestroy {
 	 *
 	 * @method
 	 *
-	 * @param {ILogin} formValue - значение формы
-	 * @return {boolean}
+	 * @param {ILogin} value - объект авторизации
+	 * @return {Observable<IRAuth>}
 	 */
-	postLogin (formValue : ILogin) : Observable<any> {
-		let body : string = JSON.stringify(formValue);
+	postLogin (value : ILogin) : Observable<IRAuth | string> {
+		let methodName : string = 'postLogin';
+
+		let body : string = JSON.stringify(value);
 
 		return this.http.post(Config.serverUrl + Config.authUrl, body, { headers : this.headers })
 			.map<Response, IRAuth>((resp : Response) => {
-				let jResp : IRAuth = <IRAuth>resp.json() || null;
-				this.logger.info(`${this.constructor.name} - postLogin:`, `status = ${resp.status} -`, jResp);
-				return jResp;
+				return this.httpService.mapData<IRAuth>(resp, this.constructor.name, methodName);
 			})
 			.catch<any, string>((error) => this.httpService.handleError(error));
 	}
