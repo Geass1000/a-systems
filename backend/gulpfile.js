@@ -12,9 +12,10 @@ gulp.task('server', function() {
   });
 });
 
-gulp.task('start', ['server'], function() {
+gulp.task('start', gulp.series('server', function(done) {
   gulp.watch(['./app/**/*.js', './app/**/**/*.js'], ['server']);
-});
+	done();
+}));
 
 process.on('exit', function() {
     if (node) node.kill();

@@ -1,0 +1,40 @@
+<header>
+	<section class="base-section navigation-section">
+		<div class="base-block page-block">
+			<a routerLink="/home" class="main-logo">
+				<img src="assets/imgs/logo.png" />
+			</a>
+			<nav>
+				<a routerLink="/home" routerLinkActive="active"><span>Home</span></a>
+				<div *ngIf="!loggedIn()" class="nav-group">
+					<a (click)="signup()"><span>Sign up</span></a>
+					<a (click)="login()"><span>Login</span></a>
+				</div>
+				<div *ngIf="loggedIn()" class="nav-group">
+					<a routerLink="/editor" routerLinkActive="active"><span>Editor</span></a>
+					<div class="separator"></div>
+					<a routerLink="/profile" routerLinkActive="active"><span>Profile</span></a>
+					<a (click)="logout()"><span>Logout</span></a>
+				</div>
+			</nav>
+		</div>
+	</section>
+</header>
+<!--
+<h1>Hello {{userService.getUserName()}}! Is the {{title}} page.</h1>
+-->
+<router-outlet></router-outlet>
+
+<!-- Modal -->
+<div class="overlay panel-overlay" [class.visible]="openPanelOverlay$ | async" (click)="closeAllModal()"></div>
+<div class="overlay modal-overlay" [class.visible]="openModalOverlay$ | async" (click)="closeAllModal()"></div>
+
+<div class="modal-section" *ngIf="modalLogin$ | async" [@toggleModal]="animationState">
+	<as-login></as-login>
+</div>
+<div class="modal-section" *ngIf="modalSignup$ | async" [@toggleModal]="animationState">
+	<as-signup></as-signup>
+</div>
+<div class="modal-section" *ngIf="modalReset$ | async" [@toggleModal]="animationState">
+	<as-reset></as-reset>
+</div>
