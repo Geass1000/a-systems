@@ -1,0 +1,25 @@
+{
+  "name": "a-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "project.js",
+  "scripts": {
+		"start": "concurrently \"npm run start-backend\" \"npm run start-backend\"",
+		"start-backend": "cd backend/ && npm start",
+		"start-backend": "cd frontend/ && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Geass1000/a-system.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Geass1000/a-system/issues"
+  },
+	"devDependencies": {
+    "concurrently": "^3.2.0"
+  },
+  "homepage": "https://github.com/Geass1000/a-system#readme"
+}
