@@ -112,7 +112,7 @@ export class UserService implements OnDestroy {
 	getUser (userName : string) : Observable<IRUser | string> {
 		const methodName : string = 'getUser';
 
-		return this.authHttp.get(Config.serverUrl + Config.usersUrl + userName, { headers : this.headers })
+		return this.authHttp.get(Config.usersUrl + userName, { headers : this.headers })
 			.map<Response, IRUser>((resp : Response) => {
 				return this.httpService.mapData<IRUser>(resp, this.constructor.name, methodName);
 			})

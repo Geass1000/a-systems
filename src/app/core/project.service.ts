@@ -70,7 +70,7 @@ export class ProjectService implements OnDestroy {
 	getProject (projectId : string) : Observable<IRProject | string> {
 		const methodName : string = 'getProject';
 
-		return this.authHttp.get(Config.serverUrl + Config.projectUrl + projectId, { headers : this.headers })
+		return this.authHttp.get(Config.projectUrl + projectId, { headers : this.headers })
 			.map<Response, IRProject>((resp : Response) => {
 				return this.httpService.mapData<IRProject>(resp, this.constructor.name, methodName);
 			})
@@ -91,7 +91,7 @@ export class ProjectService implements OnDestroy {
 
     const query : string = userId ? `?uid=${userId}` : '';
 
-		return this.authHttp.get(Config.serverUrl + Config.projectUrl + query, { headers : this.headers })
+		return this.authHttp.get(Config.projectUrl + query, { headers : this.headers })
 			.map<Response, IRProjects>((resp : Response) => {
 				return this.httpService.mapData<IRProjects>(resp, this.constructor.name, methodName);
 			})
@@ -111,7 +111,7 @@ export class ProjectService implements OnDestroy {
 
 		const body : string = JSON.stringify(value);
 
-		return this.authHttp.post(Config.serverUrl + Config.projectUrl, body, { headers : this.headers })
+		return this.authHttp.post(Config.projectUrl, body, { headers : this.headers })
 			.map<Response, IRProjectsSave>((resp : Response) => {
 				return this.httpService.mapData<IRProjectsSave>(resp, this.constructor.name, methodName);
 			})
@@ -132,7 +132,7 @@ export class ProjectService implements OnDestroy {
 
 		const body : string = JSON.stringify(value);
 
-		return this.authHttp.put(Config.serverUrl + Config.projectUrl + projectId, body, { headers : this.headers })
+		return this.authHttp.put(Config.projectUrl + projectId, body, { headers : this.headers })
 			.map<Response, IRProjectsSave>((resp : Response) => {
 				return this.httpService.mapData<IRProjectsSave>(resp, this.constructor.name, methodName);
 			})
@@ -150,7 +150,7 @@ export class ProjectService implements OnDestroy {
 	deleteProject (projectId : string) : Observable<IRProjectsDelete | string> {
 		const methodName : string = 'deleteProject';
 
-		return this.authHttp.delete(Config.serverUrl + Config.projectUrl + projectId, { headers : this.headers })
+		return this.authHttp.delete(Config.projectUrl + projectId, { headers : this.headers })
 			.map<Response, IRProjectsDelete>((resp : Response) => {
 				return this.httpService.mapData<IRProjectsDelete>(resp, this.constructor.name, methodName);
 			})
