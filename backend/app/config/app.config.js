@@ -21,7 +21,7 @@ config.mongodb = {
 //... crypto
 config.salt = process.env.CRYPTO_SALT || null;
 config.secret = process.env.CRYPTO_SECRET || null;
-console.log(config.salt, config.secret);
+
 if (!config.salt || !config.secret) {
 	throw new Error("Config error!");
 };

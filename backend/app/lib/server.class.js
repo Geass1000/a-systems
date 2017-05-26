@@ -75,6 +75,7 @@ class Server {
 
 		// Static files
 		this.srcPath = __dirname + '/../../../dist';
+		logger.info(this.srcPath);
 		this.app.use(express.static(this.srcPath));
 	}
 
@@ -104,6 +105,7 @@ class Server {
 
 		this.app.use('/', router);
 		this.app.get('/*', (req, res) => {
+			logger.info(`https://${req.get('Host')}${req.url}`);
 			res.sendFile(path.join(`${this.srcPath}/index.html`));
 		});
 	}
