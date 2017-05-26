@@ -132,7 +132,7 @@ export class UserService implements OnDestroy {
 
 		const body : string = JSON.stringify(value);
 
-		return this.http.post(Config.serverUrl + Config.usersUrl, body, { headers : this.headers })
+		return this.http.post(Config.usersUrl, body, { headers : this.headers })
 			.map<Response, IRAuth>((resp : Response) => {
 				return this.httpService.mapData<IRAuth>(resp, this.constructor.name, methodName);
 			})
@@ -152,7 +152,7 @@ export class UserService implements OnDestroy {
 
 		const body : string = JSON.stringify(value);
 
-		return this.http.post(Config.serverUrl + Config.authUrl, body, { headers : this.headers })
+		return this.http.post(Config.authUrl, body, { headers : this.headers })
 			.map<Response, IRAuth>((resp : Response) => {
 				return this.httpService.mapData<IRAuth>(resp, this.constructor.name, methodName);
 			})
