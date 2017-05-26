@@ -36,6 +36,7 @@
     "typescript": "^2.3.3",
     "zone.js": "^0.8.4",
 
+		"dotenv": "^2.0.0",
 		"body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
