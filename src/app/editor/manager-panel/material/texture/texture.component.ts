@@ -141,8 +141,8 @@ export class TextureComponent implements OnInit, OnDestroy {
 		const result : MaterialTexture = new MaterialTexture({
 			iid : this.activeTextureId,
 			url : this.texturesData.get(this.activeTextureId).url,
-			width : this.texturesData.get(this.activeTextureId).width,
-			height : this.texturesData.get(this.activeTextureId).height,
+			defWidth : this.texturesData.get(this.activeTextureId).width,
+			defHeight : this.texturesData.get(this.activeTextureId).height,
 			scale : +this.getFormField('scale'),
 			angle : +this.getFormField('angle')
 		});

@@ -18,11 +18,12 @@ const router = require('../routers/server.router');
  */
 class Server {
 	/**
-	 * Bootstrap the server.
+	 * Фабричный статический метод. Выполняет создание экземпляра класса.
 	 *
 	 * @class Server
 	 * @method bootstrap
 	 * @static
+	 *
 	 * @return {Server}  Return object server
 	 */
 	static bootstrapServer () {
@@ -56,6 +57,8 @@ class Server {
 	 * @return {void}
 	 */
 	setConfig () {
+		const methodName = 'setConfig';
+
 		logger.info('Configuring server...');
 		if (config.env === 'development')
 			this.app.use(morgan('dev'));
@@ -74,9 +77,11 @@ class Server {
 		this.db.mongodb = require('../config/mongodb.database');
 
 		// Static files
-		this.srcPath = __dirname + '/../../../dist';
-		logger.info(this.srcPath);
-		this.app.use(express.static(this.srcPath));
+		if (config.env === 'production') {
+			this.srcPath = __dirname + '/../../../dist';
+			logger.info(`${this.constructor.name} - ${methodName}`, 'srcPath', this.srcPath);
+			this.app.use(express.static(this.srcPath));
+		}
 	}
 
 	/**
@@ -95,19 +100,21 @@ class Server {
 			next();
 		});
 
-		this.app.use((req, res, next) => {
-			logger.info(`https://${req.get('Host')}${req.url}`);
-			if (req.headers['x-forwarded-proto'] !== 'https') {
-				return res.redirect(`https://${req.get('Host')}${req.url}`);
-			}
-			next();
-		});
+		if (config.env === 'production') {
+			this.app.use((req, res, next) => {
+				if (req.headers['x-forwarded-proto'] !== 'https') {
+					return res.redirect(`https://${req.get('Host')}${req.url}`);
+				}
+				next();
+			});
+		}
 
 		this.app.use('/', router);
-		this.app.get('/*', (req, res) => {
-			logger.info(`https://${req.get('Host')}${req.url}`);
-			res.sendFile(path.join(`${this.srcPath}/index.html`));
-		});
+		if (config.env === 'production') {
+			this.app.get('/*', (req, res) => {
+				res.sendFile(path.join(`${this.srcPath}/index.html`));
+			});
+		}
 	}
 
 	/**

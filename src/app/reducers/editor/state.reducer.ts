@@ -2,49 +2,46 @@ import { Reducer } from 'redux';
 import { EditorActions } from '../../actions/editor.actions';
 import { IAction } from '../../shared/interfaces/action.interface';
 
-import { IWorkstate, IElement } from '../../shared/interfaces/editor.interface';
-import { IModelWorkspace } from '../../shared/interfaces/model.interface';
+import * as _ from 'lodash';
+
+import { IElement } from '../../shared/interfaces/editor.interface';
 import { Material } from '../../shared/lib/material.class';
 
 export interface IEditorState {
 	// Init Editor
 	isInitProject : boolean;
-	isInitWorkspace : boolean;
 	// Metrc Service
 	isActiveMetric : boolean;
 	curMeasure : string;
-	// Workspace
-	workstate : IWorkstate;
 	// DragAndDrop
 	isMove : boolean;
 	element : IElement;
 	activeElements : Array<IElement>;
-	workstateModel : IModelWorkspace;
 	material : Material;
 }
 
 export const INITIAL_STATE : IEditorState = {
 	// Init Editor
 	isInitProject : false,
-	isInitWorkspace : false,
 	// Metrc Service
 	isActiveMetric : false,
 	curMeasure : 'm',
-	// Workspace
-	workstate : null,
 	// DragAndDrop
 	isMove : false,
 	element : null,
 	activeElements : [],
-	workstateModel : null,
+	// Material Module
 	material : null
 };
 
 export const EditorStateReducer : Reducer<IEditorState> =
 	(state : IEditorState = INITIAL_STATE, action : IAction) : IEditorState => {
 	switch (action.type) {
-		case EditorActions.INIT_WORKSPACE : {
-			return Object.assign({}, state, { isInitWorkspace : action.payload.state });
+		case EditorActions.RESET_PROJECT : {
+			return Object.assign({}, state, INITIAL_STATE, {
+				isActiveMetric : state.isActiveMetric,
+				curMeasure : state.curMeasure
+			});
 		}
 		case EditorActions.INIT_PROJECT : {
 			return Object.assign({}, state, { isInitProject : action.payload.state });

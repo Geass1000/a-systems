@@ -17,7 +17,7 @@ import { Workspace } from '../shared/lib/workspace.class';
 @Injectable()
 export class DataInitService implements OnDestroy {
 	private isInit : Map<string, boolean> = new Map([
-		['request', false], ['workspace', false]
+		['request', false], ['workspace', false], ['material', false]
 	]);
 
 	/* Redux */
@@ -48,6 +48,7 @@ export class DataInitService implements OnDestroy {
 		this.logger.info(`${this.constructor.name} - initData:`, 'Data initialization...');
 		this.initLoadData();
 		this.initWorkspace();
+		this.initMaterial();
 	}
 
 	/**
@@ -123,10 +124,16 @@ export class DataInitService implements OnDestroy {
 
 		const workspaceX = halfWindowWidth - halfWorkspaceWidth;
 		const workspaceY = halfWindowHeight - halfWorkspaceHeight;
-		this.ngRedux.dispatch(this.editorActions.translateWorkspace([workspaceX, workspaceY]));
+		this.ngRedux.dispatch(this.editorActions.translateToWorkspace([workspaceX, workspaceY]));
 
 		this.logger.info(`${this.constructor.name} - initWorkspace:`, `Initialization - X - ${workspaceX} - Y - ${workspaceY}`);
 		this.isInit.set('workspace', true);
+		this.isInitAll();
+	}
+
+	initMaterial () : void {
+		this.ngRedux.dispatch(this.editorActions.setMaterial(this.workspace.material));
+		this.isInit.set('material', true);
 		this.isInitAll();
 	}
 }

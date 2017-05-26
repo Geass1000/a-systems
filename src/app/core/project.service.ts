@@ -70,6 +70,7 @@ export class ProjectService implements OnDestroy {
 	getProject (projectId : string) : Observable<IRProject | string> {
 		const methodName : string = 'getProject';
 
+		this.ngRedux.dispatch(this.editorActions.resetProject());
 		return this.authHttp.get(Config.projectUrl + projectId, { headers : this.headers })
 			.map<Response, IRProject>((resp : Response) => {
 				return this.httpService.mapData<IRProject>(resp, this.constructor.name, methodName);

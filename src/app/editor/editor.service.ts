@@ -23,10 +23,6 @@ import { IRItem, IRItemCategory, IRTexture, IRTextureCategory } from '../shared/
 @Injectable()
 export class EditorService implements OnDestroy {
 	private headers = new Headers({ 'Content-Type': 'application/json' });
-	private texturUrl = 'api/texture';
-	private texturTypeUrl = 'api/texture/type';
-	private itemUrl = 'api/item';
-	private itemCategoryUrl = 'api/item/category';
 
 	constructor (private http : Http,
 							 private logger : LoggerService,
@@ -49,7 +45,7 @@ export class EditorService implements OnDestroy {
 
 		const query : string = category ? `?category=${category}` : '';
 
-		return this.http.get(this.texturUrl + query, { headers : this.headers })
+		return this.http.get(Config.texturUrl + query, { headers : this.headers })
 			.map<Response, IRTexture>((resp : Response) => {
 				return this.httpService.mapData<IRTexture>(resp, this.constructor.name, methodName);
 			})
@@ -68,7 +64,7 @@ export class EditorService implements OnDestroy {
 	getTextureCategories () : Observable<IRTextureCategory | string> {
 		const methodName : string = 'getTextureCategories';
 
-		return this.http.get(this.texturTypeUrl, { headers : this.headers })
+		return this.http.get(Config.texturCategoryUrl, { headers : this.headers })
 			.map<Response, IRTextureCategory>((resp : Response) => {
 				return this.httpService.mapData<IRTextureCategory>(resp, this.constructor.name, methodName);
 			})
@@ -86,7 +82,7 @@ export class EditorService implements OnDestroy {
 	getItems () : Observable<IRItem | string> {
 		const methodName : string = 'getItems';
 
-		return this.http.get(this.itemUrl, { headers : this.headers })
+		return this.http.get(Config.itemUrl, { headers : this.headers })
 			.map<Response, IRItem>((resp : Response) => {
 				return this.httpService.mapData<IRItem>(resp, this.constructor.name, methodName);
 			})
@@ -108,7 +104,7 @@ export class EditorService implements OnDestroy {
 
 		const query : string = category ? `?category=${category}` : '';
 
-		return this.http.get(this.itemCategoryUrl + query, { headers : this.headers })
+		return this.http.get(Config.itemCategoryUrl + query, { headers : this.headers })
 			.map<Response, IRItemCategory>((resp : Response) => {
 				return this.httpService.mapData<IRItemCategory>(resp, this.constructor.name, methodName);
 			})

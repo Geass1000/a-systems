@@ -1,11 +1,15 @@
 'use strict';
 
-let dotenv = require('dotenv');
-dotenv.config({path: __dirname + '/../../.env'});
-
 let config = {};
 
-config.env = 'development';
+config.env = 'production';
+
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+	let dotenv = require('dotenv');
+	dotenv.config({path: __dirname + '/../../../.env'});
+	config.env = 'development';
+}
+
 //... express
 config.express = {
 	port : process.env.PORT || 5000

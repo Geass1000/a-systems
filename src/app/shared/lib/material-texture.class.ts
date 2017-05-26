@@ -2,8 +2,8 @@
 export interface IMaterialTexture {
 	iid : string;
 	url : string;
-	width : number;
-	height : number;
+	defWidth : number;
+	defHeight : number;
 	scale : number;
 	angle : number;
 }
@@ -23,8 +23,8 @@ export class MaterialTexture implements IMaterialTexture {
 		if (texture) {
 			this.iid = texture.iid;
 			this.url = texture.url;
-			this.defWidth = texture.width;
-			this.defHeight = texture.height;
+			this.defWidth = texture.defWidth;
+			this.defHeight = texture.defHeight;
 			this.scale = texture.scale;
 			this.angle = texture.angle;
 		} else {
@@ -53,32 +53,36 @@ export class MaterialTexture implements IMaterialTexture {
 
 	set defWidth (data : number) {
 		this._defWidth = this.prepareNumberData(data);
-		this._width = this.scale ? this.defWidth * this.scale : this.defWidth * 1;
+		this.width = this.scale ? this.defWidth * this.scale : this.defWidth * 1;
 	}
 	get defWidth () : number {
 		return this._defWidth;
 	}
 	set defHeight (data : number) {
 		this._defHeight = this.prepareNumberData(data);
-		this._height = this.scale ? this.defHeight * this.scale : this.defHeight * 1;
+		this.height = this.scale ? this.defHeight * this.scale : this.defHeight * 1;
 	}
 	get defHeight () : number {
 		return this._defHeight;
 	}
 
-	set width (data : number) { ;	}
+	set width (data : number) {
+		this._width = data;
+	}
 	get width () : number {
 		return this._width;
 	}
-	set height (data : number) { ;	}
+	set height (data : number) {
+		this._height = data;
+	}
 	get height () : number {
 		return this._height;
 	}
 
 	set scale (data : number) {
 		this._scale = this.prepareNumberData(data);
-		this._width = +(this.defWidth * this.scale).toFixed(10);
-		this._height = +(this.defHeight * this.scale).toFixed(10);
+		this.width = +(this.defWidth * this.scale).toFixed(10);
+		this.height = +(this.defHeight * this.scale).toFixed(10);
 	}
 	get scale () : number {
 		return this._scale;
@@ -107,8 +111,8 @@ export class MaterialTexture implements IMaterialTexture {
 		return {
 			iid : this.iid,
 			url : this.url,
-			width : this.defWidth,
-			height : this.defHeight,
+			defWidth : this.defWidth,
+			defHeight : this.defHeight,
 			scale : this.scale,
 			angle : this.angle
 		};

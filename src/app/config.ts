@@ -1,12 +1,20 @@
 import { IWorkspace } from './shared/lib/workspace.class';
 
+import { environment } from '../environments/environment';
+
 export class Config {
 	//static readonly serverUrl : string = 'http://localhost:3005/';
 	//static readonly serverUrl : string = 'http://192.168.100.2:3005/';
-	static readonly serverUrl : string = `${window.location.protocol}//${window.location.hostname}`;
-	static readonly usersUrl : string = 'api/users/';
-	static readonly authUrl : string = 'api/auth/';
-  static readonly projectUrl : string = 'api/project/';
+	static readonly apiUrl : string = environment.apiUrl ? environment.apiUrl : '';
+	static readonly usersUrl : string = `${Config.apiUrl}/api/users/`;
+	static readonly authUrl : string = `${Config.apiUrl}/api/auth/`;
+  static readonly projectUrl : string = `${Config.apiUrl}/api/project/`;
+	// Editor Urls
+	static readonly texturUrl : string = `${Config.apiUrl}/api/texture/`;
+	static readonly texturCategoryUrl : string = `${Config.apiUrl}/api/texture/type/`;
+	static readonly itemUrl : string = `${Config.apiUrl}/api/item/`;
+	static readonly itemCategoryUrl : string = `${Config.apiUrl}/api/item/category/`;
+	// App assets
 	static readonly textureFolderUrl : string = 'assets/textures/';
 
 	static readonly scale : number = 100; // Пикслей в метре

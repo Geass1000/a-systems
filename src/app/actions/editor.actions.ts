@@ -19,6 +19,7 @@ export class EditorActions {
 	static readonly INIT_PROJECT = EditorActions.CLASS_NAME + 'INIT_PROJECT';
 	static readonly TOGGLE_MOVE = EditorActions.CLASS_NAME + 'TOGGLE_MOVE';
 	static readonly TRANSLATE_WORKSPACE = EditorActions.CLASS_NAME + 'TRANSLATE_WORKSPACE';
+	static readonly TRANSLATE_TO_WORKSPACE = EditorActions.CLASS_NAME + 'TRANSLATE_TO_WORKSPACE';
 	static readonly TRANSLATE_SURFACE = EditorActions.CLASS_NAME + 'TRANSLATE_SURFACE';
 	static readonly TRANSLATE_SURFACE_POINT = EditorActions.CLASS_NAME + 'TRANSLATE_SURFACE_POINT';
 	static readonly TRANSLATE_THING = EditorActions.CLASS_NAME + 'TRANSLATE_THING';
@@ -93,6 +94,15 @@ export class EditorActions {
 			payload : {
 				dX : arr[0],
 				dY : arr[1]
+			}
+    };
+  }
+	translateToWorkspace (arr : Array<number>) : IAction {
+    return {
+      type : EditorActions.TRANSLATE_TO_WORKSPACE,
+			payload : {
+				x : arr[0],
+				y : arr[1]
 			}
     };
   }

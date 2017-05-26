@@ -11,7 +11,7 @@ let workspaceSchema = new Schema({
 	x : 				{ type : Number, required : true },
 	y : 				{ type : Number, required : true },
 	width : 		{ type : Number, required : true },
-	height : 		{ type : Number, required : true },
+	height :		{ type : Number, required : true },
 	material :	{ type : materialSchema, required : true },
 }, { _id : false });
 

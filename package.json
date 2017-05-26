@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start": "cd backend && npm start",
-    "postinstall": "ng build --aot -prod"
+    "postinstall": "ng build --aot -prod",
+		"deploy": "git push origin master && git push heroku master"
   },
   "private": true,
   "dependencies": {
@@ -36,7 +37,6 @@
     "typescript": "^2.3.3",
     "zone.js": "^0.8.4",
 
-		"dotenv": "^2.0.0",
 		"body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
@@ -73,7 +73,9 @@
     "protractor": "~5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
-    "typescript": "~2.2.0"
+    "typescript": "~2.2.0",
+
+		"dotenv": "^2.0.0"
   },
   "engines": {
     "node": "7.8.0",

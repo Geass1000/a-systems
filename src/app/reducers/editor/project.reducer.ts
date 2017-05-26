@@ -85,6 +85,14 @@ export const EditorProjectReducer : Reducer<IEditorProject> =
 				things : [...state.things, thing]
 			});
 		}
+		case EditorActions.TRANSLATE_TO_WORKSPACE : {
+			const workspace : Workspace = new Workspace(state.workspace);
+			workspace.x = action.payload.x;
+			workspace.y = action.payload.y;
+			return Object.assign({}, state, {
+				workspace : workspace
+			});
+		}
 		case EditorActions.TRANSLATE_WORKSPACE : {
 			state.workspace.x += action.payload.dX;
 			state.workspace.y += action.payload.dY;

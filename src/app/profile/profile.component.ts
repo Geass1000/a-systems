@@ -86,7 +86,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 				this.logger.info(`${this.constructor.name} - prepareUserData:`, 'data -', data);
 			},
 			(error : string) => {
-				this.logger.warn(`${this.constructor.name} - prepareUserData:`, error, 'Renavigate...');
+				this.logger.warn(`${this.constructor.name} - prepareUserData:`, 'Renavigate...', error);
 				this.router.navigateByUrl('/');
 			}
 		);
