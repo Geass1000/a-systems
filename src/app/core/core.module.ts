@@ -11,8 +11,8 @@ import { AuthGuard } from './auth-guard.service';
 import { UserService } from './user.service';
 import { ProjectService } from './project.service';
 import { HttpService } from './http.service';
-import { LoggerService, Options as OptionsLogger, selectLogLevel } from './logger.service';
-const logLevel = selectLogLevel(environment.logLevel);
+import { LoggerService, Options as OptionsLogger, selectLogLevel, Level } from './logger.service';
+const logLevel = Level.LOG;
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp( new AuthConfig({}), http, options);
