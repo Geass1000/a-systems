@@ -21,7 +21,7 @@ import { IThing } from '../../../shared/lib/thing.class';
 	moduleId: module.id,
   selector: 'as-editor-control-save-project',
 	templateUrl: 'save-project.component.html',
-  styleUrls: [ 'save-project.component.css' ]
+  styleUrls: [ 'save-project.component.scss' ]
 })
 export class SaveProjectComponent implements OnInit, OnDestroy {
 	/* Private Variable */

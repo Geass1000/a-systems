@@ -20,26 +20,28 @@ import { IPoint } from '../../../shared/lib/point.class';
 	moduleId: module.id,
   selector: 'as-editor-manager-workshop',
 	templateUrl: 'workshop.component.html',
-  styleUrls: [ 'workshop.component.css' ]
+  styleUrls: [ 'workshop.component.scss' ]
 })
 export class WorkshopComponent implements OnInit, OnDestroy {
 	/* Private Variable */
 	private rootCategory : string = 'Root';
-	private prevCategory : string = this.rootCategory;
-	private activeCategory : string = null;
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
 	@select(['editor', 'item', 'categories']) itemCategories$ : Observable<Map<string, IItemCategory>>;
 	private itemCategoriesData : Map<string, IItemCategory> = new Map();
 	private itemCategories : Array<IItemCategory> = [];
-	private itemCategoriesDisplay : Array<IItemCategory> = [];
 	@select(['editor', 'item', 'items']) items$ : Observable<Map<string, IItem>>;
 	private itemsData : Map<string, IItem> = new Map();
 	private items : Array<IItem> = [];
-	private itemsDisplay : Array<IItem> = [];
 	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
 	private workspace : Workspace;
+
+	/* Public Variable */
+	public prevCategory : string = this.rootCategory;
+	public activeCategory : string = null;
+	public itemsDisplay : Array<IItem> = [];
+	public itemCategoriesDisplay : Array<IItemCategory> = [];
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,

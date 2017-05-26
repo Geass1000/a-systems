@@ -3,16 +3,16 @@
 		[class.open]="managerOpen$ | async">
 		<div class="manager-panel-block">
 			<div class="manager-panel-block-content">
-				<div class="item-panel" *ngIf="workshop$ | async">
+				<div class="item-panel" *ngIf="workshop">
 					<as-editor-manager-workshop></as-editor-manager-workshop>
 				</div>
-				<div class="item-panel" *ngIf="workstate$ | async">
+				<div class="item-panel" *ngIf="workstate">
 					<as-editor-manager-workstate></as-editor-manager-workstate>
 				</div>
-				<div class="item-panel" *ngIf="material$ | async">
+				<div class="item-panel" *ngIf="material">
 					<as-editor-manager-material></as-editor-manager-material>
 				</div>
-				<div class="item-panel" *ngIf="dispatcher$ | async">
+				<div class="item-panel" *ngIf="dispatcher">
 					<as-editor-manager-dispatcher></as-editor-manager-dispatcher>
 				</div>
 			</div>

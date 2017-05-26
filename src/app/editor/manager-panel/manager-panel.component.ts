@@ -14,7 +14,7 @@ import { LoggerService } from '../../core/logger.service';
 	moduleId: module.id,
   selector: 'as-editor-manager-panel',
 	templateUrl: 'manager-panel.component.html',
-  styleUrls: [ 'manager-panel.component.css' ]
+  styleUrls: [ 'manager-panel.component.scss' ]
 })
 export class ManagerPanelComponent implements OnInit, OnDestroy {
 	/* Private variable */
@@ -27,12 +27,22 @@ export class ManagerPanelComponent implements OnInit, OnDestroy {
 	@select(['editor', 'manager', 'material']) material$ : Observable<boolean>;
 	@select(['editor', 'manager', 'dispatcher']) dispatcher$ : Observable<boolean>;
 
+	/* Private variable */
+	public workshop : boolean;
+	public workstate : boolean;
+	public material : boolean;
+	public dispatcher : boolean;
+
 	constructor (private ngRedux : NgRedux<any>,
 						 	 private editorActions : EditorActions,
 						 	 private modalActions : ModalActions,
 						 	 private logger : LoggerService) {
 	}
 	ngOnInit () {
+		this.subscription.push(this.workshop$.subscribe((data) => { this.workshop = data; }));
+		this.subscription.push(this.workstate$.subscribe((data) => { this.workstate = data; }));
+		this.subscription.push(this.material$.subscribe((data) => { this.material = data; }));
+		this.subscription.push(this.dispatcher$.subscribe((data) => { this.dispatcher = data; }));
 	}
 	ngOnDestroy () {
 		this.subscription.map((data) => data.unsubscribe());

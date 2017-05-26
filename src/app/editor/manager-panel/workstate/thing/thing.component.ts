@@ -23,11 +23,10 @@ import { isNumber } from '../../../../shared/validators/is-number.validator';
 	moduleId: module.id,
   selector: 'as-editor-manager-workstate-thing',
 	templateUrl: 'thing.component.html',
-  styleUrls: [ 'thing.component.css' ]
+  styleUrls: [ 'thing.component.scss' ]
 })
 export class ThingComponent implements OnInit, OnDestroy {
 	/* Private Variable */
-	private form : FormGroup;
 	private editorForm : EditorForm;
 
 	/* Redux */
@@ -36,9 +35,12 @@ export class ThingComponent implements OnInit, OnDestroy {
 	private isActiveMetric : boolean = null;
 	@select(['editor', 'project', 'things']) things$ : Observable<Array<Thing>>;
 	private things : Array<Thing>;
-	private model : Thing = null;
 	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
 	private activeElements : Array<IElement>;
+
+	/* Public variable */
+	public model : Thing = null;
+	public form : FormGroup;
 
 	constructor (private fb : FormBuilder,
 							 private ngRedux : NgRedux<any>,

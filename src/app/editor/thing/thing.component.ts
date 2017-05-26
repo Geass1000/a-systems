@@ -17,7 +17,7 @@ import { IElement } from '../../shared/interfaces/editor.interface';
 	moduleId: module.id,
   selector: '[as-editor-thing]',
 	templateUrl: 'thing.component.html',
-  styleUrls: [ 'thing.component.css' ]
+  styleUrls: [ 'thing.component.scss' ]
 })
 export class ThingComponent implements OnInit, OnDestroy {
 	private loc : string = '';
@@ -26,7 +26,9 @@ export class ThingComponent implements OnInit, OnDestroy {
 	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
 	private activeElements : Array<IElement>;
 	@select(['editor', 'project', 'things']) things$ : Observable<Array<Thing>>;
-	private things : Array<Thing>;
+
+	/* Public Variable */
+	public things : Array<Thing>;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,

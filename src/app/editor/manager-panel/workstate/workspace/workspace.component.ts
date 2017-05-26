@@ -22,11 +22,10 @@ import { isNumber } from '../../../../shared/validators/is-number.validator';
 	moduleId: module.id,
   selector: 'as-editor-manager-workstate-workspace',
 	templateUrl: 'workspace.component.html',
-  styleUrls: [ 'workspace.component.css' ]
+  styleUrls: [ 'workspace.component.scss' ]
 })
 export class WorkspaceComponent implements OnInit, OnDestroy {
 	/* Private Variable */
-	private form : FormGroup;
 	private editorForm : EditorForm;
 
 	/* Redux */
@@ -34,7 +33,10 @@ export class WorkspaceComponent implements OnInit, OnDestroy {
 	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
 	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
-	private model : Workspace = null;
+
+	/* Public variable */
+	public model : Workspace = null;
+	public form : FormGroup;
 
 	constructor (private fb : FormBuilder,
 							 private ngRedux : NgRedux<any>,

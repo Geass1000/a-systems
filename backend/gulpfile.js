@@ -1,8 +1,8 @@
-var gulp = require("gulp");
-var spawn = require('child_process').spawn;
-var node;
+const gulp = require("gulp");
+const spawn = require('child_process').spawn;
+const node;
 
-gulp.task('server', function() {
+gulp.task('server', function(done) {
   if (node) node.kill();
   node = spawn('node', ['./app/index.js'], {stdio: 'inherit'});
   node.on('close', function (code) {
@@ -10,10 +10,11 @@ gulp.task('server', function() {
       gulp.log('Error detected, waiting for changes...');
     }
   });
+	done();
 });
 
-gulp.task('start', gulp.series('server', function(done) {
-  gulp.watch(['./app/**/*.js', './app/**/**/*.js'], ['server']);
+gulp.task('watch', gulp.series('server', function(done) {
+  gulp.watch(['./app/**/*.js', './app/**/**/*.js'], gulp.series('server'));
 	done();
 }));
 

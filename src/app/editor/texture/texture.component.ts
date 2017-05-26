@@ -19,21 +19,21 @@ import { MaterialTexture } from '../../shared/lib/material-texture.class';
 	moduleId: module.id,
   selector: '[as-editor-texture]',
 	templateUrl: 'texture.component.html',
-  styleUrls: [ 'texture.component.css' ]
+  styleUrls: [ 'texture.component.scss' ]
 })
 export class TextureComponent implements OnInit, OnDestroy {
-	private loc : string = '';
 	/* Redux */
 	private subscription : Array<Subscription> = [];
 	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
-	private workspace : Workspace;
 	@select(['editor', 'project', 'surfaces']) surfaces$ : Observable<Array<Surface>>;
-	private surfaces : Array<Surface>;
+
+	/* Public Variable */
+	public surfaces : Array<Surface>;
+	public workspace : Workspace;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
 							 private logger : LoggerService) {
-		this.loc = location.href;
 	}
 	ngOnInit () {
 		this.subscription.push(this.workspace$.subscribe((data) => {

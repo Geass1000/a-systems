@@ -20,11 +20,11 @@ import { IProjects, IRProject } from '../shared/interfaces/project.interface';
 	moduleId: module.id,
 	selector: 'as-profile',
 	templateUrl: 'profile.component.html',
-  styleUrls: [ 'profile.component.css' ]
+  styleUrls: [ 'profile.component.scss' ]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 	private activeName : string;
-  private profile : IRProfile;
+  public profile : IRProfile;
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];

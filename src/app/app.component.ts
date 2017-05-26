@@ -19,7 +19,7 @@ import { animation } from './shared/animations/modal.animation';
 	moduleId: module.id,
   selector: 'as-app',
 	templateUrl: 'app.component.html',
-  styleUrls: [ 'app.component.css' ],
+  styleUrls: [ 'app.component.scss' ],
 	animations: [ animation ]
 })
 export class AppComponent implements OnInit, OnDestroy {

@@ -23,18 +23,20 @@ import { isNumber } from '../../../../shared/validators/is-number.validator';
 	moduleId: module.id,
   selector: 'as-editor-manager-material-color-rgba',
 	templateUrl: 'color-rgba.component.html',
-  styleUrls: [ 'color-rgba.component.css' ]
+  styleUrls: [ 'color-rgba.component.scss' ]
 })
 export class ColorRgbaComponent implements OnInit, OnDestroy {
 	/* Private Variable */
-	private form : FormGroup;
 	private editorForm : EditorForm;
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'material']) material$ : Observable<Material>;
-	private material : Material;
-	private color : MaterialColor;
+
+	/* Public variable */
+	public form : FormGroup;
+	public material : Material;
+	public color : MaterialColor;
 
 	constructor (private fb : FormBuilder,
 							 private ngRedux : NgRedux<any>,

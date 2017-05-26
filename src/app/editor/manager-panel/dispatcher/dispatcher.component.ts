@@ -19,7 +19,7 @@ import { IElement } from '../../../shared/interfaces/editor.interface';
 	moduleId: module.id,
   selector: 'as-editor-manager-dispatcher',
 	templateUrl: 'dispatcher.component.html',
-  styleUrls: [ 'dispatcher.component.css' ]
+  styleUrls: [ 'dispatcher.component.scss' ]
 })
 export class DispatcherComponent implements OnInit, OnDestroy {
 	/* Private Variable */
@@ -31,9 +31,11 @@ export class DispatcherComponent implements OnInit, OnDestroy {
 	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
 	private workspace : Workspace;
 	@select(['editor', 'project', 'surfaces']) surfaces$ : Observable<Array<Surface>>;
-	private surfaces : Array<Surface>;
 	@select(['editor', 'project', 'things']) things$ : Observable<Array<Thing>>;
-	private things : Array<Thing>;
+
+	/* Public Variable */
+	public surfaces : Array<Surface>;
+	public things : Array<Thing>;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,

@@ -6,7 +6,7 @@ import { UserService } from '../core/user.service';
 	moduleId: module.id,
   selector: 'as-home',
 	templateUrl: 'home.component.html',
-  styleUrls: [ 'home.component.css' ]
+  styleUrls: [ 'home.component.scss' ]
 })
 export class HomeComponent  {
 	title = 'Home';

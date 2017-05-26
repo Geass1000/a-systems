@@ -18,12 +18,10 @@ import { IElement } from '../../../shared/interfaces/editor.interface';
 	moduleId: module.id,
   selector: 'as-editor-manager-material',
 	templateUrl: 'material.component.html',
-  styleUrls: [ 'material.component.css' ]
+  styleUrls: [ 'material.component.scss' ]
 })
 export class MaterialComponent implements OnInit, OnDestroy {
 	/* Private variable */
-	private activeMaterialCategory : string = '';
-	private activeColorCategory : string = '';
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
@@ -31,6 +29,10 @@ export class MaterialComponent implements OnInit, OnDestroy {
 	private material : Material;
 	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
 	private activeElements : Array<IElement>;
+
+	/* Public variable */
+	public activeMaterialCategory : string = '';
+	public activeColorCategory : string = '';
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,

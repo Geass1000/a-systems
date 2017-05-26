@@ -1,5 +1,6 @@
-@import "../../app/shared/scss/global.scss";
+@import "./global.scss";
 
+/* HELLO !!!!!!!!!!!!!!!!*/
 /* App Fonts */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=cyrillic');
 
@@ -108,6 +109,6 @@ header, main, footer {
 	margin: 0 auto;
 }
 
-@import "./modal.css";
-@import "./manager.css";
-@import "./form-1.css";
+@import "./modal.scss";
+@import "./manager.scss";
+@import "./form-1.scss";

@@ -17,7 +17,7 @@ import { IElement } from '../../../shared/interfaces/editor.interface';
 	moduleId: module.id,
   selector: 'as-editor-manager-workstate',
 	templateUrl: 'workstate.component.html',
-  styleUrls: [ 'workstate.component.css' ]
+  styleUrls: [ 'workstate.component.scss' ]
 })
 export class WorkstateComponent implements OnInit, OnDestroy {
 	title = 'Home';

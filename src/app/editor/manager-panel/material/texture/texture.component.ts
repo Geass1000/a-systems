@@ -25,28 +25,29 @@ import { isNumber } from '../../../../shared/validators/is-number.validator';
 	moduleId: module.id,
   selector: 'as-editor-manager-material-texture',
 	templateUrl: 'texture.component.html',
-  styleUrls: [ 'texture.component.css' ]
+  styleUrls: [ 'texture.component.scss' ]
 })
 export class TextureComponent implements OnInit, OnDestroy {
 	/* Private variable */
-	private activeTextureId : string = null;
-	private activeTextureCategoryId : string = '';
-
-	private form : FormGroup;
 	private editorForm : EditorForm;
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
 	@select(['editor', 'texture', 'categories']) textureCategories$ : Observable<Map<string, ITextureCategory>>;
 	private textureCategoriesData : Map<string, ITextureCategory> = new Map();
-	private textureCategories : Array<ITextureCategory> = [];
 	@select(['editor', 'texture', 'textures']) textures$ : Observable<Map<string, ITexture>>;
 	private texturesData : Map<string, ITexture> = new Map();
 	private textures : Array<ITexture> = [];
-	private texturesDisplay : Array<ITexture> = [];
 	@select(['editor', 'state', 'material']) material$ : Observable<Material>;
 	private material : Material;
 	private texture : MaterialTexture;
+
+	/* Public variable */
+	public form : FormGroup;
+	public activeTextureId : string = null;
+	public activeTextureCategoryId : string = '';
+	public texturesDisplay : Array<ITexture> = [];
+	public textureCategories : Array<ITextureCategory> = [];
 
 	constructor (private fb : FormBuilder,
 							 private ngRedux : NgRedux<any>,

@@ -18,7 +18,7 @@ import { Workspace } from '../shared/lib/workspace.class';
 	moduleId: module.id,
   selector: 'as-editor',
 	templateUrl: 'editor.component.html',
-  styleUrls: [ 'editor.component.css' ]
+  styleUrls: [ 'editor.component.scss' ]
 })
 export class EditorComponent implements OnInit, OnDestroy {
 	private loc : string = '';
@@ -26,12 +26,13 @@ export class EditorComponent implements OnInit, OnDestroy {
 	/* Redux */
 	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'isInitProject']) isInitProject$ : Observable<boolean>;
-	private isInitProject : boolean;
 	@select(['editor', 'state', 'isMove']) isMove$ : Observable<boolean>;
 	@select(['editor', 'project', 'workspace']) workspace$ : Observable<Workspace>;
 	private workspace : Workspace;
 	@select(['editor', 'project', '_id']) _id$ : Observable<Workspace>;
 	@select(['editor', 'control', 'open']) modalOpen$ : Observable<boolean>;
+
+	public isInitProject : boolean;
 
 	constructor (private ngRedux : NgRedux<any>,
 						 	 private editorActions : EditorActions,

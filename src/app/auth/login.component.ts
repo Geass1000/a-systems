@@ -17,7 +17,7 @@ import { ILogin, IRAuth } from '../shared/interfaces/auth.interface';
 	moduleId: module.id,
   selector: 'as-login',
 	templateUrl: 'login.component.html',
-  styleUrls: [ 'auth.component.css' ]
+  styleUrls: [ 'auth.component.scss' ]
 })
 export class LoginComponent implements OnInit, OnDestroy {
 	form : FormGroup;

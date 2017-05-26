@@ -17,7 +17,7 @@ import { IElement } from '../../shared/interfaces/editor.interface';
 	moduleId: module.id,
   selector: '[as-editor-surface]',
 	templateUrl: 'surface.component.html',
-  styleUrls: [ 'surface.component.css' ]
+  styleUrls: [ 'surface.component.scss' ]
 })
 export class SurfaceComponent implements OnInit, OnDestroy {
 
@@ -26,7 +26,9 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
 	private activeElements : Array<IElement>;
 	@select(['editor', 'project', 'surfaces']) surfaces$ : Observable<Array<Surface>>;
-	private surfaces : Array<Surface>;
+
+	/* Public Variable */
+	public surfaces : Array<Surface>;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,

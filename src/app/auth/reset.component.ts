@@ -8,7 +8,7 @@ import { ModalActions } from '../actions/modal.actions';
 	moduleId: module.id,
   selector: 'as-reset',
 	templateUrl: 'reset.component.html',
-  styleUrls: [ 'auth.component.css' ]
+  styleUrls: [ 'auth.component.scss' ]
 })
 export class ResetComponent implements OnInit  {
 	@select(['modal', 'reset']) modalOpen : any;

@@ -23,11 +23,10 @@ import { isNumber } from '../../../../shared/validators/is-number.validator';
 	moduleId: module.id,
   selector: 'as-editor-manager-workstate-surface',
 	templateUrl: 'surface.component.html',
-  styleUrls: [ 'surface.component.css' ]
+  styleUrls: [ 'surface.component.scss' ]
 })
 export class SurfaceComponent implements OnInit, OnDestroy {
 	/* Private Variable */
-	private form : FormGroup;
 	private editorForm : EditorForm;
 
 	/* Redux */
@@ -36,9 +35,12 @@ export class SurfaceComponent implements OnInit, OnDestroy {
 	private isActiveMetric : boolean = null;
 	@select(['editor', 'project', 'surfaces']) surfaces$ : Observable<Array<Surface>>;
 	private surfaces : Array<Surface>;
-	private model : Surface = null;
 	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
 	private activeElements : Array<IElement>;
+
+	/* Public variable */
+	public model : Surface = null;
+	public form : FormGroup;
 
 	constructor (private fb : FormBuilder,
 							 private ngRedux : NgRedux<any>,

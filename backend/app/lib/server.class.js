@@ -1,17 +1,15 @@
 'use strict';
+const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const methodOverride = require('method-override');
+const errorhandler = require('errorhandler');
+const cors = require('cors');
 
-let express = require('express');
-let bodyParser = require('body-parser');
-let morgan = require('morgan');
-let methodOverride = require('method-override');
-let errorhandler = require('errorhandler');
-let cors = require('cors');
-
-let logger = require('../config/logger.config');
-
-let config = require('../config/app.config');
-
-let router = require('../routers/server.router');
+const logger = require('../config/logger.config');
+const config = require('../config/app.config');
+const router = require('../routers/server.router');
 
 /**
  * The server.
@@ -74,6 +72,9 @@ class Server {
 
 		// Create connect to a database
 		this.db.mongodb = require('../config/mongodb.database');
+
+		// Static files
+		this.app.use(express.static(__dirname + '../../dist'));
 	}
 
 	/**
@@ -91,7 +92,19 @@ class Server {
 			res.set("Access-Control-Allow-Headers", 'Content-Type, X-Auth-Token, Origin, Authorization, Allow');
 			next();
 		});
+/*
+		this.app.use((req, res, next) => {
+			logger.info(`https://${req.get('Host')}${req.url}`);
+			if (req.headers['x-forwarded-proto'] !== 'https') {
+				return res.redirect(`https://${req.get('Host')}${req.url}`);
+			}
+			next();
+		});
+*/
 		this.app.use('/', router);
+		this.app.get('/*', (req, res) => {
+			res.sendFile(path.join(__dirname + '../../dist/index.html'));
+		});
 	}
 
 	/**

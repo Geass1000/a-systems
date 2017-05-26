@@ -20,7 +20,7 @@ import { passwordMatch } from '../shared/validators/password-match.validator';
 	moduleId: module.id,
   selector: 'as-signup',
 	templateUrl: 'signup.component.html',
-  styleUrls: [ 'auth.component.css' ]
+  styleUrls: [ 'auth.component.scss' ]
 })
 export class SignupComponent implements OnInit, OnDestroy  {
 	form : FormGroup;

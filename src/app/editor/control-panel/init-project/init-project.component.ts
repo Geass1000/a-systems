@@ -22,17 +22,19 @@ import { IModelInitProject } from '../../../shared/interfaces/model.interface';
 	moduleId: module.id,
   selector: 'as-editor-control-init-project',
 	templateUrl: 'init-project.component.html',
-  styleUrls: [ 'init-project.component.css' ]
+  styleUrls: [ 'init-project.component.scss' ]
 })
 export class InitProjectComponent implements OnInit, OnDestroy {
 	/* Private Variable */
-	private model : IModelInitProject = null;
 
 	/* Redux */
 	private subscription : Array<Subscription> = [];
 	@select(['modal', 'initProject']) modalOpen : any;
 	@select(['editor', 'state', 'isActiveMetric']) isActiveMetric$ : Observable<boolean>;
 	private isActiveMetric : boolean = null;
+
+	/* Public Variable */
+	public model : IModelInitProject = null;
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,

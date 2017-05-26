@@ -17,19 +17,19 @@ import { animation } from '../../shared/animations/modal.animation';
 	moduleId: module.id,
   selector: 'as-editor-control-panel',
 	templateUrl: 'control-panel.component.html',
-  styleUrls: [ 'control-panel.component.css' ],
+  styleUrls: [ 'control-panel.component.scss' ],
 	animations: [ animation ]
 })
 export class ControlPanelComponent implements OnInit, OnDestroy {
-	title = 'Home';
-	private animationState : string = 'open';
-
 	/* Redux */
 	private subscription : Array<Subscription> = [];
 	@select(['editor', 'state', 'curMeasure']) curMeasure$ : Observable<string>;
-	private curMeasure : string;
 	@select(['modal', 'initProject']) initProject$ : Observable<boolean>;
 	@select(['modal', 'saveProject']) saveProject$ : Observable<boolean>;
+
+	/* Public Variable */
+	public curMeasure : string;
+	public animationState : string = 'open';
 
 	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
