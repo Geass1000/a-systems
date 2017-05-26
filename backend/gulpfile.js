@@ -1,6 +1,6 @@
 const gulp = require("gulp");
 const spawn = require('child_process').spawn;
-const node;
+let node;
 
 gulp.task('server', function(done) {
   if (node) node.kill();

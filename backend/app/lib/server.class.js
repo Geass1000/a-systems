@@ -74,7 +74,8 @@ class Server {
 		this.db.mongodb = require('../config/mongodb.database');
 
 		// Static files
-		this.app.use(express.static(__dirname + '../../dist'));
+		this.srcPath = __dirname + '/../../../dist';
+		this.app.use(express.static(this.srcPath));
 	}
 
 	/**
@@ -92,7 +93,7 @@ class Server {
 			res.set("Access-Control-Allow-Headers", 'Content-Type, X-Auth-Token, Origin, Authorization, Allow');
 			next();
 		});
-/*
+
 		this.app.use((req, res, next) => {
 			logger.info(`https://${req.get('Host')}${req.url}`);
 			if (req.headers['x-forwarded-proto'] !== 'https') {
@@ -100,10 +101,10 @@ class Server {
 			}
 			next();
 		});
-*/
+
 		this.app.use('/', router);
 		this.app.get('/*', (req, res) => {
-			res.sendFile(path.join(__dirname + '../../dist/index.html'));
+			res.sendFile(path.join(`${this.srcPath}/index.html`));
 		});
 	}
 
