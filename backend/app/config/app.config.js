@@ -1,7 +1,7 @@
 'use strict';
 
-//let dotenv = require('dotenv');
-//dotenv.config({path: __dirname + '/../../.env'});
+let dotenv = require('dotenv');
+dotenv.config({path: __dirname + '/../../.env'});
 
 let config = {};
 
