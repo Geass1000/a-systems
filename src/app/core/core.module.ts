@@ -9,7 +9,9 @@ import { AuthGuard } from './auth-guard.service';
 import { UserService } from './user.service';
 import { ProjectService } from './project.service';
 import { HttpService } from './http.service';
-import { LoggerService } from './logger.service';
+import { LoggerService, Options as OptionsLogger, selectLogLevel } from './logger.service';
+
+import { environment } from '../../environments/environment';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp( new AuthConfig({}), http, options);
@@ -29,6 +31,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 		UserService,
     ProjectService,
 		HttpService,
+		{
+			provide: OptionsLogger,
+			useValue: { level: selectLogLevel(environment.logLevel) }
+		},
 		LoggerService
 	]
 })

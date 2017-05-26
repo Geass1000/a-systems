@@ -9,6 +9,16 @@ export enum Level {
 	LOG = 5
 };
 
+export function selectLogLevel (level : string) : Level {
+	switch (level) {
+		case 'error' : return Level.ERROR;
+		case 'warn' : return Level.WARN;
+		case 'info' : return Level.INFO;
+		case 'debug' : return Level.DEBUG;
+		case 'log' : return Level.LOG;
+		default : return Level.LOG;
+	}
+}
 
 export class Options {
 	level : Level;
