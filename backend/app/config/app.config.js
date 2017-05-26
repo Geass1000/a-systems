@@ -4,7 +4,7 @@ let config = {};
 
 config.env = 'production';
 
-if (!process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
 	let dotenv = require('dotenv');
 	dotenv.config({path: __dirname + '/../../../.env'});
 	config.env = 'development';
@@ -33,10 +33,5 @@ if (!config.salt || !config.secret) {
 config.user = {
 	avatarPath : process.env.USER_AVATAR_PATH || 'assets/imgs/avatars'
 };
-
-if (process.env.NODE_ENV === 'production') {
-	config.env = 'production';
-	//... other config
-}
 
 module.exports = config;

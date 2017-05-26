@@ -26,6 +26,7 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 	@select(['editor', 'state', 'curMeasure']) curMeasure$ : Observable<string>;
 	@select(['modal', 'initProject']) initProject$ : Observable<boolean>;
 	@select(['modal', 'saveProject']) saveProject$ : Observable<boolean>;
+	@select(['state', 'fullwidthMode']) fullwidthMode$ : Observable<boolean>;
 
 	/* Public Variable */
 	public curMeasure : string;

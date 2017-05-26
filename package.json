@@ -9,6 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+		"watch": "gulp watch",
+		"setenv": "heroku config:push -o",
     "start": "cd backend && npm start",
     "postinstall": "ng build --aot -prod",
 		"deploy": "git push origin master && git push heroku master"

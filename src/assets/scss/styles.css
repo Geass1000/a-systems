@@ -151,11 +151,16 @@ header, main, footer {
   z-index: 17; }
 
 .base-block {
+  box-sizing: border-box;
   height: 100%; }
 
 .page-block {
   width: 960px;
   margin: 0 auto; }
+
+.fullwidth-block {
+  width: 100%;
+  padding: 0 15px; }
 
 /* Palette Color */
 /* Font-size variable */

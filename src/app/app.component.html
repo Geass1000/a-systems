@@ -1,6 +1,7 @@
 <header>
 	<section class="base-section navigation-section">
-		<div class="base-block page-block">
+		<div class="base-block page-block"
+			[class.fullwidth-block]="fullwidthMode$ | async">
 			<a routerLink="/home" class="main-logo">
 				<img src="assets/imgs/logo.png" />
 			</a>
