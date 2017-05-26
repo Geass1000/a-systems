@@ -9,6 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+		"start-dev": "cd backend && npm run watch",
 		"watch": "gulp watch",
 		"setenv": "heroku config:push -o",
     "start": "cd backend && npm start",

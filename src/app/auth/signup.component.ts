@@ -15,6 +15,8 @@ import { ISignup, IRAuth } from '../shared/interfaces/auth.interface';
 
 /* App Validators */
 import { passwordMatch } from '../shared/validators/password-match.validator';
+import { isNickname } from '../shared/validators/is-nickname.validator';
+import { isEmail } from '../shared/validators/is-email.validator';
 
 @Component({
 	moduleId: module.id,
@@ -36,10 +38,12 @@ export class SignupComponent implements OnInit, OnDestroy  {
 		'name' : {
 			'required' : 'Name is required.',
 			'minlength' : 'Name must be at least 3 characters long.',
-			'maxlength' : 'Name cannot be more than 30 characters long.'
+			'maxlength' : 'Name cannot be more than 30 characters long.',
+			'isNickname' : 'Name may contain A-Z, a-z, 0-9 or -_ characters.'
 		},
 		'email' : {
-			'required' : 'E-mail is required.'
+			'required' : 'E-mail is required.',
+			'isEmail' : 'Compatible e-mail format: \"name@domain.xxx\"'
 		},
 		'passwords' : {
 			'mismatch' : 'Passwords must be equal.'
@@ -82,10 +86,15 @@ export class SignupComponent implements OnInit, OnDestroy  {
       'name' : ['', [
 					Validators.required,
 					Validators.minLength(3),
-					Validators.maxLength(30)
+					Validators.maxLength(100),
+					isNickname
 				]
 			],
-			'email' : ['', Validators.required],
+			'email' : ['', [
+					Validators.required,
+					isEmail
+				]
+			],
 			'passwords' : this.fb.group({
 				'password' : ['', [
 						Validators.required,
