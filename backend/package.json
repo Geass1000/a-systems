@@ -4,7 +4,8 @@
   "description": "a-system project",
   "main": "index.js",
   "scripts": {
-    "start": "gulp watch",
+    "start": "node ./app/index.js",
+		"watch": "gulp watch",
     "test": "./node_modules/.bin/mocha --recursive"
   },
   "keywords": [
