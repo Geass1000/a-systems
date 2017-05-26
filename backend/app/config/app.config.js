@@ -8,7 +8,7 @@ let config = {};
 config.env = 'development';
 //... express
 config.express = {
-	port : process.env.EXPRESS_PORT || 3005
+	port : process.env.PORT || 5000
 };
 //... database
 config.mongodb = {

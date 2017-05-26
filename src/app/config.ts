@@ -3,7 +3,7 @@ import { IWorkspace } from './shared/lib/workspace.class';
 export class Config {
 	//static readonly serverUrl : string = 'http://localhost:3005/';
 	//static readonly serverUrl : string = 'http://192.168.100.2:3005/';
-	static readonly serverUrl : string = `${window.location.protocol}//${window.location.hostname}:3005/`;
+	static readonly serverUrl : string = `${window.location.protocol}//${window.location.hostname}`;
 	static readonly usersUrl : string = 'api/users/';
 	static readonly authUrl : string = 'api/auth/';
   static readonly projectUrl : string = 'api/project/';
