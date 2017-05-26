@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, Event as RouterEvent, NavigationStart } from '@angular/router';
+import { Router, Event as RouterEvent, NavigationStart, NavigationEnd } from '@angular/router';
 
 /* App Redux and Request */
 import { AppReducer, INITIAL_STATE, IApp } from './reducers/app.store';
@@ -49,7 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 	ngOnInit () {
 		this.router.events.subscribe((event : RouterEvent) => {
-			if (event instanceof NavigationStart) {
+			if (event instanceof NavigationStart || event instanceof NavigationEnd) {
 				if (event.url === '/editor') {
 					this.ngRedux.dispatch(this.appActions.toggleFullwidthMode(true));
 				} else {
