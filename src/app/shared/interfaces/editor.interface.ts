@@ -11,6 +11,11 @@ export interface IElement {
 	id : number;
 	capture : boolean;
 }
+export interface IEElement {
+	target ?: EventTarget;
+	clientX ?: number;
+	clientY ?: number;
+}
 
 /* Editor Service */
 export interface ITexture {

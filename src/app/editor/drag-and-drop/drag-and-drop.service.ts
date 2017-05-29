@@ -1,27 +1,19 @@
-import { Directive, ElementRef, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
 /* App Redux and Request */
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux, select } from '@angular-redux/store';
-import { EditorActions } from '../actions/editor.actions';
+import { EditorActions } from '../../actions/editor.actions';
 
 /* App Services */
-import { LoggerService } from '../core/logger.service';
+import { LoggerService } from '../../core/logger.service';
 
 /* App Interfaces and Classes */
-import { IElement } from '../shared/interfaces/editor.interface';
+import { IElement, IEElement } from '../../shared/interfaces/editor.interface';
 
-interface IEElement {
-	target ?: EventTarget;
-	clientX ?: number;
-	clientY ?: number;
-}
-
-@Directive({
-	selector : '[asDragAndDrop]'
-})
-export class DragAndDropDirective implements OnInit, OnDestroy {
+@Injectable()
+export class DragAndDropService implements OnDestroy {
 	private startX : number;					// Начальная координата нажатия по оси X
 	private startY : number;					// Начальная координата нажатия по оси Y
 	private shiftX : number;					// Сдвиг по оси X относительно предыдущего значения мыши
@@ -44,12 +36,12 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	@select(['editor', 'state', 'activeElements']) activeElements$ : Observable<Array<IElement>>;
 	//private activeElements : Array<IElement>;
 
-	constructor (private elementRef: ElementRef,
-							 private ngRedux : NgRedux<any>,
+	constructor (private ngRedux : NgRedux<any>,
 							 private editorActions : EditorActions,
 						 	 private logger : LoggerService) {
+		this.init();
 	}
-	ngOnInit () {
+	init () {
 		this.initData();
 		this.targetElements = [];
 		this.activeElements = [];
@@ -217,55 +209,6 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * onMouseDown - отвечает за обработку события начала переноса для мышки.
-	 *
-	 * @method
-	 *
-	 * @param {MouseEvent} event
-	 * @return {boolean|void}
-	 */
-	@HostListener('mousedown', ['$event']) onMouseDown (event : MouseEvent) : boolean | void {
-		if (!this.detectLeftButton(event)) {
-			return false;
-		}
-
-		const eventElement : IEElement = {
-			target : event.target,
-			clientX : event.clientX,
-			clientY : event.clientY
-		};
-
-		this.onElementDown(eventElement);
-		event.preventDefault();
-		return false;
-	}
-
-	/**
-	 * onTouchStart - отвечает за обработку события начала переноса для тачпада.
-	 *
-	 * @method
-	 *
-	 * @param {TouchEvent} event
-	 * @return {boolean|void}
-	 */
-	@HostListener('touchstart', ['$event']) onTouchStart (event : TouchEvent) : boolean | void {
-		if (!event.touches.length) {
-			event.preventDefault();
-			return false;
-		}
-
-		const eventElement : IEElement = {
-			target : event.touches[0].target,
-			clientX : event.touches[0].clientX,
-			clientY : event.touches[0].clientY
-		};
-
-		this.onElementDown(eventElement);
-		event.preventDefault();
-		return false;
-	}
-
-	/**
 	 * onElementDown - отвечает за начало переноса элемента.
 	 *
 	 * @method
@@ -300,50 +243,6 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * onMouseMove - отвечает за обработку события переноса для мышки.
-	 *
-	 * @kind {event}
-	 * @param {MouseEvent} event
-	 * @return {boolean|void}
-	 */
-	@HostListener('mousemove', ['$event']) onMouseMove (event : MouseEvent) : boolean | void {
-		const eventElement : IEElement = {
-			target : event.target,
-			clientX : event.clientX,
-			clientY : event.clientY
-		};
-
-		this.onElementMove(eventElement);
-		event.preventDefault();
-		return false;
-	}
-
-	/**
-	 * onTouchMove - отвечает за обработку события переноса для тачпада.
-	 *
-	 * @method
-	 *
-	 * @param {TouchEvent} event
-	 * @return {boolean|void}
-	 */
-	@HostListener('touchmove', ['$event']) onTouchMove (event : TouchEvent) : boolean | void {
-		if (!event.touches.length) {
-			event.preventDefault();
-			return false;
-		}
-
-		const eventElement : IEElement = {
-			target : event.touches[0].target,
-			clientX : event.touches[0].clientX,
-			clientY : event.touches[0].clientY
-		};
-
-		this.onElementMove(eventElement);
-		event.preventDefault();
-		return false;
-	}
-
-	/**
 	 * onElementMove - отвечает за перенос элемента.
 	 *
 	 * @method
@@ -375,68 +274,6 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * onMouseUp - отвечает за обработку события остановки переноса для мышки.
-	 *
-	 * @method
-	 *
-	 * @param {MouseEvent} event
-	 * @return {boolean|void}
-	 */
-	@HostListener('mouseup', ['$event']) onMouseUp (event : MouseEvent) : boolean | void {
-		const eventElement : IEElement = {
-			target : event.target,
-			clientX : event.clientX,
-			clientY : event.clientY
-		};
-
-		this.onElementUp(eventElement);
-		event.preventDefault();
-		return false;
-	}
-
-	/**
-	 * onTouchEnd - отвечает за обработку события остановки переноса для тачпада.
-	 *
-	 * @method
-	 *
-	 * @param {TouchEvent} event
-	 * @return {boolean|void}
-	 */
-	@HostListener('touchend', ['$event']) onTouchEnd (event : TouchEvent) : boolean | void {
-		if (!event.changedTouches.length) {
-			event.preventDefault();
-			return false;
-		}
-
-		const eventElement : IEElement = {
-			target : event.changedTouches[0].target,
-			clientX : event.changedTouches[0].clientX,
-			clientY : event.changedTouches[0].clientY
-		};
-
-		this.onElementUp(eventElement);
-		event.preventDefault();
-		return false;
-	}
-
-	@HostListener('touchcancel', ['$event']) onTouchCancel (event : TouchEvent) : boolean | void {
-		if (!event.changedTouches.length) {
-			event.preventDefault();
-			return false;
-		}
-
-		const eventElement : IEElement = {
-			target : event.changedTouches[0].target,
-			clientX : event.changedTouches[0].clientX,
-			clientY : event.changedTouches[0].clientY
-		};
-
-		this.onElementUp(eventElement);
-		event.preventDefault();
-		return false;
-	}
-
-	/**
 	 * onElementUp - отвечает за остановку переноса элемента.
 	 *
 	 * @method
@@ -455,46 +292,5 @@ export class DragAndDropDirective implements OnInit, OnDestroy {
 		}
 		this.logger.info(`${this.constructor.name} - ${methodName}:`, 'isMove -', this.isMove);
 		this.initData();
-	}
-
-	/**
-	 * onMouseUp - событие, отвечающее за выход курсора за пределы области переноса.
-	 *
-	 * @kind {event}
-	 * @param {MouseEvent} event
-	 * @return {boolean|void}
-	 */
-	@HostListener('mouseleave', ['$event']) onMouseLeave (event : MouseEvent) : boolean | void {
-		this.logger.info(`${this.constructor.name} - onMouseLeave:`, 'Use');
-		this.initData();
-		return true;
-	}
-
-	/**
-	 * onKeyDown - событие, отвечающее за определение нажатия кнопок на клавиатуре.
-	 *
-	 * @kind {event}
-	 * @param  {MouseEvent} event
-	 * @return {boolean|void}
-	 */
-	@HostListener('window:keydown', ['$event']) onKeyDown (event : KeyboardEvent) : boolean | void {
-		this.logger.info(`${this.constructor.name} - onKeyDown:`, 'Use');
-		this.logger.info(`${this.constructor.name} - onKeyDown:`, 'event -', event);
-		if ((<Element>event.target).tagName.toLowerCase() !== 'body') {
-			return ;
-		}
-		switch (event.key.toLowerCase()) {
-			case 'backspace' :
-			case 'delete' : {
-				if (!this.activeElements || !this.activeElements.length) {
-					return ;
-				}
-				this.logger.info(`${this.constructor.name} - onKeyDown:`, 'Delete');
-				const activeElements : Array<IElement> = this.activeElements;
-				this.setActiveElements([]);
-				this.ngRedux.dispatch(this.editorActions.deleteElement(activeElements));
-			}
-		}
-		this.logger.info(`${this.constructor.name} - onKeyDown:`, 'Complete');
 	}
 }

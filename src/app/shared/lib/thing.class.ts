@@ -19,6 +19,11 @@ export class Thing implements IThing {
 	private _height : number;
 	private _url : string;
 	private _angle : number;
+	private _cx : number;
+	private _cy : number;
+
+	private _translateMessage : string;
+	private _rotateMessage : string;
 
 	constructor (obj ?: IThing) {
 		this._coord = new Point();
@@ -37,27 +42,40 @@ export class Thing implements IThing {
 
 	set x (data : number) {
 		this._coord.x = data;
+		this.recreateTranslate();
 	}
 	get x () : number {
 		return this._coord.x;
 	}
 	set y (data : number) {
 		this._coord.y = data;
+		this.recreateTranslate();
 	}
 	get y () : number {
 		return this._coord.y;
 	}
 	set width (data : number) {
 		this._width = HelperClass.prepareData(data, 0);
+		this._cx = this._width / 2;
+		this.recreateRotate();
 	}
 	get width () : number {
 		return this._width;
 	}
 	set height (data : number) {
 		this._height = HelperClass.prepareData(data, 0);
+		this._cy = this._height / 2;
+		this.recreateRotate();
 	}
 	get height () : number {
 		return this._height;
+	}
+	set angle (data : number) {
+		this._angle = HelperClass.prepareData(data, 0, 360);
+		this.recreateRotate();
+	}
+	get angle () : number {
+		return this._angle;
 	}
 	set id (data : number) {
 		this._id = HelperClass.prepareData(data, 0);
@@ -71,17 +89,34 @@ export class Thing implements IThing {
 	get url () : string {
 		return this._url;
 	}
-	set angle (data : number) {
-		this._angle = HelperClass.prepareData(data, 0, 360);
+
+	/**
+	 * recreateTranslate - выполняет обновление строки с информацией о повороте.
+	 *
+	 * @method
+	 *
+	 * @return {string}
+	 */
+	private recreateTranslate () : string {
+		this._translateMessage = `${this._coord.transform()}`;
+		return this._translateMessage;
 	}
-	get angle () : number {
-		return this._angle;
+
+	/**
+	 * recreateTranslate - выполняет обновление строки с информацией о повороте.
+	 *
+	 * @method
+	 *
+	 * @return {string}
+	 */
+	private recreateRotate () : string {
+		this._rotateMessage = `rotate(${this.angle},${this._cx},${this._cy})`;
+		return this._rotateMessage;
 	}
 
 	/**
 	 * valueOf - возвращает объектное представление класса.
 	 *
-	 * @function
 	 * @method
 	 *
 	 * @return {IThing}
@@ -101,12 +136,11 @@ export class Thing implements IThing {
 	/**
 	 * transform - возвращает строку для атрибута transform
 	 *
-	 * @class Thing
 	 * @method
 	 *
 	 * @return {String}  description
 	 */
 	transform () {
-		return `${this._coord.transform()} rotate(${this.angle})`;
+		return `${this._translateMessage} ${this._rotateMessage}`;
 	}
 }

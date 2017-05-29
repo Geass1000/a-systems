@@ -17,12 +17,15 @@ import { ThingComponent } from './thing/thing.component';
 import { TextureComponent } from './texture/texture.component';
 
 /* App Feature - Directive */
-import { DragAndDropDirective } from './drag-and-drop.directive';
+import { DragAndDropMouseDirective } from './drag-and-drop/drag-and-drop-mouse.directive';
+import { DragAndDropTouchDirective } from './drag-and-drop/drag-and-drop-touch.directive';
+import { DragAndDropKeyboardDirective } from './drag-and-drop/drag-and-drop-keyboard.directive';
 
 /* App Feature - Service */
 import { EditorService } from './editor.service';
 import { DataInitService } from './data-init.service';
 import { MetricService } from './metric.service';
+import { DragAndDropService } from './drag-and-drop/drag-and-drop.service';
 
 @NgModule({
   imports: [
@@ -36,13 +39,16 @@ import { MetricService } from './metric.service';
 		SurfaceComponent,
 		ThingComponent,
 		TextureComponent,
-		DragAndDropDirective
+		DragAndDropMouseDirective,
+		DragAndDropTouchDirective,
+		DragAndDropKeyboardDirective
 	],
   exports: [ EditorComponent ],
   providers: [
 		MetricService,
 		EditorService,
-		DataInitService
+		DataInitService,
+		DragAndDropService
 	]
 })
 export class EditorModule { }

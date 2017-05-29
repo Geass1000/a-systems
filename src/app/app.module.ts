@@ -18,7 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found.component';
 
-/* App Root - Service*/
+/* App Root - Actions */
 import { ModalActions } from './actions/modal.actions';
 import { EditorActions } from './actions/editor.actions';
 import { UserActions } from './actions/user.actions';
