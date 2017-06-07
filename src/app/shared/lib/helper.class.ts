@@ -13,10 +13,10 @@ export class HelperClass {
 	 */
 	static prepareData (data : number, min ?: number, max ?: number) : number {
 		data = isFinite(data) ? data : 0;
-		if (min) {
+		if (min || min === 0) {
 			data = data < min ? min : data;
 		}
-		if (max) {
+		if (max || max === 0) {
 			data = data > max ? max : data;
 		}
 		return data;
