@@ -95,6 +95,31 @@ export class Surface implements ISurface {
 	}
 
 	/**
+	 * shoelaceFormula - вычисляет площадь поверхности.
+	 *
+	 * @class Surface
+	 * @method
+	 *
+	 * @return {Number} - площадь поверхности
+	 */
+	shoelaceFormula () {
+		let result : number = 0;
+		const len : number = this.points.length;
+		if (len <= 2) {
+			return result;
+		}
+		const yMax : number = this.points[len - 1].y;
+		const yMin : number = this.points[0].y;
+		this.points.map((data, index, arr) => {
+			const yD : number = index === 0 ? yMax : arr[index - 1].y;
+			const yS : number = index === len - 1 ? yMin : arr[index + 1].y;
+			result += arr[index].x * (yS - yD);
+		});
+
+		return result * 0.5;
+	}
+
+	/**
 	 * poliPoints - возвращает строку с координатами для аттрибута points из
 	 * полученных из массива точек surface.points.
 	 *
