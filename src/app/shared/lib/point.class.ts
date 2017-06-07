@@ -62,6 +62,6 @@ export class Point implements IPoint {
 	 * @return {String}  description
 	 */
 	transform () {
-		return `translate(${this.x}, ${this.y})`;
+		return `translate(${this.x},${this.y})`;
 	}
 }
