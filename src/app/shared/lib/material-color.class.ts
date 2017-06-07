@@ -5,7 +5,7 @@ type IColor = IRgba | IHsla | IHex;
 
 export interface IMaterialColor {
 	type : string;
-	data : IRgba;
+	data : IColor;
 }
 
 export class MaterialColor implements IMaterialColor {
@@ -79,8 +79,8 @@ export class MaterialColor implements IMaterialColor {
 	 */
 	valueOf () : IMaterialColor {
 		return {
-			type : 'rgba',
-			data : <IRgba>this.data.valueOf()
+			type : this.type,
+			data : <IColor>this.getColor(this.type).valueOf()
 		};
 	}
 
