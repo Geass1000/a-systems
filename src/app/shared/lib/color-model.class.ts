@@ -133,8 +133,8 @@ export class ColorModel {
 
 		return {
 			hue : Math.round(h),
-			saturation : +(s * 100).toFixed(2),
-			lightness : +(l * 100).toFixed(2),
+			saturation : Math.round(+(s * 100)),
+			lightness : Math.round(+(l * 100)),
 			alfa : data.alfa
 		};
 	}
