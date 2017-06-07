@@ -54,6 +54,7 @@ export class ProjectService implements OnDestroy {
 			this.logger.error(`${this.constructor.name} - setProject:`, 'Project isn\'t exist!');
 			return;
 		}
+		this.ngRedux.dispatch(this.editorActions.resetProject());
 		this.logger.info(`${this.constructor.name} - setProject:`, 'project -', project);
 		this.ngRedux.dispatch(this.editorActions.setProject(project));
 	}
@@ -70,7 +71,6 @@ export class ProjectService implements OnDestroy {
 	getProject (projectId : string) : Observable<IRProject | string> {
 		const methodName : string = 'getProject';
 
-		this.ngRedux.dispatch(this.editorActions.resetProject());
 		return this.authHttp.get(Config.projectUrl + projectId, { headers : this.headers })
 			.map<Response, IRProject>((resp : Response) => {
 				return this.httpService.mapData<IRProject>(resp, this.constructor.name, methodName);
