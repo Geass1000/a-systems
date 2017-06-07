@@ -76,9 +76,11 @@ export class ColorModel {
 	 * @return {IRgba}
 	 */
 	static hslaToRgba (data : IHsla) : IRgba {
-		const Q : number = data.lightness < 0.5 ? data.lightness * (1 + data.saturation)
-			: data.lightness + data.saturation - data.lightness * data.saturation;
-		const P : number = 2 * data.lightness - Q;
+		const lightness = data.lightness / 100;
+		const saturation = data.saturation / 100;
+		const Q : number = lightness < 0.5 ? lightness * (1 + saturation)
+			: lightness + saturation - lightness * saturation;
+		const P : number = 2 * lightness - Q;
 
 		const Hk : number = data.hue / 360;
 
@@ -87,9 +89,9 @@ export class ColorModel {
 		const Tb : number = Hk - 1 / 3;
 
 		return {
-			red : Math.round(hueRgb(Q, P, Tr) * 255),
-			green : Math.round(hueRgb(Q, P, Tg) * 255),
-			blue : Math.round(hueRgb(Q, P, Tb) * 255),
+			red : Math.floor(hueRgb(Q, P, Tr) * 255),
+			green : Math.floor(hueRgb(Q, P, Tg) * 255),
+			blue : Math.floor(hueRgb(Q, P, Tb) * 255),
 			alfa : data.alfa
 		};
 	}
@@ -114,8 +116,11 @@ export class ColorModel {
 
 		let h : number, s : number, l : number;
 		const tmp =  60 / sub;
+		s = sub / (1 - Math.abs(1 - sum));
+		l = 1 / 2 * sum;
+
 		if (max === min) {
-			h = 0;
+			h = s = 0;
 		} else if (max === r && g >= b) {
 			h = tmp * (g - b);
 		} else if (max === r && g < b) {
@@ -125,8 +130,6 @@ export class ColorModel {
 		} else if (max === b) {
 			h = tmp * (r - g) + 240;
 		}
-		s = sub / (1 - Math.abs(1 - sum));
-		l = 1 / 2 * sum;
 
 		return {
 			hue : Math.round(h),
