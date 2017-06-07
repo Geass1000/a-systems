@@ -7,7 +7,7 @@ import { HelperClass } from './helper.class';
  * @kind {store}
  */
 export const RegexColor : Map<string, RegExp> = new Map([
-	['hex', /^#([a-f\d]{6}|[a-f\d]{3})$/],
+	['hex', /^#?([a-f\d]{6}|[a-f\d]{3})$/],
 	['rgb', /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/],
 	['rgba', /^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d+(?:\.\d+)?)\s*\)$/],
 	['hsl', /^hsl\(\s*(\d+)\s*,\s*(\d+(?:\.\d+)?)%\s*,\s*(\d+(?:\.\d+)?)%\s*\)$/],
