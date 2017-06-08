@@ -26,7 +26,7 @@ export interface ITexture {
 	height : number;
 }
 export interface IRTexture {
-	textures : ITexture;
+	textures : Array<ITexture>;
 }
 
 export interface ITextureCategory {
@@ -34,7 +34,7 @@ export interface ITextureCategory {
 	name : string;
 }
 export interface IRTextureCategory {
-	categories : ITextureCategory;
+	categories : Array<ITextureCategory>;
 }
 
 export interface IItem {
@@ -45,7 +45,7 @@ export interface IItem {
 	payload : ISurface | IThing;
 }
 export interface IRItem {
-	items : IItem;
+	items : Array<IItem>;
 }
 
 export interface IItemCategory {
@@ -54,5 +54,5 @@ export interface IItemCategory {
 	name : string;
 }
 export interface IRItemCategory {
-	categories : IItemCategory;
+	categories : Array<IItemCategory>;
 }
