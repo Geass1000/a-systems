@@ -92,7 +92,7 @@ describe('EditorService (mockBackend)', () => {
       expect(backend).not.toBeNull('backend should be provided');
   }));
 
-	describe('when check getTextureCategories', () => {
+	describe('when check verb method', () => {
 		let backend : MockBackend;
 		let loggerService : LoggerService;
 		let httpService : HttpService;
