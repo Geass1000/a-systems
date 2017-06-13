@@ -49,6 +49,16 @@ $padding-top-input: 3px;
 		z-index: $z-index-modal-block;
 	}
 
+	.ng-invalid.ng-dirty input,
+	 input.ng-invalid.ng-dirty{
+		border-color: red;
+
+		color: red;
+		& + label {
+			color: red;
+		}
+	}
+
 	.form-group {
 		width: 100%;
 		margin-bottom: 8px;
@@ -115,16 +125,7 @@ $padding-top-input: 3px;
 				color: $color-text-1;
 				font-size: $font-size-little;
 			}
-			&.ng-invalid.ng-dirty {
-				border-color: red;
-
-				color: red;
-				& + label {
-					color: red;
-				}
-			}
 		}
-
 		a.form-forgotton {
 			display: block;
 

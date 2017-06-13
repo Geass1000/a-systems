@@ -417,6 +417,13 @@ header, main, footer {
         align-content: flex-start;
     width: 100%;
     z-index: 17; }
+  .form-1 .ng-invalid.ng-dirty input,
+  .form-1 input.ng-invalid.ng-dirty {
+    border-color: red;
+    color: red; }
+    .form-1 .ng-invalid.ng-dirty input + label,
+    .form-1 input.ng-invalid.ng-dirty + label {
+      color: red; }
   .form-1 .form-group {
     width: 100%;
     margin-bottom: 8px;
@@ -462,11 +469,6 @@ header, main, footer {
         cursor: pointer;
         color: #1e83ec;
         font-size: 13px; }
-      .form-1 .form-group input.ng-invalid.ng-dirty {
-        border-color: red;
-        color: red; }
-        .form-1 .form-group input.ng-invalid.ng-dirty + label {
-          color: red; }
     .form-1 .form-group a.form-forgotton {
       display: block;
       position: absolute;
