@@ -1,0 +1,186 @@
+@import "./global.scss";
+
+/* Variable */
+$placeholder-height: 27px;
+$padding-rl-input: 7px;
+$padding-top-input: 3px;
+
+.form-1 {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	align-content: flex-start;
+
+	box-sizing: border-box;
+	width: 100%;
+	z-index: $z-index-modal-block;
+
+	.form-row {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+		align-items: flex-start;
+		align-content: flex-start;
+
+		width: 100%;
+
+		z-index: $z-index-modal-block;
+
+		.form-group {
+			padding-right: 20px;
+
+			&:last-child {
+				padding-right: 0;
+			}
+		}
+	}
+	.form-column {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+		align-items: flex-start;
+		align-content: flex-start;
+
+		width: 100%;
+
+		z-index: $z-index-modal-block;
+	}
+
+	.ng-invalid.ng-dirty input,
+	 input.ng-invalid.ng-dirty{
+		border-color: red;
+
+		color: red;
+		& + label {
+			color: red;
+		}
+	}
+
+	.form-group {
+		width: 100%;
+		margin-bottom: 8px;
+		padding-top: $placeholder-height;
+
+		position: relative;
+		z-index: $z-index-modal-block;
+
+		label {
+			display: block;
+
+			padding: 0 $padding-rl-input;
+
+			position: absolute;
+			z-index: $z-index-modal-c1;
+			top: $placeholder-height + $padding-top-input;
+
+			cursor: text;
+			color: rgba(0, 0, 0, 0.4);
+			font-size: $font-size-medium;
+
+			transition: color 0.25s, font-size 0.25s, top 0.25s;
+		}
+		&.focused label {
+			top: 0;
+
+			cursor: pointer;
+			color: $color-text-1;
+			font-size: $font-size-little;
+		}
+
+		input {
+			display: block;
+
+			box-sizing: border-box;
+			width: 100%;
+			margin-bottom: 6px;
+			padding: 0 $padding-rl-input;
+			padding-bottom: 5px;
+
+			position: relative;
+			z-index: $z-index-modal-c2;
+
+			background: none;
+			border: none;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+			font-size: $font-size-medium;
+
+			transition: border 0.3s;
+
+			&:hover {
+				border-bottom-color: $color-text-1;
+			}
+			&:focus {
+				border-bottom-color: $color-text-1;
+
+				color: $color-text-1;
+			}
+			&:focus + label {
+				top: 0;
+
+				cursor: pointer;
+				color: $color-text-1;
+				font-size: $font-size-little;
+			}
+		}
+		a.form-forgotton {
+			display: block;
+
+			position: absolute;
+			z-index: $z-index-modal-c3;
+			top: $placeholder-height;
+			right: 0;
+
+			& + input[name="password"] {
+				padding-right: 90px;
+			}
+		}
+	}
+	button {
+		width: 100%;
+		margin-top: 8px;
+		margin-bottom: 6px;
+		padding: 10px 15px;
+
+		z-index: $z-index-modal-c2;
+
+		background: $color-button-1;
+		border: 0;
+		border-radius: 5px;
+
+		cursor: pointer;
+		color: #fff;
+		font-size: $font-size-medium;
+		font-weight: bold;
+		text-transform: uppercase;
+
+		&:not([disabled]):hover,
+		&:not([disabled]):focus {
+			background: $color-button-2;
+		}
+		&[disabled] {
+			background: #f6f6f6;
+
+			color: $color-text-3;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+		& + .form-error {
+			margin-bottom: 6px;
+		}
+	}
+
+	.form-error {
+		margin-top: 6px;
+		padding: 0 $padding-rl-input;
+
+		z-index: $z-index-modal-c2;
+
+		color: $color-error-1;
+		font-size: $font-size-little;
+	}
+}

@@ -1,0 +1,120 @@
+@import "./global.scss";
+
+/* HELLO !!!!!!!!!!!!!!!!*/
+/* App Fonts */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=cyrillic');
+
+/* CSS Resets */
+@import "./reset.scss";
+
+/* Base Rules */
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	background: #f6f6f6;
+}
+
+h1 {
+  font-size: 26px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 22px;
+}
+h4 {
+  font-size: 20px;
+}
+h5 {
+  font-size: 18px;
+}
+h6 {
+  font-size: 16px;
+}
+p, label, input {
+  font-size: 16px;
+}
+input {
+	background: none;
+	border: 1px solid #808080;
+}
+
+input, button, select {
+	font-family: 'Open Sans', Helvetica, sans-serif;
+}
+
+a {
+	color: $color-text-1;
+	text-decoration: none;
+
+	cursor: pointer;
+	&:hover, &:focus {
+		color: $color-text-2;
+		text-decoration: underline;
+	}
+}
+
+select {
+	width: 100%;
+	padding: 5px;
+	padding-left: 15px;
+
+	border: none;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+
+	color: $color-text-3;
+	font-size: 15px;
+	font-weight: bold;
+
+	transition: border 0.3s;
+
+	&:hover {
+		border-bottom-color: $color-text-1;
+	}
+}
+
+.separator {
+	width: 1px;
+	height: 31px;
+	margin: 0 10px;
+
+	background: rgba(0,0,0,0.18);
+}
+
+/* Layout Rules */
+header, main, footer {
+	width: 100%;
+}
+
+.modal-section {
+	position: absolute;
+	left: 50%;
+	z-index: $z-index-modal-block;
+}
+
+.base-section {
+	position: relative;
+	width: 100%;
+	z-index: $z-index-modal-block;
+}
+.base-block {
+	box-sizing: border-box;
+	height: 100%;
+}
+.page-block {
+	width: 960px;
+	margin: 0 auto;
+}
+.fullwidth-block {
+	width: 100%;
+	padding: 0 20px;
+}
+
+
+@import "./modal.scss";
+@import "./manager.scss";
+@import "./form-1.scss";

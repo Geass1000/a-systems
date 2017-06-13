@@ -1,0 +1,88 @@
+@import "./global.scss";
+
+.manager-panel-block {
+	display: flex;
+	flex-direction: column;
+
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+
+	.manager-panel-block-header,
+	.manager-panel-block-content {
+		display: flex;
+		flex-direction: column;
+
+		box-sizing: border-box;
+		width: 100%;
+	}
+	.manager-panel-block-header {
+		flex-shrink: 0;
+
+		padding: 10px 20px;
+
+		background-color: rgba(128, 128, 128, 0.1);
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+		color: $color-text-3;
+		font-size: 20px;
+	}
+	.manager-panel-block-content {
+		height: 100%;
+
+		overflow-y: auto;
+	}
+
+	.item-panel {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+		align-content: flex-start;
+
+		width: 100%;
+		height: 100%;
+
+		position: relative;
+
+		&.noFullHeight {
+			height: auto;
+			flex-shrink: 0;
+		}
+	}
+
+	.form-back {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		align-content: center;
+		flex-shrink: 0;
+
+		box-sizing: border-box;
+		width: 100%;
+		padding: 10px 20px;
+
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+		cursor: pointer;
+		color: $color-text-3;
+		font-weight: bold;
+
+		i {
+			margin-right: 5px;
+		}
+		&:hover {
+			background-color: $color-button-2;
+
+			color: #fff;
+		}
+		&.lock {
+			background-color: rgba(128, 128, 128, 0.1);
+
+			color: $color-text-3;
+
+			transition: background-color 0.4s, color 0.4s;
+		}
+	}
+}
