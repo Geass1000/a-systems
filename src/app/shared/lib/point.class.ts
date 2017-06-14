@@ -1,8 +1,8 @@
 import { HelperClass } from './helper.class';
 
 export interface IPoint {
-	x : number;
-	y : number;
+	x ?: number;
+	y ?: number;
 }
 
 export class Point implements IPoint {
@@ -11,8 +11,8 @@ export class Point implements IPoint {
 
 	constructor (obj ?: IPoint) {
 		if (obj) {
-			this.x = obj.x;
-			this.y = obj.y;
+			this.x = obj.x || 0;
+			this.y = obj.y || 0;
 		} else {
 			this.x = 0;
 			this.y = 0;
