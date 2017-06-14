@@ -2,12 +2,10 @@ import { Config } from '../../config';
 
 import { HelperClass } from './helper.class';
 
-import { Point } from './point.class';
+import { IPoint, Point } from './point.class';
 import { IMaterial, Material } from './material.class';
 
-export interface IWorkspace {
-	x ?: number;
-	y ?: number;
+export interface IWorkspace extends IPoint {
 	height : number;
 	width : number;
 	material : IMaterial;

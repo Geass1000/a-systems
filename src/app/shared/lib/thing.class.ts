@@ -1,11 +1,9 @@
 import { HelperClass } from './helper.class';
 
-import { Point } from './point.class';
+import { IPoint, Point } from './point.class';
 
-export interface IThing {
+export interface IThing extends IPoint {
 	id ?: number;
-	x ?: number;
-	y ?: number;
 	height : number;
 	width : number;
 	angle : number;

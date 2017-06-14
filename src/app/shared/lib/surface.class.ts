@@ -1,12 +1,10 @@
 import { HelperClass } from './helper.class';
 
-import { Point, IPoint } from './point.class';
+import { IPoint, Point } from './point.class';
 import { IMaterial, Material } from './material.class';
 
-export interface ISurface {
+export interface ISurface extends IPoint {
 	id ?: number;
-	x ?: number;
-	y ?: number;
 	stroke : IMaterial;
 	fill : IMaterial;
 	points : Array<IPoint>;
