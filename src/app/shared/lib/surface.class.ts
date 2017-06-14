@@ -100,7 +100,7 @@ export class Surface implements ISurface {
 	 *
 	 * @return {Number} - площадь поверхности
 	 */
-	shoelaceFormula () {
+	shoelaceFormula () : number {
 		let result : number = 0;
 		const len : number = this.points.length;
 		if (len <= 2) {
@@ -126,7 +126,7 @@ export class Surface implements ISurface {
 	 *
 	 * @return {String}  description
 	 */
-	poliPoints () {
+	poliPoints () : string {
 		return this.points.join(' ');
 	}
 
@@ -138,7 +138,7 @@ export class Surface implements ISurface {
 	 *
 	 * @return {String}  description
 	 */
-	transform () {
+	transform () : string {
 		return this._coord.transform();
 	}
 }
