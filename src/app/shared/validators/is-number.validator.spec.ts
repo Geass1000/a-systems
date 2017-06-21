@@ -26,10 +26,10 @@ describe('Testing validator isNumber', () => {
 		expect(isInteger( { value : '9.5' } as AbstractControl)).not.toBeNull();
   });
 	it('isInteger: 10.0 shouldn\'t be OK', () => {
-		expect(isInteger( { value : '9.5' } as AbstractControl)).not.toBeNull();
+		expect(isInteger( { value : '10.0' } as AbstractControl)).not.toBeNull();
   });
 	it('isInteger: 0.0 shouldn\'t be OK', () => {
-		expect(isInteger( { value : '9.5' } as AbstractControl)).not.toBeNull();
+		expect(isInteger( { value : '0.0' } as AbstractControl)).not.toBeNull();
   });
 	it('isInteger: Geass shouldn\'t be OK', () => {
 		expect(isInteger( { value : 'Geass' } as AbstractControl)).not.toBeNull();
@@ -40,4 +40,36 @@ describe('Testing validator isNumber', () => {
 	it('isInteger: empty field shouldn\'t be OK', () => {
 		expect(isInteger( { value : '' } as AbstractControl)).not.toBeNull();
   });
+
+	it('isFloat: 0 should be OK', () => {
+		expect(isFloat( { value : '9' } as AbstractControl)).toBeNull();
+  });
+  it('isFloat: 100 should be OK', () => {
+		expect(isFloat( { value : '100' } as AbstractControl)).toBeNull();
+  });
+	it('isFloat: 10 should be OK', () => {
+		expect(isFloat( { value : '10' } as AbstractControl)).toBeNull();
+  });
+	it('isFloat: 9 should be OK', () => {
+		expect(isFloat( { value : '9' } as AbstractControl)).toBeNull();
+  });
+	it('isFloat: 9.5 should be OK', () => {
+		expect(isFloat( { value : '9.5' } as AbstractControl)).toBeNull();
+  });
+	it('isFloat: 10.0 should be OK', () => {
+		expect(isFloat( { value : '10.0' } as AbstractControl)).toBeNull();
+  });
+	it('isFloat: 0.0 should be OK', () => {
+		expect(isFloat( { value : '0.0' } as AbstractControl)).toBeNull();
+  });
+	it('isFloat: Geass shouldn\'t be OK', () => {
+		expect(isFloat( { value : 'Geass' } as AbstractControl)).not.toBeNull();
+  });
+	it('isFloat: w shouldn\'t be OK', () => {
+		expect(isFloat( { value : 'w' } as AbstractControl)).not.toBeNull();
+  });
+	it('isFloat: empty field shouldn\'t be OK', () => {
+		expect(isFloat( { value : '' } as AbstractControl)).not.toBeNull();
+  });
+
 });
