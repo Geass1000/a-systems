@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X8 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="224px" height="103px" version="1.1" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"
+viewBox="0 0 107 49"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g id="e-1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect fill="#2B2A29" width="106.871" height="45.8019" rx="1" ry="1"/>
+  <rect fill="#42744B" stroke="#2B2A29" stroke-width="0.238552" width="10.4963" height="45.8019" rx="1" ry="1"/>
+  <rect fill="#42744B" stroke="#2B2A29" stroke-width="0.238552" x="11" width="85.8786" height="7.15655" rx="1" ry="1"/>
+  <rect fill="#42744B" stroke="#2B2A29" stroke-width="0.238552" x="96" width="10.4963" height="45.8019" rx="1" ry="1"/>
+  <rect fill="#42744B" stroke="#2B2A29" stroke-width="0.238552" x="11" y="7" width="28.6262" height="41.9851" rx="1" ry="1"/>
+  <rect fill="#42744B" stroke="#2B2A29" stroke-width="0.238552" x="39" y="7" width="28.6262" height="41.9851" rx="1" ry="1"/>
+  <rect fill="#42744B" stroke="#2B2A29" stroke-width="0.238552" x="68" y="7" width="28.6262" height="41.9851" rx="1" ry="1"/>
+  <path fill="#365E3E" d="M11 7l85 0c-21,-1 -64,-1 -85,0z"/>
+  <path fill="#365E3E" d="M39 48l0 -40c-1,10 -1,31 0,40z"/>
+  <path fill="#365E3E" d="M39 48l0 -40c2,10 2,31 0,40z"/>
+  <path fill="#365E3E" d="M68 48l0 -40c-2,10 -2,31 0,40z"/>
+  <path fill="#365E3E" d="M68 48l0 -40c1,10 1,31 0,40z"/>
+  <path fill="#365E3E" d="M11 46l0 -38c1,9 1,29 0,38z"/>
+  <path fill="#365E3E" d="M96 46l0 -38c-1,9 -1,29 0,38z"/>
+  <path fill="#365E3E" d="M11 16l28 0c-7,1 -21,1 -28,0z"/>
+  <path fill="#365E3E" d="M39 16l29 0c-7,1 -22,1 -29,0z"/>
+  <path fill="#365E3E" d="M68 16l28 0c-7,1 -21,1 -28,0z"/>
+  <g id="_2283466044128">
+   <rect fill="#518A5C" stroke="#2B2A29" stroke-width="0.238552" x="39" y="7" width="28.6262" height="8.58791" rx="1" ry="2"/>
+   <rect fill="#518A5C" stroke="#2B2A29" stroke-width="0.238552" x="68" y="7" width="28.6262" height="8.58791" rx="1" ry="2"/>
+   <rect fill="#518A5C" stroke="#2B2A29" stroke-width="0.238552" x="11" y="7" width="28.6262" height="8.58791" rx="1" ry="2"/>
+  </g>
+  <path fill="#365E3E" d="M10 14l0 -6c0,2 0,5 0,6z"/>
+  <path fill="#365E3E" d="M97 14l0 -6c0,2 0,5 0,6z"/>
+  <path fill="#44784F" d="M39 14l0 -6c-1,2 -1,5 0,6z"/>
+  <path fill="#44784F" d="M39 14l0 -6c1,2 1,5 0,6z"/>
+  <path fill="#44784F" d="M68 14l0 -6c-1,2 -1,5 0,6z"/>
+  <path fill="#44784F" d="M68 14l0 -6c1,2 1,5 0,6z"/>
+ </g>
+</svg>

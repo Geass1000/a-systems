@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg" width="500px" height="500px" version="1.1" viewBox="0 0 500 500"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<defs>
+		<g id="e-1">
+			<rect id="overlay" style="fill:#2B2A29" x="0" width="161px" height="70px"/>
+			<rect id="d0" style="fill:#B8A28C" y="1" x="1" width="15px" height="68px"/>
+			<rect id="d1" style="fill:#B8A28C" y="1" x="17" width="15px" height="68px"/>
+			<rect id="d2" style="fill:#B8A28C" y="1" x="33" width="15px" height="68px"/>
+			<rect id="d3" style="fill:#B8A28C" y="1" x="49" width="15px" height="68px"/>
+			<rect id="d4" style="fill:#B8A28C" y="1" x="65" width="15px" height="68px"/>
+			<rect id="d5" style="fill:#B8A28C" y="1" x="81" width="15px" height="68px"/>
+			<rect id="d6" style="fill:#B8A28C" y="1" x="97" width="15px" height="68px"/>
+			<rect id="d7" style="fill:#B8A28C" y="1" x="113" width="15px" height="68px"/>
+			<rect id="d8" style="fill:#B8A28C" y="1" x="129" width="15px" height="68px"/>
+			<rect id="d9" style="fill:#B8A28C" y="1" x="145" width="15px" height="68px"/>
+		</g>
+	</defs>
+</svg>
