@@ -7,5 +7,7 @@
 	<svg:rect x="-10" y="-10" class="highlight"
 		[attr.width]="thing.width + 20" [attr.height]="thing.height + 20">
 	</svg:rect>
-	<svg:use x="0" y="0" [attr.xlink:href]="getSrcThing(thing)" />
+	<svg:use x="0" y="0"
+		[attr.width]="thing.width" [attr.height]="thing.height"
+		[attr.xlink:href]="getSrcThing(thing)" />
 </svg:g>
